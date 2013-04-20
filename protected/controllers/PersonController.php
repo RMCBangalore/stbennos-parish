@@ -128,6 +128,42 @@ class PersonController extends RController
 		));
 	}
 
+	public function actionBaptised()
+	{
+		$dataProvider=new CActiveDataProvider('People', array(
+			'criteria' => array(
+				'condition' => 'baptism_dt is not null'
+			),
+		));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	public function actionConfirmed()
+	{
+		$dataProvider=new CActiveDataProvider('People', array(
+			'criteria' => array(
+				'condition' => 'confirmation_dt is not null'
+			),
+		));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	public function actionMarried()
+	{
+		$dataProvider=new CActiveDataProvider('People', array(
+			'criteria' => array(
+				'condition' => 'marriage_dt is not null'
+			),
+		));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

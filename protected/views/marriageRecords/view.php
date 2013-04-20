@@ -16,9 +16,10 @@ $this->menu=array(
 );
 ?>
 
-<h1>View MarriageRecord #<?php echo $model->id; ?></h1>
+<h1>View Marriage Record #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php echo $this->renderPartial('_view_main', array('model' => $model, 'data' => $model, 'now' => $now)); /*
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -43,4 +44,4 @@ $this->menu=array(
 		'witness2',
 		'remarks',
 	),
-)); ?>
+)); */ ?>

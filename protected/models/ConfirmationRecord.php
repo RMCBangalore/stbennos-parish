@@ -69,7 +69,7 @@ class ConfirmationRecord extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'confirmation_dt' => 'Confirmation Dt',
+			'confirmation_dt' => 'Confirmation Date',
 			'church' => 'Church',
 		);
 	}

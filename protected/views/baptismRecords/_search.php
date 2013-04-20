@@ -27,11 +27,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'baptism_minister'); ?>
-		<?php echo $form->textField($model,'baptism_minister',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
 	</div>

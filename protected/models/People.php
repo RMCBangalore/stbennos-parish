@@ -73,8 +73,12 @@ class People extends CActiveRecord
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fname, lname, sex, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill', 'safe', 'on'=>'search'),
+			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function getAge() {
+		return (strtotime('now') - strtotime($this->dob)) / (60*60*24*365.2425);
 	}
 
 	/**
@@ -100,6 +104,7 @@ class People extends CActiveRecord
 			'lname' => 'Last Name',
 			'sex' => 'Sex',
 			'domicile_status' => 'Domicile Status',
+			'age' => 'Age',
 			'dob' => 'Dob',
 			'education' => 'Education',
 			'profession' => 'Profession',
@@ -141,6 +146,7 @@ class People extends CActiveRecord
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('domicile_status',$this->domicile_status,true);
 		$criteria->compare('dob',$this->dob,true);
+#		$criteria->compare('age',$this->age);
 		$criteria->compare('education',$this->education,true);
 		$criteria->compare('profession',$this->profession,true);
 		$criteria->compare('occupation',$this->occupation,true);
@@ -165,5 +171,17 @@ class People extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function getBaptised() {
+		return self::model()->findAll('baptism_dt is not null');
+	}
+
+	public function getConfirmed() {
+		return self::model()->findAll('confirmation_dt is not null');
+	}
+
+	public function getMarried() {
+		return self::model()->findAll('marriage_dt is not null');
 	}
 }

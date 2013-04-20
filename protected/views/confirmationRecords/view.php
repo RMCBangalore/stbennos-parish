@@ -27,3 +27,6 @@ $this->menu=array(
 		'church',
 	),
 )); ?>
+
+<?php echo CHtml::link('Create Certificate', array('confirmationCertificate/create', 'id' => $model->id)) ?>
+

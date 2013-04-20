@@ -16,33 +16,57 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'dob'); ?>
-		<?php echo $form->textField($model,'dob'); ?>
-		<?php echo $form->error($model,'dob'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'baptism_dt'); ?>
-		<?php echo $form->textField($model,'baptism_dt'); ?>
-		<?php echo $form->error($model,'baptism_dt'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'baptism_minister'); ?>
-		<?php echo $form->textField($model,'baptism_minister',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'baptism_minister'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model,'dob'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "dob",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'dob'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'baptism_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "baptism_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'baptism_dt'); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'sex'); ?>
-		<?php echo $form->textField($model,'sex'); ?>
+		<?php echo $form->dropDownList($model,"sex",FieldNames::values('sex'),array('prompt' => '--- Select ---')); ?>
 		<?php echo $form->error($model,'sex'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'residence'); ?>
+		<?php echo $form->textField($model,'residence',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,'residence'); ?>
+	</span>
 	</div>
 
 	<div class="row">
@@ -55,12 +79,6 @@
 		<?php echo $form->labelEx($model,'mothers_name'); ?>
 		<?php echo $form->textField($model,'mothers_name',array('size'=>60,'maxlength'=>75)); ?>
 		<?php echo $form->error($model,'mothers_name'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'residence'); ?>
-		<?php echo $form->textField($model,'residence',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->error($model,'residence'); ?>
 	</div>
 
 	<div class="row">

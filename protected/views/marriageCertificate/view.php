@@ -16,13 +16,14 @@ $this->menu=array(
 );
 ?>
 
-<h1>View MarriageCertificate #<?php echo $model->id; ?></h1>
+<h1>View Marriage Certificate #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->renderPartial('_view_full', array('data' => $model));
+/*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
 		'cert_dt',
 		'marriage_id',
 	),
-)); ?>
+)); */ ?>

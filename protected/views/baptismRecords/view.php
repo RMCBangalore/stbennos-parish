@@ -18,13 +18,14 @@ $this->menu=array(
 
 <h1>View BaptismRecord #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->renderPartial('_view_main', array('data' => $model));
+
+/*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
 		'dob',
 		'baptism_dt',
-		'baptism_minister',
 		'name',
 		'sex',
 		'fathers_name',
@@ -34,4 +35,4 @@ $this->menu=array(
 		'godmothers_name',
 		'minister',
 	),
-)); ?>
+)); i*/ ?>

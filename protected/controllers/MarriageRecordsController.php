@@ -51,8 +51,11 @@ class MarriageRecordsController extends RController
 	 */
 	public function actionView($id)
 	{
+		$now = date_format(new DateTime(), 'Y-m-d H:i:s');
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
+			'now'	=> $now,
 		));
 	}
 

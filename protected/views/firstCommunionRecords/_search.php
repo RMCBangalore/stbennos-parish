@@ -22,11 +22,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'church'); ?>
-		<?php echo $form->textField($model,'church',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'communion_dt'); ?>
 		<?php echo $form->textField($model,'communion_dt'); ?>
 	</div>

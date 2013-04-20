@@ -30,6 +30,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Admin')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -48,8 +49,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Terence Monteiro.<br/>
-		All Rights Reserved.<br/>
+		Copyright &copy; <?php echo date('Y'); ?>, Redemptorist Media Center.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 

@@ -55,7 +55,7 @@ class FirstCommunionCertificate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'firstComm' => array(self::BELONGS_TO, 'FirstCommunions', 'first_comm_id'),
+			'firstCommunion' => array(self::BELONGS_TO, 'FirstCommunionRecord', 'first_comm_id'),
 		);
 	}
 
@@ -66,8 +66,8 @@ class FirstCommunionCertificate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cert_dt' => 'Cert Dt',
-			'first_comm_id' => 'First Comm',
+			'cert_dt' => 'Certificate Date',
+			'first_comm_id' => 'First Communion',
 		);
 	}
 

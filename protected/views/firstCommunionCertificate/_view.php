@@ -9,13 +9,10 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
+	<?php echo $this->renderPartial('../firstCommunionRecords/_view_fields', array('data' => $data->firstCommunion)); ?>
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cert_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('first_comm_id')); ?>:</b>
-	<?php echo CHtml::encode($data->first_comm_id); ?>
-	<br />
-
 
 </div>

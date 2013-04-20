@@ -7,7 +7,6 @@
  * @property integer $id
  * @property string $dob
  * @property string $baptism_dt
- * @property string $baptism_minister
  * @property string $name
  * @property integer $sex
  * @property string $fathers_name
@@ -49,13 +48,13 @@ class BaptismRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('sex', 'numerical', 'integerOnly'=>true),
-			array('baptism_minister, name', 'length', 'max'=>50),
+			array('name', 'length', 'max'=>50),
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, minister', 'length', 'max'=>75),
 			array('residence', 'length', 'max'=>25),
 			array('dob, baptism_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, dob, baptism_dt, baptism_minister, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister', 'safe', 'on'=>'search'),
+			array('id, dob, baptism_dt, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,8 +78,7 @@ class BaptismRecord extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'dob' => 'Dob',
-			'baptism_dt' => 'Baptism Dt',
-			'baptism_minister' => 'Baptism Minister',
+			'baptism_dt' => 'Baptism Date',
 			'name' => 'Name',
 			'sex' => 'Sex',
 			'fathers_name' => 'Fathers Name',
@@ -106,7 +104,6 @@ class BaptismRecord extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('dob',$this->dob,true);
 		$criteria->compare('baptism_dt',$this->baptism_dt,true);
-		$criteria->compare('baptism_minister',$this->baptism_minister,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('fathers_name',$this->fathers_name,true);

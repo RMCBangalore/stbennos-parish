@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'first_communions':
  * @property integer $id
  * @property string $name
- * @property string $church
  * @property string $communion_dt
  *
  * The followings are the available model relations:
@@ -41,11 +40,10 @@ class FirstCommunionRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'length', 'max'=>75),
-			array('church', 'length', 'max'=>50),
 			array('communion_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, church, communion_dt', 'safe', 'on'=>'search'),
+			array('id, name, communion_dt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,8 +67,7 @@ class FirstCommunionRecord extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'church' => 'Church',
-			'communion_dt' => 'Communion Dt',
+			'communion_dt' => 'Communion Date',
 		);
 	}
 
@@ -87,7 +84,6 @@ class FirstCommunionRecord extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('church',$this->church,true);
 		$criteria->compare('communion_dt',$this->communion_dt,true);
 
 		return new CActiveDataProvider($this, array(

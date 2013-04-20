@@ -17,16 +17,12 @@
 	<?php echo CHtml::encode($data->baptism_dt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_minister')); ?>:</b>
-	<?php echo CHtml::encode($data->baptism_minister); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('sex')); ?>:</b>
-	<?php echo CHtml::encode($data->sex); ?>
+	<?php echo CHtml::encode(isset($data->sex) ? FieldNames::value('sex', $data->sex) : ''); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fathers_name')); ?>:</b>

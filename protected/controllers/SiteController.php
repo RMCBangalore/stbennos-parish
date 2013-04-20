@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends Controller
+class SiteController extends RController
 {
 	/**
 	 * Declares class-based actions.
@@ -29,7 +29,18 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$fams = Families::model()->findAll();
+		$ppl = People::model()->findAll();
+		$baptised = People::model()->getBaptised();
+		$confirmed = People::model()->getConfirmed();
+		$married = People::model()->getMarried();
+		$this->render('index', array(
+			'families'	=> count($fams),
+			'members'	=> count($ppl),
+			'baptised'	=> count($baptised),
+			'confirmed'	=> count($confirmed),
+			'married'	=> count($married),
+		));
 	}
 
 	/**

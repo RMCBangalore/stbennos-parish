@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List FirstCommunionCertificate', 'url'=>array('index')),
-	array('label'=>'Manage FirstCommunionCertificate', 'url'=>array('admin')),
+	array('label'=>'List First Communion Certificate', 'url'=>array('index')),
+	array('label'=>'Manage First Communion Certificate', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create FirstCommunionCertificate</h1>
+<h1>Create First Communion Certificate</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'firstCommunion' => $firstCommunion, 'now' => $now)); ?>

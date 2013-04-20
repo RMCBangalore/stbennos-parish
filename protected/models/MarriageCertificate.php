@@ -55,7 +55,7 @@ class MarriageCertificate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'marriage' => array(self::BELONGS_TO, 'Marriages', 'marriage_id'),
+			'marriage' => array(self::BELONGS_TO, 'MarriageRecord', 'marriage_id'),
 		);
 	}
 
@@ -66,7 +66,7 @@ class MarriageCertificate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cert_dt' => 'Cert Dt',
+			'cert_dt' => 'Certificate Date',
 			'marriage_id' => 'Marriage',
 		);
 	}

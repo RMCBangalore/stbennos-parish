@@ -26,3 +26,5 @@ $this->menu=array(
 		'first_comm_id',
 	),
 )); ?>
+
+<?php echo CHtml::link('Download Certificate', array('viewCert', 'id' => $model->id)); ?>

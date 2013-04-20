@@ -56,11 +56,18 @@ class MarriageCertificateController extends RController
 		));
 	}
 
+	public function actionViewCert($id)
+	{
+		$this->render('view_cert',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($mid)
 	{
 		$model=new MarriageCertificate;
 
@@ -74,8 +81,14 @@ class MarriageCertificateController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
+		$data = MarriageRecord::model()->find($mid);
+
+		$now = date_format(new DateTime(), 'Y-m-d H:i:s');
+
 		$this->render('create',array(
-			'model'=>$model,
+			'model'	=>$model,
+			'now'	=> $now,
+			'data'	=> $data,
 		));
 	}
 

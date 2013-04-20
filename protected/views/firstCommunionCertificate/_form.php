@@ -15,17 +15,15 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<?php echo $this->renderPartial('../firstCommunionRecords/_view_fields', array('data' => $firstCommunion)); ?>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'cert_dt'); ?>
-		<?php echo $form->textField($model,'cert_dt'); ?>
+		<?php echo $form->textField($model,'cert_dt',array('value' => $now)); ?>
 		<?php echo $form->error($model,'cert_dt'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'first_comm_id'); ?>
-		<?php echo $form->textField($model,'first_comm_id'); ?>
-		<?php echo $form->error($model,'first_comm_id'); ?>
-	</div>
+	<?php echo $form->hiddenField($model, 'first_comm_id', array('value' => $firstCommunion->id)); ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

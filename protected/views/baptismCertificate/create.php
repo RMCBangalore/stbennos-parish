@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create BaptismCertificate</h1>
+<h1>Create Baptism Certificate</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form_full', array('model' => $model, 'data' => $data, 'now' => $now)); ?>

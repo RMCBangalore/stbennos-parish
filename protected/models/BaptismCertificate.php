@@ -55,7 +55,7 @@ class BaptismCertificate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'baptism' => array(self::BELONGS_TO, 'Baptisms', 'baptism_id'),
+			'baptism' => array(self::BELONGS_TO, 'BaptismRecord', 'baptism_id'),
 		);
 	}
 
@@ -66,7 +66,7 @@ class BaptismCertificate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cert_dt' => 'Cert Dt',
+			'cert_dt' => 'Certificate Date',
 			'baptism_id' => 'Baptism',
 		);
 	}

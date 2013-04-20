@@ -13,9 +13,6 @@
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_id')); ?>:</b>
-	<?php echo CHtml::encode($data->baptism_id); ?>
-	<br />
-
+	<?php echo $this->renderPartial('../baptismRecords/_view_fields', array('data' => $data->baptism)); ?>
 
 </div>

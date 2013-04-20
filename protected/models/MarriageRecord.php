@@ -8,19 +8,19 @@
  * @property string $marriage_dt
  * @property string $groom_name
  * @property string $groom_dob
- * @property integer $groom_status
+ * @property string $groom_status
  * @property string $groom_rank_prof
  * @property string $groom_fathers_name
  * @property string $groom_mothers_name
  * @property string $groom_residence
  * @property string $bride_name
  * @property string $bride_dob
- * @property integer $bride_status
+ * @property string $bride_status
  * @property string $bride_rank_prof
  * @property string $bride_fathers_name
  * @property string $bride_mothers_name
  * @property string $bride_residence
- * @property integer $banns_licence
+ * @property string $banns_licence
  * @property string $minister
  * @property string $witness1
  * @property string $witness2
@@ -57,7 +57,7 @@ class MarriageRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groom_status, bride_status, banns_licence', 'numerical', 'integerOnly'=>true),
+			array('groom_name, groom_fathers_name, groom_mothers_name, groom_status, groom_rank_prof, groom_dob, groom_residence, bride_name, bride_fathers_name, bride_mothers_name, bride_status, bride_rank_prof, bride_dob, bride_residence, bride_dob, marriage_dt, banns_licence, minister, witness1, witness2', 'required'),
 			array('groom_name, groom_fathers_name, groom_mothers_name, bride_name, bride_fathers_name, bride_mothers_name, minister', 'length', 'max'=>100),
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
@@ -87,22 +87,22 @@ class MarriageRecord extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'marriage_dt' => 'Marriage Dt',
+			'marriage_dt' => 'Marriage Date',
 			'groom_name' => 'Groom Name',
 			'groom_dob' => 'Groom Dob',
 			'groom_status' => 'Groom Status',
-			'groom_rank_prof' => 'Groom Rank Prof',
+			'groom_rank_prof' => 'Groom Rank / Profession',
 			'groom_fathers_name' => 'Groom Fathers Name',
 			'groom_mothers_name' => 'Groom Mothers Name',
 			'groom_residence' => 'Groom Residence',
 			'bride_name' => 'Bride Name',
 			'bride_dob' => 'Bride Dob',
 			'bride_status' => 'Bride Status',
-			'bride_rank_prof' => 'Bride Rank Prof',
+			'bride_rank_prof' => 'Bride Rank / Profession',
 			'bride_fathers_name' => 'Bride Fathers Name',
 			'bride_mothers_name' => 'Bride Mothers Name',
 			'bride_residence' => 'Bride Residence',
-			'banns_licence' => 'Banns Licence',
+			'banns_licence' => 'By Banns or Licence',
 			'minister' => 'Minister',
 			'witness1' => 'Witness1',
 			'witness2' => 'Witness2',

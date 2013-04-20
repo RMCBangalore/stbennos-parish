@@ -191,5 +191,4 @@ class Families extends CActiveRecord
 		}
 		return $satisfactionData;
 	}
-
 }

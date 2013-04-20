@@ -22,14 +22,19 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'church'); ?>
-		<?php echo $form->textField($model,'church',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'church'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'communion_dt'); ?>
-		<?php echo $form->textField($model,'communion_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "communion_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		<?php echo $form->error($model,'communion_dt'); ?>
 	</div>
 

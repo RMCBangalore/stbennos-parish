@@ -22,15 +22,26 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'confirmation_dt'); ?>
-		<?php echo $form->textField($model,'confirmation_dt'); ?>
-		<?php echo $form->error($model,'confirmation_dt'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'church'); ?>
 		<?php echo $form->textField($model,'church',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'church'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'confirmation_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "confirmation_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'confirmation_dt'); ?>
 	</div>
 
 	<div class="row buttons">

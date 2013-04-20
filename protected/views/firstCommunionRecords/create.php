@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create FirstCommunionRecord</h1>
+<h1>Create First Communion Record</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -18,10 +18,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_dob')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_dob); ?>
+	<?php echo CHtml::encode($data->groom_dob); /* ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_status')); ?>:</b>
+	<b><?php 
+	echo CHtml::encode($data->getAttributeLabel('groom_status')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_status); ?>
 	<br />
 
@@ -33,13 +34,13 @@
 	<?php echo CHtml::encode($data->groom_fathers_name); ?>
 	<br />
 
-	<?php /*
+	<?php 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_mothers_name')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_mothers_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_residence')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_residence); ?>
+	<?php echo CHtml::encode($data->groom_residence); */ ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_name')); ?>:</b>
@@ -50,7 +51,7 @@
 	<?php echo CHtml::encode($data->bride_dob); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
+	<b><?php /* echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
 	<?php echo CHtml::encode($data->bride_status); ?>
 	<br />
 

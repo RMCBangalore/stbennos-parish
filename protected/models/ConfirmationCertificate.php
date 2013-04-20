@@ -55,7 +55,7 @@ class ConfirmationCertificate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'confirmation' => array(self::BELONGS_TO, 'Confirmations', 'confirmation_id'),
+			'confirmation' => array(self::BELONGS_TO, 'ConfirmationRecord', 'confirmation_id'),
 		);
 	}
 
@@ -66,7 +66,7 @@ class ConfirmationCertificate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cert_dt' => 'Cert Dt',
+			'cert_dt' => 'Certificate Date',
 			'confirmation_id' => 'Confirmation',
 		);
 	}

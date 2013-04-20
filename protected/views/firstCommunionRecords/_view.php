@@ -13,10 +13,6 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('church')); ?>:</b>
-	<?php echo CHtml::encode($data->church); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('communion_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->communion_dt); ?>
 	<br />
