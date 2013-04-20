@@ -45,7 +45,7 @@ class UsersController extends RController
 
 	/**
 	 * Specifies the access control rules.
-	 * This method is used by the 'rights' filter.
+	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
 	public function accessRules()

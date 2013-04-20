@@ -1,6 +1,6 @@
 <?php
 
-class FamilyController extends Controller
+class FamilyController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,9 +14,10 @@ class FamilyController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights',
+/*			'rights', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+*/		);
 	}
 
 	/**
@@ -27,7 +28,7 @@ class FamilyController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+/*			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
@@ -35,7 +36,7 @@ class FamilyController extends Controller
 				'actions'=>array('create','update','children', 'survey'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+*/			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
