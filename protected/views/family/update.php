@@ -29,7 +29,13 @@ $this->menu=array(
 	<?php echo $form->errorSummary($model); ?>
 <?php
 	$husband = $model->husband;
+	if (!isset($husband)) {
+		$husband = new People();
+	}
 	$wife = $model->wife;
+	if (!isset($wife)) {
+		$wife = new People();
+	}
 	$children = $model->children();
 	$dependent = new People();
 	$tabs = array(

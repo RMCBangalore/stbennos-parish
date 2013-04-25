@@ -124,6 +124,7 @@ class FamilyController extends RController
 			$model->attributes=$_POST['Families'];
 			if($model->save()) {
 #				$this->redirect(array('view','id'=>$model->id));
+				$save_it = false;
 				foreach(array('husband', 'wife', 'dependent') as $person) {
 					if(isset($_POST['People'][$person])) {
 						$p = new People();
@@ -134,8 +135,24 @@ class FamilyController extends RController
 						$p->attributes = $_POST['People'][$person];
 						$p->family_id = $model->id;
 						$p->role = $person;
-						$p->save();
+						if ($p->save()) {
+							switch ($person) {
+								case 'husband': if (!isset($model->husband_id)) {
+									$model->husband_id = $p->id;
+									$save_it = true;
+								}
+								break;
+								case 'wife': if (!isset($model->wife_id)) {
+									$model->wife_id = $p->id;
+									$save_it = true;
+								}
+								break;
+							}
+						}
 					}
+				}
+				if ($save_it) {
+					$model->save();
 				}
 
 				if (isset($_POST['People']['child'])) {
