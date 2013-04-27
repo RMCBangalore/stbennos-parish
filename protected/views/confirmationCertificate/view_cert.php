@@ -22,6 +22,12 @@
 	$confirmation = $model->confirmation;
 	$pdf->SetFont("courier", "R", 14);
 	$pdf->Cell(0,0.8,$confirmation->name,0,1,'L');
+
+function draw_line($pdf, $y=20, $x1=9.0, $x2=14.3) {
+	$pdf->Line($x1,$y-0.3,$x2,$y-0.3,array('width' => 0.01, 'dash' => 3));
+}
+
+	draw_line($pdf,10);
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->SetFont("times", "R", 12);
 	$pdf->Cell(9,0,'',0,0);
@@ -37,6 +43,9 @@
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(8,0,'',0,0);
 	$pdf->SetFont("times", "R", 14);
+	draw_line($pdf,16.6,10.5,11.2);
+	draw_line($pdf,16.6,12.6,14.8);
+	draw_line($pdf,18.3,10.1,11.5);
 	$dt = explode('-', $confirmation->confirmation_dt);
 	$month = date_format(new DateTime($confirmation->confirmation_dt),'F');
 
@@ -75,10 +84,13 @@ function th($dt) {
 
 	$pdf->Cell(8,0,'',0,0);
 	$pdf->Cell(0,0.8,$confirmation->church,0,1,'L');
+	draw_line($pdf,22);
+	draw_line($pdf,23);
 
-	$pdf->Cell(0,3,'',0,1);
+	$pdf->Cell(0,4,'',0,1);
 #	$pdf->Cell(10,1,'DATE: '.$model->cert_dt,0,1,'C');
-	$pdf->Cell(0,0,'Bishop                          ',0,0,'R');
+	draw_line($pdf,25.5);
+	$pdf->Cell(0,0,'Bishop                                              ',0,0,'R');
 	$id = $model->id;
 	$pdf->Output("confirmation-cert-$id.pdf", "I");
 	Yii::app()->end();
