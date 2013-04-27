@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 ?>
 
 <?php
+$openModels = array();
 foreach($openData as $openModel) {
 	$openModels[$openModel->question_id] = $openModel;
 }
@@ -23,10 +24,7 @@ foreach($openData as $openModel) {
 
 	<?php $qid = $data->id;
 		
-		$openModel = $openModels[$qid];
-		if (!isset($openModel)) {
-			$openModel = new OpenData();
-		}
+		$openModel = isset($openModels[$qid]) ? $openModels[$qid] : new OpenData();
 		
 		echo '<td>';
 

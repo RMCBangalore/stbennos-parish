@@ -175,6 +175,7 @@ class Families extends CActiveRecord
 			'id' => $id
 		));
 
+		$needData = array();
 		foreach ($model->needData as $nd) {
 			$needData[$nd->need_id] = $nd->need_value;
 		}
@@ -186,6 +187,7 @@ class Families extends CActiveRecord
 			'id' => $id
 		));
 
+		$satisfactionData = array();
 		foreach ($model->satisfactionData as $sd) {
 			$satisfactionData[$sd->satisfaction_item_id] = $sd->satisfaction_value;
 		}
