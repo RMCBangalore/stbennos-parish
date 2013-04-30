@@ -72,7 +72,7 @@ class FamilyController extends RController
 			$model->attributes=$_POST['Families'];
 			if ($model->save()) {
 #				$this->redirect(array('view','id'=>$model->id));
-				foreach (array('husband', 'wife', 'dependent') as $person) {
+				foreach (array('husband', 'wife') as $person) {
 					if(isset($_POST['People'][$person])) {
 						$p = new People();
 						$p->attributes = $_POST['People'][$person];
@@ -87,8 +87,19 @@ class FamilyController extends RController
 					}
 				}
 				$model->save();
+				if (isset($_POST['People']['dependent'])) {
+					for($i = 0; $i < 2; ++$i) {
+						if (isset($_POST['People']['dependent'][$i])) {
+							$p = new People();
+							$p->attributes = $_POST['People']['dependent'][$i];
+							$p->family_id = $model->id;
+							$p->role = 'dependent';
+							$p->save();
+						}
+					}
+				}
 				if (isset($_POST['People']['child'])) {
-					for($i = 0; $i < 4; ++$i) {
+					for($i = 0; $i < 3; ++$i) {
 						if (isset($_POST['People']['child'][$i])) {
 							$p = new People();
 							$p->attributes = $_POST['People']['child'][$i];
@@ -125,7 +136,7 @@ class FamilyController extends RController
 			if($model->save()) {
 #				$this->redirect(array('view','id'=>$model->id));
 				$save_it = false;
-				foreach(array('husband', 'wife', 'dependent') as $person) {
+				foreach(array('husband', 'wife') as $person) {
 					if(isset($_POST['People'][$person])) {
 						$p = new People();
 #						$pid = $_POST['People'][$person]['id'];
@@ -155,6 +166,20 @@ class FamilyController extends RController
 					$model->save();
 				}
 
+				if (isset($_POST['People']['dependent'])) {
+					for($i = 0; $i < 2; ++$i) {
+						if (isset($_POST['People']['dependent'][$i])) {
+							$p = new People();
+							if ($pid = $_POST['People']['dependent'][$i]['id']) {
+								$p = People::model()->findByPk($pid);
+							}
+							$p->attributes = $_POST['People']['dependent'][$i];
+							$p->family_id = $model->id;
+							$p->role = 'dependent';
+							$p->save();
+						}
+					}
+				}
 				if (isset($_POST['People']['child'])) {
 					for($i = 0; $i < 4; ++$i) {
 						if (isset($_POST['People']['child'][$i])) {

@@ -37,7 +37,7 @@ $this->menu=array(
 		$wife = new People();
 	}
 	$children = $model->children();
-	$dependent = new People();
+	$dependents = $model->dependents();
 	$tabs = array(
         'tab1'=>array(
             'title'=>'Family Data',
@@ -66,17 +66,26 @@ $this->menu=array(
             ),
         ),
         'tab4'=>array(
-            'title'=>'Dependent',
+            'title'=>'Dependent 1',
             'view'=>'../person/_person_form',
             'data'=>array(
 				'form'=>$form,
-				'person'=>'dependent',
-                'model'=>$dependent
+				'person'=>'dependent][0',
+                'model'=>(isset($dependents[0])?$dependents[0]:new People()),
+			),
+		),
+        'tab5'=>array(
+            'title'=>'Dependent 2',
+            'view'=>'../person/_person_form',
+            'data'=>array(
+				'form'=>$form,
+				'person'=>'dependent][1',
+                'model'=>(isset($dependents[1])?$dependents[1]:new People()),
 			),
 		),
 	);
 	for($i = 0; $i < 3; ++$i) {
-		$n = 5 + $i;
+		$n = 6 + $i;
 		$j = 1 + $i;
 		$child = isset($children[$i]) ? $children[$i] : new People();
 		$tabs["tab$n"] = array(

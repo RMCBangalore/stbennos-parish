@@ -62,7 +62,7 @@ $this->menu=array(
             'view'=>'../person/_person_form',
             'data'=>array(
 				'form'=>$form,
-				'person'=>'dependent',
+				'person'=>'dependent][0',
                 'model'=>$dependent
 			),
 		),
@@ -71,7 +71,7 @@ $this->menu=array(
             'view'=>'../person/_person_form',
             'data'=>array(
 				'form'=>$form,
-				'person'=>'dependent',
+				'person'=>'dependent][1',
                 'model'=>$dependent
 			),
 		),

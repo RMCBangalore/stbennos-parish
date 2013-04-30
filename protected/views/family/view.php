@@ -22,6 +22,7 @@ $this->menu=array(
 <?php
 	$husband = $model->husband;
 	$wife = $model->wife;
+	$dependents = $model->dependents();
 	$children = $model->children();
 	if (count($children) >= 3) {
 		$this->menu[count($this->menu)] = array('label'=>'More Children', 'url'=>array('children', 'id'=>$model->id));
@@ -51,8 +52,24 @@ $this->menu=array(
             ),
         ),
 	);
+	for($i = 0; isset($dependents[$i]) and $i < 2; ++$i) {
+		$n = 4 + $i;
+		$j = 1 + $i;
+		if (isset($dependents[$i])) {
+			$dep = $dependents[$i];
+			$tabs["tab$n"] = array(
+				'title' => "Dependent $j",
+				'view'	=> '../person/_view',
+				'data'	=> array(
+					'person'	=> "dependent][$i",
+					'data'		=> $dep
+				)
+			);
+		}
+	}
+	$ntabs = 4 + $i;
 	for($i = 0; $i < 3; ++$i) {
-		$n = 5 + $i;
+		$n = $ntabs + $i;
 		$j = 1 + $i;
 		if (isset($children[$i])) {
 			$child = $children[$i];

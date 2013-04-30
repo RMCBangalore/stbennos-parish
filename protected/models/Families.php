@@ -156,6 +156,14 @@ class Families extends CActiveRecord
 		));
 	}
 
+	public function dependents() {
+		$p = new People();
+		return $p->findAllByAttributes(array(
+			'role' => 'dependent',
+			'family_id' => $this->id
+		));
+	}
+
 	public static function awarenessData($id) {
 		$model = self::model()->findByAttributes(array(
 			'id' => $id
