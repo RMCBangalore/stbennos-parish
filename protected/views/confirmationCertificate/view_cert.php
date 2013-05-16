@@ -6,8 +6,8 @@
 								'P', 'cm', 'A4', true, 'UTF-8');
 	$pdf->SetCreator(PDF_CREATOR);
 	$pdf->SetAuthor("Terence Monteiro");
-	$pdf->SetTitle("First Communion Certificate");
-	$pdf->SetSubject("First Communion Certificate");
+	$pdf->SetTitle("Confirmation Certificate");
+	$pdf->SetSubject("Confirmation Certificate");
 	$pdf->SetKeywords("PDF");
 	$pdf->setPrintHeader(false);
 	$pdf->setPrintFooter(false);
