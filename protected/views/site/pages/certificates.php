@@ -21,4 +21,6 @@ $this->menu=array(
 	<?php echo CHtml::link('First Communion Certificates', array('firstCommunionCertificate/index')); ?>
 </p><p>
 	<?php echo CHtml::link('Confirmation Certificates', array('confirmationCertificate/index')); ?>
+</p><p>
+	<?php echo CHtml::link('Death Certificates', array('deathCertificate/index')); ?>
 </p>
