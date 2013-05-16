@@ -1,23 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "first_communions".
+ * This is the model class for table "death_certs".
  *
- * The followings are the available columns in table 'first_communions':
+ * The followings are the available columns in table 'death_certs':
  * @property integer $id
- * @property string $name
- * @property string $communion_dt
- * @property string $ref_no
+ * @property integer $death_id
+ * @property string $cert_dt
  *
  * The followings are the available model relations:
- * @property FirstCommunionCerts[] $firstCommunionCerts
+ * @property Deaths $death
  */
-class FirstCommunionRecord extends CActiveRecord
+class DeathCertificate extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return FirstCommunionRecord the static model class
+	 * @return DeathCertificate the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +28,7 @@ class FirstCommunionRecord extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'first_communions';
+		return 'death_certs';
 	}
 
 	/**
@@ -40,12 +39,12 @@ class FirstCommunionRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>75),
-			array('communion_dt', 'safe'),
-			array('ref_no', 'length', 'max' => 10),
+			array('death_id', 'required'),
+			array('death_id', 'numerical', 'integerOnly'=>true),
+			array('cert_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, communion_dt, ref_no', 'safe', 'on'=>'search'),
+			array('id, death_id, cert_dt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +56,7 @@ class FirstCommunionRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'firstCommunionCerts' => array(self::HAS_MANY, 'FirstCommunionCerts', 'first_comm_id'),
+			'death' => array(self::BELONGS_TO, 'DeathRecord', 'death_id'),
 		);
 	}
 
@@ -68,9 +67,8 @@ class FirstCommunionRecord extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'communion_dt' => 'Communion Date',
-			'ref_no' => 'Ref No',
+			'death_id' => 'Death',
+			'cert_dt' => 'Cert Dt',
 		);
 	}
 
@@ -86,20 +84,11 @@ class FirstCommunionRecord extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('communion_dt',$this->communion_dt,true);
-		$criteria->compare('ref_no',$this->ref_no,true);
+		$criteria->compare('death_id',$this->death_id);
+		$criteria->compare('cert_dt',$this->cert_dt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	public function get_refno() {
-		$recs = firstCommunionRecord::model()->findAll(array(
-			'condition'	=> 'year(communion_dt)=year(:communion_dt) and id<=:id',
-			'params'	=> array(':communion_dt' => $this->communion_dt, ':id' => $this->id)
-		));
-		return date_format(new DateTime($this->communion_dt), 'Y') . '/' . count($recs);
 	}
 }

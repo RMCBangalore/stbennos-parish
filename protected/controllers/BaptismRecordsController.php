@@ -70,8 +70,11 @@ class BaptismRecordsController extends RController
 		if(isset($_POST['BaptismRecord']))
 		{
 			$model->attributes=$_POST['BaptismRecord'];
-			if($model->save())
+			if($model->save()) {
+				$model->ref_no = $model->get_refno();
+				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -94,6 +97,9 @@ class BaptismRecordsController extends RController
 		if(isset($_POST['BaptismRecord']))
 		{
 			$model->attributes=$_POST['BaptismRecord'];
+			if (!isset($model->ref_no)) {
+				$model->ref_no = $model->get_refno();
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

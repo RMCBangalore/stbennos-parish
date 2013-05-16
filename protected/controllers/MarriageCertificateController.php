@@ -81,7 +81,7 @@ class MarriageCertificateController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$data = MarriageRecord::model()->find($mid);
+		$data = MarriageRecord::model()->findiByPk($mid);
 
 		$now = date_format(new DateTime(), 'Y-m-d H:i:s');
 

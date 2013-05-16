@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $confirmation_dt
  * @property string $church
+ * @property string $ref_no
  *
  * The followings are the available model relations:
  * @property ConfirmationCerts[] $confirmationCerts
@@ -42,6 +43,7 @@ class ConfirmationRecord extends CActiveRecord
 		return array(
 			array('name', 'length', 'max'=>75),
 			array('church', 'length', 'max'=>50),
+			array('ref_no', 'length', 'max'=>10),
 			array('confirmation_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -71,6 +73,7 @@ class ConfirmationRecord extends CActiveRecord
 			'name' => 'Name',
 			'confirmation_dt' => 'Confirmation Date',
 			'church' => 'Church',
+			'ref_no' => 'Ref No',
 		);
 	}
 
@@ -89,9 +92,18 @@ class ConfirmationRecord extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('confirmation_dt',$this->confirmation_dt,true);
 		$criteria->compare('church',$this->church,true);
+		$criteria->compare('ref_no',$this->ref_no,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function get_refno() {
+		$recs = ConfirmationRecord::model()->findAll(array(
+			'condition'	=> 'year(confirmation_dt)=year(:confirmation_dt) and id<=:id',
+			'params'	=> array(':confirmation_dt' => $this->confirmation_dt, ':id' => $this->id)
+		));
+		return date_format(new DateTime($this->confirmation_dt), 'Y') . '/' . count($recs);
 	}
 }

@@ -15,6 +15,7 @@
  * @property string $godfathers_name
  * @property string $godmothers_name
  * @property string $minister
+ * @property string $ref_no
  *
  * The followings are the available model relations:
  * @property BaptismCerts[] $baptismCerts
@@ -51,10 +52,11 @@ class BaptismRecord extends CActiveRecord
 			array('name', 'length', 'max'=>50),
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, minister', 'length', 'max'=>75),
 			array('residence', 'length', 'max'=>25),
+			array('ref_no', 'length', 'max'=>10),
 			array('dob, baptism_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, dob, baptism_dt, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister', 'safe', 'on'=>'search'),
+			array('id, dob, baptism_dt, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister, ref_no', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,6 +89,7 @@ class BaptismRecord extends CActiveRecord
 			'godfathers_name' => 'Godfathers Name',
 			'godmothers_name' => 'Godmothers Name',
 			'minister' => 'Minister',
+			'ref_no' => 'Ref No',
 		);
 	}
 
@@ -112,9 +115,18 @@ class BaptismRecord extends CActiveRecord
 		$criteria->compare('godfathers_name',$this->godfathers_name,true);
 		$criteria->compare('godmothers_name',$this->godmothers_name,true);
 		$criteria->compare('minister',$this->minister,true);
+		$criteria->compare('ref_no',$this->ref_no,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function get_refno() {
+		$recs = BaptismRecord::model()->findAll(array(
+			'condition'	=> 'year(baptism_dt)=year(:baptism_dt) and id<=:id',
+			'params'	=> array(':baptism_dt' => $this->baptism_dt, ':id' => $this->id)
+		));
+		return date_format(new DateTime($this->baptism_dt), 'Y') . '/' . count($recs);
 	}
 }

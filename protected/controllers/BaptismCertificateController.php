@@ -81,7 +81,7 @@ class BaptismCertificateController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$data = BaptismRecord::model()->find($bid);
+		$data = BaptismRecord::model()->findByPk($bid);
 
 		$now = date_format(new DateTime(), 'Y-m-d H:i:s');
 

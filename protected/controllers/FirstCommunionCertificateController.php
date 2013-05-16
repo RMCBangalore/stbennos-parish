@@ -80,7 +80,7 @@ class FirstCommunionCertificateController extends RController
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		} else {
-			$rec = FirstCommunionRecord::model()->find($id);
+			$rec = FirstCommunionRecord::model()->findByPk($id);
 		}
 
 		$this->render('create',array(

@@ -81,7 +81,7 @@ class ConfirmationCertificateController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$rec = ConfirmationRecord::model()->find($id);
+		$rec = ConfirmationRecord::model()->findByPk($id);
 
 		$this->render('create',array(
 			'model'=>$model,

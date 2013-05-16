@@ -25,6 +25,7 @@
  * @property string $witness1
  * @property string $witness2
  * @property string $remarks
+ * @property string $ref_no
  *
  * The followings are the available model relations:
  * @property MarriageCerts[] $marriageCerts
@@ -61,10 +62,11 @@ class MarriageRecord extends CActiveRecord
 			array('groom_name, groom_fathers_name, groom_mothers_name, bride_name, bride_fathers_name, bride_mothers_name, minister', 'length', 'max'=>100),
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
+			array('ref_no', 'length', 'max'=>10),
 			array('marriage_dt, groom_dob, bride_dob', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, marriage_dt, groom_name, groom_dob, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks', 'safe', 'on'=>'search'),
+			array('id, marriage_dt, groom_name, groom_dob, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,6 +109,7 @@ class MarriageRecord extends CActiveRecord
 			'witness1' => 'Witness1',
 			'witness2' => 'Witness2',
 			'remarks' => 'Remarks',
+			'ref_no' => 'Ref No',
 		);
 	}
 
@@ -142,9 +145,18 @@ class MarriageRecord extends CActiveRecord
 		$criteria->compare('witness1',$this->witness1,true);
 		$criteria->compare('witness2',$this->witness2,true);
 		$criteria->compare('remarks',$this->remarks,true);
+		$criteria->compare('ref_no',$this->ref_no,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function get_refno() {
+		$recs = MarriageRecord::model()->findAll(array(
+			'condition'	=> 'year(marriage_dt)=year(:marriage_dt) and id<=:id',
+			'params'	=> array(':marriage_dt' => $this->marriage_dt, ':id' => $this->id)
+		));
+		return date_format(new DateTime($this->marriage_dt), 'Y') . '/' . count($recs);
 	}
 }

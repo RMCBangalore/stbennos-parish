@@ -1,6 +1,6 @@
 <?php
 
-class ConfirmationRecordsController extends RController
+class DeathRecordsController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class ConfirmationRecordsController extends RController
 	 */
 	public function actionCreate()
 	{
-		$model=new ConfirmationRecord;
+		$model=new DeathRecord;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ConfirmationRecord']))
+		if(isset($_POST['DeathRecord']))
 		{
-			$model->attributes=$_POST['ConfirmationRecord'];
+			$model->attributes=$_POST['DeathRecord'];
 			if($model->save()) {
 				$model->ref_no = $model->get_refno();
 				$model->save();
@@ -94,9 +94,9 @@ class ConfirmationRecordsController extends RController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ConfirmationRecord']))
+		if(isset($_POST['DeathRecord']))
 		{
-			$model->attributes=$_POST['ConfirmationRecord'];
+			$model->attributes=$_POST['DeathRecord'];
 			if (!isset($model->ref_no)) {
 				$model->ref_no = $model->get_refno();
 			}
@@ -128,7 +128,7 @@ class ConfirmationRecordsController extends RController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ConfirmationRecord');
+		$dataProvider=new CActiveDataProvider('DeathRecord');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,10 +139,10 @@ class ConfirmationRecordsController extends RController
 	 */
 	public function actionAdmin()
 	{
-		$model=new ConfirmationRecord('search');
+		$model=new DeathRecord('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConfirmationRecord']))
-			$model->attributes=$_GET['ConfirmationRecord'];
+		if(isset($_GET['DeathRecord']))
+			$model->attributes=$_GET['DeathRecord'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -153,12 +153,12 @@ class ConfirmationRecordsController extends RController
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return ConfirmationRecord the loaded model
+	 * @return DeathRecord the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=ConfirmationRecord::model()->findByPk($id);
+		$model=DeathRecord::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -166,11 +166,11 @@ class ConfirmationRecordsController extends RController
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param ConfirmationRecord $model the model to be validated
+	 * @param DeathRecord $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='confirmation-record-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='death-record-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
