@@ -23,4 +23,6 @@ $this->menu=array(
 	<?php echo CHtml::link('Confirmation Register', array('confirmationRecords/index')); ?>
 </p><p>
 	<?php echo CHtml::link('Death Register', array('deathRecords/index')); ?>
+</p><p>
+	<?php echo CHtml::link('Banns Register', array('bannsRecords/index')); ?>
 </p>
