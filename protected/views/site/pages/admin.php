@@ -4,7 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Administer <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<h1>Administer <i><?php echo CHtml::encode(Yii::app()->params['parishName']); ?></i></h1>
 
 <p>
 <?php echo CHtml::link('Manage Users', array('users/admin')); ?>
