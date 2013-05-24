@@ -94,6 +94,47 @@ class PersonController extends RController
 		if(isset($_POST['People']))
 		{
 			$model->attributes=$_POST['People'];
+/*			foreach($_FILES as $key => $value) {
+				foreach($value as $vkey => $vval) {
+					foreach ($vval as $vk => $vv) {
+						Yii::trace("Photo \$_FILES[$key][$vkey][$vk] isa " . gettype($vv), "system.controllers.RController");
+					}
+				}
+			} */
+			$files = $_FILES['People']; # has keys name, type, size, error, tmp_name
+			if (isset($files['name']['photo'])) {
+				if (isset($files['tmp_name']['photo'])) {
+					$dir = "./images/members/";
+					if (!file_exists($dir)) {
+						mkdir($dir, 0755, true);
+					}
+					$filename = $files['name']['photo'];
+					$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
+					preg_match('/(\.[a-z]+)$/i', $filename, $matches);
+					$fext = $matches[0];
+					Yii::trace("Filename $filename = $fname  + $fext", 'system.controllers.RController');
+					if (file_exists($dir . $filename)) {
+						$fname .= "_01";
+						while (file_exists($dir . $fname . $fext)) {
+							++$fname;
+						}
+					}
+					$dest = $dir . $fname . $fext;
+					$tmp_path = $files['tmp_name']['photo'];
+					$dim = getimagesize($tmp_path);
+					$width = $dim[0];
+					$height = $dim[1];
+					if ($width > 160 or $height > 200) {
+						Yii::trace("Image bigger than 160x200 (${width}x$height)", "system.controllers.RController");
+					} else {
+						move_uploaded_file($tmp_path, $dest);
+						$model->photo = $fname . $fext;
+						Yii::trace("Got photo. Moved to $dest", 'system.controllers.RController');
+					}
+				} else {
+					Yii::trace("Failed to upload photo: " . $files['error']['photo'], 'system.controllers.RController');
+				}
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

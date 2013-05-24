@@ -16,7 +16,13 @@ $this->menu=array(
 );
 ?>
 
-<h1>View People #<?php echo $model->id; ?></h1>
+<h1>View Person #<?php echo $model->id; ?></h1>
+
+<?php if (isset($model->photo)) {
+$src = Yii::app()->request->baseUrl . '/images/members/' . $model->photo;
+$alt = $model->fname . "'s photo";
+echo CHtml::image($src, $alt, array('title' => $alt));
+} ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
