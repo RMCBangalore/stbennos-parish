@@ -47,3 +47,5 @@ $this->menu=array(
 		'family_id',
 	),
 )); ?>
+
+<?php echo CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id)) ?>
