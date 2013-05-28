@@ -65,7 +65,7 @@ class Families extends CActiveRecord
 			array('monthly_income', 'length', 'max'=>15),
 			array('marriage_date, bpl_card', 'safe'),
 			array('marriage_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
-			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450),
+			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, yr_reg, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),

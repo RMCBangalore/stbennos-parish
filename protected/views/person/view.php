@@ -18,13 +18,22 @@ $this->menu=array(
 
 <h1>View Person #<?php echo $model->id; ?></h1>
 
-<?php if (isset($model->photo)) {
-$src = Yii::app()->request->baseUrl . '/images/members/' . $model->photo;
-$alt = $model->fname . "'s photo";
-echo CHtml::image($src, $alt, array('title' => $alt));
-} ?>
+<?php
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+	if ($model->photo) {
+		$src = Yii::app()->request->baseUrl . '/images/members/' . $model->photo;
+		$alt = $model->fname . "'s photo";
+		list($width, $height) = getimagesize("./images/members/" . $model->photo);
+		echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
+		echo "<p>";
+		echo CHtml::link('Update Photo', array('photo', 'id'=>$model->id));
+	} else {
+		echo "<p>";
+		echo CHtml::link('Upload Photo', array('photo', 'id'=>$model->id));
+	}
+	echo "</p>";
+
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',

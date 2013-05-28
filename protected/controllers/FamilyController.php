@@ -164,6 +164,7 @@ class FamilyController extends RController
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$model->scenario = 'update';
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -224,28 +225,6 @@ class FamilyController extends RController
 			if ($model->save()) {
 				$save_it = false;
 
-				$files = $_FILES['Families'];
-				$filename = $files['name']['photo'];
-				if (isset($filename) and '' != $filename) {
-					$tmp_path = $files['tmp_name']['photo'];
-					if (isset($tmp_path) and '' != $tmp_path) {
-						$dir = "./images/families/";
-						$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
-						preg_match('/(\.[a-z]+)$/i', $filename, $matches);
-						$fext = $matches[0];
-						if (file_exists($dir . $filename)) {
-							$fname .= "_01";
-							while (file_exists($dir . $fname . $fext)) {
-								++$fname;
-							}
-						}
-						$dest = $dir . $fname . $fext;
-						move_uploaded_file($tmp_path, $dest);
-						$model->photo = $fname . $fext;
-						$save_it = true;
-					}
-				}
-
 				foreach($parents as $parent) {
 					$parent->family_id = $model->id;
 					$parent->save();
@@ -283,6 +262,7 @@ class FamilyController extends RController
 
 	public function actionPhoto($id) {
 		$model = $this->loadModel($id);
+		$model->scenario = 'photo';
 
 		if (isset($_FILES['Families'])) {
 			if (Yii::app()->params['photoManip']) {

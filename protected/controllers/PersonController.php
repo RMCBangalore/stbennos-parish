@@ -87,6 +87,7 @@ class PersonController extends RController
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$model->scenario = 'update';
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -94,25 +95,32 @@ class PersonController extends RController
 		if(isset($_POST['People']))
 		{
 			$model->attributes=$_POST['People'];
-/*			foreach($_FILES as $key => $value) {
-				foreach($value as $vkey => $vval) {
-					foreach ($vval as $vk => $vv) {
-						Yii::trace("Photo \$_FILES[$key][$vkey][$vk] isa " . gettype($vv), "system.controllers.RController");
-					}
-				}
-			} */
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionPhoto($id) {
+		$model = $this->loadModel($id);
+		$model->scenario = 'photo';
+
+		if (isset($_FILES['People'])) {
 			$files = $_FILES['People']; # has keys name, type, size, error, tmp_name
-			if (isset($files['name']['photo'])) {
-				if (isset($files['tmp_name']['photo'])) {
+			$filename = $files['name']['photo'];
+			if (isset($filename) and '' != $filename) {
+				Yii::trace("Got image " . $filename, 'application.controllers.PersonController');
+				$tmp_path = $files['tmp_name']['photo'];
+				if (isset($tmp_path) and '' != $tmp_path) {
+					Yii::trace("Image temp path: $tmp_path", 'application.controllers.PersonController');
 					$dir = "./images/members/";
-					if (!file_exists($dir)) {
-						mkdir($dir, 0755, true);
-					}
-					$filename = $files['name']['photo'];
 					$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
 					preg_match('/(\.[a-z]+)$/i', $filename, $matches);
 					$fext = $matches[0];
-					Yii::trace("Filename $filename = $fname  + $fext", 'system.controllers.RController');
+					Yii::trace("Filename $filename = $fname  + $fext", 'application.controllers.PersonController');
 					if (file_exists($dir . $filename)) {
 						$fname .= "_01";
 						while (file_exists($dir . $fname . $fext)) {
@@ -120,27 +128,21 @@ class PersonController extends RController
 						}
 					}
 					$dest = $dir . $fname . $fext;
-					$tmp_path = $files['tmp_name']['photo'];
-					$dim = getimagesize($tmp_path);
-					$width = $dim[0];
-					$height = $dim[1];
-					if ($width > 160 or $height > 200) {
-						Yii::trace("Image bigger than 160x200 (${width}x$height)", "system.controllers.RController");
-					} else {
+					$model->photo = $fname . $fext;
+					if ($model->save()) {
 						move_uploaded_file($tmp_path, $dest);
-						$model->photo = $fname . $fext;
-						Yii::trace("Got photo. Moved to $dest", 'system.controllers.RController');
+						Yii::trace("Got photo. Moved to $dest", 'application.controllers.PersonController');
+						$this->redirect(array('view', 'id' => $model->id));
+						return;
 					}
 				} else {
-					Yii::trace("Failed to upload photo: " . $files['error']['photo'], 'system.controllers.RController');
+					$model->addError('photo', $files['error']['photo']);
 				}
 			}
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
+		$this->render('photo', array(
+			'model' => $model,
 		));
 	}
 
