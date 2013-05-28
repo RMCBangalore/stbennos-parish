@@ -61,61 +61,99 @@ class FamilyController extends RController
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id = null, $step = 0)
 	{
-		$model=new Families;
+		Yii::trace("FC.actionCreate called", 'application.controllers.FamilyController');
+		if (!isset($id) and $_POST and isset($_POST['Families']) and isset($_POST['Families']['id'])) {
+			$id = $_POST['Families']['id'];
+		}
+		$model = isset($id) ? $this->loadModel($id) : new Families;
+		$cur_model = $model;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Families'])) {
-			$model->attributes=$_POST['Families'];
-			if ($model->save()) {
-#				$this->redirect(array('view','id'=>$model->id));
-				foreach (array('husband', 'wife') as $person) {
-					if(isset($_POST['People'][$person])) {
-						$p = new People();
-						$p->attributes = $_POST['People'][$person];
-						$p->family_id = $model->id;
-						$p->role = $person;
-						if ($p->save()) {
-							switch ($person) {
-								case 'husband': $model->husband_id = $p->id; break;
-								case 'wife': $model->wife_id = $p->id; break;
-							}
-						}
+		switch ($step) {
+		case 1:
+//			$this->performAjaxValidation($model);
+			if (isset($_POST['Families'])) {
+				$model->attributes=$_POST['Families'];
+				if ($model->save()) {
+					++$step;
+				}
+			}
+			break;
+		case 2: 
+			$person = 'husband';
+		case 3:
+			if (!isset($person)) {
+				$person = 'wife';
+			}
+			$p = new People();
+			$cur_model = $p;
+			$this->performAjaxValidation($p);
+			if(isset($_POST['People'][$person])) {
+				$p->attributes = $_POST['People'][$person];
+				$p->family_id = $model->id;
+				$p->role = $person;
+				if ($p->save()) {
+					++$step;
+					switch ($person) {
+						case 'husband': $model->husband_id = $p->id;
+							break;
+						case 'wife': $model->wife_id = $p->id;
+							break;
+					}
+					$model->save(false);
+				}
+			}
+			break;
+		case 4:
+		case 5:
+			$i = $step - 4;
+			if (isset($_POST['People']['dependent'])) {
+				if (isset($_POST['People']['dependent'][$i])) {
+					$p = new People();
+					$cur_model = $p;
+					$p->attributes = $_POST['People']['dependent'][$i];
+					$p->family_id = $model->id;
+					$p->role = 'dependent';
+					if ($p->save()) {
+						++$step;
 					}
 				}
-				$model->save();
-				if (isset($_POST['People']['dependent'])) {
-					for($i = 0; $i < 2; ++$i) {
-						if (isset($_POST['People']['dependent'][$i])) {
-							$p = new People();
-							$p->attributes = $_POST['People']['dependent'][$i];
-							$p->family_id = $model->id;
-							$p->role = 'dependent';
-							$p->save();
-						}
+			}
+			break;
+		case 6:
+		case 7:
+		case 8:
+			$i = $step - 6;
+			if (isset($_POST['People']['child'])) {
+				if (isset($_POST['People']['child'][$i])) {
+					$p = new People();
+					$cur_model = $p;
+					$p->attributes = $_POST['People']['child'][$i];
+					$p->family_id = $model->id;
+					$p->role = 'child';
+					if ($p->save()) {
+						++$step;
 					}
 				}
-				if (isset($_POST['People']['child'])) {
-					for($i = 0; $i < 3; ++$i) {
-						if (isset($_POST['People']['child'][$i])) {
-							$p = new People();
-							$p->attributes = $_POST['People']['child'][$i];
-							$p->family_id = $model->id;
-							$p->role = 'child';
-							$p->save();
-						}
-					}
-				}
+			}
+			break;
+		default:
+			if (++$step > 8 and isset($model->id)) {
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
+		Yii::trace("FC.actionCreate rendering", 'application.controllers.FamilyController');
 		$this->render('create',array(
 			'model'=>$model,
+			'step'=>$step,
+			'cur_model'=>$cur_model,
 		));
+		Yii::trace("FC.actionCreate exiting", 'application.controllers.FamilyController');
 	}
 
 	/**
@@ -375,9 +413,11 @@ class FamilyController extends RController
 	 */
 	protected function performAjaxValidation($model)
 	{
+		Yii::trace("FC.performAjaxValidation called for " . gettype($model), 'application.controllers.FamilyController');
 		if(isset($_POST['ajax']) && $_POST['ajax']==='families-form')
 		{
 			echo CActiveForm::validate($model);
+			Yii::trace("FC.performAjaxValidation done for " . gettype($model), 'application.controllers.FamilyController');
 			Yii::app()->end();
 		}
 	}
