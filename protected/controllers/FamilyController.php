@@ -167,76 +167,167 @@ class FamilyController extends RController
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Families']))
 		{
 			$model->attributes=$_POST['Families'];
-			if($model->save()) {
-#				$this->redirect(array('view','id'=>$model->id));
-				$save_it = false;
-				foreach(array('husband', 'wife') as $person) {
-					if(isset($_POST['People'][$person])) {
-						$p = new People();
+			$models = array($model);
+			$parents = array();
+			foreach(array('husband', 'wife') as $person) {
+				if(isset($_POST['People'][$person])) {
+					$p = new People();
 #						$pid = $_POST['People'][$person]['id'];
-						if ($pid = $_POST['People'][$person]['id']) {
+					if ($pid = $_POST['People'][$person]['id']) {
+						$p = People::model()->findByPk($pid);
+					}
+					$p->attributes = $_POST['People'][$person];
+					$p->role = $person;
+					$parents[$person] = $p;
+					array_push($models, $p);
+				}
+			}
+
+			$dependents = array();
+			if (isset($_POST['People']['dependent'])) {
+				for($i = 0; $i < 2; ++$i) {
+					if (isset($_POST['People']['dependent'][$i])) {
+						$p = new People();
+						if ($pid = $_POST['People']['dependent'][$i]['id']) {
 							$p = People::model()->findByPk($pid);
 						}
-						$p->attributes = $_POST['People'][$person];
-						$p->family_id = $model->id;
-						$p->role = $person;
-						if ($p->save()) {
-							switch ($person) {
-								case 'husband': if (!isset($model->husband_id)) {
-									$model->husband_id = $p->id;
-									$save_it = true;
-								}
-								break;
-								case 'wife': if (!isset($model->wife_id)) {
-									$model->wife_id = $p->id;
-									$save_it = true;
-								}
-								break;
+						$p->attributes = $_POST['People']['dependent'][$i];
+						$p->role = 'dependent';
+						$dependents[$i] = $p;
+					}
+				}
+			}
+
+			$children = array();
+			if (isset($_POST['People']['child'])) {
+				for($i = 0; $i < 4; ++$i) {
+					if (isset($_POST['People']['child'][$i])) {
+						$p = new People();
+						if ($pid = $_POST['People']['child'][$i]['id']) {
+							$p = People::model()->findByPk($pid);
+						}
+						$p->attributes = $_POST['People']['child'][$i];
+						$p->role = 'child';
+						$children[$i] = $p;
+					}
+				}
+			}
+
+			$models = array_merge($models, $dependents);
+			$models = array_merge($models, $children);
+
+			$this->performAjaxValidation($models);
+
+			if ($model->save()) {
+				$save_it = false;
+
+				$files = $_FILES['Families'];
+				$filename = $files['name']['photo'];
+				if (isset($filename) and '' != $filename) {
+					$tmp_path = $files['tmp_name']['photo'];
+					if (isset($tmp_path) and '' != $tmp_path) {
+						$dir = "./images/families/";
+						$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
+						preg_match('/(\.[a-z]+)$/i', $filename, $matches);
+						$fext = $matches[0];
+						if (file_exists($dir . $filename)) {
+							$fname .= "_01";
+							while (file_exists($dir . $fname . $fext)) {
+								++$fname;
 							}
 						}
+						$dest = $dir . $fname . $fext;
+						move_uploaded_file($tmp_path, $dest);
+						$model->photo = $fname . $fext;
+						$save_it = true;
+					}
+				}
+
+				foreach($parents as $parent) {
+					$parent->family_id = $model->id;
+					$parent->save();
+					switch ($parent->role) {
+						case 'husband': if (!isset($model->husband_id)) {
+							$model->husband_id = $parent->id;
+							$save_it = true;
+						}
+						break;
+						case 'wife': if (!isset($model->husband_id)) {
+							$model->wife_id = $parent->id;
+							$save_it = true;
+						}
+						break;
 					}
 				}
 				if ($save_it) {
-					$model->save();
+					$model->save(false);
 				}
-
-				if (isset($_POST['People']['dependent'])) {
-					for($i = 0; $i < 2; ++$i) {
-						if (isset($_POST['People']['dependent'][$i])) {
-							$p = new People();
-							if ($pid = $_POST['People']['dependent'][$i]['id']) {
-								$p = People::model()->findByPk($pid);
-							}
-							$p->attributes = $_POST['People']['dependent'][$i];
-							$p->family_id = $model->id;
-							$p->role = 'dependent';
-							$p->save();
-						}
-					}
+				foreach($dependents as $dependent) {
+					$dependent->family_id = $model->id;
+					$dependent->save();
 				}
-				if (isset($_POST['People']['child'])) {
-					for($i = 0; $i < 4; ++$i) {
-						if (isset($_POST['People']['child'][$i])) {
-							$p = new People();
-							if ($pid = $_POST['People']['child'][$i]['id']) {
-								$p = People::model()->findByPk($pid);
-							}
-							$p->attributes = $_POST['People']['child'][$i];
-							$p->family_id = $model->id;
-							$p->role = 'child';
-							$p->save();
-						}
-					}
+				foreach($children as $child) {
+					$child->family_id = $model->id;
+					$child->save();
 				}
 			}
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionPhoto($id) {
+		$model = $this->loadModel($id);
+
+		if (isset($_FILES['Families'])) {
+			if (Yii::app()->params['photoManip']) {
+				$files = $_FILES['Families'];
+				$filename = $files['name']['raw_photo'];
+				if (isset($filename) and '' != $filename) {
+					$tmp_path = $files['tmp_name']['raw_photo'];
+					if (isset($tmp_path) and '' != $tmp_path) {
+						$dir = "./images/uploaded/";
+						$dest = $dir . $filename;
+						move_uploaded_file($tmp_path, $dest);
+					}
+				}
+			} else {
+				$files = $_FILES['Families'];
+				$filename = $files['name']['photo'];
+				if (isset($filename) and '' != $filename) {
+					$tmp_path = $files['tmp_name']['photo'];
+					if (isset($tmp_path) and '' != $tmp_path) {
+						$dir = "./images/families/";
+						$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
+						preg_match('/(\.[a-z]+)$/i', $filename, $matches);
+						$fext = $matches[0];
+						if (file_exists($dir . $filename)) {
+							$fname .= "_01";
+							while (file_exists($dir. $fname . $fext)) {
+								++$fname;
+							}
+						}
+						$dest = $dir . $fname . $fext;
+						$model->photo = $fname . $fext;
+						if ($model->save()) {
+							move_uploaded_file($tmp_path, $dest);
+							$this->redirect(array('view', 'id' => $model->id));
+							return;
+						}
+					} else {
+						$model->addError('photo', $files['error']['photo']);
+					}
+				}
+			}
+		}
+
+		$this->render('photo', array(
+			'model' => $model,
 		));
 	}
 

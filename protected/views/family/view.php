@@ -20,6 +20,19 @@ $this->menu=array(
 <h1>View Family #<?php echo $model->id; ?></h1>
 
 <?php
+	if ($model->photo) {
+		$src = Yii::app()->request->baseUrl . '/images/families/' . $model->photo;
+		$alt = "Family photo";
+		list($width, $height) = getimagesize("./images/families/" . $model->photo);
+		echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
+		echo "<p>";
+		echo CHtml::link('Update Photo', array('photo', 'id'=>$model->id));
+	} else {
+		echo "<p>";
+		echo CHtml::link('Upload Photo', array('photo', 'id'=>$model->id));
+	}
+	echo "</p>";
+
 	$husband = $model->husband;
 	$wife = $model->wife;
 	$dependents = $model->dependents();

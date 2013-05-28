@@ -44,15 +44,16 @@ return array(
 			'class'=>'RDbAuthManager',
 		),
 		// uncomment the following to enable URLs in path-format
-		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		/*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
@@ -75,7 +76,7 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning, trace',
-					'categories'=>'system.*, application.*'
+					'categories'=>'system.*, application.*',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
@@ -93,5 +94,6 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'parishName' => 'Holy Redeemer Church',
+		'photoManip' => false, # extension_loaded('gd'),
 	),
 );

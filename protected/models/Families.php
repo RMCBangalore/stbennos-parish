@@ -56,14 +56,16 @@ class Families extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('addr_stt, addr_area, addr_pin, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
-			array('zone, yr_reg, bpl_card', 'numerical', 'integerOnly'=>true),
+			array('zone, yr_reg', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),
 			array('addr_nm, addr_stt, email, marriage_church', 'length', 'max'=>50),
 			array('addr_area, marriage_type, marriage_status', 'length', 'max'=>25),
 			array('addr_pin', 'length', 'max'=>7),
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
-			array('marriage_date', 'safe'),
+			array('marriage_date, bpl_card', 'safe'),
+			array('marriage_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, yr_reg, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
