@@ -1,5 +1,93 @@
 <?php
 
+function ImageCreateFromBMP($filename)
+{
+ //Ouverture du fichier en mode binaire
+   if (! $f1 = fopen($filename,"rb")) return FALSE;
+
+ //1 : Chargement des ent�tes FICHIER
+   $FILE = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($f1,14));
+   if ($FILE['file_type'] != 19778) return FALSE;
+
+ //2 : Chargement des ent�tes BMP
+   $BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel'.
+                 '/Vcompression/Vsize_bitmap/Vhoriz_resolution'.
+                 '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1,40));
+   $BMP['colors'] = pow(2,$BMP['bits_per_pixel']);
+   if ($BMP['size_bitmap'] == 0) $BMP['size_bitmap'] = $FILE['file_size'] - $FILE['bitmap_offset'];
+   $BMP['bytes_per_pixel'] = $BMP['bits_per_pixel']/8;
+   $BMP['bytes_per_pixel2'] = ceil($BMP['bytes_per_pixel']);
+   $BMP['decal'] = ($BMP['width']*$BMP['bytes_per_pixel']/4);
+   $BMP['decal'] -= floor($BMP['width']*$BMP['bytes_per_pixel']/4);
+   $BMP['decal'] = 4-(4*$BMP['decal']);
+   if ($BMP['decal'] == 4) $BMP['decal'] = 0;
+
+ //3 : Chargement des couleurs de la palette
+   $PALETTE = array();
+   if ($BMP['colors'] < 16777216)
+   {
+    $PALETTE = unpack('V'.$BMP['colors'], fread($f1,$BMP['colors']*4));
+   }
+
+ //4 : Cr�ation de l'image
+   $IMG = fread($f1,$BMP['size_bitmap']);
+   $VIDE = chr(0);
+
+   $res = imagecreatetruecolor($BMP['width'],$BMP['height']);
+   $P = 0;
+   $Y = $BMP['height']-1;
+   while ($Y >= 0)
+   {
+    $X=0;
+    while ($X < $BMP['width'])
+    {
+     if ($BMP['bits_per_pixel'] == 24)
+        $COLOR = unpack("V",substr($IMG,$P,3).$VIDE);
+     elseif ($BMP['bits_per_pixel'] == 16)
+     {  
+        $COLOR = unpack("n",substr($IMG,$P,2));
+        $COLOR[1] = $PALETTE[$COLOR[1]+1];
+     }
+     elseif ($BMP['bits_per_pixel'] == 8)
+     {  
+        $COLOR = unpack("n",$VIDE.substr($IMG,$P,1));
+        $COLOR[1] = $PALETTE[$COLOR[1]+1];
+     }
+     elseif ($BMP['bits_per_pixel'] == 4)
+     {
+        $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
+        if (($P*2)%2 == 0) $COLOR[1] = ($COLOR[1] >> 4) ; else $COLOR[1] = ($COLOR[1] & 0x0F);
+        $COLOR[1] = $PALETTE[$COLOR[1]+1];
+     }
+     elseif ($BMP['bits_per_pixel'] == 1)
+     {
+        $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
+        if     (($P*8)%8 == 0) $COLOR[1] =  $COLOR[1]        >>7;
+        elseif (($P*8)%8 == 1) $COLOR[1] = ($COLOR[1] & 0x40)>>6;
+        elseif (($P*8)%8 == 2) $COLOR[1] = ($COLOR[1] & 0x20)>>5;
+        elseif (($P*8)%8 == 3) $COLOR[1] = ($COLOR[1] & 0x10)>>4;
+        elseif (($P*8)%8 == 4) $COLOR[1] = ($COLOR[1] & 0x8)>>3;
+        elseif (($P*8)%8 == 5) $COLOR[1] = ($COLOR[1] & 0x4)>>2;
+        elseif (($P*8)%8 == 6) $COLOR[1] = ($COLOR[1] & 0x2)>>1;
+        elseif (($P*8)%8 == 7) $COLOR[1] = ($COLOR[1] & 0x1);
+        $COLOR[1] = $PALETTE[$COLOR[1]+1];
+     }
+     else
+        return FALSE;
+     imagesetpixel($res,$X,$Y,$COLOR[1]);
+     $X++;
+     $P += $BMP['bytes_per_pixel'];
+    }
+    $Y--;
+    $P+=$BMP['decal'];
+   }
+
+ //Fermeture du fichier
+   fclose($f1);
+
+ return $res;
+}
+
 class FamilyController extends RController
 {
 	/**
@@ -263,45 +351,118 @@ class FamilyController extends RController
 	public function actionPhoto($id) {
 		$model = $this->loadModel($id);
 		$model->scenario = 'photo';
+		Yii::trace("FC.actionPhoto called", 'application.controllers.FamilyController');
 
-		if (isset($_FILES['Families'])) {
-			if (Yii::app()->params['photoManip']) {
+		if (Yii::app()->params['photoManip']) {
+			if (isset($_POST['x1'])) {
+				$x1 = $_POST['x1'];
+				$y1 = $_POST['y1'];
+				$width = $_POST['width'];
+				$height = $_POST['height'];
+				$pfile = $_POST['pfile'];
+				$sdir = './images/uploaded/';
+				list($w, $h, $t) = getimagesize($sdir . $pfile);
+				Yii::trace("FC.actionPhoto crop received $x1, $y1, $width, $height, $w, $h, $t", 'application.controllers.FamilyController');
+				switch ($t) {
+				case 1: $img = imagecreatefromgif($sdir . $pfile); break;
+				case 2: $img = imagecreatefromjpeg($sdir . $pfile); break;
+				case 3: $img = imagecreatefrompng($sdir . $pfile); break;
+				case IMAGETYPE_BMP: $img = ImageCreateFromBMP($sdir . $pfile); break;
+				case IMAGETYPE_WBMP: $img = imagecreatefromwbmp($sdir . $pfile); break;
+				default: Yii::trace("FC.actionPhoto crop unknown image type $t", 'application.controllers.FamilyController');
+				}
+				if (function_exists('imagecrop')) { # untested
+					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
+					$scaled = imagescale($cropped, 600);
+				} else {
+					$h = $height * 600 / $width;
+					$scaled = imagecreatetruecolor(600, $h);
+					imagecopyresampled($scaled, $img, 0, 0, $x1, $y1, 600, $h, $width, $height);
+				}
+				$dir = './images/families/';
+				$fname = preg_replace('/\.[a-z]+$/i', '', $pfile);
+				$fext = ".jpg";
+				if (file_exists($dir . $pfile)) {
+					$fname .= "_01";
+					while (file_exists($dir. $fname . $fext)) {
+						++$fname;
+					}
+				}
+				$dest = $dir . $fname . $fext;
+				imagejpeg($scaled, $dest, 90);
+				imagedestroy($scaled);
+				imagedestroy($img);
+				unlink($sdir . $pfile); 
+				$model->photo = $fname . $fext;
+				$model->save(false);
+				Yii::trace("FC.actionPhoto saved to $pfile", 'application.controllers.FamilyController');
+				$this->redirect(array('view', 'id' => $model->id));
+				return;
+			} elseif (isset($_FILES['Families'])) {
+				Yii::trace("FC.actionPhoto _FILES[Families] set", 'application.controllers.FamilyController');
 				$files = $_FILES['Families'];
 				$filename = $files['name']['raw_photo'];
 				if (isset($filename) and '' != $filename) {
+					Yii::trace("FC.actionPhoto filename $filename", 'application.controllers.FamilyController');
 					$tmp_path = $files['tmp_name']['raw_photo'];
 					if (isset($tmp_path) and '' != $tmp_path) {
+						Yii::trace("FC.actionPhoto tmp_path $tmp_path", 'application.controllers.FamilyController');
 						$dir = "./images/uploaded/";
 						$dest = $dir . $filename;
+						list($width, $height) = getimagesize($tmp_path);
+						if ($width < 900) {
+							$w = $width;
+							$h = $height;
+							$zoom = 1;
+						} else {
+							$w = 900;
+							$h = $height * 900 / $width;
+							$zoom = $w / $width;
+						}
+						$w = ($width < 900) ? $width : 900;
+						
 						move_uploaded_file($tmp_path, $dest);
+						$this->render('crop', array('model'=>$model,'pfile'=>$filename, 'width' => $w, 'height' => $h, 'zoom' => $zoom));
+						return;
+					} else {
+						$errors = array(
+							1 => "Size exceeds max_upload",
+							2 => "FORM_SIZE",
+							3 => "No tmp dir",
+							4 => "can't write",
+							5 => "error extension",
+							6 => "error partial",
+						);
+						$error = $errors[$files['error']['raw_photo']];
+						Yii::trace("FC.actionPhoto file error $error", 'application.controllers.FamilyController');
 					}
 				}
-			} else {
-				$files = $_FILES['Families'];
-				$filename = $files['name']['photo'];
-				if (isset($filename) and '' != $filename) {
-					$tmp_path = $files['tmp_name']['photo'];
-					if (isset($tmp_path) and '' != $tmp_path) {
-						$dir = "./images/families/";
-						$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
-						preg_match('/(\.[a-z]+)$/i', $filename, $matches);
-						$fext = $matches[0];
-						if (file_exists($dir . $filename)) {
-							$fname .= "_01";
-							while (file_exists($dir. $fname . $fext)) {
-								++$fname;
-							}
+			}
+		} else {
+			$files = $_FILES['Families'];
+			$filename = $files['name']['photo'];
+			if (isset($filename) and '' != $filename) {
+				$tmp_path = $files['tmp_name']['photo'];
+				if (isset($tmp_path) and '' != $tmp_path) {
+					$dir = "./images/families/";
+					$fname = preg_replace('/\.[a-z]+$/i', '', $filename);
+					preg_match('/(\.[a-z]+)$/i', $filename, $matches);
+					$fext = $matches[0];
+					if (file_exists($dir . $filename)) {
+						$fname .= "_01";
+						while (file_exists($dir. $fname . $fext)) {
+							++$fname;
 						}
-						$dest = $dir . $fname . $fext;
-						$model->photo = $fname . $fext;
-						if ($model->save()) {
-							move_uploaded_file($tmp_path, $dest);
-							$this->redirect(array('view', 'id' => $model->id));
-							return;
-						}
-					} else {
-						$model->addError('photo', $files['error']['photo']);
 					}
+					$dest = $dir . $fname . $fext;
+					$model->photo = $fname . $fext;
+					if ($model->save()) {
+						move_uploaded_file($tmp_path, $dest);
+						$this->redirect(array('view', 'id' => $model->id));
+						return;
+					}
+				} else {
+					$model->addError('photo', $files['error']['photo']);
 				}
 			}
 		}

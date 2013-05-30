@@ -1,3 +1,6 @@
 *.sw?
 *.bk
 images/members/*
+images/families/*
+images/uploaded/*
+protected/runtime/application.log*
