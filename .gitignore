@@ -1,6 +1,9 @@
 *.sw?
 *.bk
 images/members/*
+!images/members/.exists
 images/families/*
+!images/families/.exists
 images/uploaded/*
+!images/uploaded/.exists
 protected/runtime/application.log*

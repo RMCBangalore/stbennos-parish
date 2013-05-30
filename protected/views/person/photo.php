@@ -28,8 +28,14 @@ $this->menu=array(
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model, 'photo'); ?>
-		<?php echo $form->fileField($model, 'photo'); ?>
+	<?php if (Yii::app()->params['photoManip']) {
+			$field = 'raw_photo';
+		} else {
+			$field = 'photo';
+		}
+		echo $form->labelEx($model, 'photo');
+		echo $form->fileField($model, $field);
+	?>
 	</div>
 
 	<div class="row buttons">
