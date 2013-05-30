@@ -110,4 +110,22 @@ class BannsRecord extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function groom() {
+		$gp = $this->groom_parish;
+		if (ctype_digit($gp)) {
+			return People::model()->findByPk($gp);
+		} else {
+			return null;
+		}
+	}
+
+	public function bride() {
+		$bp = $this->bride_parish;
+		if (ctype_digit($bp)) {
+			return People::model()->findByPk($bp);
+		} else {
+			return null;
+		}
+	}
 }

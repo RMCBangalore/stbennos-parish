@@ -1,6 +1,4 @@
 <?php
-/* @var $this BannsRecordsController */
-/* @var $data BannsRecord */
 
 function get_parish($parish) {
 	if (ctype_digit($parish)) {
@@ -12,10 +10,6 @@ function get_parish($parish) {
 ?>
 
 <div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_name')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_name); ?>
@@ -55,9 +49,24 @@ function get_parish($parish) {
 	<?php echo CHtml::encode($data->bride_parent); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_parish')); ?>:</b>
-	<?php echo get_parish($data->bride_parish); ?>
-	<br />
+	<?php if (ctype_digit($data->bride_parish)) {
+		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . '>:</b> ';
+		echo get_parish($data->bride_parish);
+		echo '<br />';
+
+		echo '<b>Bride DOB:</b> ';
+		echo $data->bride()->dob;
+		echo '<br />';
+
+		echo '<b>Bride Baptism Date:</b> ';
+		echo $data->bride()->baptism_dt;
+		echo '<br />';
+
+	} else {
+		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . ':</b> ';
+		echo get_parish($data->bride_parish);
+		echo '<br />';
+	} ?>
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt1')); ?>:</b>
@@ -74,6 +83,27 @@ function get_parish($parish) {
 
 	*/ ?>
 
-	<?php echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id)) ?>
+<div class="form">
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'id'=>'banns-request-form',
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'req_dt'); ?>
+		<?php echo $form->textField($model,'req_dt',array('size'=>15,'maxlength'=>75,'value'=>$now, 'readonly' => 1)); ?>
+		<?php echo $form->error($model,'req_dt'); ?>
+	</div>
+
+		<?php echo $form->hiddenField($model,'banns_id',array('value'=>$data->id)); ?>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
 
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-class BannsRecordsController extends RController
+class BannsRequestController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -56,26 +56,37 @@ class BannsRecordsController extends RController
 		));
 	}
 
+	public function actionViewCert($id)
+	{
+		$this->render('view_cert',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($bid)
 	{
-		$model=new BannsRecord;
+		$model=new BannsRequest;
+
+		$banns = BannsRecord::model()->findByPk($bid);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BannsRecord']))
+		if(isset($_POST['BannsRequest']))
 		{
-			$model->attributes=$_POST['BannsRecord'];
+			$model->attributes=$_POST['BannsRequest'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'banns'=>$banns,
+			'now' => date_format(new DateTime(), 'Y-m-d H:i:s')
 		));
 	}
 
@@ -91,9 +102,9 @@ class BannsRecordsController extends RController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BannsRecord']))
+		if(isset($_POST['BannsRequest']))
 		{
-			$model->attributes=$_POST['BannsRecord'];
+			$model->attributes=$_POST['BannsRequest'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +133,7 @@ class BannsRecordsController extends RController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('BannsRecord');
+		$dataProvider=new CActiveDataProvider('BannsRequest');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +144,10 @@ class BannsRecordsController extends RController
 	 */
 	public function actionAdmin()
 	{
-		$model=new BannsRecord('search');
+		$model=new BannsRequest('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BannsRecord']))
-			$model->attributes=$_GET['BannsRecord'];
+		if(isset($_GET['BannsRequest']))
+			$model->attributes=$_GET['BannsRequest'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +158,12 @@ class BannsRecordsController extends RController
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BannsRecord the loaded model
+	 * @return BannsRequest the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BannsRecord::model()->findByPk($id);
+		$model=BannsRequest::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +171,11 @@ class BannsRecordsController extends RController
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param BannsRecord $model the model to be validated
+	 * @param BannsRequest $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='banns-record-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='banns-request-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

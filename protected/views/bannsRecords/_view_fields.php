@@ -1,6 +1,4 @@
 <?php
-/* @var $this BannsRecordsController */
-/* @var $data BannsRecord */
 
 function get_parish($parish) {
 	if (ctype_digit($parish)) {
@@ -10,12 +8,6 @@ function get_parish($parish) {
 	}
 }
 ?>
-
-<div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_name')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_name); ?>
@@ -59,21 +51,3 @@ function get_parish($parish) {
 	<?php echo get_parish($data->bride_parish); ?>
 	<br />
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt1')); ?>:</b>
-	<?php echo CHtml::encode($data->banns_dt1); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt2')); ?>:</b>
-	<?php echo CHtml::encode($data->banns_dt2); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt3')); ?>:</b>
-	<?php echo CHtml::encode($data->banns_dt3); ?>
-	<br />
-
-	*/ ?>
-
-	<?php echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id)) ?>
-
-</div>
