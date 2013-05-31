@@ -23,4 +23,10 @@ $this->menu=array(
 	<?php echo CHtml::link('Confirmation Certificates', array('confirmationCertificate/index')); ?>
 </p><p>
 	<?php echo CHtml::link('Death Certificates', array('deathCertificate/index')); ?>
+</p><p>
+	<?php echo CHtml::link('Banns Request Letters', array('bannsRequest/index')); ?>
+</p><p>
+	<?php echo CHtml::link('Banns Response Letters', array('bannsResponse/index')); ?>
+</p><p>
+	<?php echo CHtml::link('No Impediment Letters', array('noImpedimentLetter/index')); ?>
 </p>

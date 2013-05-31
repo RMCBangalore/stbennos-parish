@@ -70,7 +70,8 @@ class FieldNames extends CActiveRecord
     }
 	
 	public static function value($name, $code) {
-		return FieldNames::values($name)[$code];
+		$fv = FieldNames::values($name);
+		return $fv[$code];
 	}
 
 	/**
