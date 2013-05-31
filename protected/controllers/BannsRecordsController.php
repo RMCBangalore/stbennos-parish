@@ -67,11 +67,33 @@ class BannsRecordsController extends RController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BannsRecord']))
-		{
+		if(isset($_POST['BannsRecord'])) {
 			$model->attributes=$_POST['BannsRecord'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
+		} elseif (isset($_GET['local'])) {
+			$local = $_GET['local'];
+			$sex = ('groom' == $local) ? 1 : 2;
+			if (isset($_POST['member'])) {
+				$mid = $_POST['member'];
+				$member = People::model()->findByPk($mid);
+				$this->render('create',array(
+					'model'=>$model,
+					'local'=>$local,
+					'member'=>$member,
+				));
+			} else {
+				$members = new CActiveDataProvider('People', array(
+					'criteria' => array(
+						'condition' => "sex = $sex"
+					)
+				));
+				$this->render('create',array(
+					'model'=>$model,
+					'members'=>$members,
+				));
+			}
+			return;
 		}
 
 		$this->render('create',array(

@@ -2,13 +2,6 @@
 /* @var $this BannsRecordsController */
 /* @var $data BannsRecord */
 
-function get_parish($parish) {
-	if (ctype_digit($parish)) {
-		return Yii::app()->params['parishName'] . ' (our parish)';
-	} else {
-		return $parish;
-	}
-}
 ?>
 
 <div class="view">
@@ -28,7 +21,7 @@ function get_parish($parish) {
 	<?php if (ctype_digit($data->groom_parish)) { ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
-	<?php echo get_parish($data->groom_parish); ?>
+	<?php echo BannsRecord::get_parish($data->groom_parish); ?>
 	<br />
 
 	<b><?php echo 'Groom DOB' ?>:</b>
@@ -56,8 +49,20 @@ function get_parish($parish) {
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_parish')); ?>:</b>
-	<?php echo get_parish($data->bride_parish); ?>
+	<?php echo BannsRecord::get_parish($data->bride_parish); ?>
 	<br />
+
+	<?php if (ctype_digit($data->bride_parish)) {
+
+		echo '<b>Bride DOB:</b> ';
+		echo CHtml::encode($data->bride()->dob);
+		echo '<br />';
+
+		echo '<b>Bride Baptism Date:</b> ';
+		echo CHtml::encode($data->bride()->baptism_dt);
+		echo '<br />';
+
+	} ?>
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt1')); ?>:</b>

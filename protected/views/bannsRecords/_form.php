@@ -16,39 +16,73 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'groom_parish'); ?>
+		<?php if ('groom' == $local) {
+			echo CHtml::textField('groom_parish_pub', Yii::app()->params['parishName'], array('readonly' => true));
+			echo $form->hiddenField($model,'groom_parish',array('value'=>$member->id));
+		} else {
+			echo $form->textField($model,'groom_parish',array('size'=>50,'maxlength'=>50));
+		} ?>
+		<?php echo $form->error($model,'groom_parish'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'groom_name'); ?>
-		<?php echo $form->textField($model,'groom_name',array('size'=>60,'maxlength'=>100)); ?>
+		<?php
+			$parms = array('size'=>60,'maxlength'=>100);
+			if ('groom' == $local) {
+				$parms['value'] = $member->fullname();
+				$parms['readonly'] = true;
+			}
+			echo $form->textField($model,'groom_name',$parms); ?>
 		<?php echo $form->error($model,'groom_name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groom_parent'); ?>
-		<?php echo $form->textField($model,'groom_parent',array('size'=>60,'maxlength'=>100)); ?>
+		<?php
+			$parms = array('size'=>60,'maxlength'=>100);
+			if ('groom' == $local) {
+				$parms['value'] = $member->getParent()->fullname();
+				$parms['readonly'] = true;
+			}
+			echo $form->textField($model,'groom_parent',$parms); ?>
 		<?php echo $form->error($model,'groom_parent'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'groom_parish'); ?>
-		<?php echo $form->textField($model,'groom_parish',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'groom_parish'); ?>
+		<?php echo $form->labelEx($model,'bride_parish'); ?>
+		<?php if ('bride' == $local) {
+			echo CHtml::textField('bride_parish_pub', Yii::app()->params['parishName'], array('readonly' => true));
+			echo $form->hiddenField($model,'bride_parish',array('value'=>$member->id));
+		} else {
+			echo $form->textField($model,'bride_parish',array('size'=>50,'maxlength'=>50));
+		} ?>
+		<?php echo $form->error($model,'bride_parish'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'bride_name'); ?>
-		<?php echo $form->textField($model,'bride_name',array('size'=>60,'maxlength'=>100)); ?>
+		<?php
+			$parms = array('size'=>60,'maxlength'=>100);
+			if ('bride' == $local) {
+				$parms['value'] = $member->fullname();
+				$parms['readonly'] = true;
+			}
+			echo $form->textField($model,'bride_name',$parms); ?>
 		<?php echo $form->error($model,'bride_name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'bride_parent'); ?>
-		<?php echo $form->textField($model,'bride_parent',array('size'=>60,'maxlength'=>100)); ?>
+		<?php
+			$parms = array('size'=>60,'maxlength'=>100);
+			if ('bride' == $local) {
+				$parms['value'] = $member->getParent()->fullname();
+				$parms['readonly'] = true;
+			}
+			echo $form->textField($model,'bride_parent',$parms); ?>
 		<?php echo $form->error($model,'bride_parent'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'bride_parish'); ?>
-		<?php echo $form->textField($model,'bride_parish',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'bride_parish'); ?>
 	</div>
 
 	<div class="row">

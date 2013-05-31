@@ -128,4 +128,12 @@ class BannsRecord extends CActiveRecord
 			return null;
 		}
 	}
+
+	public static function get_parish($parish) {
+		if (ctype_digit($parish)) {
+			return Yii::app()->params['parishName'] . ' (our parish)';
+		} else {
+			return $parish;
+		}
+	}
 }

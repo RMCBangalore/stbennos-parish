@@ -15,4 +15,11 @@ $this->menu=array(
 
 <h1>Create BannsRecord</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php if (isset($members)) {
+	echo $this->renderPartial('_sel_member', array('model'=>$model, 'members' => $members));
+} elseif (isset($member)) {
+	echo $this->renderPartial('_form', array('model'=>$model, 'member' => $member, 'local' => $local));
+} else {
+	echo $this->renderPartial('_sel_local', array('model'=>$model));
+}
+ ?>

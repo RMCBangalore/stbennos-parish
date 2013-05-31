@@ -187,4 +187,26 @@ class People extends CActiveRecord
 	public function getMarried() {
 		return self::model()->findAll('marriage_dt is not null');
 	}
+
+	public function getParent() {
+		$f = $this->family;
+		if (isset($f->husband_id)) {
+			return $f->husband;
+		} elseif (isset($f->wife_id)) {
+			return $f->wife;
+		}
+		return null;
+	}
+
+	public function fullname() {
+		if (isset($this->fname)) {
+			if (isset($this->lname)) {
+				return $this->fname . " " . $this->lname;
+			} else {
+				return $this->fname;
+			}
+		} else {
+			return $this->lname;
+		}
+	}
 }

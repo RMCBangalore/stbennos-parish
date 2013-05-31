@@ -20,12 +20,8 @@ $this->menu=array(
 
 
 <?php
-if (!isset($model->groom_parish)) {
-	$model->groom_parish = Yii::app()->params['parishName'];
-}
-if (!isset($model->bride_parish)) {
-	$model->bride_parish = Yii::app()->params['parishName'];
-}
+$model->groom_parish = BannsRecord::get_parish($model->groom_parish);
+$model->bride_parish = BannsRecord::get_parish($model->bride_parish);
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
