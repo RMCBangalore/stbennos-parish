@@ -25,4 +25,4 @@ $this->menu=array(
 <?php echo CHtml::encode($model->req_dt); ?>
 <br />
 
-<?php echo CHtml::link('Download Letter', array('viewCert', 'id' => $model->id)) ?>
+<?php echo CHtml::link('Download Letter', array('viewCert', 'id' => $model->id), array('target' => '_blank')) ?>

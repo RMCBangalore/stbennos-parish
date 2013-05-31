@@ -9,9 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_id')); ?>:</b>
-	<?php echo CHtml::encode($data->banns_id); ?>
-	<br />
+	
+	<?php echo $this->renderPartial('../bannsRecords/_view_fields', array('data' => $data->banns)); ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('req_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->req_dt); ?>

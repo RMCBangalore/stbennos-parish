@@ -50,7 +50,7 @@ function get_parish($parish) {
 	<br />
 
 	<?php if (ctype_digit($data->bride_parish)) {
-		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . '>:</b> ';
+		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . ':</b> ';
 		echo get_parish($data->bride_parish);
 		echo '<br />';
 
