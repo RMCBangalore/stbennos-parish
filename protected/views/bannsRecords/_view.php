@@ -80,5 +80,12 @@
 	*/ ?>
 
 	<?php echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id)) ?>
+	<br />
+
+	<?php echo CHtml::link('Create Response', array('bannsResponse/create', 'bid' => $data->id)) ?>
+	<br />
+
+	<?php echo CHtml::link('Create No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $data->id)) ?>
+	<br />
 
 </div>
