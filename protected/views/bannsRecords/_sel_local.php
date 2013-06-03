@@ -18,10 +18,11 @@
 
 	<div class="row">
 		<?php echo CHtml::label('Who is from our parish?', 'local', array('required' => true)); ?>
-		<?php echo CHtml::radioButtonList('local','',array(
+		<?php echo CHtml::dropDownList('local','',array(
 			'bride' => 'Bride',
-			'groom' => 'Groom'
-		)); ?>
+			'groom' => 'Groom',
+			'both'	=> 'Both'
+		), array('size' => 3)); ?>
 	</div>
 
 	<div class="row buttons">

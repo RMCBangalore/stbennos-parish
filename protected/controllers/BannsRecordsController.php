@@ -69,23 +69,50 @@ class BannsRecordsController extends RController
 
 		if(isset($_POST['BannsRecord'])) {
 			$model->attributes=$_POST['BannsRecord'];
-			if($model->save())
+			if($model->save()) {
+				if (Yii::app()->getUser()->hasState('local')) {
+					Yii::app()->getUser()->setState('local', null);
+				}
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		} elseif (isset($_GET['local'])) {
 			$local = $_GET['local'];
-			$sex = ('groom' == $local) ? 1 : 2;
+			if (!Yii::app()->getUser()->hasState('local')) {
+				Yii::trace('Setting session var local', 'application.controllers.BannsRecordsController');
+				Yii::app()->getUser()->setState('local', $local);
+			}
+			$sex = ('bride' == $local) ? 2 : 1;
 			if (isset($_POST['member'])) {
 				$mid = $_POST['member'];
-				$member = People::model()->findByPk($mid);
-				$this->render('create',array(
-					'model'=>$model,
-					'local'=>$local,
-					'member'=>$member,
-				));
+				Yii::trace("Got member $mid", 'application.controllers.BannsRecordsController');
+				if ('both' == Yii::app()->getUser()->getState('local')) {
+					if ('both' == $local) {
+						Yii::app()->getUser()->setState('groom', $mid);
+						Yii::trace("local = $local. Going to redirect", 'application.controllers.BannsRecordsController');
+						$this->redirect(array('create', 'local' => 'bride'));
+					} else {
+						$gid = Yii::app()->getUser()->getState('groom');
+						$groom = People::model()->findByPk($gid);
+						$bride = People::model()->findByPk($mid);
+						$this->render('create',array(
+							'model'	=> $model,
+							'local'	=> 'both',
+							'groom' => $groom,
+							'bride' => $bride,
+						));
+					}
+				} else {
+					$member = People::model()->findByPk($mid);
+					$this->render('create',array(
+						'model'=>$model,
+						'local'=>$local,
+						$local=>$member,
+					));
+				}
 			} else {
 				$members = new CActiveDataProvider('People', array(
 					'criteria' => array(
-						'condition' => "sex = $sex"
+						'condition' => "sex = $sex and role != 'husband' and role != 'wife'"
 					)
 				));
 				$this->render('create',array(
@@ -94,6 +121,8 @@ class BannsRecordsController extends RController
 				));
 			}
 			return;
+		} else {
+			Yii::app()->getUser()->setState('local', null);
 		}
 
 		$this->render('create',array(

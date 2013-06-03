@@ -18,7 +18,7 @@
 	<?php echo CHtml::encode($data->groom_parent); ?>
 	<br />
 
-	<?php if (ctype_digit($data->groom_parish)) { ?>
+	<?php if (ctype_digit($data->groom_parish)) { $local = 'groom' ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
 	<?php echo BannsRecord::get_parish($data->groom_parish); ?>
@@ -54,6 +54,12 @@
 
 	<?php if (ctype_digit($data->bride_parish)) {
 
+		if (isset($local)) {
+			$local = 'both';
+		} else {
+			$local = 'bride';
+		}
+
 		echo '<b>Bride DOB:</b> ';
 		echo CHtml::encode($data->bride()->dob);
 		echo '<br />';
@@ -79,13 +85,13 @@
 
 	*/ ?>
 
-	<?php echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id)) ?>
-	<br />
-
-	<?php echo CHtml::link('Create Response', array('bannsResponse/create', 'bid' => $data->id)) ?>
-	<br />
-
-	<?php echo CHtml::link('Create No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $data->id)) ?>
-	<br />
+	<?php if ('both' != $local) {
+		echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id));
+		echo '<br />';
+		echo CHtml::link('Create Response', array('bannsResponse/create', 'bid' => $data->id));
+		echo '<br />';
+		echo CHtml::link('Create No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $data->id));
+		echo '<br />';
+	} ?>
 
 </div>

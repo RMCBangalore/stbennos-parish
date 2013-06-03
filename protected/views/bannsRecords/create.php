@@ -17,8 +17,15 @@ $this->menu=array(
 
 <?php if (isset($members)) {
 	echo $this->renderPartial('_sel_member', array('model'=>$model, 'members' => $members));
-} elseif (isset($member)) {
-	echo $this->renderPartial('_form', array('model'=>$model, 'member' => $member, 'local' => $local));
+} elseif (isset($local)) {
+	$parms = array('model'=>$model, 'local' => $local);
+	if ('both' == $local) {
+		$parms['bride'] = $bride;
+		$parms['groom'] = $groom;
+	} else {
+		$parms[$local] = ${$local};
+	}
+	echo $this->renderPartial('_form', $parms);
 } else {
 	echo $this->renderPartial('_sel_local', array('model'=>$model));
 }
