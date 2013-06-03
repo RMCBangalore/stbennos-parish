@@ -373,11 +373,11 @@ class FamilyController extends RController
 				}
 				if (function_exists('imagecrop')) { # untested
 					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
-					$scaled = imagescale($cropped, 600);
+					$scaled = imagescale($cropped, 450);
 				} else {
-					$h = $height * 600 / $width;
-					$scaled = imagecreatetruecolor(600, $h);
-					imagecopyresampled($scaled, $img, 0, 0, $x1, $y1, 600, $h, $width, $height);
+					$h = $height * 450 / $width;
+					$scaled = imagecreatetruecolor(450, $h);
+					imagecopyresized($scaled, $img, 0, 0, $x1, $y1, 450, $h, $width, $height);
 				}
 				$dir = './images/families/';
 				$fname = preg_replace('/\.[a-z]+$/i', '', $pfile);
@@ -389,7 +389,7 @@ class FamilyController extends RController
 					}
 				}
 				$dest = $dir . $fname . $fext;
-				imagejpeg($scaled, $dest, 90);
+				imagejpeg($scaled, $dest, 85);
 				imagedestroy($scaled);
 				imagedestroy($img);
 				unlink($sdir . $pfile); 
