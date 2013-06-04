@@ -20,18 +20,30 @@ $this->menu=array(
 <h1>View Family #<?php echo $model->id; ?></h1>
 
 <?php
+	echo '<table><tr><td>';
 	if ($model->photo) {
 		$src = Yii::app()->request->baseUrl . '/images/families/' . $model->photo;
 		$alt = "Family photo";
 		list($width, $height) = getimagesize("./images/families/" . $model->photo);
 		echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
-		echo "<p>";
 		echo CHtml::link('Update Photo', array('photo', 'id'=>$model->id));
 	} else {
-		echo "<p>";
 		echo CHtml::link('Upload Photo', array('photo', 'id'=>$model->id));
 	}
-	echo "</p>";
+	echo '</td><td>';
+
+	if (isset($model->gmap_url)) {
+		$gmurl = $model->gmap_url;
+		echo "<iframe width=\"300\" height=\"275\" frameborder=\"0\" scrolling=\"no\"" .
+			" marginheight=\"0\" marginwidth=\"0\" src=\"$gmurl\"></iframe>" .
+			"<br /><small><a href=\"$gmurl\" style=\"color:#0000FF;text-align:left\">" .
+			"View Larger Map</a></small>";
+		echo '<br />' . CHtml::link('Change location', array('locate', 'id' => $model->id));
+	} else {
+		echo CHtml::link('Locate on Google maps', array('locate', 'id' => $model->id));
+	}
+
+	echo '</td></tr></table>';
 
 	$husband = $model->husband;
 	$wife = $model->wife;
@@ -97,6 +109,7 @@ $this->menu=array(
 		}
 	}
 ?>
+
     <?php $this->widget('CTabView',array(
     'tabs'=>$tabs
 	)); ?>

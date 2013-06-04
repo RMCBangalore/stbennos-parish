@@ -5,8 +5,6 @@
 
 <div class="view">
 
-<td>
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
@@ -78,19 +76,5 @@
 
 	*/ ?>
 
-</td>
-
-<td>
-	<?php if (isset($data->gmap_url)) {
-		$gmurl = $data->gmap_url;
-		echo "<iframe width=\"425\" height=\"300\" frameborder=\"0\" scrolling=\"no\"" .
-			" marginheight=\"0\" marginwidth=\"0\" src=\"$gmurl\"></iframe>" .
-			"<br /><small><a href=\"$gmurl\" style=\"color:#0000FF;text-align:left\">" .
-			"View Larger Map</a></small>";
-		echo '<br />' . CHtml::link('Change location', array('locate', 'id' => $data->id));
-	} else {
-		echo CHtml::link('Locate on Google maps', array('locate', 'id' => $data->id));
-	} ?>
-</td>
 
 </div>

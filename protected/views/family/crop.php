@@ -52,17 +52,17 @@ $this->breadcrumbs=array(
 
 <script>
 <?php
-	$x1 = $width / 2 - 225;
-	$y1 = $height / 2 - 150;
-	$x2 = $x1 + 450;
-	$y2 = $y1 + 300;
+	$x1 = $width / 2 - 200;
+	$y1 = $height / 2 - 138;
+	$x2 = $x1 + 400;
+	$y2 = $y1 + 275;
 ?>
 $('#photo').imgAreaSelect( {
 	x1: <?php echo $x1 ?>,
 	y1: <?php echo $y1 ?>,
 	x2: <?php echo $x2 ?>,
 	y2: <?php echo $y2 ?>,
-	aspectRatio: '3:2',
+	aspectRatio: '16:11',
 	handles: true,
 	onSelectEnd: function(img, selection) {
 		var zoom = $('#zoom').val();
