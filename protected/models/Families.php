@@ -66,6 +66,7 @@ class Families extends CActiveRecord
 			array('marriage_date, bpl_card', 'safe'),
 			array('marriage_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
+			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, yr_reg, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
@@ -98,7 +99,7 @@ class Families extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'fid' => 'Family Id',
-			'addr_nm' => 'House Name / Number',
+			'addr_nm' => 'House No./Name',
 			'addr_stt' => 'Street Address',
 			'addr_area' => 'Area',
 			'addr_pin' => 'Pin Code',
@@ -106,6 +107,7 @@ class Families extends CActiveRecord
 			'mobile' => 'Mobile',
 			'email' => 'Email',
 			'zone' => 'Zone',
+			'gmap_url' => 'Google maps URL',
 			'yr_reg' => 'Year of Registration',
 			'bpl_card' => 'Bpl Card',
 			'marriage_church' => 'Marriage Church',

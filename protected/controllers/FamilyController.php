@@ -145,6 +145,24 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionLocate($id)
+	{
+		$model = $this->loadModel($id);
+
+		if (isset($_POST['Families'])) {
+			$gmurl = $_POST['Families']['gmap_url'];
+			$gmurl = preg_replace('/&/', '&amp;', $gmurl);
+			$gmurl .= "&amp;output=embed";
+			$model->gmap_url = $gmurl;
+			if ($model->save()) {
+				$this->redirect(array('view','id'=>$model->id));
+			}
+		}
+
+		$this->render('locate',array(
+			'model'=>$model,
+		));
+	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
