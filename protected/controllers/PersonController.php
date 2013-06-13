@@ -302,6 +302,20 @@ class PersonController extends RController
 		if(isset($_GET['People']))
 			$model->attributes=$_GET['People'];
 
+		if( isset( $_GET[ 'export' ] ) )
+		{
+			header( "Content-Type: text/tsv; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"people-report.tsv\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+            foreach( $dataProvider->data as $data )
+				echo $data->id, "\t", $data->fname, "\t", $data->lname, "\t", $data->dob, "\n";
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));

@@ -17,9 +17,9 @@ $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
-$('.search-form form').submit(function(){
+$('#submit-button').click(function(){
 	$('#people-grid').yiiGridView('update', {
-		data: $(this).serialize()
+		data: $('.search-form form').serialize()
 	});
 	return false;
 });
@@ -44,6 +44,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'people-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'ajaxUpdate'=>false,
 	'columns'=>array(
 		'id',
 		'fname',
