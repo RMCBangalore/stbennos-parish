@@ -181,7 +181,7 @@ class FamilyController extends RController
 
 		switch ($step) {
 		case 1:
-//			$this->performAjaxValidation($model);
+			$this->performAjaxValidation($model);
 			if (isset($_POST['Families'])) {
 				$model->attributes=$_POST['Families'];
 				if ($model->save()) {
@@ -222,6 +222,7 @@ class FamilyController extends RController
 					$p = new People();
 					$cur_model = $p;
 					$p->attributes = $_POST['People']['dependent'][$i];
+					$this->performAjaxValidation($p);
 					$p->family_id = $model->id;
 					$p->role = 'dependent';
 					if ($p->save()) {
@@ -239,6 +240,7 @@ class FamilyController extends RController
 					$p = new People();
 					$cur_model = $p;
 					$p->attributes = $_POST['People']['child'][$i];
+					$this->performAjaxValidation($p);
 					$p->family_id = $model->id;
 					$p->role = 'child';
 					if ($p->save()) {
@@ -340,7 +342,7 @@ class FamilyController extends RController
 							$save_it = true;
 						}
 						break;
-						case 'wife': if (!isset($model->husband_id)) {
+						case 'wife': if (!isset($model->wife_id)) {
 							$model->wife_id = $parent->id;
 							$save_it = true;
 						}
