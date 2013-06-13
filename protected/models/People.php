@@ -71,6 +71,7 @@ class People extends CActiveRecord
 			array('education, baptism_place', 'length', 'max'=>15),
 			array('mobile, role', 'length', 'max'=>10),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 150, 'maxHeight' => 200, 'on' => 'photo'),
+			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'safe'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
@@ -81,7 +82,43 @@ class People extends CActiveRecord
 	}
 
 	public function getAge() {
-		return (strtotime('now') - strtotime($this->dob)) / (60*60*24*365.2425);
+		return $this->dob ? (strtotime('now') - strtotime($this->dob)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setAge($val) {
+		$this->age = $val;
+	}
+
+	public function getBaptised_yrs() {
+		return $this->baptism_dt ? (strtotime('now') - strtotime($this->baptism_dt)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setBaptised_yrs($val) {
+		$this->baptised_yrs = $val;
+	}
+
+	public function getFirst_comm_yrs() {
+		return $this->first_comm_dt ? (strtotime('now') - strtotime($this->first_comm_dt)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setFirst_comm_yrs($val) {
+		$this->first_comm_yrs = $val;
+	}
+
+	public function getConfirmation_yrs() {
+		return $this->confirmation_dt ? (strtotime('now') - strtotime($this->confirmation_dt)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setConfirmation_yrs($val) {
+		$this->confirmation_yrs = $val;
+	}
+
+	public function getMarriage_yrs() {
+		return $this->marriage_dt ? (strtotime('now') - strtotime($this->marriage_dt)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setMarriage_yrs($val) {
+		$this->marriage_yrs = $val;
 	}
 
 	/**
@@ -119,17 +156,48 @@ class People extends CActiveRecord
 			'lang_edu' => 'Language of Education',
 			'rite' => 'Rite',
 			'baptism_dt' => 'Baptism Date',
+			'baptised_yrs' => 'Baptised Years',
 			'baptism_church' => 'Baptism Church',
 			'baptism_place' => 'Baptism Place',
 			'god_parents' => 'God Parents',
 			'first_comm_dt' => 'First Communion Date',
+			'first_comm_yrs' => 'First Communion Years',
 			'confirmation_dt' => 'Confimation Date',
+			'confirmation_yrs' => 'Confimation Years',
 			'marriage_dt' => 'Marriage Date',
+			'marriage_yrs' => 'Marriage Years',
 			'cemetery_church' => 'Cemetery Church',
 			'family_id' => 'Family',
 			'role' => 'Role',
 			'special_skill' => 'Special Skill',
 		);
+	}
+
+	protected function date_search($criteria, $dt_col, $yr_col) {
+		$yr_val = $this->$yr_col;
+		Yii::trace("P.search by $yr_col", 'application.models.People');
+		if (preg_match('/^(\d+)-(\d+)$/', $yr_val, $matches) or preg_match('/^(\d+)\.\.(\d+)$/', $yr_val, $matches)) {
+			$lim_max = "" . (date_format(new DateTime('now'), 'Y') - $matches[1])
+						. date_format(new DateTime('now'), '-m-d');
+			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[2])
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $yr_col bw {$matches[1]} and {$matches[2]}", 'application.models.People');
+			Yii::trace("P.search $dt_col bw $lim_min and $lim_max", 'application.models.People');
+			$criteria->condition = "$dt_col between '$lim_min' and '$lim_max'";
+		} elseif (preg_match('/^(>|<|<=|>=|<>)(\d+)$/', $yr_val, $matches)) {
+			if (preg_match('/^[<=]+$/', $matches[1])) {
+				$sgn = preg_replace('/</', '>', $matches[1]);
+			} elseif (preg_match('/^[>=]+$/', $matches[1])) {
+				$sgn = preg_replace('/>/', '<', $matches[1]);
+			} else {
+				$sgn = $matches[1];
+			}
+
+			$lim = "" . (date_format(new DateTime('now'), 'Y') - $matches[2])
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $dt_col $sgn $lim", 'application.models.People');
+			$criteria->condition = "$dt_col $sgn '$lim'";
+		}
 	}
 
 	/**
@@ -149,7 +217,9 @@ class People extends CActiveRecord
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('domicile_status',$this->domicile_status,true);
 		$criteria->compare('dob',$this->dob,true);
-#		$criteria->compare('age',$this->age);
+		if (isset($this->age)) {
+			$this->date_search($criteria, 'dob', 'age');
+		}
 		$criteria->compare('education',$this->education,true);
 		$criteria->compare('profession',$this->profession,true);
 		$criteria->compare('occupation',$this->occupation,true);
@@ -160,12 +230,24 @@ class People extends CActiveRecord
 		$criteria->compare('lang_edu',$this->lang_edu,true);
 		$criteria->compare('rite',$this->rite,true);
 		$criteria->compare('baptism_dt',$this->baptism_dt,true);
+		if (isset($this->baptised_yrs)) {
+			$this->date_search($criteria, 'baptism_dt', 'baptised_yrs');
+		}
 		$criteria->compare('baptism_church',$this->baptism_church,true);
 		$criteria->compare('baptism_place',$this->baptism_place,true);
 		$criteria->compare('god_parents',$this->god_parents,true);
 		$criteria->compare('first_comm_dt',$this->first_comm_dt,true);
+		if (isset($this->first_comm_yrs)) {
+			$this->date_search($criteria, 'first_comm_dt', 'first_comm_yrs');
+		}
 		$criteria->compare('confirmation_dt',$this->confirmation_dt,true);
+		if (isset($this->confirmation_yrs)) {
+			$this->date_search($criteria, 'confirmation_dt', 'confirmation_yrs');
+		}
 		$criteria->compare('marriage_dt',$this->marriage_dt,true);
+		if (isset($this->marriage_yrs)) {
+			$this->date_search($criteria, 'marriage_dt', 'marriage_yrs');
+		}
 		$criteria->compare('cemetery_church',$this->cemetery_church,true);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('role',$this->role,true);

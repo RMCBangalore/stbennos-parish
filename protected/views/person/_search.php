@@ -37,8 +37,16 @@
 	</div>
 
 	<div class="row">
+		<table><tr>
+		<td>
 		<?php echo $form->label($model,'dob'); ?>
 		<?php echo $form->textField($model,'dob'); ?>
+		</td>
+		<td>
+		<?php echo $form->label($model, 'age'); ?>
+		<?php echo $form->textField($model,'age',array('size'=>4,'maxlength'=>8)); ?>
+		</td>
+		</tr></table>
 	</div>
 
 	<div class="row">
@@ -87,8 +95,16 @@
 	</div>
 
 	<div class="row">
+		<table><tr>
+		<td>
 		<?php echo $form->label($model,'baptism_dt'); ?>
 		<?php echo $form->textField($model,'baptism_dt'); ?>
+		</td>
+		<td>
+		<?php echo $form->label($model, 'baptised_yrs'); ?>
+		<?php echo $form->textField($model,'baptised_yrs',array('size'=>4,'maxlength'=>8)); ?>
+		</td>
+		</tr></table>
 	</div>
 
 	<div class="row">
@@ -107,18 +123,39 @@
 	</div>
 
 	<div class="row">
+		<table><tr>
+		<td>
 		<?php echo $form->label($model,'first_comm_dt'); ?>
 		<?php echo $form->textField($model,'first_comm_dt'); ?>
+		</td><td>
+		<?php echo $form->label($model, 'first_comm_yrs'); ?>
+		<?php echo $form->textField($model,'first_comm_yrs',array('size'=>4,'maxlength'=>8)); ?>
+		</td></tr>
+		</table>
 	</div>
 
 	<div class="row">
+		<table>
+		<tr><td>
 		<?php echo $form->label($model,'confirmation_dt'); ?>
 		<?php echo $form->textField($model,'confirmation_dt'); ?>
+		</td><td>
+		<?php echo $form->label($model, 'confirmation_yrs'); ?>
+		<?php echo $form->textField($model,'confirmation_yrs',array('size'=>4,'maxlength'=>8)); ?>
+		</td></tr>
+		</table>
 	</div>
 
 	<div class="row">
+		<table>
+		<tr><td>
 		<?php echo $form->label($model,'marriage_dt'); ?>
 		<?php echo $form->textField($model,'marriage_dt'); ?>
+		</td><td>
+		<?php echo $form->label($model, 'marriage_yrs'); ?>
+		<?php echo $form->textField($model,'marriage_yrs',array('size'=>4,'maxlength'=>8)); ?>
+		</td></tr>
+		</table>
 	</div>
 
 	<div class="row">
