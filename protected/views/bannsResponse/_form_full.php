@@ -13,7 +13,7 @@
 	<?php if (ctype_digit($data->groom_parish)) { ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
-	<?php echo get_parish($data->groom_parish); ?>
+	<?php echo BannsRecord::get_parish($data->groom_parish); ?>
 	<br />
 
 	<b><?php echo 'Groom DOB' ?>:</b>
@@ -55,7 +55,7 @@
 
 	} else {
 		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . ':</b> ';
-		echo get_parish($data->bride_parish);
+		echo BannsRecord::get_parish($data->bride_parish);
 		echo '<br />';
 	} ?>
 

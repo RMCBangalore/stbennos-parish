@@ -1,5 +1,6 @@
 *.sw?
 *.bk
+assets/*
 images/members/*
 !images/members/.exists
 images/families/*
