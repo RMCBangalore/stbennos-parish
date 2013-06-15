@@ -23,9 +23,9 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->dropDownList($model,'type', array('yesno' => 'yesno',
-			 'string' => 'string',
-			 'integer' => 'integer')); ?>
+		<?php echo $form->dropDownList($model,'type', array('yesno' => 'Yes/No',
+			 'string' => 'Text',
+			 'integer' => 'Number')); ?>
 		<?php echo $form->error($model,'type'); ?>
 	</div>
 

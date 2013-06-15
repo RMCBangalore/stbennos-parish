@@ -67,9 +67,9 @@ class OpenQuestion extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
+			'text' => 'Question Text',
 			'type' => 'Type',
-			'seq'  => 'Sequence',
+			'seq'  => 'Sequence No.',
 		);
 	}
 
