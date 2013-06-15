@@ -205,4 +205,8 @@ class Families extends CActiveRecord
 		}
 		return $satisfactionData;
 	}
+
+	public function head() {
+		return isset($this->husband_id) ? $this->husband : $this->wife;
+	}
 }

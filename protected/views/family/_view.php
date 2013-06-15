@@ -13,6 +13,13 @@
 	<?php echo CHtml::encode($data->fid); ?>
 	<br />
 
+	<?php if ($data->head()) {
+		$head = $data->head();
+		echo '<b>' . CHtml::encode('Family head') . ':</b> ';
+		echo CHtml::encode($head->fullname());
+		echo '<br />';
+	} ?>
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('addr_nm')); ?>:</b>
 	<?php echo CHtml::encode($data->addr_nm); ?>
 	<br />
