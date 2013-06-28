@@ -179,11 +179,11 @@ class People extends CActiveRecord
 		if (preg_match('/^(\d+)-(\d+)$/', $yr_val, $matches) or preg_match('/^(\d+)\.\.(\d+)$/', $yr_val, $matches)) {
 			$lim_max = "" . (date_format(new DateTime('now'), 'Y') - $matches[1])
 						. date_format(new DateTime('now'), '-m-d');
-			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[2])
+			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[2] - 1)
 						. date_format(new DateTime('now'), '-m-d');
 			Yii::trace("P.search $yr_col bw {$matches[1]} and {$matches[2]}", 'application.models.People');
 			Yii::trace("P.search $dt_col bw $lim_min and $lim_max", 'application.models.People');
-			$criteria->condition = "$dt_col between '$lim_min' and '$lim_max'";
+			$criteria = $criteria->addCondition("$dt_col between '$lim_min' and '$lim_max'");
 		} elseif (preg_match('/^(>|<|<=|>=|<>)(\d+)$/', $yr_val, $matches)) {
 			if (preg_match('/^[<=]+$/', $matches[1])) {
 				$sgn = preg_replace('/</', '>', $matches[1]);
@@ -196,7 +196,15 @@ class People extends CActiveRecord
 			$lim = "" . (date_format(new DateTime('now'), 'Y') - $matches[2])
 						. date_format(new DateTime('now'), '-m-d');
 			Yii::trace("P.search $dt_col $sgn $lim", 'application.models.People');
-			$criteria->condition = "$dt_col $sgn '$lim'";
+			$criteria = $criteria->addCondition("$dt_col $sgn '$lim'");
+		} elseif (preg_match('/^(\d+)$/', $yr_val, $matches)) {
+			$lim_max = "" . (date_format(new DateTime('now'), 'Y') - $matches[1])
+						. date_format(new DateTime('now'), '-m-d');
+			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[1] - 1)
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $yr_col = {$matches[1]} years", 'application.models.People');
+			Yii::trace("P.search $dt_col bw $lim_min and $lim_max", 'application.models.People');
+			$criteria = $criteria->addCondition("$dt_col between '$lim_min' and '$lim_max'");
 		}
 	}
 

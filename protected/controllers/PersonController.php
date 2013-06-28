@@ -304,8 +304,8 @@ class PersonController extends RController
 
 		if( isset( $_GET[ 'export' ] ) )
 		{
-			header( "Content-Type: text/tsv; charset=utf-8" );
-			header( "Content-Disposition: inline; filename=\"people-report.tsv\"" );
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"people-report.xls\"" );
 
 			$dataProvider = $model->search();
 			$dataProvider->pagination = false;

@@ -28,19 +28,30 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'sex'); ?>
-		<?php echo $form->textField($model,'sex',array('size'=>6,'maxlength'=>6)); ?>
+		<?php echo $form->dropDownList($model,'sex',FieldNames::values('sex'),array('prompt' => '--- Select ---')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'domicile_status'); ?>
-		<?php echo $form->textField($model,'domicile_status',array('size'=>4,'maxlength'=>4)); ?>
+		<?php echo $form->dropDownList($model,'domicile_status',FieldNames::values('domicile_status'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
 		<table><tr>
 		<td>
 		<?php echo $form->label($model,'dob'); ?>
-		<?php echo $form->textField($model,'dob'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'dob',
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		</td>
 		<td>
 		<?php echo $form->label($model, 'age'); ?>
@@ -51,7 +62,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'education'); ?>
-		<?php echo $form->textField($model,'education',array('size'=>15,'maxlength'=>15)); ?>
+		<?php echo $form->dropDownList($model,'education',FieldNames::values('education'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
@@ -76,29 +87,40 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'lang_pri'); ?>
-		<?php echo $form->textField($model,'lang_pri',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'lang_pri',FieldNames::values('languages'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'lang_lit'); ?>
-		<?php echo $form->textField($model,'lang_lit',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'lang_lit',FieldNames::values('languages'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'lang_edu'); ?>
-		<?php echo $form->textField($model,'lang_edu',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'lang_edu',FieldNames::values('languages'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'rite'); ?>
-		<?php echo $form->textField($model,'rite',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'rite',FieldNames::values('rite'),array('prompt' => '--- Select ---')); ?>
 	</div>
 
 	<div class="row">
 		<table><tr>
 		<td>
 		<?php echo $form->label($model,'baptism_dt'); ?>
-		<?php echo $form->textField($model,'baptism_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'baptism_dt',
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		</td>
 		<td>
 		<?php echo $form->label($model, 'baptised_yrs'); ?>
@@ -126,7 +148,18 @@
 		<table><tr>
 		<td>
 		<?php echo $form->label($model,'first_comm_dt'); ?>
-		<?php echo $form->textField($model,'first_comm_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "first_comm_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		</td><td>
 		<?php echo $form->label($model, 'first_comm_yrs'); ?>
 		<?php echo $form->textField($model,'first_comm_yrs',array('size'=>4,'maxlength'=>8)); ?>
@@ -138,7 +171,18 @@
 		<table>
 		<tr><td>
 		<?php echo $form->label($model,'confirmation_dt'); ?>
-		<?php echo $form->textField($model,'confirmation_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "confirmation_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		</td><td>
 		<?php echo $form->label($model, 'confirmation_yrs'); ?>
 		<?php echo $form->textField($model,'confirmation_yrs',array('size'=>4,'maxlength'=>8)); ?>
@@ -150,7 +194,18 @@
 		<table>
 		<tr><td>
 		<?php echo $form->label($model,'marriage_dt'); ?>
-		<?php echo $form->textField($model,'marriage_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "marriage_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 		</td><td>
 		<?php echo $form->label($model, 'marriage_yrs'); ?>
 		<?php echo $form->textField($model,'marriage_yrs',array('size'=>4,'maxlength'=>8)); ?>
@@ -170,7 +225,7 @@
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search', array('id' => 'submit-button')); ?>
-		<?php echo CHtml::submitButton('Export to TSV', array('name' => 'export')); ?>
+		<?php echo CHtml::submitButton('Excel Export', array('name' => 'export')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
