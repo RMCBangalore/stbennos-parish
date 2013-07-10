@@ -94,6 +94,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'parishName' => 'Holy Redeemer Church',
+		'massBookAmt' => 100,
 		'photoManip' => extension_loaded('gd'),
 	),
 );
