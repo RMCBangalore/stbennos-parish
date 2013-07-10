@@ -20,6 +20,17 @@
 		echo '<br />';
 	} ?>
 
+	<?php
+		echo '<b>' . CHtml::encode('Children') . ':</b> ';
+		echo CHtml::encode(count($data->children()));
+		echo '<br />';
+
+	if ($data->dependents()) {
+		echo '<b>' . CHtml::encode('Dependents') . ':</b> ';
+		echo CHtml::encode(count($data->dependents()));
+		echo '<br />';
+	} ?>
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('addr_nm')); ?>:</b>
 	<?php echo CHtml::encode($data->addr_nm); ?>
 	<br />

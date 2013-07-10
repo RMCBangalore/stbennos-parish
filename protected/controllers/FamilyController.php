@@ -516,6 +516,30 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionDependents($id) {
+		$model = $this->loadModel($id);
+		
+		if (isset($_POST['People']['dependent'])) {
+			for($i = 0; $i < 10; ++$i) {
+				if (isset($_POST['People']['dependent'][$i])) {
+					if ($pid = $_POST['People']['dependent'][$i]['id']) {
+						$p = People::model()->findByPk($pid);
+					} else {
+						$p = new People();
+					}
+					$p->attributes = $_POST['People']['dependent'][$i];
+					$p->family_id = $model->id;
+					$p->role = 'dependent';
+					$p->save();
+				}
+			}
+		}
+
+		$this->render('dependents',array(
+			'model'=>$model,
+		));
+	}
+
 	public function actionSurvey($id) {
 		$model = $this->loadModel($id);
 
