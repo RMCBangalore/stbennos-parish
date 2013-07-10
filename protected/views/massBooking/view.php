@@ -22,9 +22,13 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'mass_dt',
 		'mass_id',
 		'booked_by',
 		'intention',
 		'trans_id',
 	),
 )); ?>
+
+<?php echo CHtml::link('Download Receipt', array('viewCert', 'id'=>$model->id), array('target' => '_blank')) ?>
+

@@ -94,6 +94,9 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'parishName' => 'Holy Redeemer Church',
+		'parishAddr' => array('28/1, Hennur Road,',
+			 'Kalyan Nagar PO,',
+			 'Bangalore - 560043'),
 		'massBookAmt' => 100,
 		'photoManip' => extension_loaded('gd'),
 	),

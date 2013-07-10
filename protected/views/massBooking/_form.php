@@ -52,9 +52,14 @@
 	</div>
 
 	<div class="row">
+	<td>
+	</td><td>
 		<?php echo $form->labelEx($model,'intention'); ?>
-		<?php echo $form->textField($model,'intention',array('size'=>60,'maxlength'=>99)); ?>
+		<?php echo $form->dropDownList($model,'type',array('R.I.P'=>'R.I.P','Anniversary'=>'Anniversary','Thanksgiving'=>'Thanksgiving')); ?>
+		<?php echo $form->error($model,'type'); ?>
+		<?php echo $form->textField($model,'intention',array('size'=>50,'maxlength'=>99)); ?>
 		<?php echo $form->error($model,'intention'); ?>
+	</td>
 	</div>
 
 	<div class="row buttons">

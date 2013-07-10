@@ -10,6 +10,7 @@
  * @property string $intention
  * @property integer $trans_id
  * @property string $mass_dt
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property Masses $mass
@@ -45,10 +46,11 @@ class MassBooking extends CActiveRecord
 		return array(
 			array('mass_id, trans_id', 'numerical', 'integerOnly'=>true),
 			array('booked_by, intention', 'length', 'max'=>99),
+			array('type', 'length', 'max'=>20),
 			array('mass_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, mass_id, booked_by, intention, trans_id, mass_dt', 'safe', 'on'=>'search'),
+			array('id, mass_id, booked_by, intention, trans_id, mass_dt, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +79,7 @@ class MassBooking extends CActiveRecord
 			'intention' => 'Intention',
 			'trans_id' => 'Trans',
 			'mass_dt' => 'Mass Dt',
+			'type' => 'Type',
 		);
 	}
 
@@ -97,6 +100,7 @@ class MassBooking extends CActiveRecord
 		$criteria->compare('intention',$this->intention,true);
 		$criteria->compare('trans_id',$this->trans_id);
 		$criteria->compare('mass_dt',$this->mass_dt,true);
+		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
