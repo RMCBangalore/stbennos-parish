@@ -22,6 +22,10 @@ body
 	border-top: 3px solid #C9E0ED;
 }
 
+#google_translate_element {
+	float: right;
+}
+
 #content
 {
     padding: 20px;
