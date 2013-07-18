@@ -6,7 +6,7 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'type' => $_GET['type'])); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('field_id')); ?>:</b>

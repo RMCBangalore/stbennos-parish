@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List FieldValues', 'url'=>array('index')),
-	array('label'=>'Create FieldValues', 'url'=>array('create')),
-	array('label'=>'Update FieldValues', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'List FieldValues', 'url'=>array('index', 'type' => $_GET['type'])),
+	array('label'=>'Create FieldValues', 'url'=>array('create', 'type' => $_GET['type'])),
+	array('label'=>'Update FieldValues', 'url'=>array('update', 'id'=>$model->id, 'type' => $_GET['type'])),
 	array('label'=>'Delete FieldValues', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage FieldValues', 'url'=>array('admin')),
+	array('label'=>'Manage FieldValues', 'url'=>array('admin', 'type' => $_GET['type'])),
 );
 ?>
 

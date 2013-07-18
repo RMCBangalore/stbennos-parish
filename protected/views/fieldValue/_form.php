@@ -15,11 +15,16 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'field_id'); ?>
-		<?php echo $form->textField($model,'field_id'); ?>
-		<?php echo $form->error($model,'field_id'); ?>
-	</div>
+	<?php if ($_GET['type']) {
+		$field = FieldNames::model()->findByAttributes(array('name' => $_GET['type']));
+		echo $form->hiddenField($model, 'field_id', array('value' => $field->id));
+	} else {
+		echo '<div class="row">';
+		echo $form->labelEx($model,'field_id');
+		echo $form->textField($model,'field_id');
+		echo $form->error($model,'field_id');
+		echo "</div>";
+	} ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>

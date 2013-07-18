@@ -7,12 +7,14 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
+$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+
 $this->menu=array(
-	array('label'=>'List FieldValues', 'url'=>array('index')),
-	array('label'=>'Manage FieldValues', 'url'=>array('admin')),
+	array('label'=>"List $lbl", 'url'=>array('index', 'type' => $_GET['type'])),
+	array('label'=>"Manage $lbl", 'url'=>array('admin', 'type' => $_GET['type'])),
 );
 ?>
 
-<h1>Create FieldValues</h1>
+<h1>Create <?php echo $lbl ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

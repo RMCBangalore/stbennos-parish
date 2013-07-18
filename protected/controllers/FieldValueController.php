@@ -120,9 +120,18 @@ class FieldValueController extends RController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($type)
 	{
-		$dataProvider=new CActiveDataProvider('FieldValues');
+		$field = FieldNames::model()->findByAttributes(array(
+					'name' => $type
+				));
+
+		$dataProvider = new CActiveDataProvider('FieldValues', array(
+							'criteria' => array(
+								'condition' => "field_id = " . $field->id
+							)
+						));
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -131,10 +140,15 @@ class FieldValueController extends RController
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($type)
 	{
+		$field = FieldNames::model()->findByAttributes(array(
+					'name' => $type
+				));
+
 		$model=new FieldValues('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->field_id = $field->id;
 		if(isset($_GET['FieldValues']))
 			$model->attributes=$_GET['FieldValues'];
 

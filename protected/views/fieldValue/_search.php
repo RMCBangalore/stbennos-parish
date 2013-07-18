@@ -11,10 +11,7 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'field_id'); ?>
-		<?php echo $form->textField($model,'field_id'); ?>
-	</div>
+		<?php echo $form->hiddenField($model,'field_id'); ?>
 
 	<div class="row">
 		<?php echo $form->label($model,'id'); ?>

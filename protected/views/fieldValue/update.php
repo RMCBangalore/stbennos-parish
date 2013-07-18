@@ -8,14 +8,16 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
+$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+
 $this->menu=array(
-	array('label'=>'List FieldValues', 'url'=>array('index')),
-	array('label'=>'Create FieldValues', 'url'=>array('create')),
-	array('label'=>'View FieldValues', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage FieldValues', 'url'=>array('admin')),
+	array('label'=>"List $lbl", 'url'=>array('index', 'type' => $_GET['type'])),
+	array('label'=>"Create $lbl", 'url'=>array('create', 'type' => $_GET['type'])),
+	array('label'=>"View $lbl", 'url'=>array('view', 'id'=>$model->id, 'type' => $_GET['type'])),
+	array('label'=>"Manage $lbl", 'url'=>array('admin', 'type' => $_GET['type'])),
 );
 ?>
 
-<h1>Update FieldValues <?php echo $model->id; ?></h1>
+<h1>Update <?php echo $lbl . " " . $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

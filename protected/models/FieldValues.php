@@ -71,7 +71,7 @@ class FieldValues extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'code' => 'Code',
-			'pos' => 'Pos',
+			'pos' => 'Position',
 		);
 	}
 

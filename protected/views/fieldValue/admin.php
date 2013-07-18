@@ -7,9 +7,11 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
+$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+
 $this->menu=array(
-	array('label'=>'List FieldValues', 'url'=>array('index')),
-	array('label'=>'Create FieldValues', 'url'=>array('create')),
+	array('label'=>"List $lbl", 'url'=>array('index', 'type' => $_GET['type'])),
+	array('label'=>"Create $lbl", 'url'=>array('create', 'type' => $_GET['type'])),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +28,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Field Values</h1>
+<h1>Manage <?php echo $lbl ?></h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -45,13 +47,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'field_id',
 		'id',
 		'name',
 		'code',
 		'pos',
 		array(
 			'class'=>'CButtonColumn',
+			'viewButtonUrl'=>'Yii::app()->createUrl("/fieldValue/view", array("id" => $data->id, "type" => $_GET["type"]))',
+			'updateButtonUrl'=>'Yii::app()->createUrl("/fieldValue/update", array("id" => $data->id, "type" => $_GET["type"]))',
+			'deleteButtonUrl'=>'Yii::app()->createUrl("/fieldValue/delete", array("id" => $data->id, "type" => $_GET["type"]))'
 		),
 	),
 )); ?>
