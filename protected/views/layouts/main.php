@@ -58,7 +58,6 @@ function googleTranslateElementInit() {
 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?>, Redemptorist Media Center.<br/>
-		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
 </div><!-- page -->

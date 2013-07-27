@@ -11,6 +11,10 @@
 1. [How do I add a photo for a family?](#family-photo)
 1. [How do I add a photo for a person?](#member-photo)
 1. [How do I add a Google map for a family?](#google-map)
+1. [What kind of registers are available?](#register-types)
+1. [How do I create an entry in a register?](#registers)
+1. [What kind of certificates are available?](#certificate-types)
+1. [How do I create a sacramental certificate (baptism / first communion / confirmation / marriage)?](#certificates)
 
 ## FAQ - Answers ##
 
@@ -110,6 +114,58 @@
 	In another tab, open [Google maps](http://maps.google.com) and locate the address.
 	Click the Share link (anchor) and copy the URL.
 	Paste the URL in the St. Benno's textarea and click "Save".
+
+  [Top](#index)
+
+1. <a id="register-types"></a>What kind of registers are available?
+
+	Registers are available for the sacraments, death and banns:
+
+	  1. Marriage register
+	  1. Baptism register
+	  1. First Communion register
+	  1. Confirmation register
+	  1. Death register
+	  1. Banns register
+
+	&nbsp;
+
+  [Top](#index)
+
+1. <a id="registers"></a>How do I create an entry in a register?
+
+	Go to "Home" and click "Manage Registers".
+	Now, click the link to the relevant register.
+	In the right sidebar, click the "Create Sacrament Record" link, e.g "Create BaptismRecord".
+  Fill the form and click "Create" to create an entry in the register.
+
+  [Top](#index)
+
+1. <a id="certificate-types"></a>What kind of certificates are available?
+
+	Certificates are available based on different registers:
+
+	  1. Marriage Certificates
+	  1. Baptism Certificates
+	  1. First Communion Certificates
+	  1. Confirmation Certificates
+	  1. Death Certificates
+	  1. Banns Request Letters
+	  1. Banns Response Letters
+	  1. No Impediment Letters
+
+	&nbsp;
+
+  [Top](#index)
+
+1. <a id="certificates"></a>How do I create a sacramental certificate (baptism / first communion / confirmation / marriage)?
+
+	First, create an entry in the corresponding register by following the instructions [here](#registers).
+	Next, click "List Sacrament Record" in the right sidebar
+	Click the link (id) to view the relevant record.
+	Now, click the "Create Certificate" link, you should see a form.
+	Fill and save the form clicking "Create" button.
+	Once created, you are taken to the view page. Click the "Download Certificate" link.
 
   [Top](#index)
 
