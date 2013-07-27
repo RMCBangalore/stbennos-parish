@@ -26,7 +26,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('domicile_status')); ?>:</b>
-	<?php echo CHtml::encode(FieldNames::value('domicile_status', $data->domicile_status)); ?>
+	<?php echo $data->domicile_status ? CHtml::encode(FieldNames::value('domicile_status', $data->domicile_status)) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dob')); ?>:</b>
