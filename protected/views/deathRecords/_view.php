@@ -9,6 +9,10 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
+	<?php echo CHtml::encode($data->ref_no); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('death_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->death_dt); ?>
 	<br />
@@ -29,9 +33,9 @@
 	<?php echo CHtml::encode($data->age); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
+	<!--b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
 	<?php echo CHtml::encode($data->profession); ?>
-	<br />
+	<br /-->
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('buried_dt')); ?>:</b>

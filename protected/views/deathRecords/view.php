@@ -16,18 +16,23 @@ $this->menu=array(
 );
 ?>
 
-<h1>View DeathRecord #<?php echo $model->id; ?></h1>
+<h1>View DeathRecord #<?php echo $model->id . ': ' . $model->fname . ' ' . $model->lname; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'ref_no',
 		'death_dt',
 		'cause',
 		'fname',
 		'lname',
 		'age',
-		'profession',
+//		'profession',
+		'sacrament',
+		'community',
+		'residence',
+		'parents_relatives',
 		'buried_dt',
 		'minister',
 		'burial_place',

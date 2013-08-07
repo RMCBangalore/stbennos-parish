@@ -30,18 +30,6 @@
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->labelEx($model,'profession'); ?>
-		<?php echo $form->textField($model,'profession',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->error($model,'profession'); ?>
-	</span>
-	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'age'); ?>
-		<?php echo $form->textField($model,'age'); ?>
-		<?php echo $form->error($model,'age'); ?>
-	</span>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'death_dt'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
@@ -56,6 +44,29 @@
 			),
 		)); ?>
 		<?php echo $form->error($model,'death_dt'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'age'); ?>
+		<?php echo $form->textField($model,'age'); ?>
+		<?php echo $form->error($model,'age'); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model,'sacrament'); ?>
+		<?php echo $form->dropDownList($model,'sacrament',array(
+				'Confession' => 'Confession',
+				'Viaticum' => 'Viaticum',
+				'Extreme unction' => 'Extreme unction'),
+			array('prompt' => '--- Select ---')); ?>
+		<?php echo $form->error($model,'sacrament'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'community'); ?>
+		<?php echo $form->textField($model,'community',array('size'=>25,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'community'); ?>
+	</span>
 	</div>
 
 	<div class="row">
@@ -68,6 +79,18 @@
 		<?php echo $form->labelEx($model,'minister'); ?>
 		<?php echo $form->textField($model,'minister',array('size'=>60,'maxlength'=>75)); ?>
 		<?php echo $form->error($model,'minister'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'residence'); ?>
+		<?php echo $form->textField($model,'residence',array('size'=>60,'maxlength'=>75)); ?>
+		<?php echo $form->error($model,'residence'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'parents_relatives'); ?>
+		<?php echo $form->textField($model,'parents_relatives',array('size'=>60,'maxlength'=>75)); ?>
+		<?php echo $form->error($model,'parents_relatives'); ?>
 	</div>
 
 	<div class="row">

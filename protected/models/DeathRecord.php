@@ -15,6 +15,10 @@
  * @property string $minister
  * @property string $burial_place
  * @property string $ref_no
+ * @property string $residence
+ * @property string $community
+ * @property string $parents_relatives
+ * @property string $sacrament
  *
  * The followings are the available model relations:
  * @property DeathCerts[] $deathCerts
@@ -47,7 +51,7 @@ class DeathRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('death_dt', 'required'),
+			array('death_dt, buried_dt, burial_place, fname, lname, age', 'required'),
 			array('age', 'numerical'),
 			array('cause', 'length', 'max'=>100),
 			array('fname', 'length', 'max'=>50),
@@ -90,6 +94,7 @@ class DeathRecord extends CActiveRecord
 			'minister' => 'Minister',
 			'burial_place' => 'Burial Place',
 			'ref_no' => 'Ref No',
+			'parents_relatives' => 'Parents / Relatives Name',
 		);
 	}
 
