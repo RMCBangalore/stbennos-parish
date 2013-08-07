@@ -5,6 +5,10 @@
 
 <div class="view">
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
+	<?php echo CHtml::encode($data->ref_no); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->marriage_dt); ?>
 	<br />
@@ -15,6 +19,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_dob')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_dob); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_baptism_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->groom_baptism_dt); ?>
 	<br />
 
 	<b><?php 

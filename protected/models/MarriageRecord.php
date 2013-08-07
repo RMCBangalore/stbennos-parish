@@ -8,6 +8,7 @@
  * @property string $marriage_dt
  * @property string $groom_name
  * @property string $groom_dob
+ * @property string $groom_baptism_dt
  * @property string $groom_status
  * @property string $groom_rank_prof
  * @property string $groom_fathers_name
@@ -15,6 +16,7 @@
  * @property string $groom_residence
  * @property string $bride_name
  * @property string $bride_dob
+ * @property string $bride_baptism_dt
  * @property string $bride_status
  * @property string $bride_rank_prof
  * @property string $bride_fathers_name
@@ -66,7 +68,7 @@ class MarriageRecord extends CActiveRecord
 			array('marriage_dt, groom_dob, bride_dob', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, marriage_dt, groom_name, groom_dob, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
+			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,6 +94,7 @@ class MarriageRecord extends CActiveRecord
 			'marriage_dt' => 'Marriage Date',
 			'groom_name' => 'Groom Name',
 			'groom_dob' => 'Groom Dob',
+			'groom_baptism_dt' => 'Groom Baptism Date',
 			'groom_status' => 'Groom Status',
 			'groom_rank_prof' => 'Groom Rank / Profession',
 			'groom_fathers_name' => 'Groom Fathers Name',
@@ -99,6 +102,7 @@ class MarriageRecord extends CActiveRecord
 			'groom_residence' => 'Groom Residence',
 			'bride_name' => 'Bride Name',
 			'bride_dob' => 'Bride Dob',
+			'bride_baptism_dt' => 'Bride Baptism Date',
 			'bride_status' => 'Bride Status',
 			'bride_rank_prof' => 'Bride Rank / Profession',
 			'bride_fathers_name' => 'Bride Fathers Name',
@@ -128,6 +132,7 @@ class MarriageRecord extends CActiveRecord
 		$criteria->compare('marriage_dt',$this->marriage_dt,true);
 		$criteria->compare('groom_name',$this->groom_name,true);
 		$criteria->compare('groom_dob',$this->groom_dob,true);
+		$criteria->compare('groom_baptism_dt',$this->groom_baptism_dt,true);
 		$criteria->compare('groom_status',$this->groom_status);
 		$criteria->compare('groom_rank_prof',$this->groom_rank_prof,true);
 		$criteria->compare('groom_fathers_name',$this->groom_fathers_name,true);
@@ -135,6 +140,7 @@ class MarriageRecord extends CActiveRecord
 		$criteria->compare('groom_residence',$this->groom_residence,true);
 		$criteria->compare('bride_name',$this->bride_name,true);
 		$criteria->compare('bride_dob',$this->bride_dob,true);
+		$criteria->compare('bride_baptism_dt',$this->bride_baptism_dt,true);
 		$criteria->compare('bride_status',$this->bride_status);
 		$criteria->compare('bride_rank_prof',$this->bride_rank_prof,true);
 		$criteria->compare('bride_fathers_name',$this->bride_fathers_name,true);
