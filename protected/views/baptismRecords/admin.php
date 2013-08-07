@@ -49,8 +49,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'dob',
 		'baptism_dt',
 		'name',
-		'sex',
+		array(
+			'name' => 'sex',
+			'value' => 'FieldNames::value("sex", $data->sex)'
+		),
 		/*
+		'sex',
 		'fathers_name',
 		'mothers_name',
 		'residence',

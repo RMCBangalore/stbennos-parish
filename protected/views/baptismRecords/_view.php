@@ -9,6 +9,10 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
+	<?php echo CHtml::encode($data->ref_no); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dob')); ?>:</b>
 	<?php echo CHtml::encode($data->dob); ?>
 	<br />

@@ -7,10 +7,12 @@
  * @property integer $id
  * @property string $dob
  * @property string $baptism_dt
+ * @property string $baptism_place
  * @property string $name
  * @property integer $sex
  * @property string $fathers_name
  * @property string $mothers_name
+ * @property string $mother_tongue
  * @property string $residence
  * @property string $godfathers_name
  * @property string $godmothers_name
@@ -48,10 +50,11 @@ class BaptismRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name, fathers_name, mothers_name, sex, baptism_dt, dob', 'required'),
 			array('sex', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>50),
+			array('name, baptism_place', 'length', 'max'=>50),
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, minister', 'length', 'max'=>75),
-			array('residence', 'length', 'max'=>25),
+			array('residence, mother_tongue', 'length', 'max'=>25),
 			array('ref_no', 'length', 'max'=>10),
 			array('dob, baptism_dt', 'safe'),
 			// The following rule is used by search().
@@ -83,13 +86,15 @@ class BaptismRecord extends CActiveRecord
 			'baptism_dt' => 'Baptism Date',
 			'name' => 'Name',
 			'sex' => 'Sex',
-			'fathers_name' => 'Fathers Name',
-			'mothers_name' => 'Mothers Name',
+			'fathers_name' => 'Father’s Name',
+			'mothers_name' => 'Mother’s Name',
 			'residence' => 'Residence',
-			'godfathers_name' => 'Godfathers Name',
-			'godmothers_name' => 'Godmothers Name',
+			'godfathers_name' => 'Godfather’s Name',
+			'godmothers_name' => 'Godmother’s Name',
 			'minister' => 'Minister',
 			'ref_no' => 'Ref No',
+			'baptism_place' => 'Place of Baptism',
+			'mother_tongue' => 'Mother Tongue',
 		);
 	}
 

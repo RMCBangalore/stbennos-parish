@@ -1,4 +1,8 @@
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
+	<?php echo CHtml::encode($data->ref_no); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dob')); ?>:</b>
 	<?php echo CHtml::encode($data->dob); ?>
 	<br />
@@ -21,5 +25,13 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mothers_name')); ?>:</b>
 	<?php echo CHtml::encode($data->mothers_name); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('mother_tongue')); ?>:</b>
+	<?php echo CHtml::encode($data->mother_tongue); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_place')); ?>:</b>
+	<?php echo CHtml::encode($data->baptism_place); ?>
 	<br />
 

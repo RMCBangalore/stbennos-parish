@@ -57,6 +57,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'baptism_place'); ?>
+		<?php echo $form->textField($model,'baptism_place',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'baptism_place'); ?>
+	</div>
+
+	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'sex'); ?>
 		<?php echo $form->dropDownList($model,"sex",FieldNames::values('sex'),array('prompt' => '--- Select ---')); ?>
@@ -64,9 +70,15 @@
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'residence'); ?>
-		<?php echo $form->textField($model,'residence',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'residence',array('size'=>25,'maxlength'=>75)); ?>
 		<?php echo $form->error($model,'residence'); ?>
 	</span>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'mother_tongue'); ?>
+		<?php echo $form->textField($model,'mother_tongue',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,'mother_tongue'); ?>
 	</div>
 
 	<div class="row">
