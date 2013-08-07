@@ -5,10 +5,17 @@
  *
  * The followings are the available columns in table 'confirmations':
  * @property integer $id
+ * @property string $ref_no
  * @property string $name
  * @property string $confirmation_dt
  * @property string $church
- * @property string $ref_no
+ * @property string $dob
+ * @property string $baptism_dt
+ * @property string $baptism_place
+ * @property string $parents_name
+ * @property string $residence
+ * @property string $godparent_name
+ * @property string $ministerminister
  *
  * The followings are the available model relations:
  * @property ConfirmationCerts[] $confirmationCerts
@@ -41,6 +48,7 @@ class ConfirmationRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('confirmation_dt, dob, name, parents_name, baptism_dt', 'required'),
 			array('name', 'length', 'max'=>75),
 			array('church', 'length', 'max'=>50),
 			array('ref_no', 'length', 'max'=>10),
@@ -72,8 +80,12 @@ class ConfirmationRecord extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'confirmation_dt' => 'Confirmation Date',
+			'dob' => 'Date of Birth',
+			'baptism_dt' => 'Baptism Date',
 			'church' => 'Church',
 			'ref_no' => 'Ref No',
+			'parents_name' => 'Parent’s Name',
+			'godparent_name' => 'Godparent’s Name',
 		);
 	}
 

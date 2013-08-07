@@ -22,9 +22,17 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'ref_no',
 		'name',
 		'confirmation_dt',
 		'church',
+		'dob',
+		'baptism_dt',
+		'baptism_place',
+		'parents_name',
+		'godparent_name',
+		'residence',
+		'minister',
 	),
 )); ?>
 
