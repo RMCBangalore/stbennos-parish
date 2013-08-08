@@ -118,6 +118,10 @@ class DeathRecord extends CActiveRecord
 		$criteria->compare('profession',$this->profession,true);
 		$criteria->compare('buried_dt',$this->buried_dt,true);
 		$criteria->compare('minister',$this->minister,true);
+		$criteria->compare('residence',$this->residence,true);
+		$criteria->compare('community',$this->community,true);
+		$criteria->compare('parents_relatives',$this->parents_relatives,true);
+		$criteria->compare('sacrament',$this->sacrament,true);
 		$criteria->compare('burial_place',$this->burial_place,true);
 		$criteria->compare('ref_no',$this->ref_no,true);
 

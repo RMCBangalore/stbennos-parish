@@ -15,7 +15,7 @@
  * @property string $parents_name
  * @property string $residence
  * @property string $godparent_name
- * @property string $ministerminister
+ * @property string $minister
  *
  * The followings are the available model relations:
  * @property ConfirmationCerts[] $confirmationCerts
@@ -104,6 +104,13 @@ class ConfirmationRecord extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('confirmation_dt',$this->confirmation_dt,true);
 		$criteria->compare('church',$this->church,true);
+		$criteria->compare('dob',$this->dob,true);
+		$criteria->compare('baptism_dt',$this->baptism_dt,true);
+		$criteria->compare('baptism_place',$this->baptism_place,true);
+		$criteria->compare('parents_name',$this->parents_name,true);
+		$criteria->compare('residence',$this->residence,true);
+		$criteria->compare('godparent_name',$this->godparent_name,true);
+		$criteria->compare('minister',$this->minister,true);
 		$criteria->compare('ref_no',$this->ref_no,true);
 
 		return new CActiveDataProvider($this, array(

@@ -122,7 +122,7 @@ class DeathRecordsController extends RController
 
 		catch (CDbException $e) {
 			if (preg_match('/Cannot\ delete\ or\ update\ a\ parent\ row:\ a\ foreign\ key\ constraint\ 
-					 fails.*parish.*death_certs/x', $e->getMessage(), $matches)) {
+					 fails.*death_certs/x', $e->getMessage(), $matches)) {
 				throw new Exception("Cannot delete because one or more death certificates refer to this record");
 			} else {
 				throw $e;

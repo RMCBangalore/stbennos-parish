@@ -112,10 +112,12 @@ class BaptismRecord extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('dob',$this->dob,true);
 		$criteria->compare('baptism_dt',$this->baptism_dt,true);
+		$criteria->compare('baptism_place',$this->baptism_place,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('fathers_name',$this->fathers_name,true);
 		$criteria->compare('mothers_name',$this->mothers_name,true);
+		$criteria->compare('mother_tongue',$this->mother_tongue,true);
 		$criteria->compare('residence',$this->residence,true);
 		$criteria->compare('godfathers_name',$this->godfathers_name,true);
 		$criteria->compare('godmothers_name',$this->godmothers_name,true);

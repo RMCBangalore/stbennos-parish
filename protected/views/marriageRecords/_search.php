@@ -27,8 +27,37 @@
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->label($model,'groom_dob'); ?>
-		<?php echo $form->textField($model,'groom_dob'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'groom_dob',
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</span>
+
+	<span class="rightHalf">
+		<?php echo $form->label($model,'groom_baptism_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "groom_baptism_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</span>
 	</div>
 
 	<div class="row">
@@ -62,8 +91,37 @@
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->label($model,'bride_dob'); ?>
-		<?php echo $form->textField($model,'bride_dob'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'bride_dob',
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</span>
+
+	<span class="rightHalf">
+		<?php echo $form->label($model,'bride_baptism_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "bride_baptism_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</span>
 	</div>
 
 	<div class="row">

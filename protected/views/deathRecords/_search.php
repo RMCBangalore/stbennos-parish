@@ -41,10 +41,10 @@
 		<?php echo $form->textField($model,'age'); ?>
 	</div>
 
-	<div class="row">
+	<!--div class="row">
 		<?php echo $form->label($model,'profession'); ?>
 		<?php echo $form->textField($model,'profession',array('size'=>25,'maxlength'=>25)); ?>
-	</div>
+	</div-->
 
 	<div class="row">
 		<?php echo $form->label($model,'buried_dt'); ?>
@@ -54,6 +54,30 @@
 	<div class="row">
 		<?php echo $form->label($model,'minister'); ?>
 		<?php echo $form->textField($model,'minister',array('size'=>60,'maxlength'=>75)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'residence'); ?>
+		<?php echo $form->textField($model,'residence',array('size'=>60,'maxlength'=>75)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'community'); ?>
+		<?php echo $form->textField($model,'community',array('size'=>40,'maxlength'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'parents_relatives'); ?>
+		<?php echo $form->textField($model,'parents_relatives',array('size'=>60,'maxlength'=>75)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'sacrament'); ?>
+		<?php echo $form->textField($model,'sacrament',array(
+				'Confession' => 'Confession',
+				'Viaticum' => 'Viaticum',
+				'Extreme unction' => 'Extreme unction'),
+			array('prompt' => '--- Select ---')); ?>
 	</div>
 
 	<div class="row">
