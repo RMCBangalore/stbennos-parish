@@ -17,7 +17,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Family #<?php echo $model->id; ?></h1>
+<h1>View Family #<?php echo $model->id . ': ' . $model->head()->fullname(); ?></h1>
 
 <?php
 	echo '<table><tr><td>';

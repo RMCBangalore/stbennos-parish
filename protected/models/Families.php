@@ -109,7 +109,7 @@ class Families extends CActiveRecord
 			'email' => 'Email',
 			'zone' => 'Zone',
 			'gmap_url' => 'Google maps URL',
-			'reg_date' => 'Year of Registration',
+			'reg_date' => 'Registration Date',
 			'bpl_card' => 'Bpl Card',
 			'marriage_church' => 'Marriage Church',
 			'marriage_date' => 'Marriage Date',

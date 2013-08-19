@@ -68,9 +68,21 @@
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'yr_reg'); ?>
-		<?php echo $form->textField($model,'yr_reg'); ?>
-		<?php echo $form->error($model,'yr_reg'); ?>
+		<?php echo $form->labelEx($model,'reg_date'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				'model' => $model,
+				'attribute' => "reg_date",
+				'options'       => array(
+						'dateFormat' => 'yy-mm-dd',
+						'changeYear' => true,
+						'maxDate'		=> 0,
+				),
+				'htmlOptions' => array(
+						'size' => '10',         // textField size
+						'maxlength' => '10',    // textField maxlength
+				),
+		)); ?>
+		<?php echo $form->error($model,'reg_date'); ?>
 	</span>
 	</div>
 
@@ -96,7 +108,8 @@
                         'attribute' => "marriage_date",
                         'options'       => array(
                                 'dateFormat' => 'yy-mm-dd',
-                                'changeYear' => true
+                                'changeYear' => true,
+								'maxDate'		=> 0,
                         ),
                         'htmlOptions' => array(
                                 'size' => '10',         // textField size
