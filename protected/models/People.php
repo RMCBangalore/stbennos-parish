@@ -73,6 +73,13 @@ class People extends CActiveRecord
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 150, 'maxHeight' => 200, 'on' => 'photo'),
 			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'safe'),
+			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'date', 'format' => 'yyyy-MM-dd'),
+			array('baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'dob',
+					'operator' => '>=', 'message' => 'Must not be before date of birth'),
+			array('first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'baptism_dt',
+					'operator' => '>=', 'message' => 'Must not be before baptism date'),
+			array('marriage_dt', 'compare', 'compareAttribute' => 'confirmation_dt',
+					'operator' => '>=', 'message' => 'Must not be before confirmation date'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			// The following rule is used by search().

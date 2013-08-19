@@ -32,6 +32,7 @@
 			'attribute' => "[$person]dob",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -124,7 +125,11 @@
 			'attribute' => "[$person]baptism_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
-				'changeYear' => true
+				'changeYear' => true,
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_dob").val()),
+					"", "Cannot be before the date of birth"); }'
 			),
 			'htmlOptions' => array(
 				'size' => '10',         // textField size
@@ -161,6 +166,10 @@
 			'attribute' => "[$person]first_comm_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_baptism_dt").val()),
+					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -177,6 +186,10 @@
 			'attribute' => "[$person]confirmation_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_baptism_dt").val()),
+					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -196,6 +209,10 @@
 			'attribute' => "[$person]marriage_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_confirmation_dt").val()),
+					"", "Cannot be before the confirmation date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(

@@ -40,7 +40,8 @@
 			'model' => $model,
 			'attribute' => 'dob',
 			'options'	=> array(
-				'dateFormat' => 'dd/mm/yy',
+				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -124,8 +125,12 @@
 			'model' => $model,
 			'attribute' => 'baptism_dt',
 			'options'	=> array(
-				'dateFormat' => 'dd/mm/yy',
-				'changeYear' => true
+				'dateFormat' => 'yy-mm-dd',
+				'changeYear' => true,
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_dob").val()),
+					"", "Cannot be before date of birth"); }'
 			),
 			'htmlOptions' => array(
 				'size' => '10',         // textField size
@@ -161,7 +166,11 @@
 			'model' => $model,
 			'attribute' => 'first_comm_dt',
 			'options'	=> array(
-				'dateFormat' => 'dd/mm/yy',
+				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_baptism_dt").val()),
+					"", "Cannot be before baptism date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -177,7 +186,11 @@
 			'model' => $model,
 			'attribute' => 'confirmation_dt',
 			'options'	=> array(
-				'dateFormat' => 'dd/mm/yy',
+				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_baptism_dt").val()),
+					"", "Cannot be before baptism date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -196,7 +209,11 @@
 			'model' => $model,
 			'attribute' => 'marriage_dt',
 			'options'	=> array(
-				'dateFormat' => 'dd/mm/yy',
+				'dateFormat' => 'yy-mm-dd',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_confirmation_dt").val()),
+					"", "Cannot be before confirmation date"); }',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
