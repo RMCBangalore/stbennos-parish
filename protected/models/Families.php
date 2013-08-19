@@ -56,6 +56,7 @@ class Families extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('addr_stt, addr_area, addr_pin, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
+			array('fid', 'unique'),
 			array('zone, yr_reg', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),
 			array('addr_nm, addr_stt, email, marriage_church', 'length', 'max'=>50),
