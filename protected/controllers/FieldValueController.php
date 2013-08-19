@@ -95,7 +95,7 @@ class FieldValueController extends RController
 		{
 			$model->attributes=$_POST['FieldValues'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->id,'type'=>$model->field->name));
 		}
 
 		$this->render('update',array(

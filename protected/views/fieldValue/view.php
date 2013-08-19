@@ -7,12 +7,18 @@ $this->breadcrumbs=array(
 	$model->name,
 );
 
+if (isset($_GET['type'])) {
+	$type = $_GET['type'];
+} else {
+	$type = $model->field->name;
+}
+
 $this->menu=array(
-	array('label'=>'List FieldValues', 'url'=>array('index', 'type' => $_GET['type'])),
-	array('label'=>'Create FieldValues', 'url'=>array('create', 'type' => $_GET['type'])),
-	array('label'=>'Update FieldValues', 'url'=>array('update', 'id'=>$model->id, 'type' => $_GET['type'])),
+	array('label'=>'List FieldValues', 'url'=>array('index', 'type' => $type)),
+	array('label'=>'Create FieldValues', 'url'=>array('create', 'type' => $type)),
+	array('label'=>'Update FieldValues', 'url'=>array('update', 'id'=>$model->id, 'type' => $type)),
 	array('label'=>'Delete FieldValues', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage FieldValues', 'url'=>array('admin', 'type' => $_GET['type'])),
+	array('label'=>'Manage FieldValues', 'url'=>array('admin', 'type' => $type)),
 );
 ?>
 
