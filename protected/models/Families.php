@@ -14,7 +14,7 @@
  * @property string $mobile
  * @property string $email
  * @property integer $zone
- * @property integer $yr_reg
+ * @property integer $reg_date
  * @property integer $bpl_card
  * @property string $marriage_church
  * @property string $marriage_date
@@ -57,7 +57,7 @@ class Families extends CActiveRecord
 		return array(
 			array('addr_stt, addr_area, addr_pin, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
 			array('fid', 'unique'),
-			array('zone, yr_reg', 'numerical', 'integerOnly'=>true),
+			array('zone', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),
 			array('addr_nm, addr_stt, email, marriage_church', 'length', 'max'=>50),
 			array('addr_area, marriage_type, marriage_status', 'length', 'max'=>25),
@@ -65,12 +65,12 @@ class Families extends CActiveRecord
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
 			array('marriage_date, bpl_card', 'safe'),
-			array('marriage_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, yr_reg, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
+			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,7 +109,7 @@ class Families extends CActiveRecord
 			'email' => 'Email',
 			'zone' => 'Zone',
 			'gmap_url' => 'Google maps URL',
-			'yr_reg' => 'Year of Registration',
+			'reg_date' => 'Year of Registration',
 			'bpl_card' => 'Bpl Card',
 			'marriage_church' => 'Marriage Church',
 			'marriage_date' => 'Marriage Date',
@@ -140,7 +140,7 @@ class Families extends CActiveRecord
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('zone',$this->zone);
-		$criteria->compare('yr_reg',$this->yr_reg);
+		$criteria->compare('reg_date',$this->reg_date);
 		$criteria->compare('bpl_card',$this->bpl_card);
 		$criteria->compare('marriage_church',$this->marriage_church,true);
 		$criteria->compare('marriage_date',$this->marriage_date,true);
