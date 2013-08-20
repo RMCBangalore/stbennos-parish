@@ -610,7 +610,7 @@ class FamilyController extends RController
 		$satisfactionItems = SatisfactionItem::model()->findAll();
 		$needItems = NeedItem::model()->findAll();
 		$openQuestions = OpenQuestion::model()->findAll(array('order' => 'seq'));
-		$awarenessItems = NeedItem::model()->findAll();
+		$awarenessItems = AwarenessItem::model()->findAll();
 
 		$this->render('survey', array(
 			'model' => $model,
