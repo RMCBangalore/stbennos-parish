@@ -60,22 +60,60 @@ class SubscriptionController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($fid)
 	{
+		$family = Families::model()->findByPk($fid);
+
 		$model=new Subscription;
+
+		$sub = Subscription::model()->findByAttributes(array(
+							'family_id' => $family->id
+						), array(
+							'order' => 'year DESC, month DESC'
+						));
+
+		if ($sub) {
+			$dt = new DateTime(sprintf("%d-%02d-%d", $sub->year, $sub->month, 15));
+		} else {
+			$dt = new DateTime($family->reg_date);
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Subscription']))
 		{
-			$model->attributes=$_POST['Subscription'];
+			$till = $_POST['Subscription']['till'];
+
+			for ($i = 1; $i <= $till; ++$i) {
+				$model=new Subscription;
+
+				$model->family_id = $family->id;
+				$dt->add(new DateInterval('P1M'));				
+				$model->month = date_format($dt, 'n');
+				$model->year = date_format($dt, 'Y');
+				$trans = new Transaction;
+				$trans->type = 'credit';
+				$trans->amount = $_POST['Subscription']['amount'];
+				$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
+				$trans->creator = Yii::app()->user->id;
+				$trans->descr = "Subscription for family #" . $family->id;
+				if ($trans->save()) {
+					$model->trans_id = $trans->id;
+					if ($model->save()) {
+						$trans->descr = "Family #" . $family->id . ' subscription for ' . date_format($dt, 'M Y');
+						$trans->save(false);
+					}
+				}
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
+			'family' => $family,
 			'model'=>$model,
+			'start_dt'=>$dt
 		));
 	}
 

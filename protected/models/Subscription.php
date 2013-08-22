@@ -7,7 +7,8 @@
  * @property integer $id
  * @property integer $family_id
  * @property integer $trans_id
- * @property string $yr_month
+ * @property integer $year
+ * @property integer $month
  *
  * The followings are the available model relations:
  * @property Families $family
@@ -41,11 +42,10 @@ class Subscription extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('family_id, trans_id', 'numerical', 'integerOnly'=>true),
-			array('yr_month', 'length', 'max'=>7),
+			array('family_id, trans_id, year, month', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, family_id, trans_id, yr_month', 'safe', 'on'=>'search'),
+			array('id, family_id, trans_id, year, month', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,7 +58,7 @@ class Subscription extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'family' => array(self::BELONGS_TO, 'Families', 'family_id'),
-			'trans' => array(self::BELONGS_TO, 'Transactions', 'trans_id'),
+			'trans' => array(self::BELONGS_TO, 'Transaction', 'trans_id'),
 		);
 	}
 
@@ -71,7 +71,8 @@ class Subscription extends CActiveRecord
 			'id' => 'ID',
 			'family_id' => 'Family',
 			'trans_id' => 'Trans',
-			'yr_month' => 'Yr Month',
+			'year' => 'Year',
+			'month' => 'Month',
 		);
 	}
 
@@ -89,7 +90,8 @@ class Subscription extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('trans_id',$this->trans_id);
-		$criteria->compare('yr_month',$this->yr_month,true);
+		$criteria->compare('month',$this->month,true);
+		$criteria->compare('year',$this->year,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

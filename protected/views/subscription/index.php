@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Subscription', 'url'=>array('create')),
-	array('label'=>'Manage Subscription', 'url'=>array('admin')),
+	array('label'=>'Create Subscription', 'url'=>array('create','fid'=>$family->id)),
+	array('label'=>'Manage Subscription', 'url'=>array('admin','fid'=>$family->id)),
 );
 ?>
 
@@ -23,9 +23,13 @@ $this->menu=array(
 $now = new DateTime();
 $this_yr = date_format($now, 'Y');
 $this_mth = date_format($now, 'm');
-$start_yr = $this_yr - 6;
+$reg_yr = date_format(new DateTime($family->reg_date), 'Y');
+$start_yr = $this_yr - 13;
+if ($reg_yr > $start_yr) {
+	$start_yr = $reg_yr;
+}
 
-echo "<table><tr><thead>";
+echo "<table class='cellular'><tr><thead>";
 echo "<th>Year</th>";
 
 for ($mth = 1; $mth <= 12; ++$mth) {
@@ -43,8 +47,8 @@ foreach ($subscriptions as $sub) {
 }
 
 $i = 0;
-if (isset($sub[$i])) {
-	$sub = $sub[$i++];
+if (isset($subs[$i])) {
+	$sub = $subs[$i++];
 }
 
 for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
@@ -54,8 +58,8 @@ for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
 		echo '<td>';
 		if (isset($sub) and $sub->year == $yr and $sub->month == $mth) {
 			echo $sub->trans->amount;
-			if (isset($sub[$i])) {
-				$sub = $sub[$i++];
+			if (isset($subs[$i])) {
+				$sub = $subs[$i++];
 			}
 		} else {
 			echo '-';
