@@ -37,4 +37,4 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php echo CHtml::link('Download Receipt', array('viewRect', 'id' => $model->id), array('targer' => '_blank')) ?>
+<?php echo CHtml::link('Download Receipt', array('viewRect', 'id' => $model->id), array('target' => '_blank')) ?>
