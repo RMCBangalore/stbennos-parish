@@ -4,19 +4,24 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
+<?php if (Yii::app()->user->isGuest) { ?>
+<h1>Welcome!!</h1>
+
+<div class="welcome">
+  <ul>
+	<li>One-stop place to manage your parish data.</li>
+	<li>A software that can make your parish administration very effective.</li>
+	<li>Developed with latest technology and cutting edge features.</li>
+	<li>User friendly operations and functionality.</li>
+  </ul>
+Registered User?
+<?php echo CHtml::link('Login', array('/site/login')); ?>
+
+</div>
+<?php } else { ?>
+
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->params['parishName']); ?></i></h1>
 
-<?php if (Yii::app()->user->isGuest) { ?>
-<p>
-  <ul>
-	<li>Extremely fast and scalable to multiple simultaneous connections</li>
-	<li>Access from any platform - Windows, Linux, MAC, tablets, etc</li>
-	<li>Easy to create, update, search family data records</li>
-	<li>Multiple degrees of access control for pastors, staff, users</li>
-	<li>Secure authentication using crypt to prevent cracker attacks</li>
-  </ul>
-</p>
-<?php } else { ?>
 <table>
 <thead>
 	<tr>
@@ -49,7 +54,7 @@ if ($baptised == $members) {
 </td>
 <td valign="top">
 <p>
-<?php echo CHtml::link("View Families", array('family/index')) ?>
+<?php echo CHtml::link('Mass Bookings', array('massBooking/index')) ?>
 </p><p>
 <?php echo CHtml::link("Manage Families", array('family/admin')); ?>
 </p><p>

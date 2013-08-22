@@ -236,3 +236,14 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix, .container {display:block;}
 .clear {clear:both;}
+
+table.cellular,
+table.cellular th,
+table.cellular td {
+	border-style: solid;
+	border-color: #88a;
+}
+table.cellular { border-width: 1px 0 0 1px; }
+table.cellular th,
+table.cellular td { border-width: 0 1px 1px 0; }
+

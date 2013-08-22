@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create Subscription', 'url'=>array('create','fid'=>$family->id)),
 	array('label'=>'Manage Subscription', 'url'=>array('admin','fid'=>$family->id)),
+	array('label'=>'View Family','url'=>array('/family/view','id'=>$family->id)),
 );
 ?>
 

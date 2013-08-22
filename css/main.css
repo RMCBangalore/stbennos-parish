@@ -47,6 +47,10 @@ body
 
 #logo
 {
+	padding: 0;
+}
+
+#logo span {
 	padding: 10px 20px;
 	font-size: 200%;
 }
@@ -239,4 +243,8 @@ div.row span.leftHalf {
 
 div.row span.rightHalf {
 	width: 350px;
+}
+
+div.welcome {
+	font-size: 120%;
 }

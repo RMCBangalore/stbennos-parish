@@ -24,7 +24,14 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo"><?php $logo = Yii::app()->params['parishLogo'];
+			if ($logo) {
+				echo CHtml::image(Yii::app()->request->baseUrl . $logo['src'],
+					CHtml::encode(Yii::app()->name),
+						array('width' => $logo['width'], 'height' => $logo['height']));
+		   } else {
+				echo CHtml::tag('span', array(), CHtml::encode(Yii::app()->name));
+		   } ?></div>
 	</div><!-- header -->
 
 	<div id="google_translate_element"></div><script type="text/javascript">
@@ -38,8 +45,6 @@ function googleTranslateElementInit() {
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Admin')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Help', 'url'=>array('/site/page', 'view'=>'help')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
