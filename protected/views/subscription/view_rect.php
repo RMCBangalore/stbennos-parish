@@ -31,7 +31,7 @@
 
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(1,0,'',0,0);
-	$pdf->Cell(9,0,"Received with thanks from Mr./Ms./Mrs. " . $model->booked_by . " towards",0,1,'L');
+	$pdf->Cell(9,0,"Received with thanks from Mr./Ms./Mrs. " . $model->paid_by . " towards",0,1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(9,0,'the following particulars:',0,1,'L');
 	$pdf->Cell(0,1,'',0,1);

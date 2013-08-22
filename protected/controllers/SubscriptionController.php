@@ -103,6 +103,7 @@ class SubscriptionController extends RController
 			if ($trans->save()) {
 				$model=new Subscription;
 
+				$model->paid_by = $_POST['Subscription']['paid_by'];
 				$model->family_id = $family->id;
 				$model->start_month = date_format($start_dt, 'n');
 				$model->start_year = date_format($start_dt, 'Y');

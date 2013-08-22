@@ -18,9 +18,9 @@
 	<?php echo $form->hiddenField($model,'family_id',array('value'=>$family->id)); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'booked_by'); ?>
-		<?php echo $form->textField($model,'booked_by',array('size'=>60,'maxlength'=>99)); ?>
-		<?php echo $form->error($model,'booked_by'); ?>
+		<?php echo $form->labelEx($model,'paid_by'); ?>
+		<?php echo $form->textField($model,'paid_by',array('size'=>60,'maxlength'=>99)); ?>
+		<?php echo $form->error($model,'paid_by'); ?>
 	</div>
 
 	<div class="row">

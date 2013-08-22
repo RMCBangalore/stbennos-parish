@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'subscriptions':
  * @property integer $id
  * @property integer $family_id
- * @property string $booked_by
+ * @property string $paid_by
  * @property integer $trans_id
  * @property integer $start_year
  * @property integer $start_month
@@ -46,10 +46,10 @@ class Subscription extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('family_id, trans_id, start_year, start_month, end_year, end_month', 'numerical', 'integerOnly'=>true),
-			array('booked_by', 'length', 'max' => 99),
+			array('paid_by', 'length', 'max' => 99),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, family_id, trans_id, booked_by, start_year, start_month, end_year, end_month', 'safe', 'on'=>'search'),
+			array('id, family_id, trans_id, paid_by, start_year, start_month, end_year, end_month', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,7 +75,7 @@ class Subscription extends CActiveRecord
 			'id' => 'ID',
 			'family_id' => 'Family',
 			'trans_id' => 'Trans',
-			'booked_by' => 'Booked By',
+			'paid_by' => 'Paid By',
 			'start_year' => 'Start Year',
 			'start_month' => 'Start Month',
 			'end_year' => 'End Year',
@@ -97,7 +97,7 @@ class Subscription extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('trans_id',$this->trans_id);
-		$criteria->compare('booked_by',$this->booked_by);
+		$criteria->compare('paid_by',$this->paid_by);
 		$criteria->compare('start_month',$this->start_month,true);
 		$criteria->compare('start_year',$this->start_year,true);
 		$criteria->compare('end_month',$this->end_month,true);

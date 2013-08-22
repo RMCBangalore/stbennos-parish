@@ -28,7 +28,7 @@ $this->menu=array(
 		'id',
 		'family_id',
 		'trans_id',
-		'booked_by',
+		'paid_by',
 		'start_year',
 		'start_month',
 		'end_year',
