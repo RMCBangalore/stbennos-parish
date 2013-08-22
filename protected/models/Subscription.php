@@ -6,9 +6,12 @@
  * The followings are the available columns in table 'subscriptions':
  * @property integer $id
  * @property integer $family_id
+ * @property string $booked_by
  * @property integer $trans_id
- * @property integer $year
- * @property integer $month
+ * @property integer $start_year
+ * @property integer $start_month
+ * @property integer $end_year
+ * @property integer $end_month
  *
  * The followings are the available model relations:
  * @property Families $family
@@ -42,10 +45,11 @@ class Subscription extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('family_id, trans_id, year, month', 'numerical', 'integerOnly'=>true),
+			array('family_id, trans_id, start_year, start_month, end_year, end_month', 'numerical', 'integerOnly'=>true),
+			array('booked_by', 'length', 'max' => 99),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, family_id, trans_id, year, month', 'safe', 'on'=>'search'),
+			array('id, family_id, trans_id, booked_by, start_year, start_month, end_year, end_month', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,8 +75,11 @@ class Subscription extends CActiveRecord
 			'id' => 'ID',
 			'family_id' => 'Family',
 			'trans_id' => 'Trans',
-			'year' => 'Year',
-			'month' => 'Month',
+			'booked_by' => 'Booked By',
+			'start_year' => 'Start Year',
+			'start_month' => 'Start Month',
+			'end_year' => 'End Year',
+			'end_month' => 'End Month',
 		);
 	}
 
@@ -90,8 +97,11 @@ class Subscription extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('trans_id',$this->trans_id);
-		$criteria->compare('month',$this->month,true);
-		$criteria->compare('year',$this->year,true);
+		$criteria->compare('booked_by',$this->booked_by);
+		$criteria->compare('start_month',$this->start_month,true);
+		$criteria->compare('start_year',$this->start_year,true);
+		$criteria->compare('end_month',$this->end_month,true);
+		$criteria->compare('end_year',$this->end_year,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

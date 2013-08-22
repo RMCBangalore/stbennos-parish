@@ -18,6 +18,12 @@
 	<?php echo $form->hiddenField($model,'family_id',array('value'=>$family->id)); ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'booked_by'); ?>
+		<?php echo $form->textField($model,'booked_by',array('size'=>60,'maxlength'=>99)); ?>
+		<?php echo $form->error($model,'booked_by'); ?>
+	</div>
+
+	<div class="row">
 	<span class="leftHalf">
 		<?php echo CHtml::label('Till Month', 'Subscription_till'); ?>
 		<?php

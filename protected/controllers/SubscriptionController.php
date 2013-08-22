@@ -1,6 +1,6 @@
 <?php
 
-class SubscriptionController extends Controller
+class SubscriptionController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -69,11 +69,11 @@ class SubscriptionController extends Controller
 		$sub = Subscription::model()->findByAttributes(array(
 							'family_id' => $family->id
 						), array(
-							'order' => 'year DESC, month DESC'
+							'order' => 'end_year DESC, end_month DESC'
 						));
 
 		if ($sub) {
-			$dt = new DateTime(sprintf("%d-%02d-%d", $sub->year, $sub->month, 15));
+			$dt = new DateTime(sprintf("%d-%02d-%d", $sub->end_year, $sub->end_month, 15));
 		} else {
 			$dt = new DateTime($family->reg_date);
 		}
@@ -84,30 +84,36 @@ class SubscriptionController extends Controller
 		if(isset($_POST['Subscription']))
 		{
 			$till = $_POST['Subscription']['till'];
+			$amt = $_POST['Subscription']['amount'];
 
-			for ($i = 1; $i <= $till; ++$i) {
+			$start_dt = new DateTime(date_format($dt, 'Y-m-d'));
+			$start_dt->add(new DateInterval('P1M'));
+
+			$end_dt = new DateTime(date_format($dt, 'Y-m-d'));
+			$end_dt->add(new DateInterval('P'.$till.'M'));
+
+			$trans = new Transaction;
+			$trans->type = 'credit';
+			$trans->amount = $till * $amt;
+			$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
+			$trans->creator = Yii::app()->user->id;
+			$trans->descr = "Family #" . $family->id . ' subscription from '
+				. date_format($start_dt, 'M Y') . ' to ' . date_format($end_dt, 'M Y');
+
+			if ($trans->save()) {
 				$model=new Subscription;
 
 				$model->family_id = $family->id;
-				$dt->add(new DateInterval('P1M'));				
-				$model->month = date_format($dt, 'n');
-				$model->year = date_format($dt, 'Y');
-				$trans = new Transaction;
-				$trans->type = 'credit';
-				$trans->amount = $_POST['Subscription']['amount'];
-				$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
-				$trans->creator = Yii::app()->user->id;
-				$trans->descr = "Subscription for family #" . $family->id;
-				if ($trans->save()) {
-					$model->trans_id = $trans->id;
-					if ($model->save()) {
-						$trans->descr = "Family #" . $family->id . ' subscription for ' . date_format($dt, 'M Y');
-						$trans->save(false);
-					}
-				}
+				$model->start_month = date_format($start_dt, 'n');
+				$model->start_year = date_format($start_dt, 'Y');
+				$model->end_month = date_format($end_dt, 'n');
+				$model->end_year = date_format($end_dt, 'Y');
+				$model->amount = $amt;
+				$model->trans_id = $trans->id;
+
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
 			}
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -165,7 +171,7 @@ class SubscriptionController extends Controller
 		$subscriptions = Subscription::model()->findAllByAttributes(array(
 								'family_id' => $family->id
 							), array(
-								'order' => 'year DESC, month ASC'								
+								'order' => 'end_year ASC, end_month ASC'								
 							));
 
 		$this->render('index',array(
@@ -190,6 +196,12 @@ class SubscriptionController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionViewRect($id) {
+		$this->render('view_rect', array(
+			'model' => $this->loadModel($id)
 		));
 	}
 

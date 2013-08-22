@@ -28,6 +28,13 @@ $this->menu=array(
 		'id',
 		'family_id',
 		'trans_id',
-		'yr_month',
+		'booked_by',
+		'start_year',
+		'start_month',
+		'end_year',
+		'end_month',
+		'amount'
 	),
 )); ?>
+
+<?php echo CHtml::link('Download Receipt', array('viewRect', 'id' => $model->id), array('targer' => '_blank')) ?>

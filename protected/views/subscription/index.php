@@ -42,13 +42,40 @@ echo "</thead>";
 echo "<tbody>";
 $i = 0;
 $subs = array();
-foreach ($subscriptions as $sub) {
-	array_push($subs, $sub);
+for ($yr = $start_yr; $yr <= $this_yr; ++$yr) {
+	$subs[$yr] = array();
 }
 
-$i = 0;
-if (isset($subs[$i])) {
-	$sub = $subs[$i++];
+$in = false;
+foreach ($subscriptions as $sub) {
+	if (!$in and $sub->end_year >= $start_yr) {
+		$in = true;
+		$yr = $start_yr;
+	}
+
+	if ($in) {
+		if ($yr == $sub->start_year) {
+			if ($sub->end_year == $yr) {
+				for ($mth = $sub->start_month; $mth <= $sub->end_month; ++$mth) {
+					$subs[$yr][$mth] = $sub->amount;
+				}
+			} else {
+				for ($mth = $sub->start_month; $mth <= 12; ++$mth) {
+					$subs[$yr][$mth] = $sub->amount;
+				}
+			}
+			++$yr;
+		}
+		while ($yr < $sub->end_year) {
+			for ($mth = 1; $mth <= 12; ++$mth) {
+				$subs[$yr][$mth] = $sub->amount;
+			}
+			++$yr;
+		}
+		for ($mth = 1; $mth <= $sub->end_month; ++$mth) {
+			$subs[$yr][$mth] = $sub->amount;
+		}
+	}
 }
 
 for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
@@ -56,11 +83,8 @@ for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
 	echo "<th>$yr</th>";
 	for ($mth = 1; $mth <= 12; ++$mth) {
 		echo '<td>';
-		if (isset($sub) and $sub->year == $yr and $sub->month == $mth) {
-			echo $sub->trans->amount;
-			if (isset($subs[$i])) {
-				$sub = $subs[$i++];
-			}
+		if (isset($subs[$yr][$mth])) {
+			echo $subs[$yr][$mth];
 		} else {
 			echo '-';
 		}
