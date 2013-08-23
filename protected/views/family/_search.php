@@ -62,8 +62,20 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'yr_reg'); ?>
-		<?php echo $form->textField($model,'yr_reg'); ?>
+		<?php echo $form->label($model,'reg_date'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				'model' => $model,
+				'attribute' => "reg_date",
+				'options'       => array(
+						'dateFormat' => 'yy-mm-dd',
+						'changeYear' => true,
+						'maxDate'		=> 0,
+				),
+				'htmlOptions' => array(
+						'size' => '10',         // textField size
+						'maxlength' => '10',    // textField maxlength
+				),
+		)); ?>
 	</div>
 
 	<div class="row">
@@ -78,7 +90,19 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'marriage_date'); ?>
-		<?php echo $form->textField($model,'marriage_date'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				'model' => $model,
+				'attribute' => "marriage_date",
+				'options'       => array(
+						'dateFormat' => 'yy-mm-dd',
+						'changeYear' => true,
+						'maxDate'		=> 0,
+				),
+				'htmlOptions' => array(
+						'size' => '10',         // textField size
+						'maxlength' => '10',    // textField maxlength
+				),
+		)); ?>
 	</div>
 
 	<div class="row">
