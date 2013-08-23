@@ -17,9 +17,20 @@
 	<?php echo CHtml::encode($data->trans_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('yr_month')); ?>:</b>
-	<?php echo CHtml::encode($data->yr_month); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('start_month')); ?>:</b>
+	<?php echo CHtml::encode($data->start_month); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('start_year')); ?>:</b>
+	<?php echo CHtml::encode($data->start_year); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('end_month')); ?>:</b>
+	<?php echo CHtml::encode($data->end_month); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('end_year')); ?>:</b>
+	<?php echo CHtml::encode($data->end_year); ?>
+	<br />
 
 </div>

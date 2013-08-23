@@ -668,6 +668,22 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionSubscriptions($id) {
+		$family = Families::model()->findByPk($id);
+		
+		$subscriptions = Subscription::model()->findAllByAttributes(array(
+								'family_id' => $family->id
+							), array(
+								'order' => 'end_year ASC, end_month ASC'	
+							));
+
+		$this->render('subscriptions',array(
+			'family' => $family,
+			'subscriptions' => $subscriptions
+		));
+	}
+
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

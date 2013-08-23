@@ -169,15 +169,15 @@ class SubscriptionController extends RController
 	{
 		$family = Families::model()->findByPk($fid);
 
-		$subscriptions = Subscription::model()->findAllByAttributes(array(
-								'family_id' => $family->id
-							), array(
-								'order' => 'end_year ASC, end_month ASC'								
-							));
+		$dataProvider = new CActiveDataProvider('Subscription', array(
+							'criteria' => array(
+								'condition' => 'family_id = ' . $family->id,
+								'order' => 'end_year ASC, end_month ASC'
+							)));
 
 		$this->render('index',array(
-			'family' => $family,
-			'subscriptions' => $subscriptions
+			'dataProvider' => $dataProvider,
+			'family' => $family
 		));
 	}
 

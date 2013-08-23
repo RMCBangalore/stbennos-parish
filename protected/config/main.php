@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'St. Benno\'s Parish',
+/*	'theme'=>'indigo',*/
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -93,10 +94,10 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-		'parishName' => 'Holy Redeemer Church',
-		'parishAddr' => array('28/1, Hennur Road,',
-			 'Kalyan Nagar PO,',
-			 'Bangalore - 560043'),
+		'parishName' => 'St. Bennos Parish',
+		'parishAddr' => array('Street Address,',
+			 'Your Area,',
+			 'Your City - 123456'),
 		'massBookAmt' => 100,
 		'photoManip' => extension_loaded('gd'),
 	),

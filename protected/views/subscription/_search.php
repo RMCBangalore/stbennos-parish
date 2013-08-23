@@ -17,18 +17,28 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'family_id'); ?>
-		<?php echo $form->textField($model,'family_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'trans_id'); ?>
 		<?php echo $form->textField($model,'trans_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'yr_month'); ?>
-		<?php echo $form->textField($model,'yr_month',array('size'=>7,'maxlength'=>7)); ?>
+		<?php echo $form->label($model,'start_month'); ?>
+		<?php echo $form->textField($model,'start_month',array('size'=>7,'maxlength'=>7)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'start_year'); ?>
+		<?php echo $form->textField($model,'start_year',array('size'=>7,'maxlength'=>7)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'end_month'); ?>
+		<?php echo $form->textField($model,'end_month',array('size'=>7,'maxlength'=>7)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'end_year'); ?>
+		<?php echo $form->textField($model,'end_year',array('size'=>7,'maxlength'=>7)); ?>
 	</div>
 
 	<div class="row buttons">
