@@ -30,7 +30,9 @@
 					CHtml::encode(Yii::app()->name),
 						array('width' => $logo['width'], 'height' => $logo['height']));
 		   } else {
-				echo CHtml::tag('span', array(), CHtml::encode(Yii::app()->name));
+				echo CHtml::image(Yii::app()->request->baseUrl . '/images/logo.png',
+					CHtml::encode(Yii::app()->name),
+						array('width' => 386, 'height' => 100));
 		   } ?></div>
 	</div><!-- header -->
 
