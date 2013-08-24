@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>Create MassBooking</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'mass_dt' => $mass_dt, 'mass_id' => $mass_id)); ?>

@@ -1,0 +1,21 @@
+/**
+ * style.css
+ *
+ * @author Martin Ludvik <matolud@gmail.com>
+ * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @license http://opensource.org/licenses/MIT MIT license
+ */
+
+table.e-calendar-view thead th,
+table.e-calendar-view tbody td {
+  padding: 4px 5px;
+  text-align: center;
+}
+
+table.e-calendar-view td.current {
+  font-weight: bold;
+}
+
+table.e-calendar-view td.not-relevant {
+  color: rgb(221, 221, 221);
+}

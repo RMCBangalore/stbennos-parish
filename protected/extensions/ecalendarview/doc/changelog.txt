@@ -1,0 +1,22 @@
+Changelog
+=========
+
+Version 0.3
+-----------
+
+* Added attribute *ECalendarView::$_weeksInRow*.
+* Fixed issue with overriden function *ECalendarView::getId()*.
+
+Version 0.2
+-----------
+
+* Added attribute *ECalendarView::$_id*.
+* Added attribute *ECalendarView::$_ajaxUpdate*.
+* Changed default *ECalendarViewPagination::$_pageIndexVar*.
+* Controller is accessible in item view by *$this*.
+* Small visual enhancements.
+
+Version 0.1
+-----------
+
+* Initial version.

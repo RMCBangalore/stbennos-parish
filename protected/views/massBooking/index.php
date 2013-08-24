@@ -7,8 +7,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create MassBooking', 'url'=>array('create')),
-	array('label'=>'Manage MassBooking', 'url'=>array('admin')),
+	array('label'=>'Create Mass Booking', 'url'=>array('create')),
+	array('label'=>'Manage Mass Bookings', 'url'=>array('admin')),
+	array('label'=>'Mass Booking Calendar', 'url'=>array('calendar')),
 );
 ?>
 

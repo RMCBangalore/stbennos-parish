@@ -25,6 +25,7 @@
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
+				'value' => $mass_dt,
 				'size' => '10',         // textField size
 				'maxlength' => '10',    // textField maxlength
 				'onChange' => CHtml::ajax(array(
@@ -69,3 +70,21 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<?php if (strlen($mass_dt) > 0): ?>
+<script>
+$(document).ready(function() {
+jQuery.ajax( {
+	'id':'MassBooking_mass_dt',
+	'type':'POST',
+	'url':'/massBooking/masses',
+	'data': { 'MassBooking[mass_dt]' : "<?php echo $mass_dt ?>" },
+	'cache':false,
+	'success':function(html){
+		jQuery("#MassBooking_mass_id").html(html)
+		$("#MassBooking_mass_id").val(<?php echo $mass_id ?>);
+	}
+} );
+} );
+</script>
+<? endif ?>

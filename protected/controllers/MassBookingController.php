@@ -1,6 +1,6 @@
 <?php
 
-class MassBookingController extends Controller
+class MassBookingController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,7 +14,7 @@ class MassBookingController extends Controller
 	public function filters()
 	{
 		return array(
-#			'rights', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -67,7 +67,7 @@ class MassBookingController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($for = null, $mass_id = null)
 	{
 		$model=new MassBooking;
 
@@ -93,21 +93,31 @@ class MassBookingController extends Controller
 			}
 		}
 
-		$this->render('create',array(
+		$parms = array(
 			'model'=>$model,
+		);
+
+		$parms['mass_dt'] = isset($for) ? $for : '';
+		$parms['mass_id'] = isset($mass_id) ? $mass_id : '';
+
+		$this->render('create', $parms);
+	}
+
+	public function getMasses($mass_dt) {
+		$dow = date_format($mass_dt, 'w');
+		$data = MassSchedule::model()->findAllByAttributes(array(
+			'day' => $dow
+		), array(
+			'order' => 'time'
 		));
+		return $data;
 	}
 
 	public function actionMasses() {
 		Yii::trace('massBooking/masses called', 'application.controllers.MassBooking');
 		if (isset($_POST['MassBooking'])) {
 			$mass_dt = $_POST['MassBooking']['mass_dt'];
-			$dow = date_format(new DateTime($mass_dt), 'w');
-			$data = MassSchedule::model()->findAllByAttributes(array(
-				'day' => $dow
-			), array(
-				'order' => 'time'
-			));
+			$data = $this->getMasses(new DateTime($mass_dt));
 			$lv = FieldNames::values('languages');
 			echo CHtml::tag('option', array('value' => ''), '--- Select ---', true);
 			foreach ($data as $mass) {
@@ -179,6 +189,24 @@ class MassBookingController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCalendar()
+	{
+		$this->render('calendar', array(
+		));
+	}
+
+	public function getMassBookings($date, $mass) {
+		$model = MassBooking::model()->findAllByAttributes(array(
+					'mass_dt' => date_format($date, 'Y-m-d'),
+					'mass_id' => $mass
+				), array(
+					'join' => 'INNER JOIN masses m ON m.id = t.mass_id',
+					'order' => 'm.time'
+				));
+
+		return $model;
 	}
 
 	/**

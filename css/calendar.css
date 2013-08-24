@@ -1,0 +1,46 @@
+table.e-calendar-view,
+table.e-calendar-view th, 
+table.e-calendar-view td {
+  border-style: solid;
+  border-color: #88a;
+}
+
+table.e-calendar-view { border-width: 1px 0 0 1px; }
+
+table.e-calendar-view thead th,
+table.e-calendar-view tbody td {
+  padding: 4px 5px;
+  text-align: right;
+  padding-right: 15px;
+  border-width: 0 1px 1px 0;
+}
+
+table.e-calendar-view td.current {
+  font-weight: bold;
+}
+
+table.e-calendar-view td.not-relevant {
+  color: rgb(221, 221, 221);
+}
+
+table.e-calendar-view td {
+  height: 70px;
+  width: 91px;
+}
+
+table.e-calendar-view td span.dt {
+  font-size: 110%;
+}
+
+span.mass, a.mass {
+	display: block;
+}
+
+a.booked {
+	color: rgb(100, 10, 10);
+}
+
+div.mass {
+	float: left;
+	font-size: 70%;
+}
