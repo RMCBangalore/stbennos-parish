@@ -28,7 +28,7 @@ table.e-calendar-view td {
   width: 91px;
 }
 
-table.e-calendar-view td span.dt {
+table.e-calendar-view td a.dt {
   font-size: 110%;
 }
 

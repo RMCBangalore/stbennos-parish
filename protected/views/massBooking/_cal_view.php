@@ -23,8 +23,10 @@
 			'mass_id' => $mass->id)) . "'>$text</a>";
 	}
 	echo '</div>';
+	echo '<br><br><br><a class="dt" href="' .
+		Yii::app()->createUrl('/massBooking/index', array('date' => date_format($data->date, 'Y-m-d'))) .
+		'">' . $data->date->format('j') . '</a>';
+} else {
+	echo '<br><br><br><span class="dt"> ' . $data->date->format('j') . '</span>';
 } ?>
 
-<?php echo '<br><br><br><a class="dt" href="' .
-	Yii::app()->createUrl('/massBooking/index', array('date' => date_format($data->date, 'Y-m-d'))) .
-	'">' . $data->date->format('j') . '</a>'; ?>
