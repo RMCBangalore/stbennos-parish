@@ -168,9 +168,17 @@ class MassBookingController extends RController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($date = null)
 	{
-		$dataProvider=new CActiveDataProvider('MassBooking');
+		if (isset($date)) {
+			$dataProvider=new CActiveDataProvider('MassBooking', array(
+				'criteria' => array(
+					'condition' => "mass_dt = '$date'",
+				)
+			));
+		} else {
+			$dataProvider=new CActiveDataProvider('MassBooking');
+		}
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

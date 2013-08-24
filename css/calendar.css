@@ -44,3 +44,7 @@ div.mass {
 	float: left;
 	font-size: 70%;
 }
+
+a.dt {
+  text-decoration: none;
+}
