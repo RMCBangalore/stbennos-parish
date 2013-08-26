@@ -35,11 +35,7 @@ Registered User?
 </p><p>
 <?php echo CHtml::link("Total $families families", array('family/index')); ?>
 </p><p>
-<?php if (Yii::app()->user->checkAccess('Admin')) {
-	echo CHtml::link("Total $members members", array('person/index'));
-} else {
-	echo "Total $members members";
-}
+<?php echo CHtml::link("Total $members members", array('person/index'));
 if ($baptised == $members) {
 	echo ", " . CHtml::link("$baptised baptised", array('person/baptised'));;
 } else {

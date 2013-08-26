@@ -8,6 +8,7 @@
 1. [How do I capture family survey details?](#family-survey)
 1. [How do I add more than 2 dependents to a family?](#family-more-deps)
 1. [How do I add more than 3 children to a family?](#family-more-children)
+1. [How do I view / pay family subscriptions?](#family-subscriptions)
 1. [How do I add a photo for a family?](#family-photo)
 1. [How do I add a photo for a person?](#member-photo)
 1. [How do I add a Google map for a family?](#google-map)
@@ -24,6 +25,7 @@
 
 	 * Create, Edit and View families
 	 * Add members to families, edit, view members
+     * Pay family subscriptions, book masses
 	 * Survey family members - satisfation, needs, generic Q/A
 	 * Set photos for families, members
 	 * Add entries to parish registers - baptism, first communion, confirmation, banns, marriage, death
@@ -80,6 +82,17 @@
 	Now, view the family by clicking "View Family".
 	There now appears a link "More Children" in the right sidebar - click it.
 	Add the extra children in the form provided and save.
+
+  [Top](#index)
+
+1. <a id="family-subscriptions"></a>How do I view / pay family subscriptions?
+
+	Click the "View Families" link under Home to get a family listing.
+	Click the link (id) of the family you want to view subscriptions.
+	In the right sidebar, click the "Subscriptions" link to view family subscriptions.
+	To pay subscriptions, click "Create Subscription" link in the right sidebar
+	Fill the form and click the "Create" button.
+	You may download the receipt by clicking the "Download Receipt" link
 
   [Top](#index)
 
