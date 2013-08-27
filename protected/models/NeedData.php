@@ -94,4 +94,6 @@ class NeedData extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public $val_count;
 }
