@@ -23,12 +23,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'language'); ?>
-		<?php echo $form->textField($model,'language'); ?>
+		<?php echo $form->dropDownList($model,"language",FieldNames::values('languages'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'day'); ?>
-		<?php echo $form->textField($model,'day'); ?>
+		<?php echo $form->dropDownList($model,"day",FieldNames::values('weekdays'), array('prompt' => '-- Select --')); ?>
 	</div>
 
 	<div class="row buttons">

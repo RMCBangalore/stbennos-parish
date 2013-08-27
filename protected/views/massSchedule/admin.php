@@ -47,8 +47,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'time',
-		'language',
-		'day',
+		array(
+			'name' => 'language',
+			'value' => 'FieldNames::value("languages", $data->language)'
+		),
+		array(
+			'name' => 'day',
+			'value' => 'FieldNames::value("weekdays", $data->day)'
+		),
 		array(
 			'class'=>'CButtonColumn',
 		),
