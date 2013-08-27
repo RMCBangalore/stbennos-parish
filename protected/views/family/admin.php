@@ -17,9 +17,9 @@ $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
-$('.search-form form').submit(function(){
+$('#submit-button').click(function(){
 	$('#families-grid').yiiGridView('update', {
-		data: $(this).serialize()
+		data: $('.search-form form').serialize()
 	});
 	return false;
 });

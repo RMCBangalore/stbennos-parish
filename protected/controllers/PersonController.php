@@ -310,8 +310,14 @@ class PersonController extends RController
 			$dataProvider = $model->search();
 			$dataProvider->pagination = false;
 
-            foreach( $dataProvider->data as $data )
-				echo $data->id, "\t", $data->fname, "\t", $data->lname, "\t", $data->dob, "\n";
+            foreach( $dataProvider->data as $data ) {
+				$fields = array('id', 'fname', 'lname', 'dob', 'mobile');
+				$fval = array();
+				foreach($fields as $field) {
+					array_push($fval, $data->$field);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
 
 			Yii::app()->end();
 		}

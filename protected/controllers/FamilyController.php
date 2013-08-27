@@ -663,6 +663,25 @@ class FamilyController extends RController
 		if(isset($_GET['Families']))
 			$model->attributes=$_GET['Families'];
 
+		if (isset($_GET['export'])) {
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"family-report.xls\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+            foreach( $dataProvider->data as $data ) {
+				$fields = array('id', 'fid', 'addr_nm', 'addr_stt', 'addr_area', 'addr_pin', 'zone', 'reg_date', 'marriage_church', 'marriage_date');
+				$fval = array();
+				foreach($fields as $field) {
+					array_push($fval, $data->$field);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));
