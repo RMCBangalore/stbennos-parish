@@ -18,7 +18,7 @@ class SurveyReportsController extends RController
 
 		if (isset($_GET['need_id'])) {
 			$need_id = $_GET['need_id'];
-			Yii::trace("SR.actionNeeds called for $need_id", 'application.controllers.SurverReportsController');
+			Yii::trace("SR.actionNeeds called for $need_id", 'application.controllers.SurveyReportsController');
 
 			if (strlen($need_id) > 0) {
 				$crit = array(
@@ -53,7 +53,36 @@ class SurveyReportsController extends RController
 
 	public function actionSatisfaction()
 	{
-		$this->render('satisfaction');
+		$satisfactionItems = SatisfactionItem::model()->findAll();
+
+		if (isset($_GET['satisfaction_item_id'])) {
+			$satisfaction_item_id = $_GET['satisfaction_item_id'];
+			Yii::trace("SR.satisfaction called for $satisfaction_item_id", 'application.controllers.SurveyReportsController');
+
+			if (strlen($satisfaction_item_id) > 0) {
+				$crit = array(
+							'satisfaction_item_id' => $satisfaction_item_id
+						);
+			} else {
+				$crit = array();
+			}
+
+			$satisfactionDist = SatisfactionData::model()->findAllByAttributes($crit, array(
+								'select' => 'satisfaction_item_id, satisfaction_value, count(id) val_count',
+								'group' => 'satisfaction_item_id, satisfaction_value'
+							));
+
+			$this->renderPartial('satisfaction_report', array(
+				'satisfactionDist' => $satisfactionDist,
+				'satisfactionItems' => $satisfactionItems
+			));
+
+			return;
+		}
+
+		$this->render('satisfaction', array(
+			'satisfactionItems' => $satisfactionItems
+		));
 	}
 
 	// Uncomment the following methods and override them if needed

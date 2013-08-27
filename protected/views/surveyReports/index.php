@@ -8,5 +8,8 @@ $this->breadcrumbs=array(
 <h1>Survey Reports</h1>
 
 <p>
-	<a href="<?php echo $this->createUrl('surveyReports/needs') ?>">Need Items Report</a>
+	<a href="<?php echo $this->createUrl('surveyReports/needs') ?>">Needs Report</a>
+</p>
+<p>
+	<a href="<?php echo $this->createUrl('surveyReports/satisfaction') ?>">Satisfaction Report</a>
 </p>

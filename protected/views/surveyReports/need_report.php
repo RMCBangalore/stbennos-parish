@@ -7,7 +7,7 @@
 $fv = FieldNames::values('need_level');
 echo count($fv);
 
-		?>">Need Level Count</th>
+		?>">Need Level Percentage (Count)</th>
 	<th rowspan="2">Total</th>
 </tr>
 <tr>
