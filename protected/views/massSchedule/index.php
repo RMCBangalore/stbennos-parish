@@ -49,9 +49,9 @@ foreach ($day_masses as $day => $masses) {
 			echo "<tr>";
 		}
 		echo "<td>" .
-			CHtml::encode(date_format(new DateTime($data->time), 'g:i a')) .
+			CHtml::encode(date_format(new DateTime($mass['time']), 'g:i a')) .
 			"</td><td>" .
-			CHtml::encode(FieldNames::value('languages', $data->language)) .
+			CHtml::encode(FieldNames::value('languages', $mass['language'])) .
 			"</td></tr>";
 	}
 }
