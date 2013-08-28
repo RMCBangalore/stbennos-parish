@@ -4,7 +4,36 @@ class SurveyReportsController extends RController
 {
 	public function actionAwareness()
 	{
-		$this->render('awareness');
+		$awarenessItems = AwarenessItem::model()->findAll();
+
+		if (isset($_GET['awareness_id'])) {
+			$awareness_id = $_GET['awareness_id'];
+			Yii::trace("SR.actionAwarenesss called for $awareness_id", 'application.controllers.SurveyReportsController');
+
+			if (strlen($awareness_id) > 0) {
+				$crit = array(
+							'awareness_id' => $awareness_id
+						);
+			} else {
+				$crit = array();
+			}
+
+			$awarenessDist = AwarenessData::model()->findAllByAttributes($crit, array(
+								'select' => 'awareness_id, value, count(id) val_count',
+								'group' => 'awareness_id, value'
+							));
+
+			$this->renderPartial('awareness_report', array(
+				'awarenessDist' => $awarenessDist,
+				'awarenessItems' => $awarenessItems
+			));
+
+			return;
+		}
+
+		$this->render('awareness', array(
+			'awarenessItems' => $awarenessItems
+		));
 	}
 
 	public function actionIndex()

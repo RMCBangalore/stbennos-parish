@@ -27,11 +27,11 @@ foreach ($needDist as $need_row) {
 	if (!isset($needCount[$nid])) {
 		$needCount[$nid] = array();
 		$needTot[$nid] = 0;
+	}
 
-		if (!isset($needCount[$nid][$nv])) {
-			$needCount[$nid][$nv] = $need_row->val_count;
-			$needTot[$nid] += $need_row->val_count;
-		}
+	if (!isset($needCount[$nid][$nv])) {
+		$needCount[$nid][$nv] = $need_row->val_count;
+		$needTot[$nid] += $need_row->val_count;
 	}
 }
 

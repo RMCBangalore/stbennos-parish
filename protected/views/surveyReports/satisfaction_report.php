@@ -27,11 +27,11 @@ foreach ($satisfactionDist as $satisfactionRow) {
 	if (!isset($satisfactionCount[$nid])) {
 		$satisfactionCount[$nid] = array();
 		$satisfactionTot[$nid] = 0;
+	}
 
-		if (!isset($satisfactionCount[$nid][$nv])) {
-			$satisfactionCount[$nid][$nv] = $satisfactionRow->val_count;
-			$satisfactionTot[$nid] += $satisfactionRow->val_count;
-		}
+	if (!isset($satisfactionCount[$nid][$nv])) {
+		$satisfactionCount[$nid][$nv] = $satisfactionRow->val_count;
+		$satisfactionTot[$nid] += $satisfactionRow->val_count;
 	}
 }
 

@@ -176,9 +176,7 @@ class Families extends CActiveRecord
 
 		$awarenessData = array();
 		foreach ($model->awarenessData as $ad) {
-			foreach (array('accessed', 'aware') as $attr) {
-				$awarenessData[$ad->awareness_id][$attr] = $ad->$attr;
-			}
+			$awarenessData[$ad->awareness_id] = $ad->value;
 		}
 		return $awarenessData;
 	}

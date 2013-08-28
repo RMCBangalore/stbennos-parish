@@ -6,8 +6,7 @@
  * The followings are the available columns in table 'awareness_data':
  * @property integer $family_id
  * @property integer $id
- * @property integer $aware
- * @property integer $accessed
+ * @property integer $value
  */
 class AwarenessData extends CActiveRecord
 {
@@ -37,10 +36,10 @@ class AwarenessData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('family_id, aware, accessed', 'numerical', 'integerOnly'=>true),
+			array('family_id, value', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('family_id, id, aware, accessed', 'safe', 'on'=>'search'),
+			array('family_id, id, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,8 +62,7 @@ class AwarenessData extends CActiveRecord
 		return array(
 			'family_id' => 'Family',
 			'id' => 'ID',
-			'aware' => 'Aware',
-			'accessed' => 'Accessed',
+			'value' => 'Value',
 		);
 	}
 
@@ -81,11 +79,12 @@ class AwarenessData extends CActiveRecord
 
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('id',$this->id);
-		$criteria->compare('aware',$this->aware);
-		$criteria->compare('accessed',$this->accessed);
+		$criteria->compare('value',$this->value);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+	public $val_count;
 }

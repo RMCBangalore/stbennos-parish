@@ -576,15 +576,24 @@ class FamilyController extends RController
 		}
 
 		if (isset($_POST['AwarenessData'])) {
-			foreach($_POST['AwarenessData'] as $aid => $value) {
+			Yii::trace("FC.survey awareness reached", 'application.controllers.FamilyController');
+			$awarenessItems = AwarenessItem::model()->findAll();
+
+			foreach($awarenessItems as $aRow) {
+				$aid = $aRow->id;
+				$value = isset($_POST['AwarenessData'][$aid])
+					? $_POST['AwarenessData'][$aid] : 1;
+
 				$ad = AwarenessData::model()->findByAttributes(array(
 					'family_id' => $id,
 					'awareness_id' => $aid
 				));
+
 				if (!$ad) {
 					$ad = new AwarenessData();
 				}
-				$ad->attributes = $value;
+
+				$ad->value = $value;
 				$ad->family_id = $id;
 				$ad->awareness_id = $aid;
 				$ad->save();

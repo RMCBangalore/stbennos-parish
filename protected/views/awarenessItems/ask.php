@@ -6,6 +6,8 @@ $this->breadcrumbs=array(
 	'Awareness Items',
 );
 
+#echo CHtml::hiddenField("AwarenessData", 1);
+
 ?>
 
 <table>
@@ -14,25 +16,29 @@ $this->breadcrumbs=array(
 <thead>
 	<tr>
 		<th>&nbsp;</th>
-			<th>Accessed</th>
-			<th>Aware</th>
-		<th>
+		<?php
+			 $fv = FieldNames::values('awareness_level');
+			 foreach ($fv as $aid => $attr) {
+				 echo '<th>' . $attr . '</th>';
+			 }
+		?>
 	</tr>
 </thead>
 
-<?php foreach($awarenessItems as $data) { ?>
+<?php
+
+foreach($awarenessItems as $data) { ?>
 	
 	<th><?php echo CHtml::encode($data->text); ?>:</th>
 
 	<?php $sid = $data->id;
 
-		foreach (array('accessed', 'aware') as $attr) {
-			$chk = "";
-			if (isset($awarenessData[$sid][$attr])) {
-				$chk = "checked='true' ";
-			}
-
-			echo "<td><input type=\"checkbox\" id=\"AwarenessData_${sid}_awareness_value_{$attr}\" name=\"AwarenessData[$sid][$attr]\" value=\"1\" $chk/></td>"; 
+		$fv = FieldNames::values('awareness_level');
+		foreach ($fv as $fid => $attr) {
+			$chk = isset($awarenessData[$sid]) ? $awarenessData[$sid] == $fid : false;
+			echo '<td>';
+			echo CHtml::radioButton("AwarenessData[$sid]", $chk, array('id' => "AwarenessData_${sid}_value_{$fid}", 'value' => $fid));
+			echo "</td>"; 
 		} ?>
 	</tr>
 <?php } ?>
