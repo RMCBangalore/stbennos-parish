@@ -13,3 +13,6 @@ $this->breadcrumbs=array(
 <p>
 	<a href="<?php echo $this->createUrl('surveyReports/satisfaction') ?>">Satisfaction Report</a>
 </p>
+<p>
+	<a href="<?php echo $this->createUrl('surveyReports/awareness') ?>">Awareness Report</a>
+</p>
