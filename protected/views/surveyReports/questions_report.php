@@ -60,8 +60,7 @@ foreach ($openCount as $qid => $openRow) {
 		echo '<td>';
 		if (isset($openCount[$qid][$qv])) {
 			$nc = $openCount[$qid][$qv];
-			echo 100 * $nc / $openTot[$qid] . '% ';
-			echo "($nc)";
+			printf("%.2f%% (%d)", 100 * $nc / $openTot[$qid], $nc);
 			$tot += $openCount[$qid][$qv];
 		} else {
 			echo 0;

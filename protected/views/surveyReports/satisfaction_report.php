@@ -50,8 +50,7 @@ foreach ($satisfactionCount as $nid => $satisfactionRow) {
 		echo '<td>';
 		if (isset($satisfactionCount[$nid][$nv])) {
 			$nc = $satisfactionCount[$nid][$nv];
-			echo 100 * $nc / $satisfactionTot[$nid] . '% ';
-			echo "($nc)";
+			printf("%.2f%% (%d)", 100 * $nc / $satisfactionTot[$nid], $nc);
 			$tot += $satisfactionCount[$nid][$nv];
 		} else {
 			echo 0;

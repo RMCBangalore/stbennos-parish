@@ -50,8 +50,7 @@ foreach ($awarenessCount as $nid => $awarenessRow) {
 		echo '<td>';
 		if (isset($awarenessCount[$nid][$nv])) {
 			$nc = $awarenessCount[$nid][$nv];
-			echo 100 * $nc / $awarenessTot[$nid] . '% ';
-			echo "($nc)";
+			printf("%.2f%% (%d)", 100 * $nc / $awarenessTot[$nid], $nc);
 			$tot += $awarenessCount[$nid][$nv];
 		} else {
 			echo 0;

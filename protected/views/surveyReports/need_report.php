@@ -50,8 +50,7 @@ foreach ($needCount as $nid => $needRow) {
 		echo '<td>';
 		if (isset($needCount[$nid][$nv])) {
 			$nc = $needCount[$nid][$nv];
-			echo 100 * $nc / $needTot[$nid] . '% ';
-			echo "($nc)";
+			printf("%.2f%% (%d)", 100 * $nc / $needTot[$nid], $nc);
 			$tot += $needCount[$nid][$nv];
 		} else {
 			echo 0;
