@@ -77,7 +77,47 @@ class SurveyReportsController extends RController
 
 	public function actionOpenQuestions()
 	{
-		$this->render('openQuestions');
+		$openQuestions = OpenQuestion::model()->findAll();
+
+		if (isset($_GET['question_id'])) {
+			$question_id = $_GET['question_id'];
+			Yii::trace("SR.openQuestions called for '$question_id'", 'application.controllers.SurveyReportsController');
+
+			if (preg_match('/^\d+$/', $question_id)) {
+				$crit = array(
+							'question_id' => $question_id
+						);
+			} elseif ('' == $question_id) {
+				$questions = OpenQuestion::model()->findAllByAttributes(array(
+					'type' => 'yesno'
+				));
+				$qids = array();
+				foreach ($questions as $qn) {
+					array_push($qids, $qn->id);
+				}
+				$crit = array(
+							'question_id' => $qids
+						);
+			} else {
+				return;
+			}
+
+			$openDist = OpenData::model()->findAllByAttributes($crit, array(
+								'select' => 'question_id, value, count(id) val_count',
+								'group' => 'question_id, value'
+							));
+
+			$this->renderPartial('questions_report', array(
+				'openDist' => $openDist,
+				'openQuestions' => $openQuestions
+			));
+
+			return;
+		}
+
+		$this->render('openQuestions', array(
+			'openQuestions' => $openQuestions
+		));
 	}
 
 	public function actionSatisfaction()

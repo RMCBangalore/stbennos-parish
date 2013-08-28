@@ -30,7 +30,7 @@ foreach($openData as $openModel) {
 
 		switch ($data->type) {
 		case 'yesno': echo $form->dropDownList($openModel, "[$qid]value", 
-			array('0' => 'No', '1' => 'Yes'), array('prompt' => '-- Select --'));
+			array('no' => 'No', 'yes' => 'Yes'), array('prompt' => '-- Select --'));
 			break;
 		case 'integer': echo $form->textField($openModel, "[$qid]value",
 			array('size' => 5, 'maxlength' => 50));
