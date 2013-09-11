@@ -3,6 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Banns Responses',
 );
 

@@ -3,6 +3,7 @@
 /* @var $model MassSchedule */
 
 $this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
 	'Mass Schedules'=>array('index'),
 	'Create',
 );

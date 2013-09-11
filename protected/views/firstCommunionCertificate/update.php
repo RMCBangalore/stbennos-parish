@@ -3,6 +3,7 @@
 /* @var $model FirstCommunionCertificate */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'First Communion Certificates'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',

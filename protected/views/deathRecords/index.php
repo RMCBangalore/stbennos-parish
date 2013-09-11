@@ -3,6 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
+       'Registers' => array('site/page', 'view' => 'registers'),
 	'Death Records',
 );
 

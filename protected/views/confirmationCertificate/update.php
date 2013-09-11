@@ -3,6 +3,7 @@
 /* @var $model ConfirmationCertificate */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Confirmation Certificates'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',

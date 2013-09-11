@@ -3,6 +3,7 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
 	'Users'=>array('index'),
 	$model->id,
 );

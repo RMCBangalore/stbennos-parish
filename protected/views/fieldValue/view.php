@@ -2,8 +2,13 @@
 /* @var $this FieldValueController */
 /* @var $model FieldValues */
 
+$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+
+$lbls = preg_match('/s$/', $lbl) ? $lbl : "${lbl}s";
+
 $this->breadcrumbs=array(
-	'Field Values'=>array('index'),
+	'Admin' => array('site/page', 'view' => 'admin'),
+	$lbls=>array('index', 'type' => $_GET['type']),
 	$model->name,
 );
 

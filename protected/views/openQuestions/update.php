@@ -3,6 +3,7 @@
 /* @var $model OpenQuestion */
 
 $this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
 	'Open Questions'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',

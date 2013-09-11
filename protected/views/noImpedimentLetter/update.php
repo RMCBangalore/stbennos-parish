@@ -3,6 +3,7 @@
 /* @var $model NoImpedimentLetter */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'No Impediment Letters'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',

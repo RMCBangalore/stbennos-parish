@@ -3,6 +3,7 @@
 /* @var $model DeathRecord */
 
 $this->breadcrumbs=array(
+       'Registers' => array('site/page', 'view' => 'registers'),
 	'Death Records'=>array('index'),
 	$model->id,
 );

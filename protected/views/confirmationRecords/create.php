@@ -3,6 +3,7 @@
 /* @var $model ConfirmationRecord */
 
 $this->breadcrumbs=array(
+       'Registers' => array('site/page', 'view' => 'registers'),
 	'Confirmation Records'=>array('index'),
 	'Create',
 );

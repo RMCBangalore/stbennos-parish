@@ -2,6 +2,9 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+$this->breadcrumbs=array(
+	'Admin',
+);
 ?>
 
 <h1>Administer <i><?php echo CHtml::encode(Yii::app()->params['parishName']); ?></i></h1>

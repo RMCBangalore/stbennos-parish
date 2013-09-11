@@ -2,11 +2,14 @@
 /* @var $this FieldValueController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Field Values',
-);
-
 $lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+
+$lbls = preg_match('/s$/', $lbl) ? $lbl : "${lbl}s";
+
+$this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
+	$lbls,
+);
 
 $this->menu=array(
 	array('label'=>"Create $lbl", 'url'=>array('create', 'type' => $_GET['type'])),

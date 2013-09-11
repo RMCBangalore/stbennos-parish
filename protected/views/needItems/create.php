@@ -3,6 +3,7 @@
 /* @var $model NeedItem */
 
 $this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
 	'Need Items'=>array('index'),
 	'Create',
 );

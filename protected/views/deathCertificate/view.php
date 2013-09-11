@@ -3,6 +3,7 @@
 /* @var $model DeathCertificate */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Death Certificates'=>array('index'),
 	$model->id,
 );

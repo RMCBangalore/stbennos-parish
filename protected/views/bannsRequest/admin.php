@@ -3,6 +3,7 @@
 /* @var $model BannsRequest */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Banns Requests'=>array('index'),
 	'Manage',
 );

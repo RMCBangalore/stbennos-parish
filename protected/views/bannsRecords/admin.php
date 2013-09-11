@@ -3,6 +3,7 @@
 /* @var $model BannsRecord */
 
 $this->breadcrumbs=array(
+       'Registers' => array('site/page', 'view' => 'registers'),
 	'Banns Records'=>array('index'),
 	'Manage',
 );

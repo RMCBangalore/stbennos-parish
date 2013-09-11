@@ -3,6 +3,7 @@
 /* @var $model MembershipCertificate */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Membership Certificates'=>array('index'),
 	'Manage',
 );

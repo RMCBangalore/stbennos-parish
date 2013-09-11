@@ -3,6 +3,7 @@
 /* @var $model BaptismCertificate */
 
 $this->breadcrumbs=array(
+       'Certificates' => array('site/page', 'view' => 'certificates'),
 	'Baptism Certificates'=>array('index'),
 	'Create',
 );

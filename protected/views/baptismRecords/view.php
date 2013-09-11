@@ -3,6 +3,7 @@
 /* @var $model BaptismRecord */
 
 $this->breadcrumbs=array(
+	'Registers' => array('site/page', 'view' => 'registers'),
 	'Baptism Records'=>array('index'),
 	$model->name,
 );

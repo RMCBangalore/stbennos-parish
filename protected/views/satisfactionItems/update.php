@@ -3,6 +3,7 @@
 /* @var $model SatisfactionItem */
 
 $this->breadcrumbs=array(
+	'Admin' => array('site/page', 'view' => 'admin'),
 	'Satisfaction Items'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
