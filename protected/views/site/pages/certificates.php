@@ -6,10 +6,6 @@ $this->breadcrumbs=array(
 	'Certificates',
 );
 
-$this->menu=array(
-	array('label' => 'Create Family', 'url' => array('family/create')),
-	array('label' => 'Manage Families', 'url' => array('family/admin'))
-);
 ?>
 <h1>Certificates</h1>
 

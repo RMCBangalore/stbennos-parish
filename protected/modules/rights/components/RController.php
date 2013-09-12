@@ -24,6 +24,8 @@ class RController extends CController
 	*/
 	public $breadcrumbs=array();
 
+	public $iconmenu=array();
+
 	/**
 	* The filter method for 'rights' access filter.
 	* This filter is a wrapper of {@link CAccessControlFilter}.

@@ -55,6 +55,10 @@ function googleTranslateElementInit() {
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
+		<?php if(preg_match('/^rights\//', Yii::app()->request->pathInfo)) {
+			array_shift($this->breadcrumbs);
+			$this->breadcrumbs = array('Admin' => array('/site/page', 'view' => 'admin')) + $this->breadcrumbs;
+		} ?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->

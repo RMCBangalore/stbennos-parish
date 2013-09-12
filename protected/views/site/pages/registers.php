@@ -6,10 +6,6 @@ $this->breadcrumbs=array(
 	'Registers',
 );
 
-$this->menu=array(
-	array('label' => 'Create Family', 'url' => array('family/create')),
-	array('label' => 'Manage Families', 'url' => array('family/admin'))
-);
 ?>
 <h1>Registers</h1>
 

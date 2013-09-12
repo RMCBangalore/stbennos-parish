@@ -101,5 +101,32 @@ return array(
 			 'Your City - 123456'),
 		'massBookAmt' => 100,
 		'photoManip' => extension_loaded('gd'),
+		'iconMenu' => array(
+				array(
+					'title' => 'Parish Profile',
+					'url' => array('site/parishProfile'),
+					'icon' => '/images/icons/parish profile-new.png'
+				),
+				array(
+					'title' => 'Manage Families',
+					'url' => array('family/admin'),
+					'icon' => '/images/icons/manage famil.png'
+				),
+				array(
+					'title' => 'Mass Bookings',
+					'url' => array('massBooking/index'),
+					'icon' => '/images/icons/mass booking.png'
+				),
+				array(
+					'title' => 'Parish Registers',
+					'url' => array('site/page', array('view' => 'registers')),
+					'icon' => '/images/icons/parish register1.png'
+				),
+				array(
+					'title' => 'Certificates',
+					'url' => array('site/page', array('view' => 'certificates')),
+					'icon' => '/images/icons/certificate archives.png',
+				)
+		),
 	),
 );
