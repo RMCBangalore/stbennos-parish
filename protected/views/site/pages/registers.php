@@ -9,16 +9,23 @@ $this->breadcrumbs=array(
 ?>
 <h1>Registers</h1>
 
-<p>
-	<?php echo CHtml::link('Marriage Register', array('marriageRecords/index')); ?>
-</p><p>
-	<?php echo CHtml::link('Baptism Register', array('baptismRecords/index')); ?>
-</p><p>
-	<?php echo CHtml::link('First Communion Register', array('firstCommunionRecords/index')); ?>
-</p><p>
-	<?php echo CHtml::link('Confirmation Register', array('confirmationRecords/index')); ?>
-</p><p>
-	<?php echo CHtml::link('Death Register', array('deathRecords/index')); ?>
-</p><p>
-	<?php echo CHtml::link('Banns Register', array('bannsRecords/index')); ?>
-</p>
+<?php
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/marriage register.png', 'Marriage Register'),
+			array('marriageRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/baptism register.png', 'Baptism Register'),
+			array('baptismRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/1stholycommunion register.png', 'First Communion Register'),
+			array('firstCommunionRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/confirmation register.png', 'Confirmation Register'),
+			array('confirmationRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/death&burialregister.png', 'Death Register'),
+			array('deathRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/banns register.png', 'Banns Register'),
+			array('bannsRecords/index'));
+ ?>
