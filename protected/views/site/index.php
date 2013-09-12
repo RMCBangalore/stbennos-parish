@@ -1,3 +1,5 @@
+<div id="content">
+
 <?php
 /* @var $this SiteController */
 
@@ -32,3 +34,4 @@ foreach($iconMenu as $icon) {
 } ?>
 
 <p>
+</div>
