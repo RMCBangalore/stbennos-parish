@@ -28,7 +28,14 @@ Registered User?
 
 $iconMenu = Yii::app()->params['iconMenu'];
 foreach($iconMenu as $icon) {
-	echo CHtml::link(CHtml::image(Yii::app()->baseUrl . $icon['icon'], $icon['title']), $icon['url']);
+	$iconUrl = $icon['url'];
+	if (isset($iconUrl[1])) {
+		echo CHtml::link(CHtml::image(Yii::app()->baseUrl . $icon['icon'], $icon['title']),
+			Yii::app()->createUrl($iconUrl[0], $iconUrl[1]));
+	} else {
+		echo CHtml::link(CHtml::image(Yii::app()->baseUrl . $icon['icon'], $icon['title']),
+			Yii::app()->createUrl($iconUrl[0]));
+	}
 }
 
 } ?>
