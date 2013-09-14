@@ -11,7 +11,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List BannsRequest', 'url'=>array('index')),
-	array('label'=>'Create BannsRequest', 'url'=>array('create')),
 	array('label'=>'View BannsRequest', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage BannsRequest', 'url'=>array('admin')),
 );

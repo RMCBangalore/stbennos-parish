@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List DeathCertificate', 'url'=>array('index')),
-	array('label'=>'Create DeathCertificate', 'url'=>array('create')),
 	array('label'=>'Update DeathCertificate', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete DeathCertificate', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage DeathCertificate', 'url'=>array('admin')),

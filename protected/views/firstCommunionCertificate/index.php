@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create FirstCommunionCertificate', 'url'=>array('create')),
 	array('label'=>'Manage FirstCommunionCertificate', 'url'=>array('admin')),
 );
 ?>

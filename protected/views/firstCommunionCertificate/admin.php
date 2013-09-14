@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List FirstCommunionCertificate', 'url'=>array('index')),
-	array('label'=>'Create FirstCommunionCertificate', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

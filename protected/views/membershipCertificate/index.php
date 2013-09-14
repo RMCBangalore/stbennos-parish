@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create MembershipCertificate', 'url'=>array('create')),
 	array('label'=>'Manage MembershipCertificate', 'url'=>array('admin')),
 );
 ?>

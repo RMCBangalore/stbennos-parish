@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List MarriageCertificate', 'url'=>array('index')),
-	array('label'=>'Create MarriageCertificate', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create BannsRequest', 'url'=>array('create')),
 	array('label'=>'Manage BannsRequest', 'url'=>array('admin')),
 );
 ?>

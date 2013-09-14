@@ -11,7 +11,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List FirstCommunionCertificate', 'url'=>array('index')),
-	array('label'=>'Create FirstCommunionCertificate', 'url'=>array('create')),
 	array('label'=>'View FirstCommunionCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage FirstCommunionCertificate', 'url'=>array('admin')),
 );

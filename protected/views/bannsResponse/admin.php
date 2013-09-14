@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List BannsResponse', 'url'=>array('index')),
-	array('label'=>'Create BannsResponse', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

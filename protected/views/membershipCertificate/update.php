@@ -11,7 +11,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List MembershipCertificate', 'url'=>array('index')),
-	array('label'=>'Create MembershipCertificate', 'url'=>array('create')),
 	array('label'=>'View MembershipCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage MembershipCertificate', 'url'=>array('admin')),
 );

@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create NoImpedimentLetter', 'url'=>array('create')),
 	array('label'=>'Manage NoImpedimentLetter', 'url'=>array('admin')),
 );
 ?>

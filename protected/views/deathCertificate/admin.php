@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List DeathCertificate', 'url'=>array('index')),
-	array('label'=>'Create DeathCertificate', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

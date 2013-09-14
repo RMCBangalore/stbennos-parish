@@ -11,7 +11,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List DeathCertificate', 'url'=>array('index')),
-	array('label'=>'Create DeathCertificate', 'url'=>array('create')),
 	array('label'=>'View DeathCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage DeathCertificate', 'url'=>array('admin')),
 );

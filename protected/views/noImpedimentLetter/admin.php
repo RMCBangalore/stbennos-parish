@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List NoImpedimentLetter', 'url'=>array('index')),
-	array('label'=>'Create NoImpedimentLetter', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

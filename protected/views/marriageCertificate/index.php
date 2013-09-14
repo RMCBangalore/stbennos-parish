@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create MarriageCertificate', 'url'=>array('create')),
 	array('label'=>'Manage MarriageCertificate', 'url'=>array('admin')),
 );
 ?>
