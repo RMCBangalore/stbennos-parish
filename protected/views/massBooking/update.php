@@ -18,4 +18,4 @@ $this->menu=array(
 
 <h1>Update MassBooking <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'mass_id' => $model->mass_id, 'mass_dt' => $model->mass_dt)); ?>
