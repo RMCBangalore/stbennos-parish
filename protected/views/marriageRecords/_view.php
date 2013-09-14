@@ -55,7 +55,8 @@
 	<?php echo CHtml::encode($data->bride_dob); ?>
 	<br />
 
-	<b><?php /* echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
 	<?php echo CHtml::encode($data->bride_status); ?>
 	<br />
 

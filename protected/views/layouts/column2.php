@@ -11,7 +11,7 @@
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));
-		if (!isset($this->breadcrumbs['Admin']) and $this->breadcrumbs[0] != 'Admin') {
+		if (!isset($this->breadcrumbs['Admin']) and isset($this->breadcrumbs[0]) and $this->breadcrumbs[0] != 'Admin') {
 			$iconmenu = Yii::app()->params['iconMenu'];
 			echo '<table>';
 			$i = 0;
