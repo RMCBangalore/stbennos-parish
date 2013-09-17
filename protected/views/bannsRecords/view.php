@@ -14,7 +14,11 @@ $this->menu=array(
 	array('label'=>'Update BannsRecord', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete BannsRecord', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage BannsRecord', 'url'=>array('admin')),
+	array('label'=>'View Banns Requests', 'url'=>array('/bannsRequest/byRecord', 'id'=>$model->id)),
+	array('label'=>'View Banns Responses', 'url'=>array('/bannsResponse/byRecord', 'id'=>$model->id)),
+	array('label'=>'View No Impediment Letters', 'url'=>array('/noImpedimentLetter/byRecord', 'id'=>$model->id)),
 );
+
 ?>
 
 <h1>View BannsRecord #<?php echo $model->id; ?></h1>

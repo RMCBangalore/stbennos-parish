@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Update BaptismRecord', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete BaptismRecord', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage BaptismRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/baptismCertificate/byRecord', 'id'=>$model->id)),
 );
 ?>
 

@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Create MarriageRecord', 'url'=>array('create')),
 	array('label'=>'View MarriageRecord', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage MarriageRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/marriageCertificate/byRecord', 'id'=>$model->id))
 );
 ?>
 

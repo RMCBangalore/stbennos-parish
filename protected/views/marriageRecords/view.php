@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Update MarriageRecord', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete MarriageRecord', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage MarriageRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/marriageCertificate/byRecord', 'id'=>$model->id))
 );
 ?>
 

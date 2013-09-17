@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Create BaptismRecord', 'url'=>array('create')),
 	array('label'=>'View BaptismRecord', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage BaptismRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/baptismCertificate/byRecord', 'id'=>$model->id)),
 );
 ?>
 

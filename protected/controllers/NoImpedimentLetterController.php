@@ -140,6 +140,19 @@ class NoImpedimentLetterController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('NoImpedimentLetter', array(
+			'criteria' => array(
+				'condition' => 'banns_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

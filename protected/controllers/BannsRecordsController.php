@@ -149,8 +149,19 @@ class BannsRecordsController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
+		if (ctype_digit($model->groom_parish)) {
+			if (ctype_digit($model->bride_parish)) {
+				$local = 'both';
+			} else {
+				$local = 'groom';
+			}
+		} elseif (ctype_digit($model->bride_parish)) {
+			$local = 'bride';
+		}
+
 		$this->render('update',array(
 			'model'=>$model,
+			'local'=>$local,
 		));
 	}
 

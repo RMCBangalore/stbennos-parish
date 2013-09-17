@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Create DeathRecord', 'url'=>array('create')),
 	array('label'=>'View DeathRecord', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage DeathRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/deathCertificate/byRecord', 'id'=>$model->id))
 );
 ?>
 

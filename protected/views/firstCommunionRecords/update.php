@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Create FirstCommunionRecord', 'url'=>array('create')),
 	array('label'=>'View FirstCommunionRecord', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage FirstCommunionRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/firstCommunionCertificate/byRecord', 'id'=>$model->id))
 );
 ?>
 

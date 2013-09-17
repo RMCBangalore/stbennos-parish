@@ -141,6 +141,19 @@ class BaptismCertificateController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('BaptismCertificate', array(
+			'criteria' => array(
+				'condition' => 'baptism_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

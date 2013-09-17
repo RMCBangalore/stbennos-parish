@@ -139,6 +139,19 @@ class BannsResponseController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('BannsResponse', array(
+			'criteria' => array(
+				'condition' => 'banns_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

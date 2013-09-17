@@ -19,4 +19,15 @@ $this->menu=array(
 
 <h1>Update BannsRecord <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php
+if (isset($local)) {
+	$parms = array('model'=>$model, 'local' => $local);
+	if ('both' == $local) {
+		$parms['bride'] = $model->bride();
+		$parms['groom'] = $model->groom();
+	} else {
+		$parms[$local] = $model->$local();
+	}
+	echo $this->renderPartial('_form', $parms);
+}
+?>

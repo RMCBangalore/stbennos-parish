@@ -141,6 +141,19 @@ class MarriageCertificateController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('MarriageCertificate', array(
+			'criteria' => array(
+				'condition' => 'marriage_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

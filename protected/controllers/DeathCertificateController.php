@@ -138,6 +138,19 @@ class DeathCertificateController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('DeathCertificate', array(
+			'criteria' => array(
+				'condition' => 'death_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

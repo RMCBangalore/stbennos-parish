@@ -139,6 +139,19 @@ class FirstCommunionCertificateController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('FirstCommunionCertificate', array(
+			'criteria' => array(
+				'condition' => 'first_comm_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

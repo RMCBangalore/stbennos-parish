@@ -138,6 +138,19 @@ class ConfirmationCertificateController extends RController
 		));
 	}
 
+	public function actionByRecord($id)
+	{
+		$dp = new CActiveDataProvider('ConfirmationCertificate', array(
+			'criteria' => array(
+				'condition' => 'confirmation_id = ' . $id
+			)
+		));
+
+		$this->render('index', array(
+			'dataProvider' => $dp
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */

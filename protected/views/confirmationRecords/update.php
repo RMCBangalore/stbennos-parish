@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Create ConfirmationRecord', 'url'=>array('create')),
 	array('label'=>'View ConfirmationRecord', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage ConfirmationRecord', 'url'=>array('admin')),
+	array('label'=>'View Certificates', 'url'=>array('/confirmationCertificate/byRecord', 'id'=>$model->id))
 );
 ?>
 
