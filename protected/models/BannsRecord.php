@@ -62,6 +62,9 @@ class BannsRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'requests' => array(self::HAS_MANY, 'BannsRequest', 'banns_id'),
+			'responses' => array(self::HAS_MANY, 'BannsResponse', 'banns_id'),
+			'noImpedimentLetters' => array(self::HAS_MANY, 'NoImpedimentLetter', 'banns_id'),
 		);
 	}
 

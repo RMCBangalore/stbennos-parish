@@ -246,4 +246,14 @@ table.cellular td {
 table.cellular { border-width: 1px 0 0 1px; }
 table.cellular th,
 table.cellular td { border-width: 0 1px 1px 0; }
-
+#header {
+	position: relative;
+}
+#logo {
+	max-width: 600px;
+}
+#search {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}

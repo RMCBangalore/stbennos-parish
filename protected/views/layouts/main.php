@@ -26,14 +26,37 @@
 	<div id="header">
 		<div id="logo"><?php $logo = Yii::app()->params['parishLogo'];
 			if ($logo) {
-				echo CHtml::image(Yii::app()->request->baseUrl . $logo['src'],
+				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . $logo['src'],
 					CHtml::encode(Yii::app()->name),
-						array('width' => $logo['width'], 'height' => $logo['height']));
+						array('width' => $logo['width'], 'height' => $logo['height'])),
+					array('/'));
 		   } else {
-				echo CHtml::image(Yii::app()->request->baseUrl . '/images/logo.png',
+				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo.png',
 					CHtml::encode(Yii::app()->name),
-						array('width' => 386, 'height' => 100));
+						array('width' => 386, 'height' => 100)), array('/'));
 		   } ?></div>
+		<?php if (!Yii::app()->user->isGuest): ?>
+		<div id="search">
+			<?php $form=$this->beginWidget('CActiveForm', array(
+						'id' => 'search_form',
+						'action' => Yii::app()->createUrl('/site/search'),
+						'method' => 'GET',
+			));
+			echo CHtml::textField('key', '', array('id' => 'search_key'));
+			echo CHtml::imageButton(Yii::app()->request->baseUrl . '/images/search.png');
+			$this->endWidget(); 
+			Yii::app()->clientScript->registerScript('global-search', "
+			$('#search_key').focus();
+			$('#search_form').submit(function() {
+				$.get('/site/search', {
+					'key': $('#search_key').val()
+				}, function(data) {
+					$('#content').html(data);
+				} );
+				return false;
+			} );"); ?>
+		</div>
+		<?php endif ?>
 	</div><!-- header -->
 
 	<div id="google_translate_element"></div><script type="text/javascript">

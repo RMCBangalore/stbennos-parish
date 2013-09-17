@@ -662,6 +662,27 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionSearch()
+	{
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$crit = new CDbCriteria();
+			if (preg_match('/^\d+$/', $key)) {
+				$crit->mergeWith(array('condition' => "id = $key"), 'OR');
+			}
+			$crit->mergeWith(array('condition' => "fid = '$key'"), 'OR');
+
+			$fams = new CActiveDataProvider('Families', array(
+				'criteria' => $crit
+			));
+
+			if ($fams->itemCount > 0)
+				$this->renderPartial('index', array(
+					'dataProvider' => $fams
+				));
+		}
+	}
+
 	/**
 	 * Manages all models.
 	 */

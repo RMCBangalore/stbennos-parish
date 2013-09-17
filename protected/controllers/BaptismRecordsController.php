@@ -134,6 +134,27 @@ class BaptismRecordsController extends RController
 		));
 	}
 
+	public function actionSearch()
+	{
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$keys = preg_split('/[\s\+]+/', $key);
+
+			$crit = new CDbCriteria();
+			foreach($keys as $key) {
+				$crit->mergeWith(array('condition' => "name like '%$key%'"), 'OR');
+			}
+			$ppl = new CActiveDataProvider('BaptismRecord', array(
+				'criteria' => $crit
+			));
+
+			if ($ppl->itemCount > 0)
+				$this->renderPartial('index', array(
+					'dataProvider' => $ppl
+				));
+		}
+	}
+
 	/**
 	 * Manages all models.
 	 */

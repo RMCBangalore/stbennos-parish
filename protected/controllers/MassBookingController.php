@@ -199,6 +199,28 @@ class MassBookingController extends RController
 		));
 	}
 
+	public function actionSearch()
+	{
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$keys = preg_split('/[\s\+]+/', $key);
+
+			$crit = new CDbCriteria();
+			foreach($keys as $key) {
+				$crit->mergeWith(array('condition' => "booked_by like '%$key%'"), 'OR');
+				$crit->mergeWith(array('condition' => "intention like '%$key%'"), 'OR');
+			}
+			$ppl = new CActiveDataProvider('MassBooking', array(
+				'criteria' => $crit
+			));
+
+			if ($ppl->itemCount > 0)
+				$this->renderPartial('index', array(
+					'dataProvider' => $ppl
+				));
+		}
+	}
+
 	public function actionCalendar()
 	{
 		$this->render('calendar', array(

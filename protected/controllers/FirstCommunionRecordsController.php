@@ -149,6 +149,27 @@ class FirstCommunionRecordsController extends RController
 		));
 	}
 
+	public function actionSearch()
+	{
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$keys = preg_split('/[\s\+]+/', $key);
+
+			$crit = new CDbCriteria();
+			foreach($keys as $key) {
+				$crit->mergeWith(array('condition' => "name like '%$key%'"), 'OR');
+			}
+			$ppl = new CActiveDataProvider('FirstCommunionRecord', array(
+				'criteria' => $crit
+			));
+
+			if ($ppl->itemCount > 0)
+				$this->renderPartial('index', array(
+					'dataProvider' => $ppl
+				));
+		}
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

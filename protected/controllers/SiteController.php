@@ -46,6 +46,19 @@ class SiteController extends RController
 		));
 	}
 
+	public function actionSearch()
+	{
+		$this->forward('/family/search', false);
+		$this->forward('/person/search', false);
+		$this->forward('/baptismRecords/search', false);
+		$this->forward('/confirmationRecords/search', false);
+		$this->forward('/firstCommunionRecords/search', false);
+		$this->forward('/marriageRecords/search', false);
+		$this->forward('/deathRecords/search', false);
+		$this->forward('/bannsRecords/search', false);
+		$this->forward('/massBooking/search', false);
+	}
+
 	public function actionParishProfile()
 	{
 		$fams = Families::model()->findAll();
