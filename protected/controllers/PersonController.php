@@ -70,8 +70,11 @@ class PersonController extends RController
 		if(isset($_POST['People']))
 		{
 			$model->attributes=$_POST['People'];
-			if($model->save())
+			if($model->save()) {
+				$model->mid = $model->get_mid();
+				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -95,6 +98,9 @@ class PersonController extends RController
 		if(isset($_POST['People']))
 		{
 			$model->attributes=$_POST['People'];
+			if (!isset($model->mid)) {
+				$model->mid = $model->get_mid();
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

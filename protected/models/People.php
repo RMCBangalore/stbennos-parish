@@ -31,9 +31,11 @@
  * @property string $role
  * @property string $special_skill
  * @property string $photo
+ * @property string $mid
  *
  * The followings are the available model relations:
  * @property Families $family
+ * @property MembershipCerts[] $membershipCerts
  */
 class People extends CActiveRecord
 {
@@ -69,7 +71,7 @@ class People extends CActiveRecord
 			array('lname, profession, occupation, lang_pri, lang_lit, lang_edu, rite, cemetery_church, special_skill', 'length', 'max'=>25),
 			array('domicile_status', 'length', 'max'=>4),
 			array('education, baptism_place', 'length', 'max'=>15),
-			array('mobile, role', 'length', 'max'=>10),
+			array('mobile, role, mid', 'length', 'max'=>10),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 150, 'maxHeight' => 200, 'on' => 'photo'),
 			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'safe'),
@@ -84,7 +86,7 @@ class People extends CActiveRecord
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill', 'safe', 'on'=>'search'),
+			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill, mid', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -137,6 +139,7 @@ class People extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'family' => array(self::BELONGS_TO, 'Families', 'family_id'),
+			'membershipCerts' => array(self::HAS_MANY, 'MembershipCerts', 'member_id'),
 		);
 	}
 
@@ -177,6 +180,7 @@ class People extends CActiveRecord
 			'family_id' => 'Family',
 			'role' => 'Role',
 			'special_skill' => 'Special Skill',
+			'mid' => 'Member Id',
 		);
 	}
 
@@ -267,6 +271,7 @@ class People extends CActiveRecord
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('special_skill',$this->special_skill,true);
+		$criteria->compare('mid',$this->mid,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -305,5 +310,13 @@ class People extends CActiveRecord
 		} else {
 			return $this->lname;
 		}
+	}
+
+	public function get_mid() {
+		$recs = People::model()->findAll(array(
+			'condition' => 'family_id=:fid and id<=:id',
+			'params'	=> array(':fid'=>$this->family_id, ':id'=>$this->id)
+		));
+		return $this->family->fid . '/' . count($recs);
 	}
 }
