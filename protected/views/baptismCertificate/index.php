@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BaptismRecord', 'url'=>array('/baptismRecords/create')),
 	array('label'=>'Manage BaptismCertificate', 'url'=>array('admin')),
 );
 ?>

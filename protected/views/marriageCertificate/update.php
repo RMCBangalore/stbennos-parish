@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create MarriageRecord', 'url'=>array('/marriageRecords/create')),
 	array('label'=>'List MarriageCertificate', 'url'=>array('index')),
 	array('label'=>'View MarriageCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage MarriageCertificate', 'url'=>array('admin')),

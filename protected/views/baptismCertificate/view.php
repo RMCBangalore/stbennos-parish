@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BaptismRecord', 'url'=>array('/baptismRecords/create')),
 	array('label'=>'List BaptismCertificate', 'url'=>array('index')),
 	array('label'=>'Update BaptismCertificate', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete BaptismCertificate', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),

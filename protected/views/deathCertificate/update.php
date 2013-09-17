@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create DeathRecord', 'url'=>array('/deathRecords/create')),
 	array('label'=>'List DeathCertificate', 'url'=>array('index')),
 	array('label'=>'View DeathCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage DeathCertificate', 'url'=>array('admin')),

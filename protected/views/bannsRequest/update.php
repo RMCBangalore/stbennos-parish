@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BannsRecord', 'url'=>array('/bannsRecords/create')),
 	array('label'=>'List BannsRequest', 'url'=>array('index')),
 	array('label'=>'View BannsRequest', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage BannsRequest', 'url'=>array('admin')),

@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BannsRecord', 'url'=>array('/bannsRecords/create')),
 	array('label'=>'List BannsRequest', 'url'=>array('index')),
 	array('label'=>'Manage BannsRequest', 'url'=>array('admin')),
 );

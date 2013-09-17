@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BannsRecord', 'url'=>array('/bannsRecords/create')),
 	array('label'=>'List NoImpedimentLetter', 'url'=>array('index')),
 	array('label'=>'View NoImpedimentLetter', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage NoImpedimentLetter', 'url'=>array('admin')),

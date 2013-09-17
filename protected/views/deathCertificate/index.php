@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create DeathRecord', 'url'=>array('/deathRecords/create')),
 	array('label'=>'Manage DeathCertificate', 'url'=>array('admin')),
 );
 ?>

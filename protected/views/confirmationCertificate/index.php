@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create ConfirmationRecord', 'url'=>array('/confirmationRecords/create')),
 	array('label'=>'Manage ConfirmationCertificate', 'url'=>array('admin')),
 );
 ?>

@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create FirstCommunionRecord', 'url'=>array('/firstCommunionRecords/create')),
 	array('label'=>'List First Communion Certificate', 'url'=>array('index')),
 	array('label'=>'Manage First Communion Certificate', 'url'=>array('admin')),
 );

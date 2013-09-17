@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create BannsRecord', 'url'=>array('/bannsRecords/create')),
 	array('label'=>'List NoImpedimentLetter', 'url'=>array('index')),
 	array('label'=>'Update NoImpedimentLetter', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete NoImpedimentLetter', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),

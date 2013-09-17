@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+ 	array('label'=>'Create FirstCommunionRecord', 'url'=>array('/firstCommunionRecords/create')),
 	array('label'=>'List FirstCommunionCertificate', 'url'=>array('index')),
 	array('label'=>'View FirstCommunionCertificate', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage FirstCommunionCertificate', 'url'=>array('admin')),
