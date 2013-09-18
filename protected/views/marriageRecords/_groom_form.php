@@ -1,8 +1,62 @@
+<?php
+$this->widget('application.extensions.fancybox.EFancyBox', array(
+    'target'=>'a[rel=gallery]',
+	'config'=>array(),
+));
+
+Yii::app()->clientScript->registerScript('findGroom', "
+function set_find_groom() {
+	$('#findMatchForm').submit(function() {
+		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+			'sex': 'male',
+			'key': $('#key').val()
+		}, function(data) {
+			$('#fancybox-content').html(data);
+			set_find_groom();
+			set_sort_groom();
+		} );
+		return false;
+	} );
+	$('#key').focus();
+}
+function set_sort_groom() {
+	$('a.sort-link').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find_groom();
+			set_sort_groom();
+		} );
+		return false;
+	} );
+}
+$('#groom_search').fancybox( {
+	'onComplete': function() {
+		set_find_groom();
+		set_sort_groom();
+		$('#submitMatch').click(function() {
+			$.fancybox.close();
+			$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+				'person': $('input:checked').val()
+			}, function(p) {
+				$('#MarriageRecord_groom_name').val(p.name);
+				$('#MarriageRecord_groom_dob').val(p.dob);
+				$('#MarriageRecord_groom_baptism_dt').val(p.baptism_dt);
+				$('#MarriageRecord_groom_fathers_name').val(p.fathers_name);
+				$('#MarriageRecord_groom_mothers_name').val(p.mothers_name);
+				$('#MarriageRecord_groom_rank_prof').val(p.rank_prof);
+			}, 'json' );
+		} );
+	}
+} );
+");
+?>
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->labelEx($model,'groom_name'); ?>
-		<?php echo $form->textField($model,'groom_name',array('size'=>40,'maxlength'=>100)); ?>
+		<?php echo $form->labelEx($model,'groom_name', array('style'=>'display:inline')); ?>
+		<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/search.png'),
+			array('/person/findMatch', 'sex' => 'male'), array('id' => 'groom_search')); ?>
+		<?php echo $form->textField($model,'groom_name',array('size'=>35,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'groom_name'); ?>
 	</span>
 

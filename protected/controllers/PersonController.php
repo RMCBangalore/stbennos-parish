@@ -355,6 +355,52 @@ class PersonController extends RController
 		));
 	}
 
+	public function actionFindMatch()
+	{
+		if (Yii::app()->request->isPostRequest) {
+			Yii::trace("PC.findMatch POST request", 'application.controllers.PersonController');
+			foreach($_POST as $k => $v) {
+				Yii::trace("PC.findMach $k: $v", 'application.controllers.PersonController');
+			}
+			$model = People::model()->findByPk($_POST['person']);
+			$person = array(
+				'name' => $model->fullname(),
+				'dob' => $model->dob,
+				'baptism_dt' => $model->baptism_dt,
+			);
+			$fam = $model->family;
+			if (isset($fam->husband_id)) {
+				$person['fathers_name'] = $fam->husband->fullname();
+			}
+			if (isset($fam->wife_id)) {
+				$person['mothers_name'] = $fam->wife->fullname();
+			}
+			if (isset($model->profession)) {
+				$person['rank_prof'] = $model->profession;
+			} elseif (isset($model->occupation)) {
+				$person['rank_prof'] = $model->occupation;
+			}
+#			$ret = CJSON::encode($person);
+			echo CJSON::encode($person);
+			return;
+		}
+		$sex = 'male' == $_GET['sex'] ? 1 : 2;
+		$cond = "sex = $sex and role != 'husband' and role != 'wife'";
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$cond .= " and (fname like '%$key%' or lname like '%$key%' or mid = '$key')";
+		}
+		$members = new CActiveDataProvider('People', array(
+			'criteria' => array(
+				'condition' => $cond
+			)
+		));
+
+		$this->renderPartial('find_match', array(
+			'members' => $members
+		));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
