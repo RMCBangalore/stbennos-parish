@@ -7,7 +7,7 @@
 
 	echo CHtml::label('', 'key');
 	echo CHtml::textField('key', '', array('id' => 'key'));
-	echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/search.png'), '#',
+	echo CHtml::link(CHtml::imageButton(Yii::app()->request->baseUrl . '/images/search.png'), '#',
 		array('id' => 'find_match'));
 
 $this->endWidget();
@@ -22,14 +22,15 @@ $this->endWidget();
                         'name' => 'person'
                     )
                 ),
-				array(
-					'value' => '$data->mid',
-					'name' => 'Mid'
-				),
+				'mid',
+				'fname',
+				'lname',
+				/*
                 array(
 					'value' => '$data->fullname()',
 					'name' => 'Name'
 				),
+				*/
                 'dob',
 				'baptism_dt',
 				'profession',

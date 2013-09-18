@@ -16,7 +16,8 @@ $this->menu=array(
 
 <h1>Create BannsRecord</h1>
 
-<?php if (isset($members)) {
+<?php /*
+if (isset($members)) {
 	echo $this->renderPartial('_sel_member', array('model'=>$model, 'members' => $members));
 } elseif (isset($local)) {
 	$parms = array('model'=>$model, 'local' => $local);
@@ -30,4 +31,6 @@ $this->menu=array(
 } else {
 	echo $this->renderPartial('_sel_local', array('model'=>$model));
 }
+ */
+	echo $this->renderPartial('_form_ajax', array('model' => $model));
  ?>

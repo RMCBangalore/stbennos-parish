@@ -14,6 +14,7 @@ function set_find_groom() {
 			$('#fancybox-content').html(data);
 			set_find_groom();
 			set_sort_groom();
+			set_select_groom();
 		} );
 		return false;
 	} );
@@ -25,27 +26,31 @@ function set_sort_groom() {
 			$('#fancybox-content').html(data);
 			set_find_groom();
 			set_sort_groom();
+			set_select_groom();
 		} );
 		return false;
+	} );
+}
+function set_select_groom() {
+	$('#submitMatch').click(function() {
+		$.fancybox.close();
+		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+			'person': $('input:checked').val()
+		}, function(p) {
+			$('#MarriageRecord_groom_name').val(p.name);
+			$('#MarriageRecord_groom_dob').val(p.dob);
+			$('#MarriageRecord_groom_baptism_dt').val(p.baptism_dt);
+			$('#MarriageRecord_groom_fathers_name').val(p.fathers_name);
+			$('#MarriageRecord_groom_mothers_name').val(p.mothers_name);
+			$('#MarriageRecord_groom_rank_prof').val(p.rank_prof);
+		}, 'json' );
 	} );
 }
 $('#groom_search').fancybox( {
 	'onComplete': function() {
 		set_find_groom();
 		set_sort_groom();
-		$('#submitMatch').click(function() {
-			$.fancybox.close();
-			$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
-				'person': $('input:checked').val()
-			}, function(p) {
-				$('#MarriageRecord_groom_name').val(p.name);
-				$('#MarriageRecord_groom_dob').val(p.dob);
-				$('#MarriageRecord_groom_baptism_dt').val(p.baptism_dt);
-				$('#MarriageRecord_groom_fathers_name').val(p.fathers_name);
-				$('#MarriageRecord_groom_mothers_name').val(p.mothers_name);
-				$('#MarriageRecord_groom_rank_prof').val(p.rank_prof);
-			}, 'json' );
-		} );
+		set_select_groom();
 	}
 } );
 ");

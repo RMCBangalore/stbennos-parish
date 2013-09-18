@@ -364,6 +364,7 @@ class PersonController extends RController
 			}
 			$model = People::model()->findByPk($_POST['person']);
 			$person = array(
+				'id' => $model->id,
 				'name' => $model->fullname(),
 				'dob' => $model->dob,
 				'baptism_dt' => $model->baptism_dt,
@@ -375,12 +376,12 @@ class PersonController extends RController
 			if (isset($fam->wife_id)) {
 				$person['mothers_name'] = $fam->wife->fullname();
 			}
+			$person['parents_name'] = $model->getParent()->fullname();
 			if (isset($model->profession)) {
 				$person['rank_prof'] = $model->profession;
 			} elseif (isset($model->occupation)) {
 				$person['rank_prof'] = $model->occupation;
 			}
-#			$ret = CJSON::encode($person);
 			echo CJSON::encode($person);
 			return;
 		}
