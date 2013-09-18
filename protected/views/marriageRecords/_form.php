@@ -2,6 +2,102 @@
 /* @var $this MarriageRecordsController */
 /* @var $model MarriageRecord */
 /* @var $form CActiveForm */
+
+$this->widget('application.extensions.fancybox.EFancyBox', array(
+    'target'=>'a[rel=gallery]',
+	'config'=>array(),
+));
+
+Yii::app()->clientScript->registerScript('findMatches', "
+function set_find(crit) {
+	$('#findMatchForm').submit(function() {
+		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+			'sex': crit['sex'],
+			'key': $('#key').val()
+		}, function(data) {
+			$('#fancybox-content').html(data);
+			set_find(crit);
+			set_sort(crit);
+			set_select(crit);
+		} );
+		return false;
+	} );
+	$('#key').focus();
+}
+function set_sort(crit) {
+	$('a.sort-link').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find(crit);
+			set_sort(crit);
+			set_select(crit);
+		} );
+		return false;
+	} );
+}
+function get_cb(id) {
+	return function(p) {
+		$('#MarriageRecord_'+id+'_name').val(p.name).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_baptism_dt').val(p.baptism_dt).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_fathers_name').val(p.fathers_name).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_mothers_name').val(p.mothers_name).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_rank_prof').val(p.rank_prof);
+	}
+}
+function set_select(crit) {
+	$('#submitMatch').click(function() {
+		$.fancybox.close();
+		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+			'person': $('input:checked').val()
+		}, get_cb(crit['id']), 'json' );
+	} );
+}
+
+var groom = new Object;
+groom['id'] = 'groom';
+groom['sex'] = 'male';
+
+$('#groom_search').fancybox( {
+	'onComplete': function() {
+		set_find(groom);
+		set_sort(groom);
+		set_select(groom);
+	}
+} );
+
+var bride = new Object;
+bride['id'] = 'bride';
+bride['sex'] = 'female';
+
+$('#bride_search').fancybox( {
+	'onComplete': function() {
+		set_find(bride);
+		set_sort(bride);
+		set_select(bride);
+	}
+} );
+
+function set_clear_fields(id) {
+	$('#' + id + '_clear').click(function() {
+		$('#MarriageRecord_'+id+'_name').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_dob').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_baptism_dt').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_fathers_name').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_mothers_name').val('').attr('readonly', false);
+		return false;
+	} );
+}
+
+set_clear_fields('groom');
+set_clear_fields('bride');
+
+");
+
+$baseScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('zii.widgets.assets'));
+
+Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css');  
+
 ?>
 
 <div class="form">
