@@ -43,6 +43,7 @@ function get_cb(id) {
 		$('#MarriageRecord_'+id+'_fathers_name').val(p.fathers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_mothers_name').val(p.mothers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_rank_prof').val(p.rank_prof);
+		$('#MarriageRecord_'+id+'_id').val(p.id);
 	}
 }
 function set_select(crit) {
@@ -85,6 +86,7 @@ function set_clear_fields(id) {
 		$('#MarriageRecord_'+id+'_baptism_dt').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_fathers_name').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_mothers_name').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_id').val('');
 		return false;
 	} );
 }

@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'marriages':
  * @property integer $id
  * @property string $marriage_dt
+ * @property integer $groom_id
  * @property string $groom_name
  * @property string $groom_dob
  * @property string $groom_baptism_dt
@@ -15,6 +16,7 @@
  * @property string $groom_mothers_name
  * @property string $groom_residence
  * @property string $bride_name
+ * @property integer $bride_id
  * @property string $bride_dob
  * @property string $bride_baptism_dt
  * @property string $bride_status
@@ -65,7 +67,8 @@ class MarriageRecord extends CActiveRecord
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
 			array('ref_no', 'length', 'max'=>10),
-			array('marriage_dt, groom_dob, bride_dob', 'safe'),
+			array('groom_id, bride_id', 'numerical', 'integerOnly'=>true),
+			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
@@ -81,6 +84,8 @@ class MarriageRecord extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'marriageCerts' => array(self::HAS_MANY, 'MarriageCerts', 'marriage_id'),
+			'groom' => array(self::BELONGS_TO, 'People', 'groom_id'),
+			'bride' => array(self::BELONGS_TO, 'People', 'bride_id'),
 		);
 	}
 

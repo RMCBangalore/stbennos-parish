@@ -74,6 +74,30 @@ class MarriageRecordsController extends RController
 		{
 			$model->attributes=$_POST['MarriageRecord'];
 			if($model->save()) {
+				if (isset($model->groom_id) and !isset($model->groom->marriage_dt)) {
+					$groom = $model->groom;
+					$groom->marriage_dt = $model->marriage_dt;
+					Yii::trace("MRC.create groom " . $groom->id . " marriage_dt " . $groom->marriage_dt . ".", 'application.controllers.MarriageRecordsController');
+					if (!$groom->save(true,array('marriage_dt'))) {
+						$errors = $groom->getErrors();
+						foreach($errors as $errs) {
+							$err = implode(', ', $errs);
+							Yii::trace("MRC.create groom failed: $err", 'application.controllers.MarriageRecordsController');
+						}
+					}
+				}
+				if (isset($model->bride_id) and !isset($model->bride->marriage_dt)) {
+					$bride = $model->bride;
+					$bride->marriage_dt = $model->marriage_dt;
+					Yii::trace("MRC.create bride " . $bride->id . " marriage_dt " . $bride->marriage_dt . ".", 'application.controllers.MarriageRecordsController');
+					if (!$bride->save(true,array('marriage_dt'))) {
+						$errors = $bride->getErrors();
+						foreach($errors as $errs) {
+							$err = implode(', ', $errs);
+							Yii::trace("MRC.create bride failed: $err", 'application.controllers.MarriageRecordsController');
+						}
+					}
+				}
 				$model->ref_no = $model->get_refno();
 				$model->save();
 				$this->redirect(array('view','id'=>$model->id));

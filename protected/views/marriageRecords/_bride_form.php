@@ -6,6 +6,7 @@
 		<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/clear.png'),
 			array('#'), array('id' => 'bride_clear', 'title' => 'Clear bride fields')); ?><br />
 		<?php echo $form->textField($model,'bride_name',array('size'=>35,'maxlength'=>100)); ?>
+		<?php echo $form->hiddenField($model,'bride_id'); ?>
 		<?php echo $form->error($model,'bride_name'); ?>
 	</span>
 
