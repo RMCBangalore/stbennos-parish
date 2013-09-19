@@ -2,6 +2,85 @@
 /* @var $this BaptismRecordsController */
 /* @var $model BaptismRecord */
 /* @var $form CActiveForm */
+
+$this->widget('application.extensions.fancybox.EFancyBox', array(
+    'target'=>'a[rel=gallery]',
+	'config'=>array(),
+));
+
+Yii::app()->clientScript->registerScript('findMatches', "
+function set_find() {
+	$('#findMatchForm').submit(function() {
+		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+			'key': $('#key').val()
+		}, function(data) {
+			$('#fancybox-content').html(data);
+			set_find();
+			set_sort();
+			set_select();
+		} );
+		return false;
+	} );
+	$('#key').focus();
+}
+function set_sort() {
+	$('a.sort-link').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find();
+			set_sort();
+			set_select();
+		} );
+		return false;
+	} );
+}
+function update_member(p) {
+	$('#BaptismRecord_name').val(p.name).attr('readonly', true);
+	$('#BaptismRecord_fathers_name').val(p.fathers_name).attr('readonly', true);
+	$('#BaptismRecord_mothers_name').val(p.mothers_name).attr('readonly', true);
+	$('#BaptismRecord_sex').val(p.sex).attr('readonly', true);
+	$('#BaptismRecord_dob').val(p.dob).attr('readonly', true);
+	$('#BaptismRecord_member_id').val(p.id);
+}
+function set_select() {
+	$('#submitMatch').click(function() {
+		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+			'person': $('input:checked').val()
+		}, update_member, 'json' );
+		$.fancybox.close();
+	} );
+}
+
+$('#member_search').fancybox( {
+	'onComplete': function() {
+		set_find();
+		set_sort();
+		set_select();
+	}
+} );
+
+function set_clear_fields(id) {
+	$('#member_clear').click(function() {
+		$('#BaptismRecord_name').val('').attr('readonly', false);
+		$('#BaptismRecord_fathers_name').val('').attr('readonly', true);
+		$('#BaptismRecord_mothers_name').val('').attr('readonly', true);
+		$('#BaptismRecord_sex').val('').attr('readonly', true);
+		$('#BaptismRecord_dob').val('').attr('readonly', true);
+		$('#BaptismRecord_member_id').val('');
+		return false;
+	} );
+}
+
+set_clear_fields();
+
+");
+
+$baseScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('zii.widgets.assets'));
+Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css');  
+
+$pagerScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('system.web.widgets.pagers'));
+Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');  
+
 ?>
 
 <div class="form">
@@ -16,8 +95,13 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->labelEx($model,'name',array('style'=>'display:inline')); ?>
+		<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/search.png'),
+			array('/person/findMatch'), array('id' => 'member_search')); ?>
+		<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/clear.png'),
+			array('#'), array('id' => 'member_clear', 'title' => 'Clear member fields')); ?><br />
 		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->hiddenField($model,'member_id'); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 

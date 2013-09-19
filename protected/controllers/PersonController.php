@@ -365,9 +365,14 @@ class PersonController extends RController
 			$model = People::model()->findByPk($_POST['person']);
 			$person = array(
 				'id' => $model->id,
+				'fname' => $model->fname,
+				'lname' => $model->lname,
 				'name' => $model->fullname(),
 				'dob' => $model->dob,
+				'sex' => $model->sex,
 				'baptism_dt' => $model->baptism_dt,
+				'baptism_place' => $model->baptism_place,
+				'god_parents' => $model->god_parents,
 			);
 			$fam = $model->family;
 			if (isset($fam->husband_id)) {
@@ -385,11 +390,19 @@ class PersonController extends RController
 			echo CJSON::encode($person);
 			return;
 		}
-		$sex = 'male' == $_GET['sex'] ? 1 : 2;
-		$cond = "sex = $sex and role != 'husband' and role != 'wife'";
+		$cond = "";
 		if (isset($_GET['key'])) {
 			$key = $_GET['key'];
-			$cond .= " and (fname like '%$key%' or lname like '%$key%' or mid = '$key')";
+			$cond = "fname like '%$key%' or lname like '%$key%' or mid = '$key'";
+		}
+		if (isset($_GET['sex'])) {
+			$sex = 'male' == $_GET['sex'] ? 1 : 2;
+			$second = "sex = $sex and role != 'husband' and role != 'wife'";
+			if (0 != strlen($cond)) {
+				$cond = "($cond) and $second";
+			} else {
+				$cond = $second;
+			}
 		}
 		$members = new CActiveDataProvider('People', array(
 			'criteria' => array(

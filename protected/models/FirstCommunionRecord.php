@@ -5,7 +5,9 @@
  *
  * The followings are the available columns in table 'first_communions':
  * @property integer $id
+ * @property integer $member_id
  * @property string $name
+ * @property string $church
  * @property string $communion_dt
  * @property string $ref_no
  *
@@ -41,6 +43,8 @@ class FirstCommunionRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'length', 'max'=>75),
+			array('church', 'length', 'max'=>50),
+			array('member_id', 'numerical', 'integerOnly'=>true),
 			array('communion_dt', 'safe'),
 			array('ref_no', 'length', 'max' => 10),
 			// The following rule is used by search().
@@ -58,6 +62,7 @@ class FirstCommunionRecord extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'firstCommunionCerts' => array(self::HAS_MANY, 'FirstCommunionCerts', 'first_comm_id'),
+			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}
 
@@ -87,6 +92,7 @@ class FirstCommunionRecord extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('church',$this->church,true);
 		$criteria->compare('communion_dt',$this->communion_dt,true);
 		$criteria->compare('ref_no',$this->ref_no,true);
 

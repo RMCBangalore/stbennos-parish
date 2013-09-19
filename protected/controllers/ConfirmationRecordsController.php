@@ -71,6 +71,17 @@ class ConfirmationRecordsController extends RController
 		{
 			$model->attributes=$_POST['ConfirmationRecord'];
 			if($model->save()) {
+				if (isset($model->member_id)) {
+					if (!isset($model->member->confirmation_dt)) {
+						$member = $model->member;
+						$member->confirmation_dt = $model->confirmation_dt;
+						if (!$member->save(true, array('confirmation_dt'))) {
+							Yii::trace(sprintf("Error saving member %s confirmation_dt: %s",
+								$member->id, implode(", ", $member->getErrors('confirmation_dt'))),
+								'application.controllers.ConfirmationRecord');
+						}
+					}
+				}
 				$model->ref_no = $model->get_refno();
 				$model->save();
 				$this->redirect(array('view','id'=>$model->id));

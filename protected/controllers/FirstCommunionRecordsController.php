@@ -71,6 +71,17 @@ class FirstCommunionRecordsController extends RController
 		{
 			$model->attributes=$_POST['FirstCommunionRecord'];
 			if($model->save()) {
+				if (isset($model->member_id)) {
+					if (!isset($model->member->first_comm_dt)) {
+						$member = $model->member;
+						$member->first_comm_dt = $model->communion_dt;
+						if (!$member->save(true, array('first_comm_dt'))) {
+							Yii::trace(sprintf("Error saving member %s first_comm_dt: %s",
+								$member->id, implode(", ", $member->getErrors('first_comm_dt'))),
+								'application.controllers.FirstCommunionRecord');
+						}
+					}
+				}
 				$model->ref_no = $model->get_refno();
 				$model->save();
 				$this->redirect(array('view','id'=>$model->id));

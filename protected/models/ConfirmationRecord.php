@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'confirmations':
  * @property integer $id
+ * @property integer $member_id
  * @property string $ref_no
  * @property string $name
  * @property string $confirmation_dt
@@ -49,8 +50,9 @@ class ConfirmationRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('confirmation_dt, dob, name, parents_name, baptism_dt', 'required'),
-			array('name', 'length', 'max'=>75),
-			array('church', 'length', 'max'=>50),
+			array('name, godparent_name', 'length', 'max'=>75),
+			array('member_id', 'numerical', 'integerOnly'=>true),
+			array('church, residence, baptism_place, minister', 'length', 'max'=>50),
 			array('ref_no', 'length', 'max'=>10),
 			array('confirmation_dt', 'safe'),
 			// The following rule is used by search().
@@ -68,6 +70,7 @@ class ConfirmationRecord extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'confirmationCerts' => array(self::HAS_MANY, 'ConfirmationCerts', 'confirmation_id'),
+			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}
 

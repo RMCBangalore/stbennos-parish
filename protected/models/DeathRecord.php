@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'deaths':
  * @property integer $id
+ * @property integer $member_id
  * @property string $death_dt
  * @property string $cause
  * @property string $fname
@@ -52,11 +53,11 @@ class DeathRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('death_dt, buried_dt, burial_place, fname, lname, age', 'required'),
-			array('age', 'numerical'),
+			array('age, member_id', 'numerical', 'integerOnly'=>true),
 			array('cause', 'length', 'max'=>100),
-			array('fname', 'length', 'max'=>50),
-			array('lname, profession, burial_place', 'length', 'max'=>25),
-			array('minister', 'length', 'max'=>75),
+			array('fname, community', 'length', 'max'=>50),
+			array('lname, profession, burial_place, sacrament', 'length', 'max'=>25),
+			array('minister, residence, parents_relatives', 'length', 'max'=>75),
 			array('ref_no', 'length', 'max'=>10),
 			array('buried_dt', 'safe'),
 			// The following rule is used by search().
@@ -74,6 +75,7 @@ class DeathRecord extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'deathCerts' => array(self::HAS_MANY, 'DeathCerts', 'death_id'),
+			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}
 

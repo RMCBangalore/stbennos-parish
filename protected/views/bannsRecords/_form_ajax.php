@@ -108,6 +108,10 @@ $('#bride_clear').click(function() {
 $baseScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('zii.widgets.assets'));
 
 Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css');  
+
+$pagerScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('system.web.widgets.pagers'));
+Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');  
+
 ?>
 
 <div class="form">

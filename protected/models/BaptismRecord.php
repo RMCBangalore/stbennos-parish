@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'baptisms':
  * @property integer $id
+ * @property integer $member_id
  * @property string $dob
  * @property string $baptism_dt
  * @property string $baptism_place
@@ -51,7 +52,7 @@ class BaptismRecord extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, fathers_name, mothers_name, sex, baptism_dt, dob', 'required'),
-			array('sex', 'numerical', 'integerOnly'=>true),
+			array('sex, member_id', 'numerical', 'integerOnly'=>true),
 			array('name, baptism_place', 'length', 'max'=>50),
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, minister', 'length', 'max'=>75),
 			array('residence, mother_tongue', 'length', 'max'=>25),
@@ -72,6 +73,7 @@ class BaptismRecord extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'baptismCerts' => array(self::HAS_MANY, 'BaptismCerts', 'baptism_id'),
+			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}
 

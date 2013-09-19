@@ -71,6 +71,17 @@ class BaptismRecordsController extends RController
 		{
 			$model->attributes=$_POST['BaptismRecord'];
 			if($model->save()) {
+				if (isset($model->member_id)) {
+					if (!isset($model->member->baptism_dt)) {
+						$member = $model->member;
+						$member->baptism_dt = $model->baptism_dt;
+						if (!$member->save(true, array('baptism_dt'))) {
+							Yii::trace(sprintf("Error saving member %s baptism_dt: %s",
+								$member->id, implode(", ", $member->getErrors('baptism_dt'))),
+								'application.controllers.BaptismRecord');
+						}
+					}
+				}
 				$model->ref_no = $model->get_refno();
 				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
