@@ -39,7 +39,9 @@ function get_cb(id) {
 	return function(p) {
 		$('#MarriageRecord_'+id+'_name').val(p.name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_dob').datepicker().datepicker('disable');
 		$('#MarriageRecord_'+id+'_baptism_dt').val(p.baptism_dt).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_baptism_dt').datepicker().datepicker('disable');
 		$('#MarriageRecord_'+id+'_fathers_name').val(p.fathers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_mothers_name').val(p.mothers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_rank_prof').val(p.rank_prof);
@@ -83,7 +85,9 @@ function set_clear_fields(id) {
 	$('#' + id + '_clear').click(function() {
 		$('#MarriageRecord_'+id+'_name').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_dob').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_dob').datepicker('enable');
 		$('#MarriageRecord_'+id+'_baptism_dt').val('').attr('readonly', false);
+		$('#MarriageRecord_'+id+'_baptism_dt').datepicker('enable');
 		$('#MarriageRecord_'+id+'_fathers_name').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_mothers_name').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_id').val('');

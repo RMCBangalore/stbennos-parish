@@ -40,6 +40,7 @@ function update_member(p) {
 	$('#BaptismRecord_mothers_name').val(p.mothers_name).attr('readonly', true);
 	$('#BaptismRecord_sex').val(p.sex).attr('readonly', true);
 	$('#BaptismRecord_dob').val(p.dob).attr('readonly', true);
+	$('#BaptismRecord_dob').datepicker().datepicker('disable');
 	$('#BaptismRecord_member_id').val(p.id);
 }
 function set_select() {
@@ -66,6 +67,7 @@ function set_clear_fields(id) {
 		$('#BaptismRecord_mothers_name').val('').attr('readonly', true);
 		$('#BaptismRecord_sex').val('').attr('readonly', true);
 		$('#BaptismRecord_dob').val('').attr('readonly', true);
+		$('#BaptismRecord_dob').datepicker('enable');
 		$('#BaptismRecord_member_id').val('');
 		return false;
 	} );
