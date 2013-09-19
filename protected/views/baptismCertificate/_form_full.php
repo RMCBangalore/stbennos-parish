@@ -13,10 +13,6 @@
 	<?php echo CHtml::encode($data->baptism_dt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_minister')); ?>:</b>
-	<?php echo CHtml::encode($data->baptism_minister); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
