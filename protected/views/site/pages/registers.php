@@ -11,9 +11,6 @@ $this->breadcrumbs=array(
 
 <?php
 	echo CHtml::link(
-			CHtml::image(Yii::app()->baseUrl . '/images/icons/marriage register.png', 'Marriage Register'),
-			array('marriageRecords/index'));
-	echo CHtml::link(
 			CHtml::image(Yii::app()->baseUrl . '/images/icons/baptism register.png', 'Baptism Register'),
 			array('baptismRecords/index'));
 	echo CHtml::link(
@@ -23,9 +20,12 @@ $this->breadcrumbs=array(
 			CHtml::image(Yii::app()->baseUrl . '/images/icons/confirmation register.png', 'Confirmation Register'),
 			array('confirmationRecords/index'));
 	echo CHtml::link(
-			CHtml::image(Yii::app()->baseUrl . '/images/icons/death&burialregister.png', 'Death Register'),
-			array('deathRecords/index'));
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/marriage register.png', 'Marriage Register'),
+			array('marriageRecords/index'));
 	echo CHtml::link(
 			CHtml::image(Yii::app()->baseUrl . '/images/icons/banns register.png', 'Banns Register'),
 			array('bannsRecords/index'));
+	echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl . '/images/icons/death&burialregister.png', 'Death Register'),
+			array('deathRecords/index'));
  ?>
