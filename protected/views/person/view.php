@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Person #<?php echo $model->id; ?></h1>
+<h1><?php echo $model->fullname() . ': #' . $model->id; ?></h1>
 
 <?php
 
