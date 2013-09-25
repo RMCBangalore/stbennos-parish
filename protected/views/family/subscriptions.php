@@ -16,11 +16,6 @@ $this->menu=array(
 
 <h1>Subscriptions</h1>
 
-<?php /* $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); */ ?>
-
 <?php
 $now = new DateTime();
 $this_yr = date_format($now, 'Y');

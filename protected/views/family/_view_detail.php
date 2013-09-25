@@ -6,14 +6,12 @@
 <div class="view">
 
 	<div class="ident">
-	<?php if ($data->head()) {
+<?php
+	echo "<span class='id'>" . CHtml::encode('Family #' . $data->id) . '</span>, ';
+	if ($data->head()) {
 		$head = $data->head();
-		echo '<span class="head">';
-		echo CHtml::link(CHtml::encode($head->fullname()), array('view', 'id' => $data->id)) . "</span>";
-		echo "'s family: ";
-		echo '<span class="id">' . CHtml::encode('#' . $data->id) . '</span>, ';
-	} else {
-		echo "<span class='id'>" . CHtml::link(CHtml::encode('Family #' . $data->id), array('view', 'id' => $data->id)) . '</span>, ';
+		echo 'head: <span class="head">';
+		echo CHtml::encode($head->fullname()) . "</span>, ";
 	} 
 
 	if ($data->reg_date) {
@@ -80,26 +78,20 @@
 	<br />
 	</div>
 
+	<div class="marriage">
+		Married <span class="dt"><?php echo CHtml::encode($data->marriage_date); ?></span> at 
+			<span class="church"><?php echo CHtml::encode($data->marriage_church); ?></span>.
+			Type: <span class="type"><?php echo CHtml::encode(FieldNames::value('marriage_type', $data->marriage_type)); ?></span>, 
+			Status: <span class="status"><?php echo CHtml::encode(FieldNames::value('marriage_status', $data->marriage_status)); ?></span>
+	</div>
+	
+	<span class="label"><?php echo CHtml::encode($data->getAttributeLabel('monthly_income')); ?>: </span>
+	<span class="income"><?php echo CHtml::encode(FieldNames::value('monthly_household_income', $data->monthly_income)); ?></span>
+
 	<?php /*
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_church')); ?>:</b>
-	<?php echo CHtml::encode($data->marriage_church); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_date')); ?>:</b>
-	<?php echo CHtml::encode($data->marriage_date); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_type')); ?>:</b>
-	<?php echo CHtml::encode($data->marriage_type); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_status')); ?>:</b>
-	<?php echo CHtml::encode($data->marriage_status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('monthly_income')); ?>:</b>
-	<?php echo CHtml::encode($data->monthly_income); ?>
 	<br />
 
 	*/ ?>

@@ -140,6 +140,8 @@ class FamilyController extends RController
 	 */
 	public function actionView($id)
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/family-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -675,6 +677,8 @@ class FamilyController extends RController
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Families');
+		$uri = Yii::app()->request->baseUrl . '/css/family-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

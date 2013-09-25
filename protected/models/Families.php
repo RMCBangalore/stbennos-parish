@@ -99,7 +99,7 @@ class Families extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'fid' => 'Family Id',
+			'fid' => 'Family Code',
 			'addr_nm' => 'House No./Name',
 			'addr_stt' => 'Street Address',
 			'addr_area' => 'Area',

@@ -59,7 +59,7 @@ $this->menu=array(
 	$tabs = array(
         'tab1'=>array(
             'title'=>'Family Data',
-            'view'=>'_view',
+            'view'=>'_view_detail',
             'data'=>array(
                 'data'=>$model,
             ),

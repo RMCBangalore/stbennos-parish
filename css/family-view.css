@@ -1,0 +1,101 @@
+div.ident {
+	font-size: 110%;
+}
+span.head {
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: #223153;
+}
+span.head a {
+	color: #114153;
+}
+span.id,
+span.fid {
+	font-family: 'Times New Roman', serif;
+	color: #223153;
+	font-size: 120%;
+}
+span.id a {
+	color: #114153;
+}
+span.children,
+span.dependents {
+	font-family: 'Times New Roman', serif;
+	font-size: 110%;
+	font-weight: bold;
+	color: #223366;
+}
+div.address {
+	padding: 2px 5px 2px 2px;
+	margin: 0 auto 0 0;
+	max-width: 250px;
+	background-color: rgb(250, 250, 254);
+}
+div.address span.field {
+	font-size: 110%;
+	color: rgb(10, 30, 50);
+}
+div.numbers {
+	height: 18px;
+}
+span.reg-date span.val {
+	font-family: 'Times New Roman', serif;
+	font-size: 95%;
+	font-weight: bold;
+	color: #354057;
+}
+span.phone:before {
+	content: url('../images/phone.png') top left no-repeat;
+	margin: 0 3px 0 0;
+}
+span.mobile:before {
+	content: url('../images/mobile.png') top left no-repeat;
+	margin: 0 5px 0 0;
+}
+span.email:before {
+	content: url('../images/email.jpg');
+	margin: 0 5px 0 0;
+}
+span.phone span.val,
+span.mobile span.val{
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: rgb(80, 50, 50);
+}
+span.zone {
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: rgb(80, 50, 50);
+}
+span.bpl {
+	color: rgb(80, 55, 50);
+	font-size: 105%;
+	font-weight: bold;
+}
+div.marriage {
+}
+div.marriage span.dt {
+	font-family: 'Times New Roman', serif;
+	font-size: 95%;
+	font-weight: bold;
+	color: #354057;
+}
+div.marriage span.church {
+	font-family: 'Times New Roman', serif;
+	font-size: 105%;
+	font-weight: bold;
+	color: rgb(60, 70, 75);
+}
+div.marriage span.type,
+div.marriage span.status {
+	font-family: 'Times New Roman', serif;
+	font-size: 105%;
+	font-weight: bold;
+	color: rgb(60, 70, 75);
+}
+span.income {
+	font-family: 'Times New Roman', serif;
+	font-size: 105%;
+	font-weight: bold;
+	
+}
