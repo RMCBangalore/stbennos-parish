@@ -33,6 +33,16 @@ $this->menu=array(
 	}
 	echo "</p>";
 
+	foreach(array('sex', 'domicile_status', 'education', 'lang_pri', 'lang_lit', 'lang_edu', 'rite') as $field) {
+		if ($model->$field) {
+			$key = $field;
+			if (preg_match('/^lang/', $field)) {
+				$key = 'languages';
+			}
+			$model->$field = FieldNames::value($key, $model->$field);
+		}
+	}
+
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
