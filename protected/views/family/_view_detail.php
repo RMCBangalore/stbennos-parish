@@ -85,16 +85,10 @@
 			Status: <span class="status"><?php echo CHtml::encode(FieldNames::value('marriage_status', $data->marriage_status)); ?></span>
 	</div>
 	
-	<span class="label"><?php echo CHtml::encode($data->getAttributeLabel('monthly_income')); ?>: </span>
-	<span class="income"><?php echo CHtml::encode(FieldNames::value('monthly_household_income', $data->monthly_income)); ?></span>
-
-	<?php /*
-
-	<br />
-
-	<br />
-
-	*/ ?>
+	<?php if ($data->monthly_income) {
+		echo '<span class="label">' . CHtml::encode($data->getAttributeLabel('monthly_income')) . ': </span>';
+		echo '<span class="income">' . CHtml::encode(FieldNames::value('monthly_household_income', $data->monthly_income)) . '</span>';
+	} ?>
 
 
 </div>
