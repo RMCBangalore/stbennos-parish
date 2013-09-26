@@ -57,6 +57,13 @@ $this->breadcrumbs=array(
 	$x2 = $x1 + 400;
 	$y2 = $y1 + 275;
 ?>
+$('#families-photo-form').submit(function(e) {
+	if ('' == $('#width').val()) {
+		alert("Image needs to be cropped. Please crop and submit");
+		return false;
+	}
+	return true;
+} );
 $('#photo').imgAreaSelect( {
 	x1: <?php echo $x1 ?>,
 	y1: <?php echo $y1 ?>,
