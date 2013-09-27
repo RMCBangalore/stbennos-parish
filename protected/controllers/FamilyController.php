@@ -722,11 +722,32 @@ class FamilyController extends RController
 			$dataProvider = $model->search();
 			$dataProvider->pagination = false;
 
+			$fields = array('id', 'fid', 'head', 'addr_nm', 'addr_stt', 'addr_area', 'addr_pin', 'zone', 'reg_date', 'marriage_church', 'marriage_date');
+
+			$fval = array();
+			$labels = $model->attributeLabels();
+			foreach($fields as $field) {
+				if ('head' == $field) {
+					array_push($fval, 'Family head');
+				} else {
+					array_push($fval, $labels[$field]);
+				}
+			}
+			echo implode("\t", $fval) . "\n";
+
             foreach( $dataProvider->data as $data ) {
-				$fields = array('id', 'fid', 'addr_nm', 'addr_stt', 'addr_area', 'addr_pin', 'zone', 'reg_date', 'marriage_church', 'marriage_date');
 				$fval = array();
 				foreach($fields as $field) {
-					array_push($fval, $data->$field);
+					if ('head' == $field) {
+						$head = $data->head();
+						$head_name = '';
+						if ($head) {
+							$head_name = $head->fullname();
+						}
+						array_push($fval, $head_name);
+					} else {
+						array_push($fval, $data->$field);
+					}
 				}
 				echo implode("\t", $fval) . "\n";
 			}
