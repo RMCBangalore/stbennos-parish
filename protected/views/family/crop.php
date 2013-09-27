@@ -30,6 +30,10 @@ $this->breadcrumbs=array(
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
 <?php
 	$src = Yii::app()->request->baseUrl . '/images/uploaded/' . $pfile;
 	$alt = "Family photo";
@@ -41,10 +45,6 @@ $this->breadcrumbs=array(
 	echo CHtml::hiddenField('zoom', $zoom, array('id' => 'zoom'));
 	echo CHtml::hiddenField('pfile', $pfile, array('id' => 'pfile'));
 ?>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
 
 <?php $this->endWidget(); ?>
 

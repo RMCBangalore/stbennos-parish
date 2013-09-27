@@ -128,7 +128,7 @@ class PersonController extends RController
 				case 1: $img = imagecreatefromgif($sdir . $pfile); break;
 				case 2: $img = imagecreatefromjpeg($sdir . $pfile); break;
 				case 3: $img = imagecreatefrompng($sdir . $pfile); break;
-				case IMAGETYPE_BMP: $img = ImageCreateFromBMP($sdir . $pfile); break;
+				case IMAGETYPE_BMP: $img = ImageHelper::ImageCreateFromBMP($sdir . $pfile); break;
 				case IMAGETYPE_WBMP: $img = imagecreatefromwbmp($sdir . $pfile); break;
 				default: Yii::trace("PC.actionPhoto crop unknown image type $t", 'application.controllers.PersonController');
 				}
