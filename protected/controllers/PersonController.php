@@ -338,8 +338,17 @@ class PersonController extends RController
 			$dataProvider = $model->search();
 			$dataProvider->pagination = false;
 
+			$fields = array('id', 'fname', 'lname', 'dob', 'mobile');
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $field) {
+				array_push($fval, $labels[$field]);
+			}
+			echo implode("\t", $fval) . "\n";
+
             foreach( $dataProvider->data as $data ) {
-				$fields = array('id', 'fname', 'lname', 'dob', 'mobile');
 				$fval = array();
 				foreach($fields as $field) {
 					array_push($fval, $data->$field);
