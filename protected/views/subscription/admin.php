@@ -46,11 +46,27 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'trans_id',
-		'start_month',
-		'start_year',
-		'end_month',
-		'end_year',
+		array(
+			'header' => 'Family&nbsp;(Head&nbsp;name,&nbsp;id)',
+			'name' => 'family_id',
+			'value' => '$data->family->head_name ." #" . $data->family->id'
+		),
+		array(
+			'header' => 'From&nbsp;month',
+			'name' => 'start_year',
+			'value' => 'date_format(new DateTime(implode("-",array($data->start_year,$data->start_month,1))), "M, Y")',
+		),
+		array(
+			'header' => 'Till&nbsp;month',
+			'name' => 'end_year',
+#			'name' => 'till_month',
+			'value' => 'date_format(new DateTime(implode("-",array($data->end_year,$data->end_month,1))), "M, Y")',
+		),
+		'amount',
+		array(
+			'header' => 'Total Amount',
+			'value' => '$data->trans->amount',
+		),
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -692,6 +692,43 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionFindMatch()
+	{
+		if (Yii::app()->request->isPostRequest) {
+			Yii::trace("PC.findMatch POST request", 'application.controllers.FamilyController');
+			foreach($_POST as $k => $v) {
+				Yii::trace("PC.findMach $k: $v", 'application.controllers.FamilyController');
+			}
+			$model = Families::model()->findByPk($_POST['family']);
+			$family = array(
+				'id' => $model->id,
+				'head_name' => $model->head_name,
+				'marriage_date' => $model->marriage_date,
+			);
+			echo CJSON::encode($family);
+			return;
+		}
+		$crit = array(
+			'condition' => ""
+		);
+		if (isset($_GET['key'])) {
+			$key = $_GET['key'];
+			$crit = array(
+				'condition' => "t.id = '$key' or t.fid = '$key' or " .
+						"h.fname like '%$key%' or h.lname like '%$key%' or " .
+						"w.fname like '%$key%' or w.lname like '%$key%'",
+				'join' => "LEFT OUTER JOIN people h ON t.husband_id IS NOT NULL " .
+						"AND h.id = t.husband_id " .
+					"LEFT OUTER JOIN people w ON t.wife_id IS NOT NULL " .
+						"AND w.id = t.wife_id",
+			);
+		}
+		$families = new CActiveDataProvider('Families', array('criteria' => $crit));
+
+		$this->renderPartial('find_match', array(
+			'families' => $families
+		));
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

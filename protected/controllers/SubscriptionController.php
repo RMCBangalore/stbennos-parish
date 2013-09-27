@@ -56,26 +56,53 @@ class SubscriptionController extends RController
 		));
 	}
 
+	public function actionTillDate($family) {
+		if (!preg_match('/(object|Families)/', gettype($family))) {
+			$family = Families::model()->findByPk($family);
+		}
+			$this->renderPartial('_till_month', array(
+				'start_dt' => $this->getStartDate($family)));
+	}
+
+	public function getStartDate($family) {
+
+			$sub = Subscription::model()->findByAttributes(array(
+								'family_id' => $family->id
+							), array(
+								'order' => 'end_year DESC, end_month DESC'
+							));
+
+			Yii::trace("SC.getStartDate called for family #".$family->id."=".gettype($family),
+				'application.controllers.SubscriptionController');
+
+			if ($sub) {
+				return new DateTime(sprintf("%d-%02d-%d", $sub->end_year, $sub->end_month, 15));
+			} else {
+				return new DateTime($family->reg_date);
+			}
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($fid)
+	public function actionCreate($fid = null)
 	{
-		$family = Families::model()->findByPk($fid);
-
 		$model=new Subscription;
+		$parms = array();
 
-		$sub = Subscription::model()->findByAttributes(array(
-							'family_id' => $family->id
-						), array(
-							'order' => 'end_year DESC, end_month DESC'
-						));
+		if(isset($_POST['Subscription']) and isset($_POST['Subscription']['family_id'])) {
+			$fid = $_POST['Subscription']['family_id'];
+		}
 
-		if ($sub) {
-			$dt = new DateTime(sprintf("%d-%02d-%d", $sub->end_year, $sub->end_month, 15));
-		} else {
-			$dt = new DateTime($family->reg_date);
+		if (isset($fid)) {
+			$family = Families::model()->findByPk($fid);
+			$parms['family'] = $family;
+
+			$dt = $this->getStartDate($family);
+			$parms['start_dt'] = $dt;
+
+			Yii::trace("SC.create: fid:" . $family->id . ", dt=" . date_format($dt, 'Y-m-d'), 'application.controllers.SubscriptionController');
 		}
 
 		// Uncomment the following line if AJAX validation is needed
@@ -117,11 +144,8 @@ class SubscriptionController extends RController
 			}
 		}
 
-		$this->render('create',array(
-			'family' => $family,
-			'model'=>$model,
-			'start_dt'=>$dt
-		));
+		$parms['model'] = $model;
+		$this->render('create', $parms);
 	}
 
 	/**
@@ -165,32 +189,46 @@ class SubscriptionController extends RController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex($fid)
+	public function actionIndex($fid = null)
 	{
-		$family = Families::model()->findByPk($fid);
+		$parms = array();
+
+		if (isset($fid)) {
+			$family = Families::model()->findByPk($fid);
+			$parms['family'] = $family;
+
+			$crit = array(
+				'condition' => "family_id = $fid",
+				'order' => 'end_year ASC, end_month ASC'
+			);
+		} else {
+			$crit = array(
+				'order' => 'end_year ASC, end_month ASC'
+			);
+		}
 
 		$dataProvider = new CActiveDataProvider('Subscription', array(
-							'criteria' => array(
-								'condition' => 'family_id = ' . $family->id,
-								'order' => 'end_year ASC, end_month ASC'
-							)));
+							'criteria' => $crit
+						));
 
-		$this->render('index',array(
-			'dataProvider' => $dataProvider,
-			'family' => $family
-		));
+		$parms['dataProvider'] = $dataProvider;
+
+		$this->render('index', $parms);
 	}
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin($fid)
+	public function actionAdmin($fid = null)
 	{
-		$family = Families::model()->findByPk($fid);
-
 		$model=new Subscription('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->family_id = $family->id;
+
+		if (isset($fid)) {
+			$family = Families::model()->findByPk($fid);
+
+			$model->family_id = $family->id;
+		}
 
 		if(isset($_GET['Subscription']))
 			$model->attributes=$_GET['Subscription'];

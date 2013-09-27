@@ -12,6 +12,7 @@
  * @property integer $start_month
  * @property integer $end_year
  * @property integer $end_month
+ * @property double $amount
  *
  * The followings are the available model relations:
  * @property Families $family
@@ -45,6 +46,7 @@ class Subscription extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('family_id, trans_id, amount', 'required'),
 			array('family_id, trans_id, start_year, start_month, end_year, end_month', 'numerical', 'integerOnly'=>true),
 			array('paid_by', 'length', 'max' => 99),
 			// The following rule is used by search().
@@ -81,6 +83,14 @@ class Subscription extends CActiveRecord
 			'end_year' => 'End Year',
 			'end_month' => 'End Month',
 		);
+	}
+
+	public function getFrom_month() {
+		return $this->start_year . '-' . $this->start_month;
+	}
+
+	public function getTill_month() {
+		return sprintf("%d-%02d", $this->end_year, $this->end_month);
 	}
 
 	/**
