@@ -58,7 +58,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'zone'); ?>
-		<?php echo $form->textField($model,'zone'); ?>
+		<?php echo $form->dropDownList($model,'zone',FieldNames::values('zones'),array('prompt'=>'--- Select ---')); ?>
 	</div>
 
 	<div class="row">
@@ -80,7 +80,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'bpl_card'); ?>
-		<?php echo $form->textField($model,'bpl_card'); ?>
+		<?php echo $form->dropDownList($model,'bpl_card',array(0=>'No',1=>'Yes'),array('prompt'=>' -- Select -- ')); ?>
 	</div>
 
 	<div class="row">
@@ -107,12 +107,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'marriage_type'); ?>
-		<?php echo $form->textField($model,'marriage_type',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'marriage_type',FieldNames::values('marriage_type'),array('prompt'=>'--- Select ---')); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'marriage_status'); ?>
-		<?php echo $form->textField($model,'marriage_status',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->dropDownList($model,'marriage_status',FieldNames::values('marriage_status'),array('prompt'=>'--- Select ---')); ?>
 	</div>
 
 	<div class="row">
