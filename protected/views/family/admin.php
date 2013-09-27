@@ -47,6 +47,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'fid',
+		'head_name',
 		'addr_nm',
 		'addr_stt',
 		'addr_area',

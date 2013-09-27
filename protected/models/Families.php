@@ -15,9 +15,11 @@
  * @property string $email
  * @property integer $zone
  * @property integer $reg_date
+ * @property integer $reg_yrs
  * @property integer $bpl_card
  * @property string $marriage_church
  * @property string $marriage_date
+ * @property string $marriage_yrs
  * @property string $marriage_type
  * @property string $marriage_status
  * @property string $monthly_income
@@ -70,8 +72,29 @@ class Families extends CActiveRecord
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, bpl_card, marriage_church, marriage_date, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
+			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function getHead_name() {
+		$head = $this->head();
+		return isset($head) ? $head->fullname() : '';
+	}
+
+	public function getReg_yrs() {
+		return $this->reg_date ? (strtotime('now') - strtotime($this->reg_date)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setReg_yrs($val) {
+		$this->reg_yrs = $val;
+	}
+
+	public function getMarriage_yrs() {
+		return $this->marriage_date ? (strtotime('now') - strtotime($this->marriage_date)) / (60*60*24*365.2425) : null;
+	}
+
+	public function setMarriage_yrs($val) {
+		$this->marriage_yrs = $val;
 	}
 
 	/**
@@ -110,13 +133,50 @@ class Families extends CActiveRecord
 			'zone' => 'Zone',
 			'gmap_url' => 'Google maps URL',
 			'reg_date' => 'Registration Date',
+			'reg_yrs' => 'Registered Years',
 			'bpl_card' => 'Bpl Card',
 			'marriage_church' => 'Marriage Church',
 			'marriage_date' => 'Marriage Date',
+			'marriage_yrs' => 'Married Years',
 			'marriage_type' => 'Marriage Type',
 			'marriage_status' => 'Marriage Status',
 			'monthly_income' => 'Monthly Household Income',
 		);
+	}
+
+	protected function date_search($criteria, $dt_col, $yr_col) {
+		$yr_val = $this->$yr_col;
+		Yii::trace("P.search by $yr_col", 'application.models.People');
+		if (preg_match('/^(\d+)-(\d+)$/', $yr_val, $matches) or preg_match('/^(\d+)\.\.(\d+)$/', $yr_val, $matches)) {
+			$lim_max = "" . (date_format(new DateTime('now'), 'Y') - $matches[1])
+						. date_format(new DateTime('now'), '-m-d');
+			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[2] - 1)
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $yr_col bw {$matches[1]} and {$matches[2]}", 'application.models.People');
+			Yii::trace("P.search $dt_col bw $lim_min and $lim_max", 'application.models.People');
+			$criteria = $criteria->addCondition("$dt_col between '$lim_min' and '$lim_max'");
+		} elseif (preg_match('/^(>|<|<=|>=|<>)(\d+)$/', $yr_val, $matches)) {
+			if (preg_match('/^[<=]+$/', $matches[1])) {
+				$sgn = preg_replace('/</', '>', $matches[1]);
+			} elseif (preg_match('/^[>=]+$/', $matches[1])) {
+				$sgn = preg_replace('/>/', '<', $matches[1]);
+			} else {
+				$sgn = $matches[1];
+			}
+
+			$lim = "" . (date_format(new DateTime('now'), 'Y') - $matches[2])
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $dt_col $sgn $lim", 'application.models.People');
+			$criteria = $criteria->addCondition("$dt_col $sgn '$lim'");
+		} elseif (preg_match('/^(\d+)$/', $yr_val, $matches)) {
+			$lim_max = "" . (date_format(new DateTime('now'), 'Y') - $matches[1])
+						. date_format(new DateTime('now'), '-m-d');
+			$lim_min = "" . (date_format(new DateTime('now'), 'Y') - $matches[1] - 1)
+						. date_format(new DateTime('now'), '-m-d');
+			Yii::trace("P.search $yr_col = {$matches[1]} years", 'application.models.People');
+			Yii::trace("P.search $dt_col bw $lim_min and $lim_max", 'application.models.People');
+			$criteria = $criteria->addCondition("$dt_col between '$lim_min' and '$lim_max'");
+		}
 	}
 
 	/**
@@ -141,9 +201,15 @@ class Families extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('zone',$this->zone);
 		$criteria->compare('reg_date',$this->reg_date);
+		if (isset($this->reg_yrs)) {
+			$this->date_search($criteria, 'reg_date', 'reg_yrs');
+		}
 		$criteria->compare('bpl_card',$this->bpl_card);
 		$criteria->compare('marriage_church',$this->marriage_church,true);
 		$criteria->compare('marriage_date',$this->marriage_date,true);
+		if (isset($this->marriage_yrs)) {
+			$this->date_search($criteria, 'marriage_date', 'marriage_yrs');
+		}
 		$criteria->compare('marriage_type',$this->marriage_type,true);
 		$criteria->compare('marriage_status',$this->marriage_status,true);
 		$criteria->compare('monthly_income',$this->monthly_income,true);
