@@ -118,6 +118,11 @@ return array(
 					'icon' => '/images/icons/mass booking.png'
 				),
 				array(
+					'title' => 'Family Subscriptions',
+					'url' => array('/subscription/index'),
+					'icon' => '/images/icons/family subscription.png'
+				),
+				array(
 					'title' => 'Parish Registers',
 					'url' => array('site/page', array('view' => 'registers')),
 					'icon' => '/images/icons/parish register1.png'

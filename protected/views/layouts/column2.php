@@ -11,11 +11,13 @@
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));
-		if (!isset($this->breadcrumbs['Admin']) and isset($this->breadcrumbs[0]) and $this->breadcrumbs[0] != 'Admin') {
+		if (!isset($this->breadcrumbs['Admin']) and isset($this->breadcrumbs[0]) and $this->breadcrumbs[0] != 'Pastor') {
 			$iconmenu = Yii::app()->params['iconMenu'];
 			echo '<table>';
 			$i = 0;
 			foreach($iconmenu as $icon) {
+				if ('Parish Profile' == $icon['title'] and !Yii::app()->user->checkAccess('Pastor'))
+					continue;
 				$iconUrl = $icon['url'];
 				if (isset($iconUrl[1])) {
 					$url = Yii::app()->createUrl($iconUrl[0], $iconUrl[1]);

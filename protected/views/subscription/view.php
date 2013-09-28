@@ -26,14 +26,30 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'family_id',
-		'trans_id',
+		array(
+			'label' => 'Family&nbsp;(Head&nbsp;name,&nbsp;id)',
+			'name' => 'family_id',
+			'value' => $model->family->head_name ." #" . $model->family->id
+		),
+		array(
+			'label' => 'From&nbsp;month',
+			'name' => 'start_year',
+			'value' => date_format(new DateTime(implode("-",array($model->start_year,$model->start_month,1))), "M, Y"),
+		),
+		array(
+			'label' => 'Till&nbsp;month',
+			'name' => 'end_year',
+			'value' => date_format(new DateTime(implode("-",array($model->end_year,$model->end_month,1))), "M, Y"),
+		),
+		array(
+			'label' => 'Monthly Amt &#8377;',
+			'value' => $model->amount,
+		),
+		array(
+			'label' => 'Total Amount &#8377;',
+			'value' => $model->trans->amount,
+		),
 		'paid_by',
-		'start_year',
-		'start_month',
-		'end_year',
-		'end_month',
-		'amount'
 	),
 )); ?>
 

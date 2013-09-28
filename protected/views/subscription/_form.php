@@ -58,7 +58,7 @@ $('#family-search').fancybox( {
 		set_select();
 	}
 } );
-function set_clear_fields(id) {
+function set_clear_fields() {
 	$('#family-clear').click(function() {
 		$('#Subscription_family_head').val('');
 		$('#Subscription_family_id').val('');
@@ -66,6 +66,7 @@ function set_clear_fields(id) {
 		return false;
 	} );
 }
+set_clear_fields();
 ");
 
 $gridScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('zii.widgets.assets'));
@@ -116,7 +117,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 		<?php echo CHtml::label('Till Month', 'Subscription_till', array('required'=>true)); ?>
 		<?php $parms = array();
 			if (isset($start_dt)) {
-				$parms['start_dt'];
+				$parms['start_dt'] = $start_dt;
 			}
 			echo '<span id="spn_till_month">';
 			$this->renderPartial('_till_month', $parms);

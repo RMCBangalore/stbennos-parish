@@ -28,6 +28,8 @@ Registered User?
 
 $iconMenu = Yii::app()->params['iconMenu'];
 foreach($iconMenu as $icon) {
+	if ('Parish Profile' == $icon['title'] and !Yii::app()->user->checkAccess('Pastor'))
+		continue;
 	$iconUrl = $icon['url'];
 	if (isset($iconUrl[1])) {
 		echo CHtml::link(CHtml::image(Yii::app()->baseUrl . $icon['icon'], $icon['title']),
