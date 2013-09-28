@@ -72,10 +72,23 @@ class Families extends CActiveRecord
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income', 'safe', 'on'=>'search'),
+			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income, sub_till', 'safe', 'on'=>'search'),
 		);
 	}
 
+	public function getSub_till() {
+		$subs = $this->subscriptions;
+		if ($subs) {
+			return $subs[count($subs) - 1]->till_month;
+		} else {
+			return $this->reg_date;
+		}
+	}
+
+	public function setSub_till($val) {
+		Yii::trace("F.setSub_till val = $val", 'application.models.Families');
+		$this->sub_till = $val;
+	}
 	public function getHead_name() {
 		$head = $this->head();
 		return isset($head) ? $head->fullname() : '';
@@ -112,6 +125,7 @@ class Families extends CActiveRecord
 			'needData' => array(self::HAS_MANY, 'NeedData', 'family_id'),
 			'awarenessData' => array(self::HAS_MANY, 'AwarenessData', 'family_id'),
 			'openData' => array(self::HAS_MANY, 'OpenData', 'family_id'),
+			'subscriptions' => array(self::HAS_MANY, 'Subscription', 'family_id'),
 		);
 	}
 
@@ -141,6 +155,7 @@ class Families extends CActiveRecord
 			'marriage_type' => 'Marriage Type',
 			'marriage_status' => 'Marriage Status',
 			'monthly_income' => 'Monthly Household Income',
+			'sub_till' => 'Subscription Till',
 		);
 	}
 
@@ -213,6 +228,17 @@ class Families extends CActiveRecord
 		$criteria->compare('marriage_type',$this->marriage_type,true);
 		$criteria->compare('marriage_status',$this->marriage_status,true);
 		$criteria->compare('monthly_income',$this->monthly_income,true);
+		if (isset($this->sub_till) and !empty($this->sub_till)) {
+			$mv = explode('-', $this->sub_till);
+			Yii::trace("mv isa ".gettype($mv)." size ".count($mv)." = ".join(",",$mv), 'application.models.Families');
+			if (count($mv) >= 2) {
+				list($yr, $mth) = $mv;
+				$m = sprintf("%d-%02d", $yr, $mth);
+				$criteria->addCondition("EXISTS (SELECT s.id FROM subscriptions s " .
+					"WHERE s.family_id = t.id AND CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') OR " .
+					"LEFT(t.reg_date,7) >= '$m'");
+			}
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -274,4 +300,5 @@ class Families extends CActiveRecord
 	public function head() {
 		return isset($this->husband_id) ? $this->husband : $this->wife;
 	}
+
 }

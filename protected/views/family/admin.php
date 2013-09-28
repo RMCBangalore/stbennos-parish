@@ -23,8 +23,43 @@ $('#submit-button').click(function(){
 	});
 	return false;
 });
+$(document).ready(function() {
+	$('#sub_till_mth').click(function() {
+		$('.ui-datepicker-calendar').addClass('monthpicker');
+	} );
+	$('#sub_till_mth').focus(function () {
+        $('.ui-datepicker-calendar').hide();
+        $('#ui-datepicker-div').position({
+            my: 'center top',
+            at: 'center bottom',
+            of: $(this)
+        });
+    });
+	$('#sub_till_mth').datepicker( {
+		changeMonth: true,
+		changeYear: true,
+		showButtonPanel: true,
+		dateFormat: 'MM yy',
+		onChangeMonthYear: function(yr,mth,inst) {
+			$('.ui-datepicker-calendar').addClass('monthpicker');
+		},
+		onClose: function(dateText, inst) { 
+			var month = $('#ui-datepicker-div .ui-datepicker-month :selected').val();
+			var year = $('#ui-datepicker-div .ui-datepicker-year :selected').val();
+			$('.ui-datepicker-calendar').removeClass('monthpicker');
+			$(this).datepicker('setDate', new Date(year, month, 1));
+			$('#Families_sub_till').val(year + '-' + (parseInt(month)+1));
+		}
+	});
+});
 ");
 ?>
+
+<style>
+.monthpicker {
+    display: none;
+}
+</style>
 
 <h1>Manage Families</h1>
 
@@ -48,10 +83,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'fid',
 		'head_name',
-		'addr_nm',
-		'addr_stt',
-		'addr_area',
-		'addr_pin',
+		array(
+			'header' => 'Address',
+			'value' => 'implode(", ", array(' .
+				'$data->addr_nm, $data->addr_stt, $data->addr_area))." - ".$data->addr_pin',
+		),
+		'sub_till',
 		/*
 		'phone',
 		'mobile',

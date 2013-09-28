@@ -17,8 +17,15 @@
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->label($model,'fid'); ?>
 		<?php echo $form->textField($model,'fid',array('size'=>11,'maxlength'=>11)); ?>
+	</span>
+	<span class="rightHalf sub_till">
+		<?php echo $form->label($model,'sub_till'); ?>
+		<?php echo CHtml::textField('sub_till_mth', '', array('id' => 'sub_till_mth')); ?>
+		<?php echo $form->hiddenField($model,'sub_till'); ?>
+	</span>
 	</div>
 
 	<div class="row">
