@@ -24,9 +24,6 @@ $('#submit-button').click(function(){
 	return false;
 });
 $(document).ready(function() {
-	$('#sub_till_mth').click(function() {
-		$('.ui-datepicker-calendar').addClass('monthpicker');
-	} );
 	$('#sub_till_mth').focus(function () {
         $('.ui-datepicker-calendar').hide();
         $('#ui-datepicker-div').position({
@@ -39,27 +36,28 @@ $(document).ready(function() {
 		changeMonth: true,
 		changeYear: true,
 		showButtonPanel: true,
-		dateFormat: 'MM yy',
-		onChangeMonthYear: function(yr,mth,inst) {
-			$('.ui-datepicker-calendar').addClass('monthpicker');
-		},
+		dateFormat: 'M yy',
 		onClose: function(dateText, inst) { 
 			var month = $('#ui-datepicker-div .ui-datepicker-month :selected').val();
 			var year = $('#ui-datepicker-div .ui-datepicker-year :selected').val();
-			$('.ui-datepicker-calendar').removeClass('monthpicker');
 			$(this).datepicker('setDate', new Date(year, month, 1));
-			$('#Families_sub_till').val(year + '-' + (parseInt(month)+1));
+			var pref = '';
+			if (1 == $('#sub_paid').val()) {
+				pref = '!';
+			}
+			$('#Families_sub_till').val(pref + year + '-' + (parseInt(month)+1));
 		}
 	});
+	$('#sub_paid').change(function() {
+		if (1 == this.value) {
+			$('#Families_sub_till').val('!' + $('#Families_sub_till').val());
+		} else {
+			$('#Families_sub_till').val($('#Families_sub_till').val().replace(/^!/,''));
+		}
+	} );
 });
 ");
 ?>
-
-<style>
-.monthpicker {
-    display: none;
-}
-</style>
 
 <h1>Manage Families</h1>
 

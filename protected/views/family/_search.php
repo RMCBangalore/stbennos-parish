@@ -22,8 +22,9 @@
 		<?php echo $form->textField($model,'fid',array('size'=>11,'maxlength'=>11)); ?>
 	</span>
 	<span class="rightHalf sub_till">
-		<?php echo $form->label($model,'sub_till'); ?>
-		<?php echo CHtml::textField('sub_till_mth', '', array('id' => 'sub_till_mth')); ?>
+		<?php echo CHtml::label('Subscription', 'sub_till_mth'); ?>
+		<?php echo CHtml::dropDownList('paid','',array(0=>'Paid till',1=>'Due from'),array('id'=>'sub_paid')); ?>
+		<?php echo CHtml::textField('sub_till_mth', '', array('id' => 'sub_till_mth','size'=>8)); ?>
 		<?php echo $form->hiddenField($model,'sub_till'); ?>
 	</span>
 	</div>

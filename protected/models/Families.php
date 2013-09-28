@@ -89,6 +89,7 @@ class Families extends CActiveRecord
 		Yii::trace("F.setSub_till val = $val", 'application.models.Families');
 		$this->sub_till = $val;
 	}
+
 	public function getHead_name() {
 		$head = $this->head();
 		return isset($head) ? $head->fullname() : '';
@@ -229,14 +230,19 @@ class Families extends CActiveRecord
 		$criteria->compare('marriage_status',$this->marriage_status,true);
 		$criteria->compare('monthly_income',$this->monthly_income,true);
 		if (isset($this->sub_till) and !empty($this->sub_till)) {
+			list($pref, $logi, $comp) = array("", " OR ", ">=");
+			if (preg_match('/^!/', $this->sub_till)) {
+				list($pref, $logi, $comp) = array("NOT ", " AND ", "<");
+				$this->setSub_till(preg_replace('/^!/', '', $this->sub_till));
+			}
 			$mv = explode('-', $this->sub_till);
 			Yii::trace("mv isa ".gettype($mv)." size ".count($mv)." = ".join(",",$mv), 'application.models.Families');
 			if (count($mv) >= 2) {
 				list($yr, $mth) = $mv;
 				$m = sprintf("%d-%02d", $yr, $mth);
-				$criteria->addCondition("EXISTS (SELECT s.id FROM subscriptions s " .
-					"WHERE s.family_id = t.id AND CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') OR " .
-					"LEFT(t.reg_date,7) >= '$m'");
+				$criteria->addCondition("$pref EXISTS (SELECT s.id FROM subscriptions s " .
+					"WHERE s.family_id = t.id AND CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') $logi " .
+					"LEFT(t.reg_date,7) $comp '$m'");
 			}
 		}
 
