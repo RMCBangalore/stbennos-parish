@@ -13,7 +13,7 @@ echo count($fv);
 <tr>
 <?php
 foreach ($fv as $nv => $val) {
-	echo '<th>' . $val . '</th>';
+	echo '<th class="option">' . $val . '</th>';
 } ?>
 </tr>
 </thead>
@@ -47,7 +47,7 @@ foreach ($awarenessCount as $nid => $awarenessRow) {
 
 	$tot = 0;
 	foreach ($fv as $nv => $val) {
-		echo '<td>';
+		echo '<td class="count">';
 		if (isset($awarenessCount[$nid][$nv])) {
 			$nc = $awarenessCount[$nid][$nv];
 			printf("%.2f%% (%d)", 100 * $nc / $awarenessTot[$nid], $nc);
@@ -64,3 +64,4 @@ foreach ($awarenessCount as $nid => $awarenessRow) {
 
 </tbody>
 </table>
+

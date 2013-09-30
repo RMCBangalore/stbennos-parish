@@ -219,7 +219,7 @@ div.search-form
 .operations li a
 {
 	font: bold 12px Arial;
-	color: #0066A4;
+	color: #0023A4;
 	display: block;
 	padding: 2px 0 2px 8px;
 	line-height: 15px;
@@ -228,12 +228,12 @@ div.search-form
 
 .operations li a:visited
 {
-	color: #0066A4;
+	color: #0023A4;
 }
 
 .operations li a:hover
 {
-	background: #80CFFF;
+	background: #8082FF;
 }
 
 div.row span.leftHalf {

@@ -13,7 +13,7 @@ echo count($fv);
 <tr>
 <?php
 foreach ($fv as $nv => $val) {
-	echo '<th>' . $val . '</th>';
+	echo '<th class="option">' . $val . '</th>';
 } ?>
 </tr>
 </thead>
@@ -47,7 +47,7 @@ foreach ($satisfactionCount as $nid => $satisfactionRow) {
 
 	$tot = 0;
 	foreach ($fv as $nv => $val) {
-		echo '<td>';
+		echo '<td class="count">';
 		if (isset($satisfactionCount[$nid][$nv])) {
 			$nc = $satisfactionCount[$nid][$nv];
 			printf("%.2f%% (%d)", 100 * $nc / $satisfactionTot[$nid], $nc);

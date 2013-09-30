@@ -13,7 +13,7 @@ echo count($fv);
 <tr>
 <?php
 foreach ($fv as $nv => $val) {
-	echo '<th>' . $val . '</th>';
+	echo '<th class="option">' . $val . '</th>';
 } ?>
 </tr>
 </thead>
@@ -47,7 +47,7 @@ foreach ($needCount as $nid => $needRow) {
 
 	$tot = 0;
 	foreach ($fv as $nv => $val) {
-		echo '<td>';
+		echo '<td class="count">';
 		if (isset($needCount[$nid][$nv])) {
 			$nc = $needCount[$nid][$nv];
 			printf("%.2f%% (%d)", 100 * $nc / $needTot[$nid], $nc);
@@ -64,3 +64,4 @@ foreach ($needCount as $nid => $needRow) {
 
 </tbody>
 </table>
+

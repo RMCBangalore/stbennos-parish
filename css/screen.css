@@ -240,6 +240,7 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 table.cellular,
 table.cellular th,
 table.cellular td {
+	color: rgb(40, 50, 60);
 	border-style: solid;
 	border-color: #88a;
 }

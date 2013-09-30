@@ -43,7 +43,7 @@ foreach ($openDist as $openRow) {
 <tr>
 <?php
 foreach ($openVal as $qv => $val) {
-	echo '<th>' . $qv . '</th>';
+	echo '<th class="option">' . $qv . '</th>';
 } ?>
 </tr>
 </thead>
@@ -57,7 +57,7 @@ foreach ($openCount as $qid => $openRow) {
 
 	$tot = 0;
 	foreach ($openVal as $qv => $val) {
-		echo '<td>';
+		echo '<td class="count">';
 		if (isset($openCount[$qid][$qv])) {
 			$nc = $openCount[$qid][$qv];
 			printf("%.2f%% (%d)", 100 * $nc / $openTot[$qid], $nc);
