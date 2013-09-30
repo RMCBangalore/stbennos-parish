@@ -85,7 +85,7 @@
 
 	*/ ?>
 
-	<?php if ('both' != $local) {
+	<?php if (isset($local) and 'both' != $local) {
 		echo CHtml::link('Create Request', array('bannsRequest/create', 'bid' => $data->id));
 		echo '<br />';
 		echo CHtml::link('Create Response', array('bannsResponse/create', 'bid' => $data->id));
