@@ -38,10 +38,10 @@ function set_sort(crit) {
 function get_cb(id) {
 	return function(p) {
 		$('#MarriageRecord_'+id+'_name').val(p.name).attr('readonly', true);
-		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_dob').datepicker().datepicker('disable');
-		$('#MarriageRecord_'+id+'_baptism_dt').val(p.baptism_dt).attr('readonly', true);
+		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true).attr('disabled', false);
 		$('#MarriageRecord_'+id+'_baptism_dt').datepicker().datepicker('disable');
+		$('#MarriageRecord_'+id+'_baptism_dt').val(p.baptism_dt).attr('readonly', true).attr('disabled', false);
 		$('#MarriageRecord_'+id+'_fathers_name').val(p.fathers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_mothers_name').val(p.mothers_name).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_rank_prof').val(p.rank_prof);
