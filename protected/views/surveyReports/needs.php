@@ -2,7 +2,8 @@
 /* @var $this SurveyReportsController */
 
 $this->breadcrumbs=array(
-	'Survey Reports',
+	'Reports'=>array('/reports'),
+	'Needs Analysis',
 );
 
 Yii::app()->clientScript->registerScript('search', "

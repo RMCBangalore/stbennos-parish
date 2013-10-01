@@ -2,7 +2,8 @@
 /* @var $this SurveyReportsController */
 
 $this->breadcrumbs=array(
-	'Survey Reports',
+	'Reports'=>array('/reports'),
+	'Satisfaction Report',
 );
 
 $baseUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.highcharts.assets'));
