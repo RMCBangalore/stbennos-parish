@@ -70,7 +70,7 @@ function googleTranslateElementInit() {
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Pastor')),
-				array('label'=>'Reports', 'url'=>array('/surveyReports'), 'visible' => Yii::app()->user->checkAccess('Pastor')),
+				array('label'=>'Reports', 'url'=>array('/reports'), 'visible' => Yii::app()->user->checkAccess('Pastor')),
 				array('label'=>'Help', 'url'=>array('/site/page', 'view'=>'help')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

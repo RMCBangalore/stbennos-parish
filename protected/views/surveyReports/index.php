@@ -1,9 +1,6 @@
 <?php
 /* @var $this SurveyReportsController */
 
-$this->breadcrumbs=array(
-	'Survey Reports',
-);
 ?>
 <h1>Survey Reports</h1>
 
