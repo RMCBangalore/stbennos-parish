@@ -46,7 +46,17 @@
 			echo CHtml::imageButton(Yii::app()->request->baseUrl . '/images/search.png');
 			$this->endWidget(); 
 			Yii::app()->clientScript->registerScript('global-search', "
-			$('#search_key').focus();
+			kp = new Object;
+			$('#search_key').keyup(function(e) {
+				delete kp[e.which];
+			} );
+			$('#search_key').keydown(function(e) {
+				kp[e.which] = true;
+				if (kp[17] && (e.which == 74 || e.which == 72)) {
+					return false;
+				}
+				return true;
+			} );
 			$('#search_form').submit(function() {
 				$.get('/site/search', {
 					'key': $('#search_key').val()
@@ -54,7 +64,9 @@
 					$('#content').html(data);
 				} );
 				return false;
-			} );"); ?>
+			} );
+			$('#search_key').focus();
+			"); ?>
 		</div>
 		<?php endif ?>
 	</div><!-- header -->
