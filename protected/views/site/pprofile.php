@@ -2,6 +2,10 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+
+$this->breadcrumbs = array(
+	'Parish Profile'
+);
 ?>
 
 <?php if (Yii::app()->user->isGuest) { ?>
