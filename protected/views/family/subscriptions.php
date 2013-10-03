@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Subscriptions</h1>
+<h1>Subscriptions: <?php echo $family->head()->fullname() . "'s family"; ?></h1>
 
 <?php
 $now = new DateTime();

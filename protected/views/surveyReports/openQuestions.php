@@ -32,7 +32,7 @@ $('#submit-button').click(function(){
 					plotBorderWidth: null,
 					plotShadow: false
 				},
-				'title': {'text': 'Open Questions Chart' },
+				'title': {'text': 'Q: ' + $('#question_id :selected').text() },
 				plotOptions: {
 					pie: {
 						allowPointSelect: true,
