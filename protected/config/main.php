@@ -105,12 +105,20 @@ return array(
 				array(
 					'title' => 'Parish Profile',
 					'url' => array('site/parishProfile'),
-					'icon' => '/images/icons/parish profile-new.png'
+					'icon' => '/images/icons/parish profile-new.png',
+					'role' => 'Pastor',
+				),
+				array(
+					'title' => 'View Families',
+					'url' => array('family/index'),
+					'icon' => '/images/icons/view family.png',
+#					'role' => '!Pastor',
 				),
 				array(
 					'title' => 'Manage Families',
 					'url' => array('family/admin'),
-					'icon' => '/images/icons/manage famil.png'
+					'icon' => '/images/icons/manage famil.png',
+					'role' => 'Pastor',
 				),
 				array(
 					'title' => 'Mass Bookings',

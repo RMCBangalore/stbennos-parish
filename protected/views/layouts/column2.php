@@ -17,8 +17,19 @@
 			echo '<table>';
 			$i = 0;
 			foreach($iconmenu as $icon) {
-				if ('Parish Profile' == $icon['title'] and !Yii::app()->user->checkAccess('Pastor'))
-					continue;
+				if (isset($icon['role'])) {
+					$role = $icon['role'];
+					Yii::trace("Icon " . $icon['title'] . ' role: ' . $role, 'application.views.layouts.column2');
+					if (preg_match('/^!/', $role)) {
+						$role = preg_replace('/^!/', '', $role);
+						if (Yii::app()->user->checkAccess($role)) {
+							continue;
+						}
+					} elseif (!Yii::app()->user->checkAccess($role)) {
+						continue;
+					}
+				}
+				Yii::trace("Ready to render icon " . $icon['title'], 'application.views.layouts.column2');
 				$iconUrl = $icon['url'];
 				if (isset($iconUrl[1])) {
 					$url = Yii::app()->createUrl($iconUrl[0], $iconUrl[1]);
