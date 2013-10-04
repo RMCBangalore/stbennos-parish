@@ -125,8 +125,9 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 	</span>
 
 	<span class="rightHalf">
-		<?php echo CHtml::label('Amount per month', 'Subscription_amount', array('required' => true)); ?>
-		<?php echo CHtml::textField('Subscription[amount]','',array('id'=>'Subscription_amount')); ?>
+		<?php echo CHtml::label('Amount', 'Subscription_amount', array('required' => true)); ?>
+		<?php echo CHtml::dropDownList('duration', '', array('total' => 'Total', 'monthly' => 'Monthly')); ?>
+		<?php echo CHtml::textField('Subscription[amount]','',array('id'=>'Subscription_amount', 'size' => 7)); ?>
 	</span>
 	</div>
 

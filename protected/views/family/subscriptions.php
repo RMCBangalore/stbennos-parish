@@ -81,7 +81,7 @@ for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
 	for ($mth = 1; $mth <= 12; ++$mth) {
 		echo '<td>';
 		if (isset($subs[$yr][$mth])) {
-			echo $subs[$yr][$mth];
+			printf("PAID", $subs[$yr][$mth]);
 		} else {
 			echo '-';
 		}

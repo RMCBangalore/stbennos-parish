@@ -104,7 +104,8 @@ class SubscriptionController extends RController
 			$dt = $this->getStartDate($family);
 			$parms['start_dt'] = $dt;
 
-			Yii::trace("SC.create: fid:" . $family->id . ", dt=" . date_format($dt, 'Y-m-d'), 'application.controllers.SubscriptionController');
+			Yii::trace("SC.create: fid:" . $family->id . ", dt=" . date_format($dt, 'Y-m-d'),
+				'application.controllers.SubscriptionController');
 		}
 
 		// Uncomment the following line if AJAX validation is needed
@@ -122,7 +123,13 @@ class SubscriptionController extends RController
 
 			$trans = new Transaction;
 			$trans->type = 'credit';
-			$trans->amount = $till * $amt;
+			if ('total' == $_POST['duration']) {
+				$total = $amt;
+				$amt = $amt / $till;
+			} else {
+				$total = $till * $amt;
+			}
+			$trans->amount = $total;
 			$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
 			$trans->creator = Yii::app()->user->id;
 			$trans->descr = "Family #" . $family->id . ' subscription from '
