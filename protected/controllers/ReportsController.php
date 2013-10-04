@@ -12,8 +12,8 @@ class ReportsController extends RController
 
 			$dt = $_POST['People']['marriage_dt'];
 			$period = $_POST['period'];
-			$eff_date = "MAKEDATE(YEAR('$dt'),DAYOFYEAR(t.marriage_dt))";
-			$cond = "$eff_date BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $eff_date";
+			$nxt_anni = "MAKEDATE(YEAR('$dt')+IF(DAYOFYEAR(t.dob)<DAYOFYEAR('$dt'),1,0),DAYOFYEAR(t.marriage_dt))";
+			$cond = "$nxt_anni BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $nxt_anni";
 
 			Yii::trace("R.anniversaries dt=$dt, period=$period, cond=$cond", 'application.controllers.ReportController');
 
@@ -61,8 +61,8 @@ class ReportsController extends RController
 
 			$dt = $_POST['People']['dob'];
 			$period = $_POST['period'];
-			$eff_date = "MAKEDATE(YEAR('$dt'),DAYOFYEAR(t.dob))";
-			$cond = "$eff_date BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $eff_date";
+			$nxt_bday = "MAKEDATE(YEAR('$dt')+IF(DAYOFYEAR(t.dob)<DAYOFYEAR('$dt'),1,0),DAYOFYEAR(t.dob))";
+			$cond = "$nxt_bday BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $nxt_bday";
 
 			Yii::trace("R.birthdays dt=$dt, period=$period, cond=$cond", 'application.controllers.ReportController');
 
