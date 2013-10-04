@@ -118,27 +118,31 @@ return array(
 					'title' => 'Manage Families',
 					'url' => array('family/admin'),
 					'icon' => '/images/icons/manage famil.png',
-					'role' => 'Pastor',
+					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Mass Bookings',
 					'url' => array('massBooking/index'),
-					'icon' => '/images/icons/mass booking.png'
+					'icon' => '/images/icons/mass booking.png',
+					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Family Subscriptions',
 					'url' => array('/subscription/index'),
-					'icon' => '/images/icons/family subscription.png'
+					'icon' => '/images/icons/family subscription.png',
+					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Parish Registers',
 					'url' => array('site/page', array('view' => 'registers')),
-					'icon' => '/images/icons/parish register1.png'
+					'icon' => '/images/icons/parish register1.png',
+					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Certificates',
 					'url' => array('site/page', array('view' => 'certificates')),
 					'icon' => '/images/icons/certificate archives.png',
+					'role' => 'Staff',
 				)
 		),
 	),
