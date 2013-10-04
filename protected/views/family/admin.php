@@ -102,6 +102,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'deleteButtonLabel' => 'Disable',
+			'deleteButtonUrl' => 'array(($data->disabled ? "enable" : "disable"), "id" => $data->id)',
+			'deleteConfirmation' => 'Are you sure you want to disable this family?',
 		),
 	),
 )); ?>

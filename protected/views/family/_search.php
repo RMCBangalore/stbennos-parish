@@ -126,18 +126,26 @@
 	</div>
 
 	<div class="row">
+    <span class="leftHalf">
 		<?php echo $form->label($model,'marriage_type'); ?>
 		<?php echo $form->dropDownList($model,'marriage_type',FieldNames::values('marriage_type'),array('prompt'=>'--- Select ---')); ?>
-	</div>
+	</span>
 
-	<div class="row">
+	<span class="rightHalf">
 		<?php echo $form->label($model,'marriage_status'); ?>
 		<?php echo $form->dropDownList($model,'marriage_status',FieldNames::values('marriage_status'),array('prompt'=>'--- Select ---')); ?>
+	</span>
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->label($model,'monthly_income'); ?>
 		<?php echo $form->textField($model,'monthly_income',array('size'=>15,'maxlength'=>15)); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->label($model,'disabled'); ?>
+		<?php echo $form->dropDownList($model,'disabled',array(0=>'No',1=>'Yes'),array('prompt'=>' -- Select -- ')); ?>
+	</span>
 	</div>
 
 	<div class="row buttons">

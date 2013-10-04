@@ -25,6 +25,7 @@
  * @property string $monthly_income
  * @property integer $husband_id
  * @property integer $wife_id
+ * @property integer $disabled
  *
  * The followings are the available model relations:
  * @property People[] $members
@@ -66,7 +67,7 @@ class Families extends CActiveRecord
 			array('addr_pin', 'length', 'max'=>7),
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
-			array('marriage_date, bpl_card', 'safe'),
+			array('marriage_date, bpl_card, disabled', 'safe'),
 			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			array('gmap_url', 'url'),
@@ -229,6 +230,11 @@ class Families extends CActiveRecord
 		$criteria->compare('marriage_type',$this->marriage_type,true);
 		$criteria->compare('marriage_status',$this->marriage_status,true);
 		$criteria->compare('monthly_income',$this->monthly_income,true);
+		if ($this->disabled) {
+			$criteria->compare('disabled',$this->disabled);
+		} else {
+			$criteria->addCondition('disabled = 0');
+		}
 		if (isset($this->sub_till) and !empty($this->sub_till)) {
 			list($pref, $logi, $comp) = array("", " OR ", ">=");
 			if (preg_match('/^!/', $this->sub_till)) {

@@ -141,3 +141,10 @@
 	</span>
 	</div>
 
+	<?php if (!$model->isNewRecord): ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'disabled'); ?>
+		<?php echo $form->dropDownList($model,'disabled',array(0=>'No',1=>'Yes')); ?>
+	</div>
+	<?php endif ?>
+

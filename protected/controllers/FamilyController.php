@@ -184,6 +184,24 @@ class FamilyController extends RController
 		Yii::trace("FC.actionCreate exiting", 'application.controllers.FamilyController');
 	}
 
+	public function actionDisable($id) {
+		$model=$this->loadModel($id);
+		$model->disabled = 1;
+		if ($model->save(false)) {
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+	}
+
+	public function actionEnable($id) {
+		$model=$this->loadModel($id);
+		$model->disabled = 0;
+		if ($model->save(false)) {
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+	}
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -593,7 +611,9 @@ class FamilyController extends RController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Families');
+		$dataProvider=new CActiveDataProvider('Families', array(
+			'criteria' => array('condition' => 'disabled = 0'),
+		));
 		$uri = Yii::app()->request->baseUrl . '/css/family-view.css';
 		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('index',array(
