@@ -76,7 +76,9 @@ class SubscriptionController extends RController
 				'application.controllers.SubscriptionController');
 
 			if ($sub) {
-				return new DateTime(sprintf("%d-%02d-%d", $sub->end_year, $sub->end_month, 15));
+				$dt = new DateTime(sprintf("%d-%02d-%d", $sub->end_year, $sub->end_month, 15));
+				$dt->add(new DateInterval('P1M'));
+				return $dt;
 			} else {
 				return new DateTime($family->reg_date);
 			}
@@ -114,7 +116,6 @@ class SubscriptionController extends RController
 			$amt = $_POST['Subscription']['amount'];
 
 			$start_dt = new DateTime(date_format($dt, 'Y-m-d'));
-			$start_dt->add(new DateInterval('P1M'));
 
 			$end_dt = new DateTime(date_format($dt, 'Y-m-d'));
 			$end_dt->add(new DateInterval('P'.$till.'M'));

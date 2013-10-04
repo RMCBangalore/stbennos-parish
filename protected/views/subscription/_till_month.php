@@ -4,13 +4,9 @@
 	if (isset($start_dt)) {
 		$dt = $start_dt;
 		$now = new DateTime();
-		for ($i = 1; true; ++$i) {
-			$dt->add(new DateInterval("P1M"));
-			if ($dt > $now) {
-				break;
-			}
-
+		for ($i = 1; $dt <= $now; ++$i) {
 			$data[$i] = date_format($dt, 'M Y') . ' (' . $i . ' months)';
+			$dt->add(new DateInterval("P1M"));
 		}
 	} else {
 		$parms['disabled'] = true;
