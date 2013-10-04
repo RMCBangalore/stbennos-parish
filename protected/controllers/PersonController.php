@@ -272,6 +272,11 @@ class PersonController extends RController
 			foreach($keys as $key) {
 				$crit->mergeWith(array('condition' => "fname like '%$key%'"), 'OR');
 				$crit->mergeWith(array('condition' => "lname like '%$key%'"), 'OR');
+				if (preg_match('/^\d+-\d+-\d+$/', $key)) {
+					list($Y, $m, $d) = explode("-", $key);
+					$dob = sprintf("%d-%02d-%02d", $Y, $m, $d);
+					$crit->mergeWith(array('condition' => "dob = '$dob'"), 'OR');
+				}
 			}
 			$ppl = new CActiveDataProvider('People', array(
 				'criteria' => $crit
