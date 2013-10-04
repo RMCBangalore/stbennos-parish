@@ -72,7 +72,7 @@ class BaptismRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'baptismCerts' => array(self::HAS_MANY, 'BaptismCerts', 'baptism_id'),
+			'baptismCerts' => array(self::HAS_MANY, 'BaptismCertificate', 'baptism_id'),
 			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}

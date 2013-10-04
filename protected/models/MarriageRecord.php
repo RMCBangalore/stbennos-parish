@@ -32,7 +32,7 @@
  * @property string $ref_no
  *
  * The followings are the available model relations:
- * @property MarriageCerts[] $marriageCerts
+ * @property MarriageCertificate[] $marriageCerts
  */
 class MarriageRecord extends CActiveRecord
 {
@@ -83,7 +83,7 @@ class MarriageRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'marriageCerts' => array(self::HAS_MANY, 'MarriageCerts', 'marriage_id'),
+			'marriageCerts' => array(self::HAS_MANY, 'MarriageCertificate', 'marriage_id'),
 			'groom' => array(self::BELONGS_TO, 'People', 'groom_id'),
 			'bride' => array(self::BELONGS_TO, 'People', 'bride_id'),
 		);

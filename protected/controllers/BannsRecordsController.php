@@ -172,7 +172,18 @@ class BannsRecordsController extends RController
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		try {
+			$this->loadModel($id)->delete();
+		}
+
+		catch (CDbException $e) {
+			if (preg_match('/Cannot\ delete\ or\ update\ a\ parent\ row:\ a\ foreign\ key\ constraint\ 
+					 fails.*banns_id/x', $e->getMessage(), $matches)) {
+				throw new CHttpException(412, "Cannot delete because one or more letters are linked to this record");
+			} else {
+				throw $e;
+			}
+		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

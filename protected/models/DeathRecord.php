@@ -22,7 +22,7 @@
  * @property string $sacrament
  *
  * The followings are the available model relations:
- * @property DeathCerts[] $deathCerts
+ * @property DeathCertificate[] $deathCerts
  */
 class DeathRecord extends CActiveRecord
 {
@@ -74,7 +74,7 @@ class DeathRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'deathCerts' => array(self::HAS_MANY, 'DeathCerts', 'death_id'),
+			'deathCerts' => array(self::HAS_MANY, 'DeathCertificate', 'death_id'),
 			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}

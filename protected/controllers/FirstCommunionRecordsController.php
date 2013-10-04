@@ -127,7 +127,13 @@ class FirstCommunionRecordsController extends RController
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		
+		if (isset($model->firstCommunionCerts) and count($model->firstCommunionCerts))
+			throw new CHttpException(412, "Cannot delete. This record has certificates associated");
+
+		$model->delete();
+
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

@@ -12,7 +12,7 @@
  * @property string $ref_no
  *
  * The followings are the available model relations:
- * @property FirstCommunionCerts[] $firstCommunionCerts
+ * @property FirstCommunionCertificate[] $firstCommunionCerts
  */
 class FirstCommunionRecord extends CActiveRecord
 {
@@ -61,7 +61,7 @@ class FirstCommunionRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'firstCommunionCerts' => array(self::HAS_MANY, 'FirstCommunionCerts', 'first_comm_id'),
+			'firstCommunionCerts' => array(self::HAS_MANY, 'FirstCommunionCertificate', 'first_comm_id'),
 			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}

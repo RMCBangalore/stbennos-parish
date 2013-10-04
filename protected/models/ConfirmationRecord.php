@@ -19,7 +19,7 @@
  * @property string $minister
  *
  * The followings are the available model relations:
- * @property ConfirmationCerts[] $confirmationCerts
+ * @property ConfirmationCertificate[] $confirmationCerts
  */
 class ConfirmationRecord extends CActiveRecord
 {
@@ -69,7 +69,7 @@ class ConfirmationRecord extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'confirmationCerts' => array(self::HAS_MANY, 'ConfirmationCerts', 'confirmation_id'),
+			'confirmationCerts' => array(self::HAS_MANY, 'ConfirmationCertificate', 'confirmation_id'),
 			'member' => array(self::BELONGS_TO, 'People', 'member_id'),
 		);
 	}
