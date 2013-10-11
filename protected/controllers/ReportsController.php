@@ -2,6 +2,36 @@
 
 class ReportsController extends RController
 {
+	public function actionParishProfile()
+	{
+		$fams = Families::model()->findAll();
+		$ppl = People::model()->findAll();
+		$baptised1 = People::model()->findAll('baptism_dt IS NOT NULL AND dob > NOW() - INTERVAL 1 YEAR');
+		$baptised7 = People::model()->findAll('baptism_dt IS NOT NULL AND dob BETWEEN NOW() - INTERVAL 7 YEAR AND NOW() - INTERVAL 1 YEAR');
+		$baptised7p = People::model()->findAll('baptism_dt IS NOT NULL AND dob < NOW() - INTERVAL 7 YEAR');
+		$baptised = People::model()->getBaptised();
+		$confirmed = People::model()->findAll('confirmation_dt IS NOT NULL AND confirmation_dt > NOW() - INTERVAL 1 YEAR ');
+		$firstComm = People::model()->findAll('first_comm_dt IS NOT NULL AND first_comm_dt > NOW() - INTERVAL 1 YEAR ');
+		$married = Families::model()->findAll('marriage_date IS NOT NULL AND marriage_date > NOW() - INTERVAL 1 YEAR');
+		$schedule = MassSchedule::model()->findAll(array(
+			'order' => 'day, time'
+		));
+
+
+		$this->render('parish-profile', array(
+			'families'	=> count($fams),
+			'members'	=> count($ppl),
+			'baptised'	=> count($baptised),
+			'baptised1'	=> count($baptised1),
+			'baptised7'	=> count($baptised7),
+			'baptised7p'	=> count($baptised7p),
+			'confirmed'	=> count($confirmed),
+			'firstComm' => count($firstComm),
+			'married'	=> count($married),
+			'schedule'	=> $schedule
+		));
+	}
+
 	public function actionAnniversaries()
 	{
 		$model = new People;
