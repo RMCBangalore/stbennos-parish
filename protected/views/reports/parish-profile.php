@@ -102,25 +102,20 @@ function show_field($pdf, $label, $value) {
 
 	$pdf->SetFont("times", "R", 14);
 	$pdf->SetLineStyle(array('width' => 0.01, 'dash' => 3));
-	$pdf->Cell(1,1,'',0,1);
+	$pdf->Cell(0,0.3,'',0,1,'L');
 	$pdf->Cell(1,0,'',0,0);
-	$pdf->Cell(7,1,'Name & Address of the Parish',0,0,'L');
-	$pdf->Cell(6,1,'','B',1);
-	$pdf->Cell(8,0,'',0,0);
-	$pdf->Cell(6,1,'','B',1);
+	$pdf->Cell(6.5,1,'Name & Address of the Parish',0,0,'L');
+	$pdf->Cell(9,1,'','B',1);
+	$pdf->Cell(7.5,0,'',0,0);
+	$pdf->Cell(9,1,'','B',1);
+	$pdf->Cell(7.5,0,'',0,0);
+	$pdf->Cell(9,1,'','B',1);
 
 	$pdf->Cell(0,1,'',0,1,'L');
 	$pdf->Cell(1.5,0,'',0,0,'L');
 
-	$pdf->SetLineStyle(array('width' => 0.01, 'dash' => 0));
-	$pdf->Cell(4,1,'','LTR',0,'L');
-	$pdf->Cell(12,1,'Holy Mass','TRB',1,'C');
-	$pdf->Cell(1.5,0,'',0,0,'L');
-	$pdf->Cell(4,1,'','LRB',0,'L');
-	$pdf->Cell(6,1,'Time','RB',0,'C');
-	$pdf->Cell(6,1,'Language','RB',1,'C');
-
 $day_masses = array();
+$num_masses = count($schedule);
 foreach ($schedule as $data) {
 	$day = $data->day;
 	$mass = array(
@@ -134,30 +129,53 @@ foreach ($schedule as $data) {
 	}
 }
 
+$fsize = intval(240 / (2+$num_masses));
+if ($fsize > 16) {
+	$fsize = 16;
+}
+$ht = $fsize / 18.0;
+$pdf->SetFontSize($fsize);
+
+	$pdf->SetLineStyle(array('width' => 0.01, 'dash' => 0));
+	$pdf->Cell(4,$ht,'','LTR',0,'L');
+	$pdf->Cell(12,$ht,'Holy Mass','TRB',1,'C');
+	$pdf->Cell(1.5,0,'',0,0,'L');
+	$pdf->Cell(4,$ht,'','LRB',0,'L');
+	$pdf->Cell(6,$ht,'Time','RB',0,'C');
+	$pdf->Cell(6,$ht,'Language','RB',1,'C');
+
 foreach ($day_masses as $day => $masses) {
 	$wday = FieldNames::value('weekdays', $day);
 	$nm = count($masses);
 	$pdf->Cell(1.5,0,'',0,0,'L');
-	$pdf->Cell(4,$nm,$wday,'LRB',0,'C');
+	$pdf->Cell(4,$ht*$nm,$wday,'LRB',0,'C');
+	$border = 'R';
+	$nxtpref = 5.5;
 	foreach($masses as $i => $mass) {
-		$pdf->Cell(6,1,date_format(new DateTime($mass['time']), 'g:i a'),'R',0,'C');
-		$pdf->Cell(6,1,FieldNames::value('languages', $mass['language']),'R',1,'C');
-		$pdf->Cell(5.5,0,'',0,0,'L');
+		if ($i == $nm - 1) {
+			$border = 'RB';
+			$nxtpref = 0;
+		}
+		$pdf->Cell(6,$ht,date_format(new DateTime($mass['time']), 'g:i a'),$border,0,'C');
+		$pdf->Cell(6,$ht,FieldNames::value('languages', $mass['language']),$border,1,'C');
+		if ($nxtpref > 0) {
+			$pdf->Cell($nxtpref,0,'',0,0,'L');
+		}
 	}
-	$pdf->Cell(12,1,'','T',0,'L');
 }
 	
+	$pdf->SetFontSize(14);
 	$pdf->SetLineStyle(array('width' => 0.01, 'dash' => 3));
-	$pdf->Cell(1,1,'',0,1,'L');
-	$pdf->Cell(1.5,0,'',0,0,'L');
+	$pdf->Cell(1,0.4,'',0,1,'L');
+	$pdf->Cell(1.0,0,'',0,0,'L');
 	$pdf->Cell(2.5,1,'Adoration',0,0,'L');
-	$pdf->Cell(7,1,'','B',1);
-	$pdf->Cell(1.5,0,'',0,0,'L');
+	$pdf->Cell(10,1,'','B',1);
+	$pdf->Cell(1.0,0,'',0,0,'L');
 	$pdf->Cell(2.5,1,'Confession',0,0,'L');
-	$pdf->Cell(7,1,'','B',1);
-	$pdf->Cell(1.5,0,'',0,0,'L');
+	$pdf->Cell(10,1,'','B',1);
+	$pdf->Cell(1.0,0,'',0,0,'L');
 	$pdf->Cell(2.5,1,'Novena',0,0,'L');
-	$pdf->Cell(7,1,'','B',1);
+	$pdf->Cell(10,1,'','B',1);
 
 	$pdf->SetFont("times", "B", 12);
 	$y = 27;
