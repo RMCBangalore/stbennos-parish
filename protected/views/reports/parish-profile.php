@@ -183,6 +183,53 @@ foreach ($day_masses as $day => $masses) {
 	$pdf->Text(10,$y,'Seal');
 	$pdf->Text(16,$y,'Signature');
 
+	$pdf->AddPage();
+	$pdf->Cell(0,1,'',0,1,'L');
+	$pdf->Cell(6,0,'',0,0,'L');
+	$pdf->SetFont("times", "B", 14);
+	$pdf->Cell(8,1,'NOTE: Fill in the Details in BLOCK letters',0,1,'C');
+
+	$pdf->SetFont("times", "R", 13);
+	$pdf->ht = $ht = 0.8;
+	$pdf->SetLineStyle(array('dash' => 0));
+	$pdf->Cell(1,0,'',0,0);
+	$pdf->Cell(7,$ht,'Name of the Church','LTR',0,'L');
+	$pdf->Cell(10,$ht,strtoupper(Yii::app()->params['parishName']),'TR',1,'L');
+	$pdf->Cell(1,0,'',0,0);
+	$pdf->Cell(7,$ht*4,'Address','LBR',0,'L',false,'',0,false,'T','T');
+	foreach(Yii::app()->params['parishAddr'] as $addr) {
+		$pdf->Cell(10,$ht,strtoupper($addr),'R',1,'L');
+		$pdf->Cell(8,0,'',0,0,'L');
+	}
+	$pdf->Cell(10,$ht,'','BR',1,'L');
+
+function show_data($pdf, $label, $value='')
+{
+	$pdf->Cell(1,0);
+	$pdf->Cell(7,$pdf->ht,$label,'BLR',0,'L');
+	$pdf->Cell(10,$pdf->ht,strtoupper($value),'RB',1,'L');
+}
+	show_data($pdf, 'Established Year');
+	show_data($pdf, 'Name of the Parish Priest');
+	show_data($pdf, 'No. of Catholics', $members);
+	show_data($pdf, 'No. of Families', $families);
+	show_data($pdf, 'Telephone No.');
+	show_data($pdf, 'Mobile No.');
+	show_data($pdf, 'Email ID');
+	show_data($pdf, 'Fax No.');
+	show_data($pdf, 'Web Site:');
+foreach(array(1,2) as $i) {
+	show_data($pdf, 'Name of the Assistant Parish Priest');
+	show_data($pdf, 'Telephone No.');
+	show_data($pdf, 'Mobile No.');
+}
+	
+	$pdf->SetFont("times", "B", 12);
+	$y = 27;
+	$pdf->Text(2,$y,'Date:');
+	$pdf->Text(10,$y,'Seal');
+	$pdf->Text(15,$y,'Signature & Name');
+
 	$pdf->Output("parish-profile-$year.pdf", "I");
 	Yii::app()->end();
 
