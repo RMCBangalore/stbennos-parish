@@ -92,16 +92,12 @@ return array(
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-		'parishName' => 'St. Bennos Parish',
-		'parishAddr' => array('Street Address,',
-			 'Your Area,',
-			 'Your City - 123456'),
-		'massBookAmt' => 100,
-		'photoManip' => extension_loaded('gd'),
-		'iconMenu' => array(
+	'params'=> CMap::mergeArray(
+		array(
+			// this is used in contact page
+			'adminEmail'=>'webmaster@example.com',
+			'photoManip' => extension_loaded('gd'),
+			'iconMenu' => array(
 				array(
 					'title' => 'Parish Profile',
 					'url' => array('site/parishProfile'),
@@ -144,6 +140,8 @@ return array(
 					'icon' => '/images/icons/certificate archives.png',
 					'role' => 'Staff',
 				)
+			)
 		),
+		require(dirname(__FILE__).DIRECTORY_SEPARATOR.'params.php')
 	),
 );

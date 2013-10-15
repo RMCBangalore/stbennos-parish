@@ -197,7 +197,11 @@ foreach ($day_masses as $day => $masses) {
 	$pdf->Cell(10,$ht,strtoupper(Yii::app()->params['parishName']),'TR',1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(7,$ht*4,'Address','LBR',0,'L',false,'',0,false,'T','T');
-	foreach(Yii::app()->params['parishAddr'] as $addr) {
+	$pAddr = Yii::app()->params['parishAddr'];
+	array_push($pAddr, implode(' - ', array(
+		Yii::app()->params['parishCity'],
+		Yii::app()->params['parishPIN'])));
+	foreach($pAddr as $addr) {
 		$pdf->Cell(10,$ht,strtoupper($addr),'R',1,'L');
 		$pdf->Cell(8,0,'',0,0,'L');
 	}

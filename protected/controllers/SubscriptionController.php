@@ -247,7 +247,7 @@ class SubscriptionController extends RController
 	}
 
 	public function actionViewRect($id) {
-		$this->render('view_rect', array(
+		$this->render('view_cert', array(
 			'model' => $this->loadModel($id)
 		));
 	}

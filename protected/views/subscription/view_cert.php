@@ -15,6 +15,9 @@
 	$pdf->Cell(0,0,strtoupper(Yii::app()->params['parishName']),0,0,'C');
 	$pdf->SetFont("courier", "R", 10);
 	$pAddr = Yii::app()->params['parishAddr'];
+	array_push($pAddr, implode(' - ', array(
+		Yii::app()->params['parishCity'],
+		Yii::app()->params['parishPIN'])));
 	foreach ($pAddr as $addr) {
 		$pdf->Cell(0,0,$addr,0,1,'R');
 	}
