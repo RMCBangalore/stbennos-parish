@@ -12,6 +12,8 @@ $this->breadcrumbs=array(
 <table>
 <tr><td>
 <p>
+<?php echo CHtml::link('Site Configuration', array('site/config')); ?>
+</p><p>
 <?php echo CHtml::link('Manage Users', array('users/admin')); ?>
 </p><p>
 <?php echo CHtml::link('Manage Rights', array('rights/assignment/view')); ?>
@@ -41,6 +43,7 @@ foreach(array("marriage_type", "marriage_status") as $type) show_admin_fv($type)
 	"rite", "satisfaction_level", "need_level", "awareness_level",
 	"monthly_household_income") as $type) show_admin_fv($type);
 ?>
+<p>&nbsp;</p>
 </td></tr>
 </table>
 

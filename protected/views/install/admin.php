@@ -6,12 +6,12 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Almost there!!</h1>
+<h1>Setup User Accounts</h1>
 
-<p>You've successfully tuned St. Bennos to your parish. Now just create some accounts to manage your installation.
+<p>You've successfully configured your database. Next, create some accounts to manage your installation.
 </p>
 
-<h2>Step 3: Setup Accounts</h2>
+<h2>Step 2: Setup Accounts</h2>
 
 <div class="form">
 
