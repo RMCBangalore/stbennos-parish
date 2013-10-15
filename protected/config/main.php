@@ -61,13 +61,7 @@ return array(
 		),
 		// uncomment the following to use a MySQL database
 		*/
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=parish',
-			'emulatePrepare' => true,
-			'username' => 'parish',
-			'password' => 'P@r15h',
-			'charset' => 'utf8',
-		),
+		'db'=> require(dirname(__FILE__).DIRECTORY_SEPARATOR.'dbconf.php'),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
