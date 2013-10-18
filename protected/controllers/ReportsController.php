@@ -6,13 +6,13 @@ class ReportsController extends RController
 	{
 		$fams = Families::model()->findAll();
 		$ppl = People::model()->findAll();
-		$baptised1 = People::model()->findAll('baptism_dt IS NOT NULL AND dob > NOW() - INTERVAL 1 YEAR');
-		$baptised7 = People::model()->findAll('baptism_dt IS NOT NULL AND dob BETWEEN NOW() - INTERVAL 7 YEAR AND NOW() - INTERVAL 1 YEAR');
-		$baptised7p = People::model()->findAll('baptism_dt IS NOT NULL AND dob < NOW() - INTERVAL 7 YEAR');
-		$baptised = People::model()->getBaptised();
-		$confirmed = People::model()->findAll('confirmation_dt IS NOT NULL AND confirmation_dt > NOW() - INTERVAL 1 YEAR ');
-		$firstComm = People::model()->findAll('first_comm_dt IS NOT NULL AND first_comm_dt > NOW() - INTERVAL 1 YEAR ');
-		$married = Families::model()->findAll('marriage_date IS NOT NULL AND marriage_date > NOW() - INTERVAL 1 YEAR');
+		$baptised1 = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob > NOW() - INTERVAL 1 YEAR');
+		$baptised7 = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob BETWEEN NOW() - INTERVAL 7 YEAR AND NOW() - INTERVAL 1 YEAR');
+		$baptised7p = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob < NOW() - INTERVAL 7 YEAR');
+		$baptised = BaptismRecord::model()->findAll();
+		$confirmed = ConfirmationRecord::model()->findAll('confirmation_dt > NOW() - INTERVAL 1 YEAR ');
+		$firstComm = FirstCommunionRecord::model()->findAll('communion_dt > NOW() - INTERVAL 1 YEAR ');
+		$married = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR');
 		$schedule = MassSchedule::model()->findAll(array(
 			'order' => 'day, time'
 		));
