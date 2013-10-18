@@ -44,33 +44,33 @@ $this->breadcrumbs=array(
 	</td>
 	<td>
 	<div class="row">
-		<?php echo CHtml::label('Pastor Username', 'pastor_username', array('required'=>true)); ?>
+		<?php echo CHtml::label('Pastor Username', 'pastor_username', array('required'=>false)); ?>
 		<?php echo CHtml::textField('pastor[username]', '', array('id' => 'pastor_username','size'=>15,'maxlength'=>30)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Pastor Password', 'pastor_password', array('required'=>true)); ?>
+		<?php echo CHtml::label('Pastor Password', 'pastor_password', array('required'=>false)); ?>
 		<?php echo CHtml::passwordField('pastor[password]', '', array('id' => 'pastor_password','size'=>15,'maxlength'=>30)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Re-enter Pastor Password', 'reenter_pastor_password', array('required'=>true)); ?>
+		<?php echo CHtml::label('Re-enter Pastor Password', 'reenter_pastor_password', array('required'=>false)); ?>
 		<?php echo CHtml::passwordField('reenter_pastor_password', '', array('size'=>15,'maxlength'=>30)); ?>
 	</div>
 	</td>
 	<td>
 	<div class="row">
-		<?php echo CHtml::label('Staff Username', 'staff_username', array('required'=>true)); ?>
+		<?php echo CHtml::label('Staff Username', 'staff_username', array('required'=>false)); ?>
 		<?php echo CHtml::textField('staff[username]', '', array('id' => 'staff_username','size'=>15,'maxlength'=>30)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Staff Password', 'staff_password', array('required'=>true)); ?>
+		<?php echo CHtml::label('Staff Password', 'staff_password', array('required'=>false)); ?>
 		<?php echo CHtml::passwordField('staff[password]', '', array('id' => 'staff_password','size'=>15,'maxlength'=>30)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Re-enter Staff Password', 'reenter_staff_password', array('required'=>true)); ?>
+		<?php echo CHtml::label('Re-enter Staff Password', 'reenter_staff_password', array('required'=>false)); ?>
 		<?php echo CHtml::passwordField('reenter_staff_password', '', array('size'=>15,'maxlength'=>30)); ?>
 	</div>
 	</td></tr>

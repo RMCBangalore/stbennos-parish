@@ -102,13 +102,17 @@ class InstallController extends CController
 	{
 		$authorizer = Yii::app()->getModule("rights")->getAuthorizer();
 		if (isset($_POST['adm'])) {
+			if (empty($_POST['adm']['username'])) {
+				Yii::app()->user->setFlash('error', "Admin user is mandatory to use the software");
+				goto RENDR;
+			}
 			$admin = new User;
 			$admin->attributes = $_POST['adm'];
 			$admin->password = crypt($_POST['adm']['password'], CryptoHelper::blowfishSalt());
 			$admin->superuser = 1;
 			$admin->save();
 			$authorizer->authManager->assign('Admin', $admin->id);
-			if (isset($_POST['pastor'])) {
+			if (isset($_POST['pastor']['username']) and !empty($_POST['pastor']['username'])) {
 				$pastor = new User;
 				$pastor->attributes = $_POST['pastor'];
 				$pastor->password = crypt($_POST['pastor']['password'], CryptoHelper::blowfishSalt());
@@ -116,7 +120,7 @@ class InstallController extends CController
 				$pastor->save();
 				$authorizer->authManager->assign('Pastor', $pastor->id);
 			}
-			if (isset($_POST['staff'])) {
+			if (isset($_POST['staff']['username']) and !empty($_POST['staff']['username'])) {
 				$staff = new User;
 				$staff->attributes = $_POST['staff'];
 				$staff->password = crypt($_POST['staff']['password'], CryptoHelper::blowfishSalt());
@@ -126,6 +130,7 @@ class InstallController extends CController
 			}
 			$this->redirect(array('config'));
 		}
+		RENDR:
 		$this->render('admin');
 	}
 

@@ -239,7 +239,7 @@ class SiteController extends RController
 				 Yii::app()->user->setFlash('error', $e->getMessage());
 			}
 
-			$this->render('/' . Yii::app()->getController()->getId() . '/success');
+			$this->render("/$cont/success");
 			return;
 		}
 
