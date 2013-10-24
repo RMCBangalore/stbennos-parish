@@ -529,6 +529,18 @@ CREATE TABLE `open_questions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `pastors`;
+CREATE TABLE `pastors` (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+	`sal` varchar(10) DEFAULT NULL,
+	`fname` varchar(75) NOT NULL,
+	lname varchar(25) DEFAULT NULL,
+	mobile varchar(15) DEFAULT NULL,
+	email	varchar(30) DEFAULT NULL,
+	role	integer NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
 --
 -- Table structure for table `people`
 --

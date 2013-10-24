@@ -39,11 +39,13 @@ function show_admin_fv($type) {
 foreach(array("marriage_type", "marriage_status") as $type) show_admin_fv($type);
 ?>
 </td><td>
+<p>
+	<?php echo CHtml::link("Manage Pastors", array("pastors/admin")); ?>
+</p>
 <?php foreach(array("languages", "zones", "education", "domicile_status",
 	"rite", "satisfaction_level", "need_level", "awareness_level",
 	"monthly_household_income") as $type) show_admin_fv($type);
 ?>
-<p>&nbsp;</p>
 </td></tr>
 </table>
 
