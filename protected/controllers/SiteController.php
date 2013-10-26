@@ -37,7 +37,7 @@ class SiteController extends RController
 		$confirmed = People::model()->getConfirmed();
 		$married = People::model()->getMarried();*/
 		if (!Yii::app()->params['installed'])
-			$this->redirect('/install');
+			$this->redirect(array('/install'));
 
 		$this->layout = '//layouts/main';
 		$this->render('index', array(
@@ -124,7 +124,7 @@ class SiteController extends RController
 	public function actionLogin()
 	{
 		if (!Yii::app()->params['installed'])
-			$this->redirect('/install');
+			$this->redirect(array('/install'));
 
 		$model=new LoginForm;
 

@@ -712,6 +712,16 @@ class FamilyController extends RController
 		));
 	}
 
+	public function actionVisits($id) {
+		$dataProvider=new CActiveDataProvider('Visits', array(
+			'criteria' => array('condition' => "family_id = $id")
+		));
+		$this->render('visits',array(
+			'dataProvider'=>$dataProvider,
+			'fid'=>$id
+		));
+	}
+
 	public function actionFindMatch()
 	{
 		if (Yii::app()->request->isPostRequest) {
