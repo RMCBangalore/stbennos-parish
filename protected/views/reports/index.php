@@ -16,6 +16,8 @@ echo '<p>';
 echo CHtml::link('Birthdays', array('reports/birthdays'));
 echo '</p><p>';
 echo CHtml::link('Anniversaries', array('reports/anniversaries'));
+echo '</p><p>';
+echo CHtml::link('Mass Bookings', array('reports/massBookings'));
 echo '</p>';
 ?>
 </span>
