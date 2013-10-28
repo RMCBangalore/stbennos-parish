@@ -53,6 +53,7 @@
 			$('#search_key').keydown(function(e) {
 				kp[e.which] = true;
 				if (kp[17] && (e.which == 74 || e.which == 72)) {
+					window.location.href = '" . Yii::app()->createUrl('/family/search') . "?id=' + $('#search_key').val();
 					return false;
 				}
 				return true;

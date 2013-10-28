@@ -102,4 +102,8 @@ class Pastors extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getFullname() {
+		return implode(' ', array(FieldNames::value('salutation', $this->sal),$this->fname, $this->lname));
+	}
 }

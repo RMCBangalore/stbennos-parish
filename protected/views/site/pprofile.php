@@ -29,11 +29,11 @@ $('#gen-report').click(function(e) {
 </thead>
 </tbody>
 <tr>
-	<td><?php echo $families ?></td>
-	<td><?php echo $members ?></td>
-	<td><?php echo $baptised ?></td>
-	<td><?php echo $confirmed ?></td>
-	<td><?php echo $married ?></td>
+	<td><?php echo CHtml::link($families, array('family/index')); ?></td>
+	<td><?php echo CHtml::link($members, array('person/index')); ?></td>
+	<td><?php echo CHtml::link($baptised, array('person/baptised')); ?></td>
+	<td><?php echo CHtml::link($confirmed, array('person/confirmed')); ?></td>
+	<td><?php echo CHtml::link($married, array('person/married')); ?></td>
 <tr>
 </tbody>
 </table>

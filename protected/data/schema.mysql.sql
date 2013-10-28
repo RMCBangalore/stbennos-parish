@@ -658,6 +658,16 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+CREATE TABLE visits (
+	id	INTEGER NOT NULL AUTO_INCREMENT,
+	pastor_id	INTEGER,
+	visit_dt	DATE,
+	purpose		INTEGER,
+	family_id	INTEGER,
+	PRIMARY KEY (id),
+	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id)
+) ENGINE=InnoDB;
+
 
 -- Dump completed on 2013-09-23 17:03:48
 

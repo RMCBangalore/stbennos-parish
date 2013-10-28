@@ -623,7 +623,13 @@ class FamilyController extends RController
 
 	public function actionSearch()
 	{
-		if (isset($_GET['key'])) {
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+			$model=$this->loadModel($id);
+			if (preg_match('/^\d+$/', $id)) {
+				$this->redirect(array('view','id'=>$model->id));
+			}
+		} elseif (isset($_GET['key'])) {
 			$key = $_GET['key'];
 			$crit = new CDbCriteria();
 			if (preg_match('/^\d+$/', $key)) {
