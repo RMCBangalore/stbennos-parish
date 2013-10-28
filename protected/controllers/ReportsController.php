@@ -64,7 +64,7 @@ class ReportsController extends RController
 			}
 			echo implode("\t", $fval) . "\n";
 
-            foreach( $dataProvider->data as $data ) {
+			foreach( $dataProvider->data as $data ) {
 				$fval = array();
 				foreach($fields as $field) {
 					array_push($fval, $data->$field);
@@ -113,7 +113,7 @@ class ReportsController extends RController
 			}
 			echo implode("\t", $fval) . "\n";
 
-            foreach( $dataProvider->data as $data ) {
+			foreach( $dataProvider->data as $data ) {
 				$fval = array();
 				foreach($fields as $field) {
 					array_push($fval, $data->$field);
@@ -126,6 +126,101 @@ class ReportsController extends RController
 		}
 
 		$this->render('birthdays', array(
+			'model' => $model
+		));
+	}
+
+	public function actionMassBookings()
+	{
+		$model = new MassBooking;
+
+		if (isset($_POST['period'])) {
+			$dt = $_POST['MassBooking']['mass_dt'];
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"mass-bookings-report-$dt.xls\"" );
+
+			$period = $_POST['period'];
+			$cond = "mass_dt BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY mass_dt, mass.time, type";
+
+			Yii::trace("R.massBookings dt=$dt, period=$period, cond=$cond", 'application.controllers.ReportController');
+
+			$crit = new CDbCriteria;
+			$crit->mergeWith(array(
+				'join' => 'INNER JOIN masses mass ON mass.id = t.mass_id',
+				'condition' => $cond
+			));
+			$dataProvider = new CActiveDataProvider('MassBooking', array(
+				'criteria' => $crit
+			));
+			$dataProvider->pagination = false;
+
+			$fields = array('mass_dt', 'mass' => array('time', 'language'), 'type', 'intention');
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $key => $val) {
+				if (!preg_match('/^\d+$/', $key)) {
+					foreach($val as $field) {
+						array_push($fval, ucfirst($field));
+					}
+				} else {
+					array_push($fval, $labels[$val]);
+				}
+			}
+			echo implode("\t", $fval) . "\n";
+
+			$last_dt = '';
+			$last_mass = 0;
+			$last_type = '';
+
+			foreach( $dataProvider->data as $data ) {
+				$fval = array();
+				$this_dt = $data->mass_dt;
+				$this_mass = $data->mass_id;
+				$this_type = $data->type;
+				$same_mass = false;
+				$same_type = false;
+				if ($this_dt == $last_dt and $this_mass == $last_mass) {
+					$same_mass = true;
+					if ($this_type == $last_type) {
+						$same_type = true;
+					}
+				}
+				foreach($fields as $key => $val) {
+					if (!preg_match('/^\d+$/', $key)) {
+						foreach($val as $field) {
+							if ($same_mass) {
+								$value = '';
+							} elseif ('language' == $field) {
+								$value = FieldNames::value('languages', $data->$key->$field);
+							} else {
+								$value = $data->$key->$field;
+							}
+							array_push($fval, $value);
+						}
+					} else {
+						if ($this_dt == $last_dt and 'mass_dt' == $val) {
+							$value = '';
+						} elseif ($same_type and 'type' == $val) {
+							$value = '';
+						} else {
+							$value = $data->$val;
+						}
+						array_push($fval, $value);
+					}
+				}
+				$last_dt = $this_dt;
+				$last_mass = $this_mass;
+				$last_type = $this_type;
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+			return;
+		}
+
+		$this->render('mass-bookings', array(
 			'model' => $model
 		));
 	}

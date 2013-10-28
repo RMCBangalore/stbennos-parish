@@ -13,7 +13,7 @@
  * @property string $type
  *
  * The followings are the available model relations:
- * @property Masses $mass
+ * @property MassSchedule $mass
  * @property Transactions $trans
  */
 class MassBooking extends CActiveRecord
