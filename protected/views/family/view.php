@@ -8,12 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Families', 'url'=>array('index')),
-	array('label'=>'Create Family', 'url'=>array('create')),
 	array('label'=>'Update Family', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Survey Family', 'url'=>array('survey', 'id'=>$model->id)),
-	array('label'=>'Delete Family', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Families', 'url'=>array('admin')),
 	array('label'=>'Subscriptions', 'url'=>array('/family/subscriptions', 'id'=>$model->id)),
 	array('label'=>'House Visits', 'url'=>array('visits', 'id'=>$model->id))
 );
