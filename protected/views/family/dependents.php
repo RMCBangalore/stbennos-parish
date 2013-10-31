@@ -49,7 +49,6 @@ $this->menu=array(
     <?php $this->widget('CTabView',array(
     'tabs'=>$tabs
 	)); ?>
-<?#php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

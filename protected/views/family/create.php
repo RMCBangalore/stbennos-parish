@@ -121,7 +121,6 @@ if ($cur_model->errors) {
     'tabs'=>$sel_tabs,
 	'activeTab'=>$step-1,
 	)); ?>
-<?#php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
