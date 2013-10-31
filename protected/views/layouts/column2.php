@@ -11,6 +11,11 @@
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));
+		$this->widget('zii.widgets.CMenu', array(
+			'items'=>$this->menu,
+			'htmlOptions'=>array('class'=>'operations'),
+		));
+		$this->endWidget();
 		if (!Yii::app()->user->isGuest and 'array' == gettype($this->breadcrumbs)
 				and !isset($this->breadcrumbs['Admin']) and isset($this->breadcrumbs[0])
 				and $this->breadcrumbs[0] != 'Admin') {
@@ -56,11 +61,6 @@
 			}
 			echo '</table>';
 		}
-		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-			'htmlOptions'=>array('class'=>'operations'),
-		));
-		$this->endWidget();
 	?>
 	</div><!-- sidebar -->
 </div>
