@@ -24,6 +24,7 @@
  * @property string $bride_fathers_name
  * @property string $bride_mothers_name
  * @property string $bride_residence
+ * @property integer $marriage_type
  * @property string $banns_licence
  * @property string $minister
  * @property string $witness1
@@ -67,11 +68,11 @@ class MarriageRecord extends CActiveRecord
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
 			array('ref_no', 'length', 'max'=>10),
-			array('groom_id, bride_id', 'numerical', 'integerOnly'=>true),
+			array('groom_id, bride_id, marriage_type', 'numerical', 'integerOnly'=>true),
 			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
+			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, marriage_type, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,6 +114,7 @@ class MarriageRecord extends CActiveRecord
 			'bride_fathers_name' => 'Bride Fathers Name',
 			'bride_mothers_name' => 'Bride Mothers Name',
 			'bride_residence' => 'Bride Residence',
+			'marriage_type' => 'Marriage Type',
 			'banns_licence' => 'By Banns or Licence',
 			'minister' => 'Minister',
 			'witness1' => 'Witness1',
@@ -151,6 +153,7 @@ class MarriageRecord extends CActiveRecord
 		$criteria->compare('bride_fathers_name',$this->bride_fathers_name,true);
 		$criteria->compare('bride_mothers_name',$this->bride_mothers_name,true);
 		$criteria->compare('bride_residence',$this->bride_residence,true);
+		$criteria->compare('marriage_type',$this->marriage_type);
 		$criteria->compare('banns_licence',$this->banns_licence);
 		$criteria->compare('minister',$this->minister,true);
 		$criteria->compare('witness1',$this->witness1,true);

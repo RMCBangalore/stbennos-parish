@@ -150,8 +150,13 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'marriage_type'); ?>
+		<?php echo $form->dropDownList($model,'marriage_type',FieldNames::values('marriage_type', $model->marriage_type),array('prompt'=>'-- Select one --')); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'banns_licence'); ?>
-		<?php echo $form->textField($model,'banns_licence'); ?>
+		<?php echo $form->dropDownList($model,'banns_licence',array('banns' => 'Banns', 'licence' => 'Licence'),array('prompt'=>'-- Select one --')); ?>
 	</div>
 
 	<div class="row">

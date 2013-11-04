@@ -66,6 +66,10 @@
 	<?php echo CHtml::encode($data->bride_residence); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_type')); ?>:</b>
+	<?php echo CHtml::encode(FieldNames::value('marriage_type', $data->marriage_type)); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_licence')); ?>:</b>
 	<?php echo CHtml::encode($data->banns_licence); ?>
 	<br />

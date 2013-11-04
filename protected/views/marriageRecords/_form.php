@@ -139,7 +139,8 @@ Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css')
 	)); ?>
 
 	<div class="row">
-	<span class="leftHalf">
+	<table><tr>
+	<td>
 		<?php echo $form->labelEx($model,'marriage_dt'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
@@ -154,12 +155,18 @@ Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css')
 			),
 		)); ?>
 		<?php echo $form->error($model,'marriage_dt'); ?>
-	</span>
-	<span class="rightHalf">
+	</td>
+	<td>
+		<?php echo $form->labelEx($model,'marriage_type'); ?>
+		<?php echo $form->dropDownList($model,'marriage_type', FieldNames::values('marriage_type'), array('prompt' => '-- Select one --')); ?>
+		<?php echo $form->error($model,'marriage_type'); ?>
+	</td>
+	<td>
 		<?php echo $form->labelEx($model,'banns_licence'); ?>
 		<?php echo $form->dropDownList($model,'banns_licence',array('banns' => 'Banns', 'licence' => 'Licence'), array('prompt' => '-- Select one --')); ?>
 		<?php echo $form->error($model,'banns_licence'); ?>
-	</span>
+	</td>
+	</tr></table>
 	</div>
 
 	<div class="row">
