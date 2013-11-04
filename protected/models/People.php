@@ -65,7 +65,7 @@ class People extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fname, lname, sex, domicile_status, dob, lang_pri, lang_lit, baptism_dt, baptism_church, baptism_place, god_parents', 'required'),
+			array('fname, lname, sex, domicile_status, dob, lang_pri, lang_lit', 'required'),
 			array('sex, family_id', 'numerical', 'integerOnly'=>true),
 			array('fname, email, baptism_church, god_parents', 'length', 'max'=>50),
 			array('lname, profession, occupation, lang_pri, lang_lit, lang_edu, rite, cemetery_church, special_skill', 'length', 'max'=>25),
@@ -76,11 +76,11 @@ class People extends CActiveRecord
 			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'safe'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'date', 'format' => 'yyyy-MM-dd'),
-			array('baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'dob',
+			array('baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'dob', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before date of birth'),
-			array('first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'baptism_dt',
+			array('first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'baptism_dt', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before baptism date'),
-			array('marriage_dt', 'compare', 'compareAttribute' => 'confirmation_dt',
+			array('marriage_dt', 'compare', 'compareAttribute' => 'confirmation_dt', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before confirmation date'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
