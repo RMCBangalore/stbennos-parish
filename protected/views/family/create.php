@@ -36,11 +36,13 @@ $husband = $model->husband;
 if (!isset($husband)) {
 	$husband = new People();
 	$husband->sex = 1;
+	$husband->marriage_dt = $model->marriage_date;
 }
 $wife = $model->wife;
 if (!isset($wife)) {
 	$wife = new People();
 	$wife->sex = 2;
+	$wife->marriage_dt = $model->marriage_date;
 }
 $dependents = $model->dependents();
 $tabs = array(
