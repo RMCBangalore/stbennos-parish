@@ -15,7 +15,7 @@ $('#gen-report').click(function(e) {
 
 ?>
 
-<h1>Parish Profile: <?php echo CHtml::encode(Parish::get()->name); ?></h1>
+<h1>Parish Profile: <?php echo CHtml::encode(Parish::get_name()); ?></h1>
 
 <table class="cellular">
 <thead>

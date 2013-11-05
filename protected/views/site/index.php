@@ -22,7 +22,7 @@ Registered User?
 </div>
 <?php } else { ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Parish::get()->name); ?></i></h1>
+<h1>Welcome to <i><?php echo CHtml::encode(Parish::get_name()); ?></i></h1>
 
 <?php
 

@@ -118,4 +118,13 @@ class Parish extends CActiveRecord
 	public static function get() {
 		return Parish::model()->find();
 	}
+
+	public static function get_name() {
+		$parish = Parish::get();
+		if (isset($parish)) {
+			return $parish->name;
+		} else {
+			return Yii::app()->name;
+		}
+	}
 }

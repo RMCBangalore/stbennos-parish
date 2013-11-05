@@ -25,7 +25,7 @@
 
 	<div id="header">
 		<div id="logo"><?php $parish = Parish::get();
-			if ($parish->logo_src) {
+			if (isset($parish) and isset($parish->logo_src)) {
 				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . $parish->logo_src,
 					CHtml::encode(Yii::app()->name),
 						array('width' => $parish->logo_width, 'height' => $parish->logo_height)),

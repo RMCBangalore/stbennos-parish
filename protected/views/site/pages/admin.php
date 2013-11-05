@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Administer <i><?php echo CHtml::encode(Parish::get()->name); ?></i></h1>
+<h1>Administer <i><?php echo CHtml::encode(Parish::get_name()); ?></i></h1>
 
 <table>
 <tr><td>
