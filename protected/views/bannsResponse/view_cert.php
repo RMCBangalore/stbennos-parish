@@ -52,7 +52,7 @@ function show_field_ln($pdf, $value, $text = '') {
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->SetFont("times", "R", 14);
 	$pdf->Cell(2,0,'',0,0);
-	$pdf->Cell(0,0,"    Greetings from " . Yii::app()->params['parishName'] . '. Received your',0,1,'L');
+	$pdf->Cell(0,0,"    Greetings from " . Parish::get()->name . '. Received your',0,1,'L');
 	$pdf->Cell(2,0,'',0,0);
 	$pdf->Cell(0,1,"letter with regard to the proposal of marriage between",0,1,'L');
 	$pdf->Cell(0,0.5,'',0,1);

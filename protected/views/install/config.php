@@ -13,4 +13,4 @@ $this->breadcrumbs=array(
 
 <h2>Step 3: Configure your parish data</h2>
 
-<?php $this->renderPartial('../site/_config') ?>
+<?php $this->renderPartial('../site/_config', array('model' => $model)) ?>

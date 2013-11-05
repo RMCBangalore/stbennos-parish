@@ -10,38 +10,60 @@
 	<?php $err = Yii::app()->user->getFlash('error');
 	if (!empty($err)) {
 		echo '<div class="errorSummary">' . $err . '</div>';
-	} ?>
+	} 
+	?>
+
+	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo CHtml::label('Parish Name', 'parish_name', array('required'=>true)); ?>
-		<?php echo CHtml::textField('parish_name', '', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->labelEx($model, 'name'); ?>
+		<?php echo $form->textField($model, 'name', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'name') ?>
 	</span>
 	<span class="rightHalf">
 		<?php echo CHtml::label('Parish Logo', 'parish_logo'); ?>
-		<?php echo CHtml::fileField('parish[logo]', '', array('id'=>'parish_logo','size'=>15,'maxlength'=>30)); ?>
+		<?php echo CHtml::fileField('Parish[logo]', '', array('id'=>'parish_logo','size'=>15,'maxlength'=>30)); ?>
 	</span>
-	</div>
-
-	<div class="row">
-		<?php echo CHtml::label('Parish Address', 'parish_addr', array('required'=>true)); ?>
-		<?php echo CHtml::textArea('parish_addr', '', array('rows'=>3,'cols'=>30)); ?>
 	</div>
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo CHtml::label('City', 'parish_city', array('required'=>true)); ?>
-		<?php echo CHtml::textField('parish_city', '', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->labelEx($model, 'est_year'); ?>
+		<?php echo $form->textField($model, 'est_year', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'est_year') ?>
 	</span>
 	<span class="rightHalf">
-		<?php echo CHtml::label('PIN Code', 'parish_pin', array('required'=>true)); ?>
-		<?php echo CHtml::textField('parish_pin', '', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->labelEx($model, 'address'); ?>
+		<?php echo $form->textArea($model, 'address', array('rows'=>3,'cols'=>30)); ?>
+		<?php echo $form->error($model, 'address') ?>
 	</span>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Mass Booking Amount', 'mass_book_amt', array('required'=>true)); ?>
-		<?php echo CHtml::textField('mass_book_amt', '', array('size'=>15,'maxlength'=>30)); ?>
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model, 'city'); ?>
+		<?php echo $form->textField($model, 'city', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'city') ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model, 'pin'); ?>
+		<?php echo $form->textField($model, 'pin', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'pin') ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model, 'mass_book_basic'); ?>
+		<?php echo $form->textField($model, 'mass_book_basic', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'mass_book_basic') ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model, 'mass_book_sun'); ?>
+		<?php echo $form->textField($model, 'mass_book_sun', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'mass_book_sun') ?>
+	</span>
 	</div>
 
 	<div class="row buttons">

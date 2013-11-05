@@ -40,7 +40,7 @@ function draw_line($pdf,$x1=5.0) {
 	$pdf->Cell(0,0.8,"received First Holy Communion on " . date_ind($firstCommunion->communion_dt),0,1,'L');
 	draw_line($pdf,12.7);
 	$pdf->Cell(4,0,"",0,0);
-	$pdf->Cell(0,0.8,"in " . Yii::app()->params['parishName'],0,1,'L');
+	$pdf->Cell(0,0.8,"in " . Parish::get()->name,0,1,'L');
 	draw_line($pdf,5.7);
 
 	$pdf->Cell(0,1,'',0,1);

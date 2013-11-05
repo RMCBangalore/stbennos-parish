@@ -50,7 +50,7 @@ groom['callback'] = function(p) {
 	$('#BannsRecord_groom_name').val(p.name).attr('readonly', true);
 	$('#BannsRecord_groom_parent').val(p.parents_name).attr('readonly', true);
 	$('#BannsRecord_groom_parish').attr('name', 'groom_parish_pub');
-	$('#BannsRecord_groom_parish').val('" . Yii::app()->params['parishName'] . "');
+	$('#BannsRecord_groom_parish').val('" . Parish::get()->name . "');
 	$('#BannsRecord_groom_parish').attr('readonly', true);
 	$('#BannsRecord_groom_parish_hid').val(p.id);
 	$('#BannsRecord_groom_parish_hid').attr('name', 'groom_parish');
@@ -80,7 +80,7 @@ bride['callback'] = function(p) {
 	$('#BannsRecord_bride_name').val(p.name).attr('readonly', true);
 	$('#BannsRecord_bride_parent').val(p.parents_name).attr('readonly', true);
 	$('#BannsRecord_bride_parish').attr('name', 'bride_parish_pub');
-	$('#BannsRecord_bride_parish').val('" . Yii::app()->params['parishName'] . "');
+	$('#BannsRecord_bride_parish').val('" . Parish::get()->name . "');
 	$('#BannsRecord_bride_parish').attr('readonly', true);
 	$('#BannsRecord_bride_parish_hid').val(p.id);
 	$('#BannsRecord_bride_parish_hid').attr('name', 'bride_parish');

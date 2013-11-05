@@ -12,12 +12,12 @@
 
 	$pdf->SetFont("times", "R", 16);
 	$pdf->Cell(0,0.1,"",0,1);
-	$pdf->Cell(0,0,strtoupper(Yii::app()->params['parishName']),0,0,'C');
+	$pdf->Cell(0,0,strtoupper(Parish::get()->name),0,0,'C');
 	$pdf->SetFont("courier", "R", 10);
-	$pAddr = Yii::app()->params['parishAddr'];
+	$pAddr = Parish::get()->address;
 	array_push($pAddr, implode(' - ', array(
-		Yii::app()->params['parishCity'],
-		Yii::app()->params['parishPIN'])));
+		Parish::get()->city,
+		Parish::get()->pin)));
 	foreach ($pAddr as $addr) {
 		$pdf->Cell(0,0,$addr,0,1,'R');
 	}

@@ -56,11 +56,13 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, 'PROFESSION', $death->profession);
 	show_field($pdf, 'DATE BURIED', $death->buried_dt);
 	show_field($pdf, 'minister', $death->minister);
-	show_field($pdf, 'PLACE OF BURIED', $death->burial_place);
+	show_field($pdf, 'PLACE OF BURIAL', $death->burial_place);
 	$pdf->Cell(0,4,"",0,1);
 	$pdf->SetFont("courier", "R", 10);
 	$pdf->Cell(0,0,"I CERTIFY THAT THE ABOVE IS TRUE COPY OF AN ENTRY IN THE REGISTER",0,1,'C');
-	$pdf->Cell(0,0,"OF BURIALS KEPT AT HOLY REDEEMER CHURCH, BANGALORE",0,1,'C');
+	$parish = Parish::get();
+	$pstr = strtoupper($parish->name . ", " . $parish->city);
+	$pdf->Cell(0,0,"OF DEATHS KEPT AT $pstr",0,1,'C');
 
 	$pdf->Cell(0,3,"",0,1);
 	$pdf->Cell(10,1,'DATE: '.date_ind($model->cert_dt),0,0,'C');

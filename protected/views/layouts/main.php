@@ -24,11 +24,11 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php $logo = Yii::app()->params['parishLogo'];
-			if ($logo) {
-				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . $logo['src'],
+		<div id="logo"><?php $parish = Parish::get();
+			if ($parish->logo_src) {
+				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . $parish->logo_src,
 					CHtml::encode(Yii::app()->name),
-						array('width' => $logo['width'], 'height' => $logo['height'])),
+						array('width' => $parish->logo_width, 'height' => $parish->logo_height)),
 					array('/'));
 		   } else {
 				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',

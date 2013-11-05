@@ -2,7 +2,7 @@
 
 function get_parish($parish) {
 	if (ctype_digit($parish)) {
-		return Yii::app()->params['parishName'] . ' (our parish)';
+		return Parish::get()->name . ' (our parish)';
 	} else {
 		return $parish;
 	}

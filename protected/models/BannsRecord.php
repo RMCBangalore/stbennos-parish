@@ -134,7 +134,7 @@ class BannsRecord extends CActiveRecord
 
 	public static function get_parish($parish) {
 		if (ctype_digit($parish)) {
-			return Yii::app()->params['parishName'] . ' (our parish)';
+			return Parish::get_parish->name;
 		} else {
 			return $parish;
 		}

@@ -101,7 +101,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 	<div class="row">
 		<?php echo $form->labelEx($model,'church'); ?>
 		<?php echo $form->textField($model,'church',array('size'=>40,'maxlength'=>50,
-			'value'=>Yii::app()->params['parishName'])); ?>
+			'value'=>Parish::get()->name)); ?>
 		<?php echo $form->error($model,'church'); ?>
 	</div>
 

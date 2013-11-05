@@ -18,7 +18,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'groom_parish'); ?>
 		<?php if ('bride' != $local) {
-			echo CHtml::textField('groom_parish_pub', Yii::app()->params['parishName'], array('readonly' => true));
+			echo CHtml::textField('groom_parish_pub', Parish::get()->name, array('readonly' => true));
 			echo $form->hiddenField($model,'groom_parish',array('value'=>$groom->id));
 		} else {
 			echo $form->textField($model,'groom_parish',array('size'=>50,'maxlength'=>50));
@@ -53,7 +53,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'bride_parish'); ?>
 		<?php if ('groom' != $local) {
-			echo CHtml::textField('bride_parish_pub', Yii::app()->params['parishName'], array('readonly' => true));
+			echo CHtml::textField('bride_parish_pub', Parish::get()->name, array('readonly' => true));
 			echo $form->hiddenField($model,'bride_parish',array('value'=>$bride->id));
 		} else {
 			echo $form->textField($model,'bride_parish',array('size'=>50,'maxlength'=>50));

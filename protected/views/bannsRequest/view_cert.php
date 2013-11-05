@@ -48,7 +48,7 @@ function show_field_ln($pdf, $value, $text = '') {
 
 function get_parish($parish) {
 	if (ctype_digit($parish)) {
-		return Yii::app()->params['parishName'];
+		return Parish::get()->name;
 	} else {
 		return $parish;
 	}

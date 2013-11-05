@@ -65,7 +65,9 @@ function show_field($pdf, $label, $value) {
 	$pdf->SetFont("courier", "R", 9);
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(0,0,'I CERTIFY THAT THE ABOVE IS A TRUE COPY OF AN ENTRY IN THE REGISTER',0,1,'C');
-	$pdf->Cell(0,0,'OF MARRIAGES KEPT AT HOLY REDEEMER CHURCH, BANGALORE',0,1,'C');
+	$parish = Parish::get();
+	$pstr = strtoupper($parish->name . ", " . $parish->city);
+	$pdf->Cell(0,0,"OF MARRIAGES KEPT AT $pstr",0,1,'C');
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->SetFont("courier", "R", 11);
 	$pdf->Cell(10,1,'DATE: '.date_ind($model->cert_dt),0,1,'C');

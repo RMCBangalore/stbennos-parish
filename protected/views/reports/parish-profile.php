@@ -48,8 +48,8 @@ function show_field($pdf, $label, $value) {
 
 	$pdf->Cell(1,0,"",0,0);
 	$pdf->SetFont("times", "B", 14);
-	$pdf->Cell(0,0.8,sprintf("%-20s: %s", "Name of the Parish", Yii::app()->params['parishName']),0,1,'L');
-#	$pdf->Text(1.9,5.55,sprintf("%-20s: %s", "Name of the Parish", Yii::app()->params['parishName']));
+	$pdf->Cell(0,0.8,sprintf("%-20s: %s", "Name of the Parish", Parish::get()->name),0,1,'L');
+#	$pdf->Text(1.9,5.55,sprintf("%-20s: %s", "Name of the Parish", Parish::get()->name));
 	$pdf->Line(6.7,6.25,10.5,6.25,array('width' => 0.01, 'dash' => 3));
 
 	$pdf->Cell(0,1,'',0,1);
@@ -194,13 +194,13 @@ foreach ($day_masses as $day => $masses) {
 	$pdf->SetLineStyle(array('dash' => 0));
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(7,$ht,'Name of the Church','LTR',0,'L');
-	$pdf->Cell(10,$ht,strtoupper(Yii::app()->params['parishName']),'TR',1,'L');
+	$pdf->Cell(10,$ht,strtoupper(Parish::get()->name),'TR',1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(7,$ht*4,'Address','LBR',0,'L',false,'',0,false,'T','T');
-	$pAddr = Yii::app()->params['parishAddr'];
+	$pAddr = Parish::get()->address;
 	array_push($pAddr, implode(' - ', array(
-		Yii::app()->params['parishCity'],
-		Yii::app()->params['parishPIN'])));
+		Parish::get()->city,
+		Parish::get()->pin)));
 	foreach($pAddr as $addr) {
 		$pdf->Cell(10,$ht,strtoupper($addr),'R',1,'L');
 		$pdf->Cell(8,0,'',0,0,'L');
