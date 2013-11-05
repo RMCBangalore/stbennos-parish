@@ -529,15 +529,33 @@ CREATE TABLE `open_questions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `parish`;
+CREATE TABLE `parish` (
+  `isset` tinyint(4) NOT NULL DEFAULT '1',
+  `name` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `city` varchar(25) NOT NULL,
+  `pin` varchar(10) NOT NULL,
+  `est_year` int(11) NOT NULL,
+  `mass_book_basic` double NOT NULL,
+  `mass_book_sun` double NOT NULL,
+  `phone` varchar(12) DEFAULT NULL,
+  `website` varchar(20) DEFAULT NULL,
+  `logo_src` varchar(50) DEFAULT NULL,
+  `logo_width` int(11) DEFAULT NULL,
+  `logo_height` int(11) DEFAULT NULL,
+  PRIMARY KEY (`isset`)
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS `pastors`;
 CREATE TABLE `pastors` (
-  id INTEGER NOT NULL AUTO_INCREMENT,
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
 	`sal` varchar(10) DEFAULT NULL,
 	`fname` varchar(75) NOT NULL,
-	lname varchar(25) DEFAULT NULL,
-	mobile varchar(15) DEFAULT NULL,
-	email	varchar(30) DEFAULT NULL,
-	role	integer NOT NULL,
+	`lname` varchar(25) DEFAULT NULL,
+	`mobile` varchar(15) DEFAULT NULL,
+	`email`	varchar(30) DEFAULT NULL,
+	`role`	integer NOT NULL,
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -579,6 +597,12 @@ CREATE TABLE `people` (
   KEY `people_family_id` (`family_id`),
   CONSTRAINT `people_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+
+CREATE TABLE prefs (
+	name	varchar(25) not null,
+	value varchar(100) default null,
+	primary key(name)
+) ENGINE=InnoDB;
 
 --
 -- Table structure for table `satisfaction_data`
@@ -666,6 +690,7 @@ CREATE TABLE visits (
 	family_id	INTEGER,
 	PRIMARY KEY (id),
 	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id)
+	CONSTRAINT fk_visit_family FOREIGN KEY (family_id) REFERENCES families(id)
 ) ENGINE=InnoDB;
 
 
