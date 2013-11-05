@@ -15,6 +15,8 @@
  * @property string $logo_src
  * @property integer $logo_width
  * @property integer $logo_height
+ * @property string $phone
+ * @property string $website
  */
 class Parish extends CActiveRecord
 {
@@ -50,9 +52,11 @@ class Parish extends CActiveRecord
 			array('name, logo_src', 'length', 'max'=>50),
 			array('city', 'length', 'max'=>25),
 			array('pin', 'length', 'max'=>10),
+			array('phone', 'length', 'max'=>12),
+			array('website', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('name, address, city, pin, est_year, mass_book_basic, mass_book_sun, isset, logo_src, logo_width, logo_height', 'safe', 'on'=>'search'),
+			array('name, address, city, pin, est_year, mass_book_basic, mass_book_sun, isset, logo_src, logo_width, logo_height, phone, website', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,6 +88,8 @@ class Parish extends CActiveRecord
 			'logo_src' => 'Logo Src',
 			'logo_width' => 'Logo Width',
 			'logo_height' => 'Logo Height',
+			'phone' => 'Phone',
+			'website' => 'Website',
 		);
 	}
 
@@ -109,6 +115,8 @@ class Parish extends CActiveRecord
 		$criteria->compare('logo_src',$this->logo_src,true);
 		$criteria->compare('logo_width',$this->logo_width);
 		$criteria->compare('logo_height',$this->logo_height);
+		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('website',$this->website,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

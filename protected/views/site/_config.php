@@ -55,6 +55,19 @@
 
 	<div class="row">
 	<span class="leftHalf">
+		<?php echo $form->labelEx($model, 'phone'); ?>
+		<?php echo $form->textField($model, 'phone', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'phone') ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model, 'website'); ?>
+		<?php echo $form->textField($model, 'website', array('size'=>15,'maxlength'=>30)); ?>
+		<?php echo $form->error($model, 'website') ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model, 'mass_book_basic'); ?>
 		<?php echo $form->textField($model, 'mass_book_basic', array('size'=>15,'maxlength'=>30)); ?>
 		<?php echo $form->error($model, 'mass_book_basic') ?>
