@@ -78,7 +78,7 @@ class MassBookingController extends RController
 		{
 			$trans = new Transaction;
 			$trans->type = 'credit';
-			$trans->amount = Yii::app()->params['massBookAmt'];
+			$trans->amount = $_POST['amount'];
 			$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
 			$trans->creator = Yii::app()->user->id;
 			$trans->descr = "Mass booking";
@@ -124,6 +124,23 @@ class MassBookingController extends RController
 				echo CHtml::tag('option',
 					array('value' => $mass->id), CHtml::encode($mass->time . " -- " . $lv[$mass->language]), true);
 			}
+		}
+	}
+
+	public function getMassAmt($mass_dt) {
+		$dow = date_format($mass_dt, 'w');
+		$parish = Parish::get();
+		if (0 == $dow) {
+			return $parish->mass_book_sun;
+		}
+		return $parish->mass_book_basic;
+	}
+
+	public function actionMassAmt() {
+		if (isset($_POST['MassBooking'])) {
+			$mass_dt = $_POST['MassBooking']['mass_dt'];
+			$amt = $this->getMassAmt(new DateTime($mass_dt));
+			echo "Amount will be: $amt<input name='amount' type='hidden' value='$amt'>";
 		}
 	}
 

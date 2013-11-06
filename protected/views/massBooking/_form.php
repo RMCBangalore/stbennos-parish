@@ -16,6 +16,7 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,"mass_dt"); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
@@ -28,22 +29,31 @@
 				'value' => $mass_dt,
 				'size' => '10',         // textField size
 				'maxlength' => '10',    // textField maxlength
-				'onChange' => CHtml::ajax(array(
-					'id' => 'MassBooking_mass_dt',
-					'type'=>'POST',
-					'url' => Yii::app()->createUrl('/massBooking/masses'),
-					'update' => '#MassBooking_mass_id',
-					'data'=> 'js:jQuery(this).serialize()',
-				)),
+				'onChange' => 
+					CHtml::ajax(array(
+						'id' => 'MassBooking_mass_dt',
+						'type'=>'POST',
+						'url' => Yii::app()->createUrl('/massBooking/masses'),
+						'update' => '#MassBooking_mass_id',
+						'data'=> 'js:jQuery(this).serialize()',
+					)) .
+					CHtml::ajax(array(
+						'id' => 'MassBooking_mass_dt',
+						'type'=>'POST',
+						'url' => Yii::app()->createUrl('/massBooking/massAmt'),
+						'update' => '#amount',
+						'data'=> 'js:jQuery(this).serialize()',
+					))
 			),
 		)); ?>
 		<?php echo $form->error($model,"mass_dt"); ?>
-	</div>
-
-	<div id="mass-id-div" class="row">
+		<span id="amount"></span>
+	</span>
+	<span id="mass-id-div" class="rightHalf">
 		<?php echo $form->labelEx($model,'mass_id'); ?>
 		<?php echo $form->dropDownList($model,'mass_id',array('prompt' => '--- Select ---')); ?>
 		<?php echo $form->error($model,'mass_id'); ?>
+	</span>
 	</div>
 
 	<div class="row">

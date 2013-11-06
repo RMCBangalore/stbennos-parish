@@ -44,6 +44,7 @@ class MassBooking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('mass_dt, mass_id, intention', 'required'),
 			array('mass_id, trans_id', 'numerical', 'integerOnly'=>true),
 			array('booked_by, intention', 'length', 'max'=>99),
 			array('type', 'length', 'max'=>20),
