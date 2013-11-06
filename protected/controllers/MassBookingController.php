@@ -127,20 +127,50 @@ class MassBookingController extends RController
 		}
 	}
 
-	public function getMassAmt($mass_dt) {
+	public function isSpecialMass($mass_dt) {
 		$dow = date_format($mass_dt, 'w');
-		$parish = Parish::get();
 		if (0 == $dow) {
-			return $parish->mass_book_sun;
+			return "Sunday";
+		} else {
+			$yr = date_format($mass_dt, 'Y');
+			$dtEaster = new DateTime();
+			$dtEaster->setTimeStamp(easter_date($yr));
+			$dtSacredHeart = clone $dtEaster;
+			$dtSacredHeart->add(new DateInterval("P68D"));
+			$feast_days = array(	# based on http://en.wikipedia.org/wiki/Solemnity#List_and_dates
+				"Jan 01" => "Mary, Mother of God",			# does not include solemnities falling on Sunday
+				"Jan 06" => "Epiphany",
+				"Mar 19" => "St Joseph",
+				"Mar 25" => "Annunciation",
+				date_format($dtSacredHeart, 'M d') => "Sacred Heart of Jesus",
+				"Jun 24" => "Nativity of John the Baptist",
+				"Jun 29" => "Sts Peter & Paul",
+				"Aug 15" => "Assumption",
+				"Nov 01" => "All Saints",
+				"Dec 08" => "Immaculate Conception",
+				"Dec 25" => "Christmas"
+			);
+			$dm = date_format($mass_dt, 'M d');
+			if (array_key_exists($dm, $feast_days)) {
+				return $feast_days[$dm];
+			}
 		}
-		return $parish->mass_book_basic;
+		return false;
 	}
 
 	public function actionMassAmt() {
 		if (isset($_POST['MassBooking'])) {
 			$mass_dt = $_POST['MassBooking']['mass_dt'];
-			$amt = $this->getMassAmt(new DateTime($mass_dt));
-			echo "Amount will be: $amt<input name='amount' type='hidden' value='$amt'>";
+			$mass_type = $this->isSpecialMass(new DateTime($mass_dt));
+			$parish = Parish::get();
+			$cmt = "";
+			if ($mass_type) {
+				$amt = $parish->mass_book_sun;
+				$cmt = "($mass_type)";
+			} else {
+				$amt = $parish->mass_book_basic;
+			}
+			echo "Amount will be: &#8377; $amt $cmt<input name='amount' type='hidden' value='$amt'>";
 		}
 	}
 

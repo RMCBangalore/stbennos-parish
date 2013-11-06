@@ -1,4 +1,5 @@
-<?php if($data->isRelevantDate) {
+<?php
+if($data->isRelevantDate) {
 	$masses = $this->getMasses($data->date);
 	echo '<div class="mass">';
 	foreach ($masses as $mass) {
