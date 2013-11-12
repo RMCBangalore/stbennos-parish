@@ -45,17 +45,11 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php $parish = Parish::get();
-			if ($parish->logo_src) {
-				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . $parish->logo_src,
-					CHtml::encode(Yii::app()->name),
-						array('width' => $parish->logo_width, 'height' => $parish->logo_height)),
-					array('/'));
-		   } else {
-				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',
-					CHtml::encode(Yii::app()->name),
-						array('width' => 405, 'height' => 100)), array('/'));
-		   } ?></div>
+		<div id="logo"><?php
+			echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',
+				CHtml::encode(Yii::app()->name),
+					array('width' => 405, 'height' => 100)), array('/'));
+		?></div>
 		<?php if (!Yii::app()->user->isGuest): ?>
 		<div id="search">
 			<?php $form=$this->beginWidget('CActiveForm', array(

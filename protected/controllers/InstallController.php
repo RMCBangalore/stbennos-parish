@@ -72,11 +72,7 @@ class InstallController extends CController
 			}
 		}
 
-		$path = preg_replace('/protected\/controllers/', 'gpl.html', dirname(__FILE__));
-		$license = file_get_contents($path);
-		$this->render('index', array(
-			'license' => $license
-		));
+		$this->render('index');
 	}
 	
 	public function actionDbconf()

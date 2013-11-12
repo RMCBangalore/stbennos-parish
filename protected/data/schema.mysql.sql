@@ -708,7 +708,7 @@ CREATE TABLE visits (
 	purpose		INTEGER,
 	family_id	INTEGER,
 	PRIMARY KEY (id),
-	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id)
+	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id),
 	CONSTRAINT fk_visit_family FOREIGN KEY (family_id) REFERENCES families(id)
 ) ENGINE=InnoDB;
 
@@ -757,7 +757,8 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `field_names` WRITE;
-INSERT INTO `field_names` VALUES (14,'awareness_level'),(11,'domicile_status'),(3,'education'),(5,'languages'),(2,'marriage_status'),(1,'marriage_type'),(4,'monthly_household_income'),(8,'need_level'),(6,'rite'),(7,'satisfaction_level'),(13,'sex'),(15,'weekdays'),(10,'zones');
+INSERT INTO `field_names` VALUES (14,'awareness_level'),(11,'domicile_status'),(3,'education'),(5,'languages'),(18,'marital_status'),(2,'marriage_status'),(1,'marriage_type'),(4,'monthly_household_income'),(8,'need_level'),(16,'pastor_role'),(6,'rite'),(17,'salutation'),(7,'satisfaction_level'),(13,'sex'),(19,'visit_purpose'),(15,'weekdays'),(10,'zones');
+
 UNLOCK TABLES;
 
 --
@@ -765,7 +766,7 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `field_values` WRITE;
-INSERT INTO `field_values` VALUES (1,1,'Regular',1,1),(1,2,'Irregular',2,2),(2,3,'Married',1,1),(2,4,'Separated',2,2),(2,5,'Divorced',3,3),(2,6,'Widowed',4,4),(1,7,'Disparity of cult',3,3),(3,8,'< High School',1,1),(3,9,'High School',2,2),(3,10,'Graduate',3,3),(3,11,'Post Graduate',4,4),(4,12,'< 10000',1,1),(4,13,'10k - 50k',2,2),(4,14,'50k - 1 lakh',3,3),(4,15,'above 1 lakh',4,4),(5,16,'English',1,1),(5,17,'Kannada',2,2),(5,18,'Tamil',3,3),(6,19,'Syro Malabar',2,5),(6,20,'Syro Malankara',3,10),(7,21,'Very Dissatisfied',1,1),(7,23,'Dissatisfied',2,2),(7,24,'Neutral',3,3),(7,25,'Satisfied',4,4),(7,26,'Very Satisfied',5,5),(8,27,'Not Important',1,1),(8,28,'Important',2,2),(8,29,'Very Important',3,3),(8,30,'Dissatisfied',4,4),(8,31,'Will join/attend',5,5),(10,32,'Zone A',1,1),(10,33,'Zone B',2,2),(10,34,'Zone C',3,3),(10,35,'Zone D',4,4),(11,36,'Home',1,1),(11,37,'Away',2,2),(13,38,'Male',1,1),(13,39,'Female',2,2),(14,40,'Accessed',3,3),(14,41,'Aware',2,2),(15,42,'Sunday',0,0),(15,43,'Monday',1,1),(15,44,'Tuesday',2,2),(15,45,'Wednesday',3,3),(15,46,'Thursday',4,4),(15,47,'Friday',5,5),(15,48,'Saturday',6,6),(6,49,'Latiin',1,3),(6,50,'Other',4,15),(14,51,'Not Aware',1,1);
+INSERT INTO `field_values` VALUES (1,1,'Regular',1,1),(1,2,'Irregular',2,2),(2,3,'Married',2,2),(2,4,'Separated',3,3),(2,5,'Divorced',4,4),(2,6,'Widowed',5,5),(1,7,'Disparity of cult',4,4),(3,8,'< High School',1,1),(3,9,'High School',2,2),(3,10,'Graduate',3,3),(3,11,'Post Graduate',4,4),(4,12,'< 10000',1,1),(4,13,'10k - 50k',2,2),(4,14,'50k - 1 lakh',3,3),(4,15,'above 1 lakh',4,4),(5,16,'English',1,1),(5,17,'Kannada',2,2),(5,18,'Tamil',3,3),(6,19,'Syro Malabar',10,10),(6,20,'Syro Malankara',5,5),(7,21,'Very Dissatisfied',1,1),(7,23,'Dissatisfied',2,2),(7,24,'Neutral',3,3),(7,25,'Satisfied',4,4),(7,26,'Very Satisfied',5,5),(8,27,'Not Important',1,1),(8,28,'Important',2,2),(8,29,'Very Important',3,3),(8,30,'Dissatisfied',4,4),(8,31,'Will join/attend',5,5),(10,32,'Zone A',1,1),(10,33,'Zone B',2,2),(10,34,'Zone C',3,3),(10,35,'Zone D',4,4),(11,36,'Home',1,1),(11,37,'Away',2,2),(13,38,'Male',1,1),(13,39,'Female',2,2),(14,40,'Accessed',3,3),(14,41,'Aware',2,2),(6,42,'Latin',1,3),(15,46,'Sunday',0,0),(15,47,'Monday',1,1),(15,48,'Tuesday',2,2),(15,49,'Wednesday',3,3),(15,50,'Thursday',4,4),(15,51,'Friday',5,5),(15,52,'Saturday',6,6),(14,53,'Not Aware',1,1),(16,56,'Parish Priest',1,1),(16,57,'Assistant Parish Priest',2,2),(17,58,'Fr.',1,1),(17,59,'Msgr.',2,2),(18,60,'Single',1,1),(18,63,'Separated',4,4),(18,64,'Annulled',5,5),(18,65,'Widowed',6,6),(1,66,'Mixed',3,3),(19,67,'Easter Blessing',1,1),(19,68,'Anointing of the Sick',2,2),(19,69,'Communion to the Sick',3,3),(19,70,'Special Occasion',4,4);
 UNLOCK TABLES;
 
 --
