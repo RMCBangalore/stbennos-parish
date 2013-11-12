@@ -64,6 +64,23 @@ class InstallController extends CController
 
 	public function actionIndex()
 	{
+		if ('POST' == Yii::app()->request->requestType) {
+			if (isset($_POST['accept'])) {
+				$this->redirect(array('dbconf'));
+			} else {
+				$this->redirect('http://stbennos.com');
+			}
+		}
+
+		$path = preg_replace('/protected\/controllers/', 'gpl.html', dirname(__FILE__));
+		$license = file_get_contents($path);
+		$this->render('index', array(
+			'license' => $license
+		));
+	}
+	
+	public function actionDbconf()
+	{
 		$path = preg_replace('/controllers/', 'config/dbconf.php', dirname(__FILE__));
 		Yii::trace("IC.actionIndex called with path $path", 'application.controllers.InstallController');
 
@@ -107,7 +124,7 @@ class InstallController extends CController
 			$this->redirect(array('admin'));
 		}
 
-		$this->render('index', array(
+		$this->render('dbconf', array(
 			'dbname' => $dbname
 		));
 	}
