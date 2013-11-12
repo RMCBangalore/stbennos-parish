@@ -53,10 +53,7 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'groom_status'); ?>
-		<?php echo $form->dropDownList($model,'groom_status', array(
-			'Married' => 'Married',
-			'Widowed' => 'Widowed',
-			'Divorced' => 'Divorced'), array('prompt' => '-- Select --')); ?>
+		<?php echo $form->dropDownList($model,'groom_status',FieldNames::values('marital_status'), array('prompt' => '-- Select --')); ?>
 		<?php echo $form->error($model,'groom_status'); ?>
 	</span>
 

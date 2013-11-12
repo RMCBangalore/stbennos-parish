@@ -38,7 +38,7 @@
 
 	<b><?php 
 	echo CHtml::encode($data->getAttributeLabel('groom_status')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_status); ?>
+	<?php echo CHtml::encode(FieldNames::value('marital_status', $data->groom_status)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_rank_prof')); ?>:</b>
@@ -66,7 +66,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_status); ?>
+	<?php echo CHtml::encode(FieldNames::value('marital_status', $data->bride_status)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_rank_prof')); ?>:</b>

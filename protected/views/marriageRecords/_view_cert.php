@@ -29,7 +29,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_dob')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_dob); /* ?>
+	<?php echo CHtml::encode($data->groom_dob); ?>
 	<br />
 
 	<b><?php 
@@ -51,7 +51,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_residence')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_residence); */ ?>
+	<?php echo CHtml::encode($data->groom_residence); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_name')); ?>:</b>
@@ -63,7 +63,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_status); ?>
+	<?php echo CHtml::encode(FieldNames::value('marital_status', $data->bride_status)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_rank_prof')); ?>:</b>

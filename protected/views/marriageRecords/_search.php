@@ -81,7 +81,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'groom_status'); ?>
-		<?php echo $form->textField($model,'groom_status'); ?>
+		<?php echo $form->dropDownList($model,'groom_status',FieldNames::values('marital_status'),array('prompt'=>'-- Select --')); ?>
 	</div>
 
 	<div class="row">
@@ -145,7 +145,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'bride_status'); ?>
-		<?php echo $form->textField($model,'bride_status'); ?>
+		<?php echo $form->dropDownList($model,'bride_status',FieldNames::values('marital_status'),array('prompt'=>'-- Select --')); ?>
 	</div>
 
 	<div class="row">

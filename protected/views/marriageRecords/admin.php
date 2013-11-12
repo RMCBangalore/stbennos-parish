@@ -69,14 +69,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'marriage_dt',
 		'groom_name',
 		'groom_dob',
-		'groom_status',
-		'groom_rank_prof',
 		/*
+		'groom_rank_prof',
 		'groom_fathers_name',
 		'groom_mothers_name',
 		'groom_residence',
+		*/
 		'bride_name',
 		'bride_dob',
+		/*
 		'bride_status',
 		'bride_rank_prof',
 		'bride_fathers_name',
