@@ -153,7 +153,7 @@ class BannsRecord extends CActiveRecord
 
 	public static function get_parish($parish) {
 		if (ctype_digit($parish)) {
-			return Parish::get_parish->name;
+			return Parish::get()->name;
 		} else {
 			return $parish;
 		}
