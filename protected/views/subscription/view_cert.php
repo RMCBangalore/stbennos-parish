@@ -33,7 +33,7 @@
 	$pdf->Cell(0,0.1,"",0,1);
 	$pdf->Cell(0,0,strtoupper(Parish::get()->name),0,0,'C');
 	$pdf->SetFont("courier", "R", 10);
-	$pAddr = Parish::get()->address;
+	$pAddr = explode("\n", Parish::get()->address);
 	array_push($pAddr, implode(' - ', array(
 		Parish::get()->city,
 		Parish::get()->pin)));

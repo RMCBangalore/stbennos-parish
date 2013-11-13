@@ -216,7 +216,7 @@ foreach ($day_masses as $day => $masses) {
 	$pdf->Cell(10,$ht,strtoupper(Parish::get()->name),'TR',1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(7,$ht*4,'Address','LBR',0,'L',false,'',0,false,'T','T');
-	$pAddr = Parish::get()->address;
+	$pAddr = explode("\n", Parish::get()->address);
 	array_push($pAddr, implode(' - ', array(
 		Parish::get()->city,
 		Parish::get()->pin)));
