@@ -121,7 +121,11 @@ return array(
 					'title' => 'View Families',
 					'url' => array('family/index'),
 					'icon' => '/images/icons/view family.png',
-#					'role' => '!Pastor',
+				),
+				array(
+					'title' => 'View People',
+					'url' => array('/person/index'),
+					'icon' => '/images/icons/members profile.png',
 				),
 				array(
 					'title' => 'Manage Families',
