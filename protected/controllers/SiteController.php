@@ -197,11 +197,6 @@ class SiteController extends RController
 			);
 
 			try {
-				if (!$model->save(false)) {
-					$errs = $model->errors;
-					throw new Exception("Unable to save parish data: " . $errs[0]);
-				}
-
 				if (isset($_FILES['Parish'])) {
 					$files = $_FILES['Parish'];
 					$filename = $files['name']['logo'];
@@ -252,6 +247,11 @@ class SiteController extends RController
 
 				$conf = "<?php\n\nreturn " . var_export($params, true) . ";\n";
 				file_put_contents($path, $conf);
+
+				if (!$model->save(false)) {
+					$errs = $model->errors;
+					throw new Exception("Unable to save parish data: " . $errs[0]);
+				}
 			}
 
 			catch (Exception $e) {
