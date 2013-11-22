@@ -116,4 +116,4 @@ jQuery.ajax( {
 } );
 } );
 </script>
-<? endif ?>
+<?php endif ?>
