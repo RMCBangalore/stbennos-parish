@@ -43,8 +43,9 @@ $this->menu=array(
 		'id',
 		'mass_dt',
 		'mass_id',
-		'booked_by',
+		'type',
 		'intention',
+		'booked_by',
 		'trans_id',
 	),
 )); ?>

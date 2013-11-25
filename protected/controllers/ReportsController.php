@@ -173,7 +173,7 @@ class ReportsController extends RController
 			));
 			$dataProvider->pagination = false;
 
-			$fields = array('mass_dt', 'mass' => array('time', 'language'), 'type', 'intention');
+			$fields = array('mass_dt', 'mass' => array('time', 'language'), 'type', 'intention', 'booked_by');
 
 			$labels = $model->attributeLabels();
 			$fval = array();

@@ -36,12 +36,16 @@
 	<?php echo CHtml::encode($data->mass_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('booked_by')); ?>:</b>
-	<?php echo CHtml::encode($data->booked_by); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
+	<?php echo CHtml::encode($data->type); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('intention')); ?>:</b>
 	<?php echo CHtml::encode($data->intention); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('booked_by')); ?>:</b>
+	<?php echo CHtml::encode($data->booked_by); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('trans_id')); ?>:</b>
