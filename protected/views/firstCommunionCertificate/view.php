@@ -30,7 +30,6 @@ $this->breadcrumbs=array(
 $this->menu=array(
  	array('label'=>'Create FirstCommunionRecord', 'url'=>array('/firstCommunionRecords/create')),
 	array('label'=>'List FirstCommunionCertificate', 'url'=>array('index')),
-	array('label'=>'Update FirstCommunionCertificate', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete FirstCommunionCertificate', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage FirstCommunionCertificate', 'url'=>array('admin')),
 );
