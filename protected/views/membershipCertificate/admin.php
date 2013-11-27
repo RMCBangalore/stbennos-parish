@@ -70,7 +70,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'class'=>'CButtonColumn',
 			'buttons'=>array(
-				'update'=>array('visible'=>false),
+				'update'=>array('visible'=>'false'),
 			),
 		),
 	),

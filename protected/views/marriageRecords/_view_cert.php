@@ -45,7 +45,6 @@
 	<?php echo CHtml::encode($data->groom_fathers_name); ?>
 	<br />
 
-	<?php 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_mothers_name')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_mothers_name); ?>
 	<br />
