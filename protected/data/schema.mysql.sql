@@ -18,11 +18,11 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.14  Distrib 10.0.4-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: parish
 -- ------------------------------------------------------
--- Server version	5.5.31-0+wheezy1
+-- Server version	10.0.4-MariaDB-log
 
 
 --
@@ -93,8 +93,8 @@ CREATE TABLE `awareness_data` (
   PRIMARY KEY (`id`),
   KEY `awareness_id` (`awareness_id`),
   KEY `family_id` (`family_id`),
-  CONSTRAINT `awareness_data_ibfk_1` FOREIGN KEY (`awareness_id`) REFERENCES `awareness_items` (`id`),
-  CONSTRAINT `awareness_data_ibfk_2` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`)
+  CONSTRAINT `awareness_data_ibfk_1` FOREIGN KEY (`awareness_id`) REFERENCES `awareness_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `awareness_data_ibfk_2` FOREIGN KEY (`family_id`) REFERENCES `families` (`id` ON DELETE CASCADE ON UPDATE CASCADE)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
@@ -138,7 +138,7 @@ CREATE TABLE `banns_requests` (
   `req_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
-  CONSTRAINT `banns_requests_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`)
+  CONSTRAINT `banns_requests_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `banns_responses` (
   `res_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
-  CONSTRAINT `banns_responses_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`)
+  CONSTRAINT `banns_responses_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `baptism_certs` (
   `baptism_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `baptism_id` (`baptism_id`),
-  CONSTRAINT `baptism_certs_ibfk_1` FOREIGN KEY (`baptism_id`) REFERENCES `baptisms` (`id`)
+  CONSTRAINT `baptism_certs_ibfk_1` FOREIGN KEY (`baptism_id`) REFERENCES `baptisms` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `baptisms` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
   KEY `member_id` (`member_id`),
-  CONSTRAINT `baptisms_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `baptisms_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `confirmation_certs` (
   `confirmation_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `confirmation_id` (`confirmation_id`),
-  CONSTRAINT `confirmation_certs_ibfk_1` FOREIGN KEY (`confirmation_id`) REFERENCES `confirmations` (`id`)
+  CONSTRAINT `confirmation_certs_ibfk_1` FOREIGN KEY (`confirmation_id`) REFERENCES `confirmations` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `confirmations` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
   KEY `member_id` (`member_id`),
-  CONSTRAINT `confirmations_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `confirmations_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -246,7 +246,7 @@ CREATE TABLE `death_certs` (
   `cert_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `death_cert_death` (`death_id`),
-  CONSTRAINT `death_cert_death` FOREIGN KEY (`death_id`) REFERENCES `deaths` (`id`)
+  CONSTRAINT `death_cert_death` FOREIGN KEY (`death_id`) REFERENCES `deaths` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -274,7 +274,7 @@ CREATE TABLE `deaths` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
   KEY `member_id` (`member_id`),
-  CONSTRAINT `deaths_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `deaths_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `families` (
   `mobile` varchar(10) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `zone` int(11) DEFAULT NULL,
-  `bpl_card` bit(1) DEFAULT NULL,
+  `bpl_card` tinyint(4) DEFAULT NULL,
   `marriage_church` varchar(50) DEFAULT NULL,
   `marriage_date` date DEFAULT NULL,
   `marriage_type` varchar(25) DEFAULT NULL,
@@ -309,8 +309,8 @@ CREATE TABLE `families` (
   UNIQUE KEY `fid` (`fid`),
   KEY `husband_id` (`husband_id`),
   KEY `wife_id` (`wife_id`),
-  CONSTRAINT `families_ibfk_1` FOREIGN KEY (`husband_id`) REFERENCES `people` (`id`),
-  CONSTRAINT `families_ibfk_2` FOREIGN KEY (`wife_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `families_ibfk_1` FOREIGN KEY (`husband_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `families_ibfk_2` FOREIGN KEY (`wife_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
@@ -354,7 +354,7 @@ CREATE TABLE `first_communion_certs` (
   `first_comm_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `first_comm_id` (`first_comm_id`),
-  CONSTRAINT `first_communion_certs_ibfk_1` FOREIGN KEY (`first_comm_id`) REFERENCES `first_communions` (`id`)
+  CONSTRAINT `first_communion_certs_ibfk_1` FOREIGN KEY (`first_comm_id`) REFERENCES `first_communions` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -372,7 +372,7 @@ CREATE TABLE `first_communions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
   KEY `member_id` (`member_id`),
-  CONSTRAINT `first_communions_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `first_communions_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -386,7 +386,7 @@ CREATE TABLE `marriage_certs` (
   `marriage_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `marriage_id` (`marriage_id`),
-  CONSTRAINT `marriage_certs_ibfk_1` FOREIGN KEY (`marriage_id`) REFERENCES `marriages` (`id`)
+  CONSTRAINT `marriage_certs_ibfk_1` FOREIGN KEY (`marriage_id`) REFERENCES `marriages` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -421,12 +421,13 @@ CREATE TABLE `marriages` (
   `bride_baptism_dt` date DEFAULT NULL,
   `groom_id` int(11) DEFAULT NULL,
   `bride_id` int(11) DEFAULT NULL,
+  `marriage_type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
   KEY `bride_id` (`bride_id`),
   KEY `groom_id` (`groom_id`),
-  CONSTRAINT `marriages_ibfk_1` FOREIGN KEY (`bride_id`) REFERENCES `people` (`id`),
-  CONSTRAINT `marriages_ibfk_2` FOREIGN KEY (`groom_id`) REFERENCES `people` (`id`)
+  CONSTRAINT `marriages_ibfk_1` FOREIGN KEY (`bride_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `marriages_ibfk_2` FOREIGN KEY (`groom_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -440,13 +441,13 @@ CREATE TABLE `mass_bookings` (
   `booked_by` varchar(99) DEFAULT NULL,
   `intention` varchar(99) DEFAULT NULL,
   `trans_id` int(11) DEFAULT NULL,
-  `mass_dt` date DEFAULT NULL,
+  `mass_dt` date NOT NULL,
   `type` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mass_bookings_mass` (`mass_id`),
   KEY `mass_bookings_trans` (`trans_id`),
-  CONSTRAINT `mass_bookings_mass` FOREIGN KEY (`mass_id`) REFERENCES `masses` (`id`),
-  CONSTRAINT `mass_bookings_trans` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`id`)
+  CONSTRAINT `mass_bookings_mass` FOREIGN KEY (`mass_id`) REFERENCES `masses` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `mass_bookings_trans` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -489,8 +490,8 @@ CREATE TABLE `need_data` (
   PRIMARY KEY (`id`),
   KEY `family_id` (`family_id`),
   KEY `need_id` (`need_id`),
-  CONSTRAINT `need_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`),
-  CONSTRAINT `need_data_ibfk_2` FOREIGN KEY (`need_id`) REFERENCES `need_items` (`id`)
+  CONSTRAINT `need_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `need_data_ibfk_2` FOREIGN KEY (`need_id`) REFERENCES `need_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
@@ -515,7 +516,7 @@ CREATE TABLE `no_impediment_letters` (
   `letter_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
-  CONSTRAINT `no_impediment_letters_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`)
+  CONSTRAINT `no_impediment_letters_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -531,8 +532,8 @@ CREATE TABLE `open_data` (
   PRIMARY KEY (`id`),
   KEY `family_id` (`family_id`),
   KEY `question_id` (`question_id`),
-  CONSTRAINT `open_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`),
-  CONSTRAINT `open_data_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `open_questions` (`id`)
+  CONSTRAINT `open_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `open_data_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `open_questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
@@ -547,6 +548,10 @@ CREATE TABLE `open_questions` (
   `seq` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `parish`
+--
 
 DROP TABLE IF EXISTS `parish`;
 CREATE TABLE `parish` (
@@ -565,6 +570,10 @@ CREATE TABLE `parish` (
   `logo_height` int(11) DEFAULT NULL,
   PRIMARY KEY (`isset`)
 ) ENGINE=InnoDB;
+
+--
+-- Table structure for table `pastors`
+--
 
 DROP TABLE IF EXISTS `pastors`;
 CREATE TABLE `pastors` (
@@ -636,8 +645,8 @@ CREATE TABLE `satisfaction_data` (
   PRIMARY KEY (`id`),
   KEY `satisfation_data_family` (`family_id`),
   KEY `satisfaction_data_item` (`satisfaction_item_id`),
-  CONSTRAINT `satisfaction_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`),
-  CONSTRAINT `satisfaction_data_ibfk_2` FOREIGN KEY (`satisfaction_item_id`) REFERENCES `satisfaction_items` (`id`)
+  CONSTRAINT `satisfaction_data_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `satisfaction_data_ibfk_2` FOREIGN KEY (`satisfaction_item_id`) REFERENCES `satisfaction_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
@@ -669,8 +678,8 @@ CREATE TABLE `subscriptions` (
   PRIMARY KEY (`id`),
   KEY `fk_sub_family` (`family_id`),
   KEY `fk_sub_trans` (`trans_id`),
-  CONSTRAINT `fk_sub_family` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`),
-  CONSTRAINT `fk_sub_trans` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`id`)
+  CONSTRAINT `fk_sub_family` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sub_trans` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -708,8 +717,8 @@ CREATE TABLE visits (
 	purpose		INTEGER,
 	family_id	INTEGER,
 	PRIMARY KEY (id),
-	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id),
-	CONSTRAINT fk_visit_family FOREIGN KEY (family_id) REFERENCES families(id)
+	CONSTRAINT fk_visit_pastor FOREIGN KEY (pastor_id) REFERENCES pastors(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_visit_family FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 
@@ -720,20 +729,349 @@ CREATE TABLE visits (
 
 --  START OF TABLE DATA ---
 
-
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: parish
--- ------------------------------------------------------
--- Server version	5.5.31-0+wheezy1
-
-
 --
 -- Dumping data for table `AuthItem`
 --
 
 LOCK TABLES `AuthItem` WRITE;
-INSERT INTO `AuthItem` VALUES ('Admin',2,NULL,NULL,'N;'),('Authenticated',2,NULL,NULL,'N;'),('AwarenessData.*',1,NULL,NULL,'N;'),('AwarenessData.Admin',0,NULL,NULL,'N;'),('AwarenessData.Create',0,NULL,NULL,'N;'),('AwarenessData.Delete',0,NULL,NULL,'N;'),('AwarenessData.Index',0,NULL,NULL,'N;'),('AwarenessData.Update',0,NULL,NULL,'N;'),('AwarenessData.View',0,NULL,NULL,'N;'),('AwarenessItems.*',1,NULL,NULL,'N;'),('AwarenessItems.Admin',0,NULL,NULL,'N;'),('AwarenessItems.Create',0,NULL,NULL,'N;'),('AwarenessItems.Delete',0,NULL,NULL,'N;'),('AwarenessItems.Index',0,NULL,NULL,'N;'),('AwarenessItems.Update',0,NULL,NULL,'N;'),('AwarenessItems.View',0,NULL,NULL,'N;'),('BannsRecords.*',1,NULL,NULL,'N;'),('BannsRecords.Admin',0,NULL,NULL,'N;'),('BannsRecords.Create',0,NULL,NULL,'N;'),('BannsRecords.Delete',0,NULL,NULL,'N;'),('BannsRecords.Index',0,NULL,NULL,'N;'),('BannsRecords.Update',0,NULL,NULL,'N;'),('BannsRecords.View',0,NULL,NULL,'N;'),('BannsRequest.*',1,NULL,NULL,'N;'),('BannsRequest.Admin',0,NULL,NULL,'N;'),('BannsRequest.Create',0,NULL,NULL,'N;'),('BannsRequest.Delete',0,NULL,NULL,'N;'),('BannsRequest.Index',0,NULL,NULL,'N;'),('BannsRequest.Update',0,NULL,NULL,'N;'),('BannsRequest.View',0,NULL,NULL,'N;'),('BannsRequest.ViewCert',0,NULL,NULL,'N;'),('BannsResponse.*',1,NULL,NULL,'N;'),('BannsResponse.Admin',0,NULL,NULL,'N;'),('BannsResponse.Create',0,NULL,NULL,'N;'),('BannsResponse.Delete',0,NULL,NULL,'N;'),('BannsResponse.Index',0,NULL,NULL,'N;'),('BannsResponse.Update',0,NULL,NULL,'N;'),('BannsResponse.View',0,NULL,NULL,'N;'),('BannsResponse.ViewCert',0,NULL,NULL,'N;'),('BaptismCertificate.*',1,NULL,NULL,'N;'),('BaptismCertificate.Admin',0,NULL,NULL,'N;'),('BaptismCertificate.Create',0,NULL,NULL,'N;'),('BaptismCertificate.Delete',0,NULL,NULL,'N;'),('BaptismCertificate.Index',0,NULL,NULL,'N;'),('BaptismCertificate.Update',0,NULL,NULL,'N;'),('BaptismCertificate.View',0,NULL,NULL,'N;'),('BaptismCertificate.ViewCert',0,NULL,NULL,'N;'),('BaptismRecords.*',1,NULL,NULL,'N;'),('BaptismRecords.Admin',0,NULL,NULL,'N;'),('BaptismRecords.Create',0,NULL,NULL,'N;'),('BaptismRecords.Delete',0,NULL,NULL,'N;'),('BaptismRecords.Index',0,NULL,NULL,'N;'),('BaptismRecords.Update',0,NULL,NULL,'N;'),('BaptismRecords.View',0,NULL,NULL,'N;'),('ConfirmationCertificate.*',1,NULL,NULL,'N;'),('ConfirmationCertificate.Admin',0,NULL,NULL,'N;'),('ConfirmationCertificate.Create',0,NULL,NULL,'N;'),('ConfirmationCertificate.Delete',0,NULL,NULL,'N;'),('ConfirmationCertificate.Index',0,NULL,NULL,'N;'),('ConfirmationCertificate.Update',0,NULL,NULL,'N;'),('ConfirmationCertificate.View',0,NULL,NULL,'N;'),('ConfirmationCertificate.ViewCert',0,NULL,NULL,'N;'),('ConfirmationRecords.*',1,NULL,NULL,'N;'),('ConfirmationRecords.Admin',0,NULL,NULL,'N;'),('ConfirmationRecords.Create',0,NULL,NULL,'N;'),('ConfirmationRecords.Delete',0,NULL,NULL,'N;'),('ConfirmationRecords.Index',0,NULL,NULL,'N;'),('ConfirmationRecords.Update',0,NULL,NULL,'N;'),('ConfirmationRecords.View',0,NULL,NULL,'N;'),('DeathCertificate.*',1,NULL,NULL,'N;'),('DeathCertificate.Admin',0,NULL,NULL,'N;'),('DeathCertificate.Create',0,NULL,NULL,'N;'),('DeathCertificate.Delete',0,NULL,NULL,'N;'),('DeathCertificate.Index',0,NULL,NULL,'N;'),('DeathCertificate.Update',0,NULL,NULL,'N;'),('DeathCertificate.View',0,NULL,NULL,'N;'),('DeathCertificate.ViewCert',0,NULL,NULL,'N;'),('DeathRecords.*',1,NULL,NULL,'N;'),('DeathRecords.Admin',0,NULL,NULL,'N;'),('DeathRecords.Create',0,NULL,NULL,'N;'),('DeathRecords.Delete',0,NULL,NULL,'N;'),('DeathRecords.Index',0,NULL,NULL,'N;'),('DeathRecords.Update',0,NULL,NULL,'N;'),('DeathRecords.View',0,NULL,NULL,'N;'),('Family.*',1,NULL,NULL,'N;'),('Family.Admin',0,NULL,NULL,'N;'),('Family.Children',0,NULL,NULL,'N;'),('Family.Create',0,NULL,NULL,'N;'),('Family.Delete',0,NULL,NULL,'N;'),('Family.Dependents',0,NULL,NULL,'N;'),('Family.Index',0,NULL,NULL,'N;'),('Family.Locate',0,NULL,NULL,'N;'),('Family.Photo',0,NULL,NULL,'N;'),('Family.Subscriptions',0,NULL,NULL,'N;'),('Family.Survey',0,NULL,NULL,'N;'),('Family.Update',0,NULL,NULL,'N;'),('Family.View',0,NULL,NULL,'N;'),('FieldName.*',1,NULL,NULL,'N;'),('FieldName.Admin',0,NULL,NULL,'N;'),('FieldName.Create',0,NULL,NULL,'N;'),('FieldName.Delete',0,NULL,NULL,'N;'),('FieldName.Index',0,NULL,NULL,'N;'),('FieldName.Update',0,NULL,NULL,'N;'),('FieldName.View',0,NULL,NULL,'N;'),('FieldValue.*',1,NULL,NULL,'N;'),('FieldValue.Admin',0,NULL,NULL,'N;'),('FieldValue.Create',0,NULL,NULL,'N;'),('FieldValue.Delete',0,NULL,NULL,'N;'),('FieldValue.Index',0,NULL,NULL,'N;'),('FieldValue.Update',0,NULL,NULL,'N;'),('FieldValue.View',0,NULL,NULL,'N;'),('FirstCommunionCertificate.*',1,NULL,NULL,'N;'),('FirstCommunionCertificate.Admin',0,NULL,NULL,'N;'),('FirstCommunionCertificate.Create',0,NULL,NULL,'N;'),('FirstCommunionCertificate.Delete',0,NULL,NULL,'N;'),('FirstCommunionCertificate.Index',0,NULL,NULL,'N;'),('FirstCommunionCertificate.Update',0,NULL,NULL,'N;'),('FirstCommunionCertificate.View',0,NULL,NULL,'N;'),('FirstCommunionCertificate.ViewCert',0,NULL,NULL,'N;'),('FirstCommunionRecords.*',1,NULL,NULL,'N;'),('FirstCommunionRecords.Admin',0,NULL,NULL,'N;'),('FirstCommunionRecords.Create',0,NULL,NULL,'N;'),('FirstCommunionRecords.Delete',0,NULL,NULL,'N;'),('FirstCommunionRecords.Index',0,NULL,NULL,'N;'),('FirstCommunionRecords.Update',0,NULL,NULL,'N;'),('FirstCommunionRecords.View',0,NULL,NULL,'N;'),('Guest',2,NULL,NULL,'N;'),('MarriageCertificate.*',1,NULL,NULL,'N;'),('MarriageCertificate.Admin',0,NULL,NULL,'N;'),('MarriageCertificate.Create',0,NULL,NULL,'N;'),('MarriageCertificate.Delete',0,NULL,NULL,'N;'),('MarriageCertificate.Index',0,NULL,NULL,'N;'),('MarriageCertificate.Update',0,NULL,NULL,'N;'),('MarriageCertificate.View',0,NULL,NULL,'N;'),('MarriageCertificate.ViewCert',0,NULL,NULL,'N;'),('MarriageRecords.*',1,NULL,NULL,'N;'),('MarriageRecords.Admin',0,NULL,NULL,'N;'),('MarriageRecords.Create',0,NULL,NULL,'N;'),('MarriageRecords.Delete',0,NULL,NULL,'N;'),('MarriageRecords.Index',0,NULL,NULL,'N;'),('MarriageRecords.Update',0,NULL,NULL,'N;'),('MarriageRecords.View',0,NULL,NULL,'N;'),('MassBooking.*',1,NULL,NULL,'N;'),('MassBooking.Admin',0,NULL,NULL,'N;'),('MassBooking.Calendar',0,NULL,NULL,'N;'),('MassBooking.Create',0,NULL,NULL,'N;'),('MassBooking.Delete',0,NULL,NULL,'N;'),('MassBooking.Index',0,NULL,NULL,'N;'),('MassBooking.Masses',0,NULL,NULL,'N;'),('MassBooking.Update',0,NULL,NULL,'N;'),('MassBooking.View',0,NULL,NULL,'N;'),('MassBooking.ViewCert',0,NULL,NULL,'N;'),('MassSchedule.*',1,NULL,NULL,'N;'),('MassSchedule.Admin',0,NULL,NULL,'N;'),('MassSchedule.Create',0,NULL,NULL,'N;'),('MassSchedule.Delete',0,NULL,NULL,'N;'),('MassSchedule.Index',0,NULL,NULL,'N;'),('MassSchedule.Update',0,NULL,NULL,'N;'),('MassSchedule.View',0,NULL,NULL,'N;'),('MembershipCertificate.*',1,NULL,NULL,'N;'),('MembershipCertificate.Admin',0,NULL,NULL,'N;'),('MembershipCertificate.Create',0,NULL,NULL,'N;'),('MembershipCertificate.Delete',0,NULL,NULL,'N;'),('MembershipCertificate.Index',0,NULL,NULL,'N;'),('MembershipCertificate.Update',0,NULL,NULL,'N;'),('MembershipCertificate.View',0,NULL,NULL,'N;'),('MembershipCertificate.ViewCert',0,NULL,NULL,'N;'),('NeedData.*',1,NULL,NULL,'N;'),('NeedData.Admin',0,NULL,NULL,'N;'),('NeedData.Create',0,NULL,NULL,'N;'),('NeedData.Delete',0,NULL,NULL,'N;'),('NeedData.Index',0,NULL,NULL,'N;'),('NeedData.Update',0,NULL,NULL,'N;'),('NeedData.View',0,NULL,NULL,'N;'),('NeedItems.*',1,NULL,NULL,'N;'),('NeedItems.Admin',0,NULL,NULL,'N;'),('NeedItems.Create',0,NULL,NULL,'N;'),('NeedItems.Delete',0,NULL,NULL,'N;'),('NeedItems.Index',0,NULL,NULL,'N;'),('NeedItems.Update',0,NULL,NULL,'N;'),('NeedItems.View',0,NULL,NULL,'N;'),('NoImpedimentLetter.*',1,NULL,NULL,'N;'),('NoImpedimentLetter.Admin',0,NULL,NULL,'N;'),('NoImpedimentLetter.Create',0,NULL,NULL,'N;'),('NoImpedimentLetter.Delete',0,NULL,NULL,'N;'),('NoImpedimentLetter.Index',0,NULL,NULL,'N;'),('NoImpedimentLetter.Update',0,NULL,NULL,'N;'),('NoImpedimentLetter.View',0,NULL,NULL,'N;'),('NoImpedimentLetter.ViewCert',0,NULL,NULL,'N;'),('OpenData.*',1,NULL,NULL,'N;'),('OpenData.Admin',0,NULL,NULL,'N;'),('OpenData.Create',0,NULL,NULL,'N;'),('OpenData.Delete',0,NULL,NULL,'N;'),('OpenData.Index',0,NULL,NULL,'N;'),('OpenData.Update',0,NULL,NULL,'N;'),('OpenData.View',0,NULL,NULL,'N;'),('OpenQuestion.*',1,NULL,NULL,'N;'),('OpenQuestion.Admin',0,NULL,NULL,'N;'),('OpenQuestion.Create',0,NULL,NULL,'N;'),('OpenQuestion.Delete',0,NULL,NULL,'N;'),('OpenQuestion.Index',0,NULL,NULL,'N;'),('OpenQuestion.Update',0,NULL,NULL,'N;'),('OpenQuestion.View',0,NULL,NULL,'N;'),('OpenQuestions.*',1,NULL,NULL,'N;'),('OpenQuestions.Admin',0,NULL,NULL,'N;'),('OpenQuestions.Create',0,NULL,NULL,'N;'),('OpenQuestions.Delete',0,NULL,NULL,'N;'),('OpenQuestions.Index',0,NULL,NULL,'N;'),('OpenQuestions.Update',0,NULL,NULL,'N;'),('OpenQuestions.View',0,NULL,NULL,'N;'),('Pastor',2,'Pastor',NULL,'N;'),('Person.*',1,NULL,NULL,'N;'),('Person.Admin',0,NULL,NULL,'N;'),('Person.Baptised',0,NULL,NULL,'N;'),('Person.Confirmed',0,NULL,NULL,'N;'),('Person.Create',0,NULL,NULL,'N;'),('Person.Delete',0,NULL,NULL,'N;'),('Person.Index',0,NULL,NULL,'N;'),('Person.Married',0,NULL,NULL,'N;'),('Person.Photo',0,NULL,NULL,'N;'),('Person.Update',0,NULL,NULL,'N;'),('Person.View',0,NULL,NULL,'N;'),('SatisfactionData.*',1,NULL,NULL,'N;'),('SatisfactionData.Admin',0,NULL,NULL,'N;'),('SatisfactionData.Create',0,NULL,NULL,'N;'),('SatisfactionData.Delete',0,NULL,NULL,'N;'),('SatisfactionData.Index',0,NULL,NULL,'N;'),('SatisfactionData.Update',0,NULL,NULL,'N;'),('SatisfactionData.View',0,NULL,NULL,'N;'),('SatisfactionItem.*',1,NULL,NULL,'N;'),('SatisfactionItem.Admin',0,NULL,NULL,'N;'),('SatisfactionItem.Create',0,NULL,NULL,'N;'),('SatisfactionItem.Delete',0,NULL,NULL,'N;'),('SatisfactionItem.Index',0,NULL,NULL,'N;'),('SatisfactionItem.Update',0,NULL,NULL,'N;'),('SatisfactionItem.View',0,NULL,NULL,'N;'),('SatisfactionItems.*',1,NULL,NULL,'N;'),('SatisfactionItems.Admin',0,NULL,NULL,'N;'),('SatisfactionItems.Create',0,NULL,NULL,'N;'),('SatisfactionItems.Delete',0,NULL,NULL,'N;'),('SatisfactionItems.Index',0,NULL,NULL,'N;'),('SatisfactionItems.Update',0,NULL,NULL,'N;'),('SatisfactionItems.View',0,NULL,NULL,'N;'),('Site.*',1,NULL,NULL,'N;'),('Site.Contact',0,NULL,NULL,'N;'),('Site.Error',0,NULL,NULL,'N;'),('Site.Index',0,NULL,NULL,'N;'),('Site.Login',0,NULL,NULL,'N;'),('Site.Logout',0,NULL,NULL,'N;'),('Site.ParishProfile',0,NULL,NULL,'N;'),('Staff',2,'Staff',NULL,'N;'),('Subscription.*',1,NULL,NULL,'N;'),('Subscription.Admin',0,NULL,NULL,'N;'),('Subscription.Create',0,NULL,NULL,'N;'),('Subscription.Delete',0,NULL,NULL,'N;'),('Subscription.Index',0,NULL,NULL,'N;'),('Subscription.Update',0,NULL,NULL,'N;'),('Subscription.View',0,NULL,NULL,'N;'),('Subscription.ViewRect',0,NULL,NULL,'N;'),('SurveyReports.*',1,NULL,NULL,'N;'),('SurveyReports.Awareness',0,NULL,NULL,'N;'),('SurveyReports.Index',0,NULL,NULL,'N;'),('SurveyReports.Needs',0,NULL,NULL,'N;'),('SurveyReports.OpenQuestions',0,NULL,NULL,'N;'),('SurveyReports.Satisfaction',0,NULL,NULL,'N;'),('User.Activation.*',1,NULL,NULL,'N;'),('User.Activation.Activation',0,NULL,NULL,'N;'),('User.Admin.*',1,NULL,NULL,'N;'),('User.Admin.Admin',0,NULL,NULL,'N;'),('User.Admin.Create',0,NULL,NULL,'N;'),('User.Admin.Delete',0,NULL,NULL,'N;'),('User.Admin.Update',0,NULL,NULL,'N;'),('User.Admin.View',0,NULL,NULL,'N;'),('User.Default.*',1,NULL,NULL,'N;'),('User.Default.Index',0,NULL,NULL,'N;'),('User.Login.*',1,NULL,NULL,'N;'),('User.Login.Login',0,NULL,NULL,'N;'),('User.Logout.*',1,NULL,NULL,'N;'),('User.Logout.Logout',0,NULL,NULL,'N;'),('User.Profile.*',1,NULL,NULL,'N;'),('User.Profile.Changepassword',0,NULL,NULL,'N;'),('User.Profile.Edit',0,NULL,NULL,'N;'),('User.Profile.Profile',0,NULL,NULL,'N;'),('User.ProfileField.*',1,NULL,NULL,'N;'),('User.ProfileField.Admin',0,NULL,NULL,'N;'),('User.ProfileField.Create',0,NULL,NULL,'N;'),('User.ProfileField.Delete',0,NULL,NULL,'N;'),('User.ProfileField.Update',0,NULL,NULL,'N;'),('User.ProfileField.View',0,NULL,NULL,'N;'),('User.Recovery.*',1,NULL,NULL,'N;'),('User.Recovery.Recovery',0,NULL,NULL,'N;'),('User.Registration.*',1,NULL,NULL,'N;'),('User.Registration.Registration',0,NULL,NULL,'N;'),('User.User.*',1,NULL,NULL,'N;'),('User.User.Index',0,NULL,NULL,'N;'),('User.User.View',0,NULL,NULL,'N;'),('Users.*',1,NULL,NULL,'N;'),('Users.Admin',0,NULL,NULL,'N;'),('Users.Create',0,NULL,NULL,'N;'),('Users.Delete',0,NULL,NULL,'N;'),('Users.Index',0,NULL,NULL,'N;'),('Users.Update',0,NULL,NULL,'N;'),('Users.View',0,NULL,NULL,'N;'),('YesnoData.*',1,NULL,NULL,'N;'),('YesnoData.Admin',0,NULL,NULL,'N;'),('YesnoData.Create',0,NULL,NULL,'N;'),('YesnoData.Delete',0,NULL,NULL,'N;'),('YesnoData.Index',0,NULL,NULL,'N;'),('YesnoData.Update',0,NULL,NULL,'N;'),('YesnoData.View',0,NULL,NULL,'N;'),('YesnoQuestion.*',1,NULL,NULL,'N;'),('YesnoQuestion.Admin',0,NULL,NULL,'N;'),('YesnoQuestion.Create',0,NULL,NULL,'N;'),('YesnoQuestion.Delete',0,NULL,NULL,'N;'),('YesnoQuestion.Index',0,NULL,NULL,'N;'),('YesnoQuestion.Update',0,NULL,NULL,'N;'),('YesnoQuestion.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Admin',2,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Authenticated',2,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessData.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('AwarenessItems.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsRequest.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BannsResponse.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('BaptismRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('ConfirmationRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('DeathRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Children',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Dependents',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.FindMatch',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Locate',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Photo',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Subscriptions',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Survey',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldName.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FieldValue.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('FirstCommunionRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Guest',2,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MarriageRecords.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Calendar',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Masses',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassSchedule.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MembershipCertificate.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedData.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NeedItems.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.ByRecord',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('NoImpedimentLetter.ViewCert',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenData.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestion.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('OpenQuestions.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor',2,'Pastor',NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Baptised',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Confirmed',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.FindMatch',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Married',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Photo',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Person.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionData.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItem.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SatisfactionItems.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Contact',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Error',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Login',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Logout',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.ParishProfile',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Search',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Staff',2,'Staff',NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.TillDate',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Subscription.ViewRect',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.Awareness',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.Needs',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.OpenQuestions',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('SurveyReports.Satisfaction',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Activation.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Activation.Activation',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Admin.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Default.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Default.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Login.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Login.Login',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Logout.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Logout.Logout',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Profile.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Profile.Changepassword',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Profile.Edit',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Profile.Profile',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.ProfileField.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Recovery.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Recovery.Recovery',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Registration.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.Registration.Registration',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.User.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.User.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('User.User.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Users.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoData.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('YesnoQuestion.View',0,NULL,NULL,'N;');
 UNLOCK TABLES;
 
 --
@@ -741,7 +1079,235 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `AuthItemChild` WRITE;
-INSERT INTO `AuthItemChild` VALUES ('Staff','Authenticated'),('Admin','AwarenessData.*'),('Admin','AwarenessItems.*'),('Pastor','BannsRecords.Admin'),('Staff','BannsRecords.Create'),('Staff','BannsRecords.Index'),('Pastor','BannsRecords.Update'),('Staff','BannsRecords.View'),('Pastor','BannsRequest.Admin'),('Staff','BannsRequest.Create'),('Staff','BannsRequest.Index'),('Pastor','BannsRequest.Update'),('Staff','BannsRequest.View'),('Staff','BannsRequest.ViewCert'),('Pastor','BannsResponse.Admin'),('Staff','BannsResponse.Create'),('Staff','BannsResponse.Index'),('Pastor','BannsResponse.Update'),('Staff','BannsResponse.View'),('Staff','BannsResponse.ViewCert'),('Admin','BaptismCertificate.*'),('Pastor','BaptismCertificate.Admin'),('Staff','BaptismCertificate.Create'),('Staff','BaptismCertificate.Index'),('Pastor','BaptismCertificate.Update'),('Staff','BaptismCertificate.View'),('Staff','BaptismCertificate.ViewCert'),('Admin','BaptismRecords.*'),('Pastor','BaptismRecords.Admin'),('Staff','BaptismRecords.Create'),('Staff','BaptismRecords.Index'),('Pastor','BaptismRecords.Update'),('Staff','BaptismRecords.View'),('Admin','ConfirmationCertificate.*'),('Pastor','ConfirmationCertificate.Admin'),('Staff','ConfirmationCertificate.Create'),('Staff','ConfirmationCertificate.Index'),('Pastor','ConfirmationCertificate.Update'),('Staff','ConfirmationCertificate.View'),('Staff','ConfirmationCertificate.ViewCert'),('Admin','ConfirmationRecords.*'),('Pastor','ConfirmationRecords.Admin'),('Staff','ConfirmationRecords.Create'),('Staff','ConfirmationRecords.Index'),('Pastor','ConfirmationRecords.Update'),('Staff','ConfirmationRecords.View'),('Pastor','DeathCertificate.Admin'),('Staff','DeathCertificate.Create'),('Staff','DeathCertificate.Index'),('Pastor','DeathCertificate.Update'),('Staff','DeathCertificate.View'),('Staff','DeathCertificate.ViewCert'),('Pastor','DeathRecords.Admin'),('Staff','DeathRecords.Create'),('Staff','DeathRecords.Index'),('Pastor','DeathRecords.Update'),('Staff','DeathRecords.View'),('Admin','Family.*'),('Pastor','Family.Admin'),('Staff','Family.Children'),('Staff','Family.Create'),('Staff','Family.Dependents'),('Authenticated','Family.Index'),('Staff','Family.Locate'),('Staff','Family.Photo'),('Staff','Family.Subscriptions'),('Staff','Family.Survey'),('Staff','Family.Update'),('Authenticated','Family.View'),('Admin','FieldName.*'),('Pastor','FieldName.Admin'),('Staff','FieldName.Create'),('Staff','FieldName.Index'),('Pastor','FieldName.Update'),('Staff','FieldName.View'),('Admin','FieldValue.*'),('Pastor','FieldValue.Admin'),('Staff','FieldValue.Create'),('Staff','FieldValue.Index'),('Pastor','FieldValue.Update'),('Staff','FieldValue.View'),('Admin','FirstCommunionCertificate.*'),('Pastor','FirstCommunionCertificate.Admin'),('Staff','FirstCommunionCertificate.Create'),('Staff','FirstCommunionCertificate.Index'),('Pastor','FirstCommunionCertificate.Update'),('Staff','FirstCommunionCertificate.View'),('Staff','FirstCommunionCertificate.ViewCert'),('Admin','FirstCommunionRecords.*'),('Pastor','FirstCommunionRecords.Admin'),('Staff','FirstCommunionRecords.Create'),('Staff','FirstCommunionRecords.Index'),('Pastor','FirstCommunionRecords.Update'),('Staff','FirstCommunionRecords.View'),('Admin','MarriageCertificate.*'),('Pastor','MarriageCertificate.Admin'),('Staff','MarriageCertificate.Create'),('Staff','MarriageCertificate.Index'),('Pastor','MarriageCertificate.Update'),('Staff','MarriageCertificate.View'),('Staff','MarriageCertificate.ViewCert'),('Admin','MarriageRecords.*'),('Pastor','MarriageRecords.Admin'),('Staff','MarriageRecords.Create'),('Staff','MarriageRecords.Index'),('Pastor','MarriageRecords.Update'),('Staff','MarriageRecords.View'),('Pastor','MassBooking.Admin'),('Staff','MassBooking.Calendar'),('Staff','MassBooking.Create'),('Staff','MassBooking.Index'),('Staff','MassBooking.Masses'),('Pastor','MassBooking.Update'),('Staff','MassBooking.View'),('Staff','MassBooking.ViewCert'),('Pastor','MassSchedule.Admin'),('Staff','MassSchedule.Create'),('Staff','MassSchedule.Index'),('Pastor','MassSchedule.Update'),('Staff','MassSchedule.View'),('Pastor','MembershipCertificate.Admin'),('Staff','MembershipCertificate.Create'),('Staff','MembershipCertificate.Index'),('Pastor','MembershipCertificate.Update'),('Staff','MembershipCertificate.View'),('Staff','MembershipCertificate.ViewCert'),('Admin','NeedData.*'),('Pastor','NeedData.Admin'),('Staff','NeedData.Create'),('Staff','NeedData.Index'),('Pastor','NeedData.Update'),('Staff','NeedData.View'),('Admin','NeedItems.*'),('Pastor','NeedItems.Admin'),('Staff','NeedItems.Create'),('Staff','NeedItems.Index'),('Pastor','NeedItems.Update'),('Staff','NeedItems.View'),('Pastor','NoImpedimentLetter.Admin'),('Staff','NoImpedimentLetter.Create'),('Staff','NoImpedimentLetter.Index'),('Pastor','NoImpedimentLetter.Update'),('Staff','NoImpedimentLetter.View'),('Staff','NoImpedimentLetter.ViewCert'),('Admin','OpenData.*'),('Pastor','OpenData.Admin'),('Staff','OpenData.Create'),('Staff','OpenData.Index'),('Pastor','OpenData.Update'),('Staff','OpenData.View'),('Admin','OpenQuestion.*'),('Pastor','OpenQuestion.Admin'),('Staff','OpenQuestion.Create'),('Staff','OpenQuestion.Index'),('Pastor','OpenQuestion.Update'),('Staff','OpenQuestion.View'),('Admin','OpenQuestions.*'),('Pastor','OpenQuestions.Admin'),('Staff','OpenQuestions.Create'),('Staff','OpenQuestions.Index'),('Pastor','OpenQuestions.Update'),('Staff','OpenQuestions.View'),('Admin','Person.*'),('Pastor','Person.Admin'),('Staff','Person.Baptised'),('Staff','Person.Confirmed'),('Staff','Person.Create'),('Pastor','Person.Delete'),('Staff','Person.Index'),('Staff','Person.Married'),('Staff','Person.Update'),('Staff','Person.View'),('Admin','SatisfactionData.*'),('Pastor','SatisfactionData.Admin'),('Staff','SatisfactionData.Create'),('Staff','SatisfactionData.Index'),('Pastor','SatisfactionData.Update'),('Staff','SatisfactionData.View'),('Admin','SatisfactionItem.*'),('Pastor','SatisfactionItem.Admin'),('Pastor','SatisfactionItem.Create'),('Pastor','SatisfactionItem.Index'),('Pastor','SatisfactionItem.Update'),('Pastor','SatisfactionItem.View'),('Admin','SatisfactionItems.*'),('Pastor','SatisfactionItems.Admin'),('Pastor','SatisfactionItems.Create'),('Pastor','SatisfactionItems.Index'),('Pastor','SatisfactionItems.Update'),('Pastor','SatisfactionItems.View'),('Admin','Site.*'),('Authenticated','Site.Contact'),('Authenticated','Site.Error'),('Authenticated','Site.Index'),('Guest','Site.Index'),('Guest','Site.Login'),('Authenticated','Site.Logout'),('Authenticated','Site.ParishProfile'),('Pastor','Staff'),('Pastor','Subscription.Admin'),('Staff','Subscription.Create'),('Staff','Subscription.Index'),('Pastor','Subscription.Update'),('Staff','Subscription.View'),('Staff','Subscription.ViewRect'),('Admin','User.Activation.*'),('Admin','User.Admin.*'),('Admin','User.Default.*'),('Admin','User.Login.*'),('Admin','User.Logout.*'),('Admin','User.Profile.*'),('Admin','User.ProfileField.*'),('Admin','User.Recovery.*'),('Admin','User.Registration.*'),('Admin','User.User.*'),('Admin','Users.*'),('Pastor','Users.Index'),('Admin','YesnoData.*'),('Pastor','YesnoData.Admin'),('Staff','YesnoData.Create'),('Staff','YesnoData.Index'),('Pastor','YesnoData.Update'),('Admin','YesnoQuestion.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','AwarenessData.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','AwarenessItems.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','BaptismCertificate.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','BaptismRecords.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','ConfirmationCertificate.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','ConfirmationRecords.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','Family.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','FieldName.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','FieldValue.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','FirstCommunionCertificate.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','FirstCommunionRecords.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','MarriageCertificate.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','MarriageRecords.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','NeedData.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','NeedItems.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','OpenData.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','OpenQuestion.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','OpenQuestions.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','Person.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','SatisfactionData.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','SatisfactionItem.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','SatisfactionItems.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','Site.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Activation.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Admin.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Default.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Login.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Logout.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Profile.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.ProfileField.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Recovery.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.Registration.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','User.User.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','Users.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','YesnoData.*');
+INSERT INTO `AuthItemChild` VALUES ('Admin','YesnoQuestion.*');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Family.Index');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Family.View');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Contact');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Error');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Index');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Logout');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.ParishProfile');
+INSERT INTO `AuthItemChild` VALUES ('Guest','Site.Index');
+INSERT INTO `AuthItemChild` VALUES ('Guest','Site.Login');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsRequest.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsRequest.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsResponse.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsResponse.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BaptismCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BaptismCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BaptismRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','BaptismRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','ConfirmationCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','ConfirmationCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','ConfirmationRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','ConfirmationRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','DeathCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','DeathCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','DeathRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','DeathRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Family.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FieldName.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FieldName.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FieldValue.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FieldValue.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FirstCommunionCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FirstCommunionCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FirstCommunionRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','FirstCommunionRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageRecords.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageRecords.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MassBooking.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MassBooking.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MassSchedule.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MassSchedule.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MembershipCertificate.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','MembershipCertificate.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NeedData.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NeedData.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NeedItems.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NeedItems.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NoImpedimentLetter.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','NoImpedimentLetter.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenData.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenData.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenQuestion.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenQuestion.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenQuestions.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','OpenQuestions.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Person.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Person.Delete');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionData.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionData.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItem.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItem.Create');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItem.Index');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItem.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItem.View');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItems.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItems.Create');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItems.Index');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItems.Update');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SatisfactionItems.View');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Staff');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Subscription.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SurveyReports.Awareness');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SurveyReports.Index');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SurveyReports.Needs');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SurveyReports.OpenQuestions');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','SurveyReports.Satisfaction');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','Users.Index');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','YesnoData.Admin');
+INSERT INTO `AuthItemChild` VALUES ('Pastor','YesnoData.Update');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Authenticated');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRequest.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRequest.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRequest.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsRequest.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsResponse.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsResponse.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsResponse.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BannsResponse.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','BaptismRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','ConfirmationRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','DeathRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Children');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Dependents');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Locate');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Photo');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Subscriptions');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Survey');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Family.Update');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldName.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldName.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldName.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldValue.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldValue.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FieldValue.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','FirstCommunionRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Calendar');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Masses');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassSchedule.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassSchedule.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassSchedule.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MembershipCertificate.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MembershipCertificate.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MembershipCertificate.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MembershipCertificate.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedData.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedData.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedData.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedItems.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedItems.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NeedItems.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NoImpedimentLetter.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NoImpedimentLetter.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NoImpedimentLetter.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','NoImpedimentLetter.ViewCert');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenData.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenData.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenData.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestion.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestion.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestion.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestions.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestions.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','OpenQuestions.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Baptised');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Confirmed');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Married');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.Update');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Person.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','SatisfactionData.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','SatisfactionData.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','SatisfactionData.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.Index');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.TillDate');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.Update');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','Subscription.ViewRect');
+INSERT INTO `AuthItemChild` VALUES ('Staff','YesnoData.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','YesnoData.Index');
 UNLOCK TABLES;
 
 --
@@ -749,7 +1315,14 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `awareness_items` WRITE;
-INSERT INTO `awareness_items` VALUES (1,'Employment bureau'),(2,'Counselling center'),(3,'Youth groups'),(4,'Society of Vincent de Paul'),(5,'Parish website'),(6,'Ladies of charity'),(7,'Marriage bureau'),(8,'Legion of Mary');
+INSERT INTO `awareness_items` VALUES (1,'Employment bureau');
+INSERT INTO `awareness_items` VALUES (2,'Counselling center');
+INSERT INTO `awareness_items` VALUES (3,'Youth groups');
+INSERT INTO `awareness_items` VALUES (4,'Society of Vincent de Paul');
+INSERT INTO `awareness_items` VALUES (5,'Parish website');
+INSERT INTO `awareness_items` VALUES (6,'Ladies of charity');
+INSERT INTO `awareness_items` VALUES (7,'Marriage bureau');
+INSERT INTO `awareness_items` VALUES (8,'Legion of Mary');
 UNLOCK TABLES;
 
 --
@@ -757,7 +1330,23 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `field_names` WRITE;
-INSERT INTO `field_names` VALUES (14,'awareness_level'),(11,'domicile_status'),(3,'education'),(5,'languages'),(18,'marital_status'),(2,'marriage_status'),(1,'marriage_type'),(4,'monthly_household_income'),(8,'need_level'),(16,'pastor_role'),(6,'rite'),(17,'salutation'),(7,'satisfaction_level'),(13,'sex'),(19,'visit_purpose'),(15,'weekdays'),(10,'zones');
+INSERT INTO `field_names` VALUES (14,'awareness_level');
+INSERT INTO `field_names` VALUES (11,'domicile_status');
+INSERT INTO `field_names` VALUES (3,'education');
+INSERT INTO `field_names` VALUES (5,'languages');
+INSERT INTO `field_names` VALUES (18,'marital_status');
+INSERT INTO `field_names` VALUES (2,'marriage_status');
+INSERT INTO `field_names` VALUES (1,'marriage_type');
+INSERT INTO `field_names` VALUES (4,'monthly_household_income');
+INSERT INTO `field_names` VALUES (8,'need_level');
+INSERT INTO `field_names` VALUES (16,'pastor_role');
+INSERT INTO `field_names` VALUES (6,'rite');
+INSERT INTO `field_names` VALUES (17,'salutation');
+INSERT INTO `field_names` VALUES (7,'satisfaction_level');
+INSERT INTO `field_names` VALUES (13,'sex');
+INSERT INTO `field_names` VALUES (19,'visit_purpose');
+INSERT INTO `field_names` VALUES (15,'weekdays');
+INSERT INTO `field_names` VALUES (10,'zones');
 
 UNLOCK TABLES;
 
@@ -766,7 +1355,68 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `field_values` WRITE;
-INSERT INTO `field_values` VALUES (1,1,'Regular',1,1),(1,2,'Irregular',2,2),(2,3,'Married',2,2),(2,4,'Separated',3,3),(2,5,'Divorced',4,4),(2,6,'Widowed',5,5),(1,7,'Disparity of cult',4,4),(3,8,'< High School',1,1),(3,9,'High School',2,2),(3,10,'Graduate',3,3),(3,11,'Post Graduate',4,4),(4,12,'< 10000',1,1),(4,13,'10k - 50k',2,2),(4,14,'50k - 1 lakh',3,3),(4,15,'above 1 lakh',4,4),(5,16,'English',1,1),(5,17,'Kannada',2,2),(5,18,'Tamil',3,3),(6,19,'Syro Malabar',10,10),(6,20,'Syro Malankara',5,5),(7,21,'Very Dissatisfied',1,1),(7,23,'Dissatisfied',2,2),(7,24,'Neutral',3,3),(7,25,'Satisfied',4,4),(7,26,'Very Satisfied',5,5),(8,27,'Not Important',1,1),(8,28,'Important',2,2),(8,29,'Very Important',3,3),(8,30,'Dissatisfied',4,4),(8,31,'Will join/attend',5,5),(10,32,'Zone A',1,1),(10,33,'Zone B',2,2),(10,34,'Zone C',3,3),(10,35,'Zone D',4,4),(11,36,'Home',1,1),(11,37,'Away',2,2),(13,38,'Male',1,1),(13,39,'Female',2,2),(14,40,'Accessed',3,3),(14,41,'Aware',2,2),(6,42,'Latin',1,3),(15,46,'Sunday',0,0),(15,47,'Monday',1,1),(15,48,'Tuesday',2,2),(15,49,'Wednesday',3,3),(15,50,'Thursday',4,4),(15,51,'Friday',5,5),(15,52,'Saturday',6,6),(14,53,'Not Aware',1,1),(16,56,'Parish Priest',1,1),(16,57,'Assistant Parish Priest',2,2),(17,58,'Fr.',1,1),(17,59,'Msgr.',2,2),(18,60,'Single',1,1),(18,63,'Separated',4,4),(18,64,'Annulled',5,5),(18,65,'Widowed',6,6),(1,66,'Mixed',3,3),(19,67,'Easter Blessing',1,1),(19,68,'Anointing of the Sick',2,2),(19,69,'Communion to the Sick',3,3),(19,70,'Special Occasion',4,4);
+INSERT INTO `field_values` VALUES (1,1,'Regular',1,1);
+INSERT INTO `field_values` VALUES (1,2,'Irregular',2,2);
+INSERT INTO `field_values` VALUES (2,3,'Married',2,2);
+INSERT INTO `field_values` VALUES (2,4,'Separated',3,3);
+INSERT INTO `field_values` VALUES (2,5,'Divorced',4,4);
+INSERT INTO `field_values` VALUES (2,6,'Widowed',5,5);
+INSERT INTO `field_values` VALUES (1,7,'Disparity of cult',4,4);
+INSERT INTO `field_values` VALUES (3,8,'< High School',1,1);
+INSERT INTO `field_values` VALUES (3,9,'High School',2,2);
+INSERT INTO `field_values` VALUES (3,10,'Graduate',3,3);
+INSERT INTO `field_values` VALUES (3,11,'Post Graduate',4,4);
+INSERT INTO `field_values` VALUES (4,12,'< 10000',1,1);
+INSERT INTO `field_values` VALUES (4,13,'10k - 50k',2,2);
+INSERT INTO `field_values` VALUES (4,14,'50k - 1 lakh',3,3);
+INSERT INTO `field_values` VALUES (4,15,'above 1 lakh',4,4);
+INSERT INTO `field_values` VALUES (5,16,'English',1,1);
+INSERT INTO `field_values` VALUES (5,17,'Kannada',2,2);
+INSERT INTO `field_values` VALUES (5,18,'Tamil',3,3);
+INSERT INTO `field_values` VALUES (6,19,'Syro Malabar',10,10);
+INSERT INTO `field_values` VALUES (6,20,'Syro Malankara',5,5);
+INSERT INTO `field_values` VALUES (7,21,'Very Dissatisfied',1,1);
+INSERT INTO `field_values` VALUES (7,23,'Dissatisfied',2,2);
+INSERT INTO `field_values` VALUES (7,24,'Neutral',3,3);
+INSERT INTO `field_values` VALUES (7,25,'Satisfied',4,4);
+INSERT INTO `field_values` VALUES (7,26,'Very Satisfied',5,5);
+INSERT INTO `field_values` VALUES (8,27,'Not Important',1,1);
+INSERT INTO `field_values` VALUES (8,28,'Important',2,2);
+INSERT INTO `field_values` VALUES (8,29,'Very Important',3,3);
+INSERT INTO `field_values` VALUES (8,30,'Dissatisfied',4,4);
+INSERT INTO `field_values` VALUES (8,31,'Will join/attend',5,5);
+INSERT INTO `field_values` VALUES (10,32,'Zone A',1,1);
+INSERT INTO `field_values` VALUES (10,33,'Zone B',2,2);
+INSERT INTO `field_values` VALUES (10,34,'Zone C',3,3);
+INSERT INTO `field_values` VALUES (10,35,'Zone D',4,4);
+INSERT INTO `field_values` VALUES (11,36,'Home',1,1);
+INSERT INTO `field_values` VALUES (11,37,'Away',2,2);
+INSERT INTO `field_values` VALUES (13,38,'Male',1,1);
+INSERT INTO `field_values` VALUES (13,39,'Female',2,2);
+INSERT INTO `field_values` VALUES (14,40,'Accessed',3,3);
+INSERT INTO `field_values` VALUES (14,41,'Aware',2,2);
+INSERT INTO `field_values` VALUES (6,42,'Latin',1,3);
+INSERT INTO `field_values` VALUES (15,46,'Sunday',0,0);
+INSERT INTO `field_values` VALUES (15,47,'Monday',1,1);
+INSERT INTO `field_values` VALUES (15,48,'Tuesday',2,2);
+INSERT INTO `field_values` VALUES (15,49,'Wednesday',3,3);
+INSERT INTO `field_values` VALUES (15,50,'Thursday',4,4);
+INSERT INTO `field_values` VALUES (15,51,'Friday',5,5);
+INSERT INTO `field_values` VALUES (15,52,'Saturday',6,6);
+INSERT INTO `field_values` VALUES (14,53,'Not Aware',1,1);
+INSERT INTO `field_values` VALUES (16,56,'Parish Priest',1,1);
+INSERT INTO `field_values` VALUES (16,57,'Assistant Parish Priest',2,2);
+INSERT INTO `field_values` VALUES (17,58,'Fr.',1,1);
+INSERT INTO `field_values` VALUES (17,59,'Msgr.',2,2);
+INSERT INTO `field_values` VALUES (18,60,'Single',1,1);
+INSERT INTO `field_values` VALUES (18,63,'Separated',4,4);
+INSERT INTO `field_values` VALUES (18,64,'Annulled',5,5);
+INSERT INTO `field_values` VALUES (18,65,'Widowed',6,6);
+INSERT INTO `field_values` VALUES (1,66,'Mixed',3,3);
+INSERT INTO `field_values` VALUES (19,67,'Easter Blessing',1,1);
+INSERT INTO `field_values` VALUES (19,68,'Anointing of the Sick',2,2);
+INSERT INTO `field_values` VALUES (19,69,'Communion to the Sick',3,3);
+INSERT INTO `field_values` VALUES (19,70,'Special Occasion',4,4);
 UNLOCK TABLES;
 
 --
@@ -774,7 +1424,17 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `need_items` WRITE;
-INSERT INTO `need_items` VALUES (1,'Bible study'),(2,'Night vigil'),(3,'Legal aid'),(4,'Catholic enquiry center'),(5,'Intercession group (prayer warrior)'),(6,'Regular retreats'),(7,'Social media interaction'),(8,'Basic Christian Community'),(9,'Mission, etc'),(10,'Apologetics center'),(11,'Sacraments for inbound members (sick, elderly)');
+INSERT INTO `need_items` VALUES (1,'Bible study');
+INSERT INTO `need_items` VALUES (2,'Night vigil');
+INSERT INTO `need_items` VALUES (3,'Legal aid');
+INSERT INTO `need_items` VALUES (4,'Catholic enquiry center');
+INSERT INTO `need_items` VALUES (5,'Intercession group (prayer warrior)');
+INSERT INTO `need_items` VALUES (6,'Regular retreats');
+INSERT INTO `need_items` VALUES (7,'Social media interaction');
+INSERT INTO `need_items` VALUES (8,'Basic Christian Community');
+INSERT INTO `need_items` VALUES (9,'Mission, etc');
+INSERT INTO `need_items` VALUES (10,'Apologetics center');
+INSERT INTO `need_items` VALUES (11,'Sacraments for inbound members (sick, elderly)');
 UNLOCK TABLES;
 
 --
@@ -782,7 +1442,18 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `open_questions` WRITE;
-INSERT INTO `open_questions` VALUES (1,'Are you attending a Bible study?','yesno',1),(2,'If yes, specify (catholic / other denomination)','string',2),(3,'Do you attend periodic retreats / prayer group meetings?','yesno',3),(4,'If yes, specify (catholic / other denomination)','string',4),(5,'Do your children attend Sunday school (catechism)?','yesno',5),(6,'Do you attend Novena services regularly?','yesno',6),(7,'Have you availed medical aid from the parish?','yesno',7),(8,'Have you availed education support from the parish?','yesno',8),(9,'Do you attend worship at any other non catholic church?','yesno',9),(10,'If yes, how many times a month?','integer',10),(11,'How often do you attend Mass per month?','integer',11),(12,'What is the ideal frequency for receiving the Sacrament of Reconciliation?','string',12);
+INSERT INTO `open_questions` VALUES (1,'Are you attending a Bible study?','yesno',1);
+INSERT INTO `open_questions` VALUES (2,'If yes, specify (catholic / other denomination)','string',2);
+INSERT INTO `open_questions` VALUES (3,'Do you attend periodic retreats / prayer group meetings?','yesno',3);
+INSERT INTO `open_questions` VALUES (4,'If yes, specify (catholic / other denomination)','string',4);
+INSERT INTO `open_questions` VALUES (5,'Do your children attend Sunday school (catechism)?','yesno',5);
+INSERT INTO `open_questions` VALUES (6,'Do you attend Novena services regularly?','yesno',6);
+INSERT INTO `open_questions` VALUES (7,'Have you availed medical aid from the parish?','yesno',7);
+INSERT INTO `open_questions` VALUES (8,'Have you availed education support from the parish?','yesno',8);
+INSERT INTO `open_questions` VALUES (9,'Do you attend worship at any other non catholic church?','yesno',9);
+INSERT INTO `open_questions` VALUES (10,'If yes, how many times a month?','integer',10);
+INSERT INTO `open_questions` VALUES (11,'How often do you attend Mass per month?','integer',11);
+INSERT INTO `open_questions` VALUES (12,'What is the ideal frequency for receiving the Sacrament of Reconciliation?','string',12);
 UNLOCK TABLES;
 
 --
@@ -790,7 +1461,20 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `satisfaction_items` WRITE;
-INSERT INTO `satisfaction_items` VALUES (1,'Service'),(2,'Preaching & message'),(3,'Novena'),(4,'Choir'),(5,'Ushering'),(6,'Lectors'),(7,'Decorations arrangement'),(8,'Adoration'),(9,'Sunday school'),(10,'Preparation for Sacraments'),(11,'Adult Catechesis'),(12,'Bible study'),(13,'Retreats'),(14,'Parish website');
+INSERT INTO `satisfaction_items` VALUES (1,'Service');
+INSERT INTO `satisfaction_items` VALUES (2,'Preaching & message');
+INSERT INTO `satisfaction_items` VALUES (3,'Novena');
+INSERT INTO `satisfaction_items` VALUES (4,'Choir');
+INSERT INTO `satisfaction_items` VALUES (5,'Ushering');
+INSERT INTO `satisfaction_items` VALUES (6,'Lectors');
+INSERT INTO `satisfaction_items` VALUES (7,'Decorations arrangement');
+INSERT INTO `satisfaction_items` VALUES (8,'Adoration');
+INSERT INTO `satisfaction_items` VALUES (9,'Sunday school');
+INSERT INTO `satisfaction_items` VALUES (10,'Preparation for Sacraments');
+INSERT INTO `satisfaction_items` VALUES (11,'Adult Catechesis');
+INSERT INTO `satisfaction_items` VALUES (12,'Bible study');
+INSERT INTO `satisfaction_items` VALUES (13,'Retreats');
+INSERT INTO `satisfaction_items` VALUES (14,'Parish website');
 UNLOCK TABLES;
 
 -- Dump completed on 2013-09-23 17:03:48
