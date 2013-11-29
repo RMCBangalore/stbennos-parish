@@ -118,7 +118,7 @@
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,"[$person]lang_lit"); ?>
-		<?php echo $form->dropDownList($model,"[$person]lang_lit",FieldNames::values('languages')); ?>
+		<?php echo $form->dropDownList($model,"[$person]lang_lit",FieldNames::values('languages'),array('prompt' => '--- Select ---')); ?>
 		<?php echo $form->error($model,"[$person]lang_lit"); ?>
 	</span>
 	</div>
