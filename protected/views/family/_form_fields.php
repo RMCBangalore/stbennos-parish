@@ -40,13 +40,13 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'addr_stt'); ?>
-		<?php echo $form->textField($model,'addr_stt',array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'addr_stt',array('size'=>30,'maxlength'=>75)); ?>
 		<?php echo $form->error($model,'addr_stt'); ?>
 	</span>
 
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'addr_area'); ?>
-		<?php echo $form->textField($model,'addr_area',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'addr_area',array('size'=>25,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'addr_area'); ?>
 	</span>
 	</div>
