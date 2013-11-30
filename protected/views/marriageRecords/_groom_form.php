@@ -39,6 +39,7 @@
 			'attribute' => "groom_baptism_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -85,6 +86,7 @@
 			'attribute' => "groom_dob",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(

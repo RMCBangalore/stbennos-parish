@@ -197,6 +197,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'attribute' => 'banns_dt1',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(
 				'size' => '10',         // textField size
@@ -210,6 +211,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'attribute' => 'banns_dt2',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(
 				'size' => '10',         // textField size
@@ -223,6 +225,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'attribute' => 'banns_dt3',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(
 				'size' => '10',         // textField size

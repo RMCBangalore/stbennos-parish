@@ -58,6 +58,7 @@
 			'attribute' => "visit_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => 'c-10:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(

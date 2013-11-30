@@ -60,6 +60,7 @@
 			'attribute' => 'dob',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'changeYear' => true
 			),
@@ -145,6 +146,7 @@
 			'attribute' => 'baptism_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true,
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
@@ -186,6 +188,7 @@
 			'attribute' => 'first_comm_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_baptism_dt").val()),
@@ -206,6 +209,7 @@
 			'attribute' => 'confirmation_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_baptism_dt").val()),
@@ -229,6 +233,7 @@
 			'attribute' => 'marriage_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt >= $.datepicker.parseDate("yy-mm-dd", $("#People_confirmation_dt").val()),

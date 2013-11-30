@@ -131,6 +131,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'attribute' => "communion_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(

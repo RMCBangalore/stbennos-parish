@@ -47,6 +47,7 @@
 			'attribute' => 'confirmation_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -63,6 +64,7 @@
 			'attribute' => 'dob',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -79,6 +81,7 @@
 			'attribute' => 'baptism_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(

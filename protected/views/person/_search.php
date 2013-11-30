@@ -69,6 +69,7 @@
 			'attribute' => 'dob',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -138,6 +139,7 @@
 			'attribute' => 'baptism_dt',
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -177,6 +179,7 @@
 			'attribute' => "first_comm_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -200,6 +203,7 @@
 			'attribute' => "confirmation_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
@@ -223,6 +227,7 @@
 			'attribute' => "marriage_dt",
 			'options'	=> array(
 				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
