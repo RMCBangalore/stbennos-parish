@@ -75,6 +75,19 @@
 
 	<div class="row">
 	<span class="leftHalf">
+		<?php echo $form->labelEx($model,'mobile'); ?>
+		<?php echo $form->textField($model,'mobile',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($model,'mobile'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'email'); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'domicile_status'); ?>
 		<?php echo $form->dropDownList($model,'domicile_status',FieldNames::values('domicile_status')); ?>
 		<?php echo $form->error($model,'domicile_status'); ?>
@@ -101,14 +114,14 @@
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->labelEx($model,'mobile'); ?>
-		<?php echo $form->textField($model,'mobile',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'mobile'); ?>
+		<?php echo $form->labelEx($model,"special_skill"); ?>
+		<?php echo $form->textField($model,"special_skill",array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,"special_skill"); ?>
 	</span>
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'email'); ?>
+		<?php echo $form->labelEx($model,"remarks"); ?>
+		<?php echo $form->textField($model,"remarks",array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,"remarks"); ?>
 	</span>
 	</div>
 
@@ -248,6 +261,30 @@
 		<?php echo $form->error($model,'marriage_dt'); ?>
 	</span>
 	<span class="rightHalf">
+		<?php echo $form->labelEx($model,"death_dt"); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "death_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_confirmation_dt").val()),
+					"", "Cannot be before the confirmation date"); }',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,"death_dt"); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span>
 		<?php echo $form->labelEx($model,'cemetery_church'); ?>
 		<?php echo $form->textField($model,'cemetery_church',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'cemetery_church'); ?>

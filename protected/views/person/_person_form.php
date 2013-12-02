@@ -104,10 +104,15 @@
 	</div>
 
 	<div class="row">
-	<span>
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,"[$person]special_skill"); ?>
 		<?php echo $form->textField($model,"[$person]special_skill",array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,"[$person]special_skill"); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,"[$person]remarks"); ?>
+		<?php echo $form->textField($model,"[$person]remarks",array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,"[$person]remarks"); ?>
 	</span>
 	</div>
 
@@ -247,6 +252,30 @@
 		<?php echo $form->error($model,"[$person]marriage_dt"); ?>
 	</span>
 	<span class="rightHalf">
+		<?php echo $form->labelEx($model,"[$person]death_dt"); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "[$person]death_dt",
+			'options'	=> array(
+				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
+				'maxDate'	=> 0,
+				'beforeShowDay' => 'js:function(dt) {
+					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_confirmation_dt").val()),
+					"", "Cannot be before the confirmation date"); }',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,"[$person]death_dt"); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span>
 		<?php echo $form->labelEx($model,"[$person]cemetery_church"); ?>
 		<?php echo $form->textField($model,"[$person]cemetery_church",array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,"[$person]cemetery_church"); ?>

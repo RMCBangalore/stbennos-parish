@@ -32,6 +32,7 @@
  * @property string $education
  * @property string $profession
  * @property string $occupation
+ * @property string $remarks
  * @property string $mobile
  * @property string $email
  * @property string $lang_pri
@@ -45,6 +46,7 @@
  * @property string $first_comm_dt
  * @property string $confirmation_dt
  * @property string $marriage_dt
+ * @property string $death_dt
  * @property string $cemetery_church
  * @property integer $family_id
  * @property string $role
@@ -105,7 +107,7 @@ class People extends CActiveRecord
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill, mid', 'safe', 'on'=>'search'),
+			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill, mid, remarks, death_dt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -200,6 +202,8 @@ class People extends CActiveRecord
 			'role' => 'Role',
 			'special_skill' => 'Special Skill',
 			'mid' => 'Member Id',
+			'remarks' => 'Remarks',
+			'death_dt' => 'Death Date',
 		);
 	}
 
@@ -261,6 +265,8 @@ class People extends CActiveRecord
 		$criteria->compare('education',$this->education,true);
 		$criteria->compare('profession',$this->profession,true);
 		$criteria->compare('occupation',$this->occupation,true);
+		$criteria->compare('special_skill',$this->special_skill,true);
+		$criteria->compare('remarks',$this->remarks,true);
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('lang_pri',$this->lang_pri,true);
@@ -286,6 +292,7 @@ class People extends CActiveRecord
 		if (isset($this->marriage_yrs)) {
 			$this->date_search($criteria, 'marriage_dt', 'marriage_yrs');
 		}
+		$criteria->compare('death_dt',$this->death_dt,true);
 		$criteria->compare('cemetery_church',$this->cemetery_church,true);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('role',$this->role,true);
