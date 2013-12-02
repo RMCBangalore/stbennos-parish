@@ -45,6 +45,7 @@
  * @property integer $husband_id
  * @property integer $wife_id
  * @property integer $disabled
+ * @property integer $leaving_date
  *
  * The followings are the available model relations:
  * @property People[] $members
@@ -87,13 +88,13 @@ class Families extends CActiveRecord
 			array('addr_pin', 'length', 'max'=>7),
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
-			array('marriage_date, bpl_card, disabled', 'safe'),
+			array('marriage_date, bpl_card, disabled, leaving_date', 'safe'),
 			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income, sub_till', 'safe', 'on'=>'search'),
+			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income, sub_till, leaving_date', 'safe', 'on'=>'search'),
 		);
 	}
 

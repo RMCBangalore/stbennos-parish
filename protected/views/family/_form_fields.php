@@ -164,8 +164,28 @@
 
 	<?php if (!$model->isNewRecord): ?>
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'disabled'); ?>
 		<?php echo $form->dropDownList($model,'disabled',array(0=>'No',1=>'Yes')); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'leaving_date'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "leaving_date",
+			'options'       => array(
+				'dateFormat' => 'yy-mm-dd',
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true,
+				'maxDate'		=> 0,
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'leaving_date'); ?>
+	</span>
 	</div>
 	<?php endif ?>
 

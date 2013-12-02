@@ -206,6 +206,7 @@ class FamilyController extends RController
 	public function actionDisable($id) {
 		$model=$this->loadModel($id);
 		$model->disabled = 1;
+		$model->leaving_date = date_format(new DateTime(), 'Y-m-d');
 		if ($model->save(false)) {
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -215,6 +216,7 @@ class FamilyController extends RController
 	public function actionEnable($id) {
 		$model=$this->loadModel($id);
 		$model->disabled = 0;
+		$model->leaving_date = null;
 		if ($model->save(false)) {
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
