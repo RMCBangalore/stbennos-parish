@@ -37,4 +37,12 @@ $this->menu=array(
 
 <h1>Update Visits <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php
+
+$params = array('model'=>$model, 'pastors'=>$pastors);
+if (isset($fid)) {
+	$params['fid'] = $fid;
+} else {
+	$params['famData'] = $famData;
+}
+echo $this->renderPartial('_form', $params); ?>

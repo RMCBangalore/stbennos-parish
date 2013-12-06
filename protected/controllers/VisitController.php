@@ -142,9 +142,13 @@ class VisitController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
+		$params = array(
 			'model'=>$model,
-		));
+			'fid'=>$model->family_id,
+			'pastors'=>$this->getPastors()
+		);
+
+		$this->render('update', $params);
 	}
 
 	/**
