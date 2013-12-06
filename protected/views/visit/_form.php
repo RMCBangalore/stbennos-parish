@@ -57,7 +57,7 @@
 			'model' => $model,
 			'attribute' => "visit_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => 'c-10:c+10',
 				'changeYear' => true
 			),

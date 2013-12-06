@@ -92,7 +92,7 @@
 				'model' => $model,
 				'attribute' => "reg_date",
 				'options'       => array(
-						'dateFormat' => 'yy-mm-dd',
+						'dateFormat' => Yii::app()->params['dateFmtDP'],
 						'yearRange'  => '1900:c+10',
 						'changeYear' => true,
 						'maxDate'		=> 0,
@@ -127,7 +127,7 @@
                         'model' => $model,
                         'attribute' => "marriage_date",
                         'options'       => array(
-                                'dateFormat' => 'yy-mm-dd',
+                                'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
                                 'changeYear' => true,
 								'maxDate'		=> 0,
@@ -174,7 +174,7 @@
 			'model' => $model,
 			'attribute' => "leaving_date",
 			'options'       => array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true,
 				'maxDate'		=> 0,

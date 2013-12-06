@@ -41,6 +41,8 @@ return array(
 		'application.modules.rights.components.*',
 	),
 
+	'sourceLanguage' => 'en-GB',
+
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 /*		'gii'=>array(
@@ -107,6 +109,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=> CMap::mergeArray(
 		array(
+			'dateFmtDP' => 'dd/mm/yy',
 			// this is used in contact page
 			'adminEmail'=>'webmaster@example.com',
 			'photoManip' => extension_loaded('gd'),

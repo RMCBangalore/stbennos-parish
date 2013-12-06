@@ -144,7 +144,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => "confirmation_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
@@ -161,7 +161,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => "dob",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
@@ -181,7 +181,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => "baptism_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),

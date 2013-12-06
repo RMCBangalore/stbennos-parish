@@ -104,7 +104,7 @@ class People extends CActiveRecord
 			array('marriage_dt', 'compare', 'compareAttribute' => 'confirmation_dt', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before confirmation date'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill, mid, remarks, death_dt', 'safe', 'on'=>'search'),
@@ -302,6 +302,47 @@ class People extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+		// Format dates based on the locale
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+		    if ($column->dbType == 'date')
+		    {
+			$this->$columnName = date('Y-m-d',
+			    CDateTimeParser::parse($this->$columnName,
+			    Yii::app()->locale->getDateFormat('short')));
+		    }
+		}
+		return true;
+	    }
+	    else
+		return false;
+	}
+
+	protected function afterFind()
+	{
+	    // Format dates based on the locale
+	    foreach($this->metadata->tableSchema->columns as $columnName => $column)
+	    {           
+		if (!strlen($this->$columnName)) continue;
+	 
+		if ($column->dbType == 'date')
+		{ 
+		    $this->$columnName = Yii::app()->dateFormatter->formatDateTime(
+			    CDateTimeParser::parse(
+				$this->$columnName, 
+				'yyyy-MM-dd'
+			    ),
+			    'short',null
+			);
+		}
+	    }
+	    return parent::afterFind();
 	}
 
 	public function getBaptised() {

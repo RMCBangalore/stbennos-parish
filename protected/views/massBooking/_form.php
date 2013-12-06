@@ -41,7 +41,7 @@
 			'model' => $model,
 			'attribute' => "mass_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),

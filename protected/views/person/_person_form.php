@@ -50,7 +50,7 @@
 			'model' => $model,
 			'attribute' => "[$person]dob",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'changeYear' => true
@@ -149,12 +149,13 @@
 			'model' => $model,
 			'attribute' => "[$person]baptism_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true,
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
-					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_dob").val()),
+					return new Array(dt > $.datepicker.parseDate("'
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_dob").val()),
 					"", "Cannot be before the date of birth"); }'
 			),
 			'htmlOptions' => array(
@@ -191,11 +192,12 @@
 			'model' => $model,
 			'attribute' => "[$person]first_comm_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
-					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_baptism_dt").val()),
+					return new Array(dt > $.datepicker.parseDate("'
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_baptism_dt").val()),
 					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
@@ -212,11 +214,12 @@
 			'model' => $model,
 			'attribute' => "[$person]confirmation_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
-					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_baptism_dt").val()),
+					return new Array(dt > $.datepicker.parseDate("'
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_baptism_dt").val()),
 					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
@@ -236,11 +239,13 @@
 			'model' => $model,
 			'attribute' => "[$person]marriage_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
-					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_confirmation_dt").val()),
+					return new Array(dt > $.datepicker.parseDate("'
+						.Yii::app()->params['dateFmtDP']
+						.'", $("#People_' . $person . '_confirmation_dt").val()),
 					"", "Cannot be before the confirmation date"); }',
 				'changeYear' => true
 			),
@@ -257,11 +262,13 @@
 			'model' => $model,
 			'attribute' => "[$person]death_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
-					return new Array(dt > $.datepicker.parseDate("yy-mm-dd", $("#People_' . $person . '_confirmation_dt").val()),
+					return new Array(dt > $.datepicker.parseDate("'
+						.Yii::app()->params['dateFmtDP']
+						.'", $("#People_' . $person . '_confirmation_dt").val()),
 					"", "Cannot be before the confirmation date"); }',
 				'changeYear' => true
 			),

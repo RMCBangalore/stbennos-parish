@@ -136,7 +136,10 @@ class MassBookingController extends RController
 		Yii::trace('massBooking/masses called', 'application.controllers.MassBooking');
 		if (isset($_POST['MassBooking'])) {
 			$mass_dt = $_POST['MassBooking']['mass_dt'];
-			$data = $this->getMasses(new DateTime($mass_dt));
+			$data = $this->getMasses(
+				new DateTime(date('Y-m-d', CDateTimeParser::parse($mass_dt,
+					Yii::app()->locale->getDateFormat('short'))))
+			);
 			$lv = FieldNames::values('languages');
 			echo CHtml::tag('option', array('value' => ''), '--- Select ---', true);
 			foreach ($data as $mass) {
@@ -180,7 +183,10 @@ class MassBookingController extends RController
 	public function actionMassAmt() {
 		if (isset($_POST['MassBooking'])) {
 			$mass_dt = $_POST['MassBooking']['mass_dt'];
-			$mass_type = $this->isSpecialMass(new DateTime($mass_dt));
+			$mass_type = $this->isSpecialMass(
+				new DateTime(date('Y-m-d', CDateTimeParser::parse($mass_dt,
+					Yii::app()->locale->getDateFormat('short'))))
+			);
 			$parish = Parish::get();
 			$cmt = "";
 			if ($mass_type) {

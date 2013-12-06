@@ -126,4 +126,45 @@ class MassBooking extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+		// Format dates based on the locale
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+		    if ($column->dbType == 'date')
+		    {
+			$this->$columnName = date('Y-m-d',
+			    CDateTimeParser::parse($this->$columnName,
+			    Yii::app()->locale->getDateFormat('short')));
+		    }
+		}
+		return true;
+	    }
+	    else
+		return false;
+	}
+
+	protected function afterFind()
+	{
+	    // Format dates based on the locale
+	    foreach($this->metadata->tableSchema->columns as $columnName => $column)
+	    {           
+		if (!strlen($this->$columnName)) continue;
+	 
+		if ($column->dbType == 'date')
+		{ 
+		    $this->$columnName = Yii::app()->dateFormatter->formatDateTime(
+			    CDateTimeParser::parse(
+				$this->$columnName, 
+				'yyyy-MM-dd'
+			    ),
+			    'short',null
+			);
+		}
+	    }
+	    return parent::afterFind();
+	}
 }

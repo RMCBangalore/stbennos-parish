@@ -38,7 +38,7 @@
 			'model' => $model,
 			'attribute' => "groom_baptism_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),
@@ -85,7 +85,7 @@
 			'model' => $model,
 			'attribute' => "groom_dob",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),

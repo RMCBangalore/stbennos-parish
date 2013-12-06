@@ -89,7 +89,7 @@ class Families extends CActiveRecord
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
 			array('marriage_date, bpl_card, disabled, leaving_date', 'safe'),
-			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
@@ -276,6 +276,47 @@ class Families extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+		// Format dates based on the locale
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+		    if ($column->dbType == 'date')
+		    {
+			$this->$columnName = date('Y-m-d',
+			    CDateTimeParser::parse($this->$columnName,
+			    Yii::app()->locale->getDateFormat('short')));
+		    }
+		}
+		return true;
+	    }
+	    else
+		return false;
+	}
+
+	protected function afterFind()
+	{
+	    // Format dates based on the locale
+	    foreach($this->metadata->tableSchema->columns as $columnName => $column)
+	    {           
+		if (!strlen($this->$columnName)) continue;
+	 
+		if ($column->dbType == 'date')
+		{ 
+		    $this->$columnName = Yii::app()->dateFormatter->formatDateTime(
+			    CDateTimeParser::parse(
+				$this->$columnName, 
+				'yyyy-MM-dd'
+			    ),
+			    'short',null
+			);
+		}
+	    }
+	    return parent::afterFind();
 	}
 
 	public function children() {

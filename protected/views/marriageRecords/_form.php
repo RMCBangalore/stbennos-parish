@@ -165,7 +165,7 @@ Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css')
 			'model' => $model,
 			'attribute' => "marriage_dt",
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 				'changeYear' => true
 			),

@@ -196,7 +196,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => 'banns_dt1',
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(
@@ -210,7 +210,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => 'banns_dt2',
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(
@@ -224,7 +224,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 			'model' => $model,
 			'attribute' => 'banns_dt3',
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
 			),
 			'htmlOptions' => array(

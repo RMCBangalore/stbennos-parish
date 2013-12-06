@@ -43,7 +43,7 @@ $this->breadcrumbs=array(
 			'model' => $model,
 			'attribute' => 'dob',
 			'options'	=> array(
-				'dateFormat' => 'yy-mm-dd',
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'minDate'	=> -31,
 				'changeYear' => true
 			),

@@ -60,6 +60,7 @@ class ReportsController extends RController
 			header( "Content-Disposition: inline; filename=\"anniversaries-report.xls\"" );
 
 			$dt = $_POST['People']['marriage_dt'];
+			$dt = date('Y-m-d', CDateTimeParser::parse($dt, Yii::app()->locale->getDateFormat('short')));
 			$period = $_POST['period'];
 			$nxt_anni = "MAKEDATE(YEAR('$dt')+IF(DAYOFYEAR(t.dob)<DAYOFYEAR('$dt'),1,0),DAYOFYEAR(t.marriage_dt))";
 			$cond = "$nxt_anni BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $nxt_anni";
@@ -109,6 +110,7 @@ class ReportsController extends RController
 			header( "Content-Disposition: inline; filename=\"birthdays-report.xls\"" );
 
 			$dt = $_POST['People']['dob'];
+			$dt = date('Y-m-d', CDateTimeParser::parse($dt, Yii::app()->locale->getDateFormat('short')));
 			$period = $_POST['period'];
 			$nxt_bday = "MAKEDATE(YEAR('$dt')+IF(DAYOFYEAR(t.dob)<DAYOFYEAR('$dt'),1,0),DAYOFYEAR(t.dob))";
 			$cond = "$nxt_bday BETWEEN '$dt' AND '$dt' + INTERVAL 1 $period ORDER BY $nxt_bday";
@@ -155,6 +157,7 @@ class ReportsController extends RController
 
 		if (isset($_POST['period'])) {
 			$dt = $_POST['MassBooking']['mass_dt'];
+			$dt = date('Y-m-d', CDateTimeParser::parse($dt, Yii::app()->locale->getDateFormat('short')));
 			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
 			header( "Content-Disposition: inline; filename=\"mass-bookings-report-$dt.xls\"" );
 
