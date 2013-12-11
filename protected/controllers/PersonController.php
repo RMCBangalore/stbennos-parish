@@ -153,11 +153,11 @@ class PersonController extends RController
 				}
 				if (function_exists('imagecrop')) { # untested
 					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
-					$scaled = imagescale($cropped, 150);
+					$scaled = imagescale($cropped, 200);
 				} else {
-					$h = $height * 150 / $width;
-					$scaled = imagecreatetruecolor(150, $h);
-					imagecopyresampled($scaled, $img, 0, 0, $x1, $y1, 150, $h, $width, $height);
+					$h = $height * 200 / $width;
+					$scaled = imagecreatetruecolor(200, $h);
+					imagecopyresampled($scaled, $img, 0, 0, $x1, $y1, 200, $h, $width, $height);
 				}
 				$dir = './images/members/';
 				$fname = preg_replace('/\.[a-z]+$/i', '', $pfile);
