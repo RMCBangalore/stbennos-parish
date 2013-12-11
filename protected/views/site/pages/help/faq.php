@@ -28,7 +28,9 @@
 1. [How do I create a family?](#family-create)
 1. [How do I edit a family?](#family-edit)
 1. [How do I capture family survey details?](#family-survey)
+1. [Is there a limit to the number of dependents that can be added to a family?](#family-deps-limit)
 1. [How do I add more than 2 dependents to a family?](#family-more-deps)
+1. [Is there a limit to the number of children that can be added to a family?](#family-children-limit)
 1. [How do I add more than 3 children to a family?](#family-more-children)
 1. [How do I view / pay family subscriptions?](#family-subscriptions)
 1. [How do I add a photo for a family?](#family-photo)
@@ -36,12 +38,12 @@
 1. [How do I add a Google map for a family?](#google-map)
 1. [What kind of registers are available?](#register-types)
 1. [How do I create an entry in a register?](#registers)
-1. [What kind of certificates are available?](#certificate-types)
-1. [How do I create a sacramental certificate (baptism / first communion / confirmation / marriage)?](#certificates)
+1. [What kind of Certificates are available?](#certificate-types)
+1. [How do I create a Certificate (Baptism/First Communion/Confirmation/Marriage/Death) or Banns letter?](#certificates)
 
-## FAQ - Answers ##
+## FAQ - Answers <a id="features"></a>##
 
-1. <a id="features"></a>What can St. Bennos do?
+1. What can St. Bennos do?
 
 	St. Benno's Parish Software can help you:
 
@@ -57,100 +59,112 @@
 
   &nbsp;
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="family-create"></a>How do I create a family?
 
-	To create a family, click the View Families link under Home.
-	Next, click the "Create Family" link in the right sidebar.
-	Fill the form tab by tab, first fill the family details tab.
-	Next, fill the husband and wife tabs. At least one of these is required.
-	Next, fill the dependents tabs.
-	Next, fill the children tabs.
-	Any of these dependents, children tabs can be skipped.
+	To create a family, click the View Families link under Home.<br>
+	Next, click the "Create Family" link in the right sidebar.<br>
+	Fill the form tab by tab, first fill the family details tab.<br>
+	Next, fill the husband and wife tabs. At least one of these is required.<br>
+	Next, fill the dependents tabs.<br>
+	Next, fill the children tabs.<br>
+	Any of these dependents, children tabs can be skipped.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="family-edit"></a>How do I edit a family?
 
-	Click the "View Families" link under Home.
-	Next, click the link (id) of the family you want to edit.
-	Next, click the "Update Family" link.
-	Edit the fields you want, and click "Save".
+	Click the "View Families" link under Home.<br>
+	Next, click the link (id) of the family you want to edit.<br>
+	Next, click the "Update Family" link.<br>
+	Edit the fields you want, and click "Save".<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="family-survey"></a>How do I capture family survey details?
 
-  Click the "View Families" link under Home to get a family listing.
-	Click the link (id) of the family you want to survey.
-	In the right sidebar, click the "Survey Family" link.
-	Fill each of the 4 tabs of the survey: satisfaction, needs, awareness and open questions, click "Save".
+  Click the "View Families" link under Home to get a family listing.<br>
+	Click the link (id) of the family you want to survey.<br>
+	In the right sidebar, click the "Survey Family" link.<br>
+	Fill each of the 4 tabs of the survey: satisfaction, needs, awareness and open questions, click "Save".<br>
 
-  [Top](#index)
+  [Back to Index](#index)
+
+1. <a id="family-deps-limit"></a>Is there a limit to the number of dependents that can be added to a family?
+
+  No, though the create/update family form shows 2 dependents, more dependents can be added later.
+
+  [Back to Index](#index)
 
 1. <a id="family-more-deps"></a>How do I add more than 2 dependents to a family?
 
-	Similar to adding more childern- add 2 dependents using the create/update family.
-	Now, view the family by clicking "View Family".
-	There now appears a link "More Dependents" in the right sidebar - click it.
-	Add the extra children in the form providid and save.
+	Similar to adding more childern- add 2 dependents using the create/update family.<br>
+	Now, view the family by clicking "View Family".<br>
+	There now appears a link "More Dependents" in the right sidebar - click it.<br>
+	Add the extra children in the form providid and save.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
+
+1. <a id="family-children-limit"></a>Is there a limit to the number of children that can be added to a family?
+
+  No, though the create/update family form shows 3 children, more can be added later.
+
+  [Back to Index](#index)
 
 1. <a id="family-more-children"></a>How do I add more than 3 children to a family?
 
-	First, add 3 children using the create/edit family function.
-	Now, view the family by clicking "View Family".
-	There now appears a link "More Children" in the right sidebar - click it.
-	Add the extra children in the form provided and save.
+	First, add 3 children using the create/edit family function.<br>
+	Now, view the family by clicking "View Family".<br>
+	There now appears a link "More Children" in the right sidebar - click it.<br>
+	Add the extra children in the form provided and save.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="family-subscriptions"></a>How do I view / pay family subscriptions?
 
-	Click the "View Families" link under Home to get a family listing.
-	Click the link (id) of the family you want to view subscriptions.
-	In the right sidebar, click the "Subscriptions" link to view family subscriptions.
-	To pay subscriptions, click "Create Subscription" link in the right sidebar
-	Fill the form and click the "Create" button.
-	You may download the receipt by clicking the "Download Receipt" link
+	Click the "View Families" link under Home to get a family listing.<br>
+	Click the link (id) of the family you want to view subscriptions.<br>
+	In the right sidebar, click the "Subscriptions" link to view family subscriptions.<br>
+	To pay subscriptions, click "Create Subscription" link in the right sidebar<br>
+	Fill the form and click the "Create" button.<br>
+	You may download the receipt by clicking the "Download Receipt" link<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="family-photo"></a>How do I add a photo for a family?
 
-  Go to "Home" and click "View Families".
-	Then click the link (id) of the family you want to add the photo to.
-	Next, click the "Upload Photo" link. Browse your system for the photo and click "Save".
-	Next, select a region of the photo and click "Crop".
-	The cropped photo is now set for the family.
+  Go to "Home" and click "View Families".<br>
+	Then click the link (id) of the family you want to add the photo to.<br>
+	Next, click the "Upload Photo" link. Browse your system for the photo and click "Save".<br>
+	Next, select a region of the photo and click "Crop".<br>
+	The cropped photo is now set for the family.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="member-photo"></a>How do I add a photo for a person?
 
-	Go to "Home" and click "Total n members" to view member list.
-	Click the link (id) of the member you want to add the photo for.
-	Click the "Upload Photo" link.
-	Select a photo from your system and click "Save".
-	Select a region of the photo and click "Crop".
-	The cropped photo is now set for the person.
+	Go to "Home" and click "Total n members" to view member list.<br>
+	Click the link (id) of the member you want to add the photo for.<br>
+	Click the "Upload Photo" link.<br>
+	Select a photo from your system and click "Save".<br>
+	Select a region of the photo and click "Crop".<br>
+	The cropped photo is now set for the person.<br>
 
 	**P.S:** The member can also be selected through member search
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="google-map"></a>How do I add a Google map for a family?
 
-  Go to "Home" and click "View Families" to view the family list.
-	Click the link (id) of the family you want to add the Google map for.
-	Click the "Locate on Google maps" link.
-	In another tab, open [Google maps](http://maps.google.com) and locate the address.
-	Click the Share link (anchor) and copy the URL.
-	Paste the URL in the St. Benno's textarea and click "Save".
+  Go to "Home" and click "View Families" to view the family list.<br>
+	Click the link (id) of the family you want to add the Google map for.<br>
+	Click the "Locate on Google maps" link.<br>
+	In another tab, open [Google maps](http://maps.google.com) and locate the address.<br>
+	Click the Share link (anchor) and copy the URL.<br>
+	Paste the URL in the St. Benno's textarea and click "Save".<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="register-types"></a>What kind of registers are available?
 
@@ -165,16 +179,16 @@
 
 	&nbsp;
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="registers"></a>How do I create an entry in a register?
 
-	Go to "Home" and click "Manage Registers".
-	Now, click the link to the relevant register.
-	In the right sidebar, click the "Create Sacrament Record" link, e.g "Create BaptismRecord".
-  Fill the form and click "Create" to create an entry in the register.
+	Go to "Home" and click "Manage Registers".<br>
+	Now, click the link to the relevant register.<br>
+	In the right sidebar, click the "Create Sacrament Record" link, e.g "Create BaptismRecord".<br>
+  Fill the form and click "Create" to create an entry in the register.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 1. <a id="certificate-types"></a>What kind of certificates are available?
 
@@ -191,17 +205,17 @@
 
 	&nbsp;
 
-  [Top](#index)
+  [Back to Index](#index)
 
-1. <a id="certificates"></a>How do I create a sacramental certificate (baptism / first communion / confirmation / marriage)?
+1. <a id="certificates"></a>How do I create a Certificate (Baptism/First Communion/Confirmation/Marriage/Death) or Banns letter?
 
-	First, create an entry in the corresponding register by following the instructions [here](#registers).
-	Next, click "List Sacrament Record" in the right sidebar
-	Click the link (id) to view the relevant record.
-	Now, click the "Create Certificate" link, you should see a form.
-	Fill and save the form clicking "Create" button.
-	Once created, you are taken to the view page. Click the "Download Certificate" link.
+	First, create an entry in the corresponding register by following the instructions [here](#registers).<br>
+	Next, click "List Sacrament Record" in the right sidebar<br>
+	Click the link (id) to view the relevant record.<br>
+	Now, click the "Create Certificate" link, you should see a form.<br>
+	Fill and save the form clicking "Create" button.<br>
+	Once created, you are taken to the view page. Click the "Download Certificate" link.<br>
 
-  [Top](#index)
+  [Back to Index](#index)
 
 <?php $this->endWidget();?>
