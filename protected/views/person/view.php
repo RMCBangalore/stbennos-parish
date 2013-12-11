@@ -41,15 +41,19 @@ $this->menu=array(
 
 	if ($model->photo) {
 		$src = Yii::app()->request->baseUrl . '/images/members/' . $model->photo;
-		$alt = $model->fname . "'s photo";
 		list($width, $height) = getimagesize("./images/members/" . $model->photo);
-		echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
-		echo "<p>";
-		echo CHtml::link('Update Photo', array('photo', 'id'=>$model->id));
+		$label = 'Update Photo';
 	} else {
-		echo "<p>";
-		echo CHtml::link('Upload Photo', array('photo', 'id'=>$model->id));
+		$sex = strtolower(FieldNames::value('sex', $model->sex));
+		$photo_path = "/images/member-photo-$sex.jpg";
+		$src = Yii::app()->request->baseUrl . $photo_path;
+		list($width, $height) = getimagesize(".$photo_path");
+		$label = 'Upload Photo';
 	}
+	$alt = $model->fname . "'s photo";
+	echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
+	echo "<p>";
+	echo CHtml::link($label, array('photo', 'id'=>$model->id));
 	echo "</p>";
 
 	foreach(array('sex', 'domicile_status', 'education', 'lang_pri', 'lang_lit', 'lang_edu', 'rite') as $field) {

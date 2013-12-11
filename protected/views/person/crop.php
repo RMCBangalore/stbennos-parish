@@ -67,9 +67,9 @@ $this->breadcrumbs=array(
 $('#photo').imgAreaSelect( {
 	x1: 0,
 	y1: 0,
-	x2: 150,
+	x2: 200,
 	y2: 200,
-	aspectRatio: '3:4',
+	aspectRatio: '1:1',
 	handles: true,
 	onSelectEnd: function(img, selection) {
 		var zoom = $('#zoom').val();

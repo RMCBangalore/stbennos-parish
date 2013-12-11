@@ -40,13 +40,17 @@ $this->menu=array(
 	echo '<table><tr><td>';
 	if ($model->photo) {
 		$src = Yii::app()->request->baseUrl . '/images/families/' . $model->photo;
-		$alt = "Family photo";
 		list($width, $height) = getimagesize("./images/families/" . $model->photo);
-		echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
-		echo CHtml::link('Update Photo', array('photo', 'id'=>$model->id));
+		$label = 'Update Photo';
 	} else {
-		echo CHtml::link('Upload Photo', array('photo', 'id'=>$model->id));
+		$photo_path = '/images/family-photo.jpg';
+		$src = Yii::app()->request->baseUrl . $photo_path;
+		list($width, $height) = getimagesize(".$photo_path");
+		$label = 'Upload Photo';
 	}
+	$alt = "Family photo";
+	echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
+	echo CHtml::link($label, array('photo', 'id'=>$model->id));
 	echo '</td><td>';
 
 	if (isset($model->gmap_url)) {
@@ -57,6 +61,10 @@ $this->menu=array(
 			"View Larger Map</a></small>";
 		echo '<br />' . CHtml::link('Change location', array('locate', 'id' => $model->id));
 	} else {
+		$src = Yii::app()->request->baseUrl . '/images/google-map.jpg';
+		$dim = array('width' => 300, 'height' => 283);
+		$alt = "Google map";
+		echo CHtml::image($src, $alt, $dim);
 		echo CHtml::link('Locate on Google maps', array('locate', 'id' => $model->id));
 	}
 

@@ -434,7 +434,7 @@ class FamilyController extends RController
 					}
 				}
 			}
-		} else {
+		} elseif (isset($_FILES['Families'])) {
 			$files = $_FILES['Families'];
 			$filename = $files['name']['photo'];
 			if (isset($filename) and '' != $filename) {
