@@ -28,6 +28,118 @@
 		No data exists
 	<?php } else { ?>
 
+<div class="photo">
+<?php
+	if ($data->photo) {
+		$photo_path = "/images/members/" . $data->photo;
+	} else {
+		$sex = $data->sex ? strtolower(FieldNames::value('sex', $data->sex)) : 'generic';
+		$photo_path = "/images/member-photo-$sex.jpg";
+	}
+	$src = Yii::app()->request->baseUrl . $photo_path;
+	list($width, $height) = getimagesize(".$photo_path");
+	$width = $width * 120 / $height;
+	$height = 120;
+	$alt = $data->fname . "'s photo";
+	echo CHtml::image($src, $alt, array('width' => $width, 'height' => $height));
+
+	foreach(array('sex', 'domicile_status', 'education', 'lang_pri', 'lang_lit', 'lang_edu', 'rite') as $field) {
+		if ($data->$field) {
+			$key = $field;
+			if (preg_match('/^lang/', $field)) {
+				$key = 'languages';
+			}
+			$data->$field = FieldNames::value($key, $data->$field);
+		}
+	}
+?>
+</div>
+<div class="fields">
+<span class="head"><?php echo CHtml::link($data->fullname() . ': #' . $data->id, array('/person/view', 'id'=>$data->id)); ?></span>
+
+<?php
+	if ($data->profession or $data->occupation) {
+		echo "<div>";
+		if ($data->profession) {
+			$ttxt = $data->occupation ? " title='$data->profession ( $data->occupation )'" : "";
+			echo "<span class='val'$ttxt>". $data->profession .($ttxt ? "..." : "")."</span>";
+		} else {
+			echo "<span class='val'>". $data->occupation ."</span>";
+		}
+		echo "</div>";
+	} elseif ($data->education) {
+		echo "<div>";
+		echo "<span class='val'>". $data->education ."</span>";
+		echo "</div>";
+	}
+
+	$f_id = null;
+	if ($data->mid) {
+		echo "<div>";
+		$f_id = 1;
+		echo "<label>MID: </label>";
+		echo "<span class='val'>".$data->mid."</span>, ";
+	}
+
+	if ($data->dob) {
+		if (!$f_id) {
+			echo "<div class='ident'>";
+		}
+		echo "<label>Born:</label> ";
+		echo "<span class='val'>" . $data->dob . "</span>";
+	}
+	if ($f_id) {
+		echo "</div>";
+	}
+
+	if ($data->mobile) {
+		echo '<span class="mobile">';
+		echo '<span class="val">' . CHtml::encode($data->mobile).'</span>';
+		echo '</span><br>';
+	}
+
+	if ($data->email) {
+		echo '<span class="email">';
+		echo '<span class="val">' . CHtml::encode($data->email).'</span>';
+		echo '</span>';
+	}
+
+	if ($data->baptism_dt) {
+		echo "<div class='baptism'><label>Baptised:</label> ";
+		echo "<span class='val'>" . $data->baptism_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($data->confirmation_dt) {
+		echo "<div class='confirmation'><label>Confirmed:</label> ";
+		echo "<span class='val'>" . $data->confirmation_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($data->marriage_dt) {
+		echo "<div class='marriage'><label>Married:</label> ";
+		echo "<span class='val'>" . $data->marriage_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($data->death_dt) {
+		echo "<div class='death'><label>Died:</label> ";
+		echo "<span class='val'>" . $data->death_dt . "</span>";
+		if ($data->cemetery_church) {
+				echo "<label>Cemetery Church: </label>";
+				echo "<span class='val'>". $data->cemetery_church ."</span>";
+		}
+		echo "</div>";
+	}
+
+	echo "<div class='languages'>";
+	echo "<label>Primary Language: </label>";
+	echo "<span class='val'>". $data->lang_pri . "</span><br>";
+	echo "</div>";
+?>
+
+</div>
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('/person/view', 'id'=>$data->id)); ?>
 	<br />

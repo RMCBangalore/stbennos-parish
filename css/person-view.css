@@ -1,0 +1,75 @@
+/*
+ *  This file is part of St. Benno's Parish Software
+ * 
+ *  St. Benno's Parish Software - software to manage tomorrow's parish
+ *  Copyright (C) 2013  Redemptorist Media Center
+ * 
+ *  St. Benno's Parish Software is free software: you can redistribute it
+ *  and/or modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  St. Benno's Parish Software is distributed in the hope that it will
+ *  be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ *  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+div.ident {
+	font-size: 110%;
+}
+div.view {
+	position: relative;
+	height: 210px;
+}
+div.items div.view {
+	position: relative;
+	height: 130px;
+	width: 320px;
+	float: left;
+	margin: 5px 10px 5px 0;
+}
+div.view div.photo {
+	position: absolute;
+}
+div.fields {
+	position: absolute;
+	left: 220px;
+}
+div.items div.view div.fields {
+	position: absolute;
+	left: 140px;
+}
+span.head {
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: #223153;
+}
+span.head a {
+	color: #114153;
+}
+div.baptism span.val,
+div.first-communion span.val,
+div.confirmation span.val,
+div.marriage span.val,
+div.death span.val
+{
+	font-size: 110%;
+	color: rgb(10, 30, 50);
+}
+span.mobile:before {
+	content: url('../images/mobile.png') top left no-repeat;
+	margin: 0 5px 0 0;
+}
+span.email:before {
+	content: url('../images/email.jpg');
+	margin: 0 5px 0 0;
+}
+span.mobile span.val{
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: rgb(80, 50, 50);
+}

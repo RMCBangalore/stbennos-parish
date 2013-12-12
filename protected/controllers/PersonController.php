@@ -70,6 +70,8 @@ class PersonController extends RController
 	 */
 	public function actionView($id)
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -275,6 +277,8 @@ class PersonController extends RController
 	 */
 	public function actionIndex()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('People');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

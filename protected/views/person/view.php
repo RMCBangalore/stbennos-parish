@@ -37,14 +37,15 @@ $this->menu=array(
 
 <h1><?php echo $model->fullname() . ': #' . $model->id; ?></h1>
 
+<div class="view">
+<div class="photo">
 <?php
-
 	if ($model->photo) {
 		$src = Yii::app()->request->baseUrl . '/images/members/' . $model->photo;
 		list($width, $height) = getimagesize("./images/members/" . $model->photo);
 		$label = 'Update Photo';
 	} else {
-		$sex = strtolower(FieldNames::value('sex', $model->sex));
+		$sex = $model->sex ? strtolower(FieldNames::value('sex', $model->sex)) : 'generic';
 		$photo_path = "/images/member-photo-$sex.jpg";
 		$src = Yii::app()->request->baseUrl . $photo_path;
 		list($width, $height) = getimagesize(".$photo_path");
@@ -65,7 +66,119 @@ $this->menu=array(
 			$model->$field = FieldNames::value($key, $model->$field);
 		}
 	}
+?>
+</div>
+<div class="fields">
+<?php
+	if ($model->profession or $model->occupation) {
+		echo "<div>";
+		if ($model->profession) {
+			echo "<span class='val'>". $model->profession ."</span>";
+			if ($model->occupation) {
+				echo " (<span class='val'>". $model->occupation ."</span>)";
+			}
+		} else {
+			echo "<span class='val'>". $model->occupation ."</span>";
+		}
+		echo "</div>";
+	} elseif ($model->education) {
+		echo "<div>";
+		echo "<span class='val'>". $model->education ."</span>";
+		echo "</div>";
+	}
 
+	$f_id = null;
+	if ($model->mid) {
+		echo "<div class='ident'>";
+		$f_id = 1;
+		echo "<label>MID: </label>";
+		echo "<span class='val'>".$model->mid."</span>, ";
+	}
+
+	if ($model->dob) {
+		if (!$f_id) {
+			echo "<div class='ident'>";
+		}
+		echo "<label>Born:</label> ";
+		echo "<span class='val'>" . $model->dob . "</span>";
+	}
+	if ($f_id) {
+		echo "</div>";
+	}
+
+	if ($model->domicile_status != 'Home') {
+		echo "<span class='domicile_status'><label>Domicile Status: </label>";
+		echo "<span class='val'>" . $model->domicile_status . "</span>";
+		echo "</span>";
+	}
+
+	if ($model->mobile) {
+		echo '<span class="mobile">';
+		echo '<span class="val">' . CHtml::encode($model->mobile).'</span>';
+		echo '</span>, ';
+	}
+
+	if ($model->email) {
+		echo '<span class="email">';
+		echo '<span class="val">' . CHtml::encode($model->email).'</span>';
+		echo '</span>';
+	}
+
+	if ($model->baptism_dt) {
+		echo "<div class='baptism'><label>Baptised:</label> ";
+		echo "<span class='val'>" . $model->baptism_dt . "</span>";
+		echo " @ <span class='place'>" . $model->baptism_place . "</span><br>";
+		echo "<label>Church:</label> ";
+		echo "<span class='val'>" . $model->baptism_church . "</span><br>";
+		echo "<label>God parents:</label> ";
+		echo "<span class='val'>" . $model->god_parents . "</span>";
+		echo "</div>";
+	}
+
+	if ($model->first_comm_dt) {
+		echo "<div class='first-communion'><label>First Communion:</label> ";
+		echo "<span class='val'>" . $model->first_comm_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($model->confirmation_dt) {
+		echo "<div class='confirmation'><label>Confirmed:</label> ";
+		echo "<span class='val'>" . $model->confirmation_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($model->marriage_dt) {
+		echo "<div class='marriage'><label>Married:</label> ";
+		echo "<span class='val'>" . $model->marriage_dt . "</span>";
+		echo "</div>";
+	}
+
+	if ($model->death_dt) {
+		echo "<div class='death'><label>Died:</label> ";
+		echo "<span class='val'>" . $model->death_dt . "</span>";
+		if ($model->cemetery_church) {
+				echo "<label>Cemetery Church: </label>";
+				echo "<span class='val'>". $model->cemetery_church ."</span>";
+		}
+		echo "</div>";
+	}
+
+	echo "<div class='languages'>";
+	echo "<label>Primary Language: </label>";
+	echo "<span class='val'>". $model->lang_pri . "</span><br>";
+	echo "<label>Liturgy: </label>";
+	echo "<span class='val'>". $model->lang_lit . "</span>, ";
+	echo "<label>Education: </label>";
+	echo "<span class='val'>". $model->lang_edu . "</span>";
+	echo "</div>";
+	echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ' . CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id));
+?>
+
+</div>
+</div>
+
+<?php
+/*
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -95,6 +208,5 @@ $this->widget('zii.widgets.CDetailView', array(
 		'cemetery_church',
 		'family_id',
 	),
-)); ?>
+)); */ ?>
 
-<?php echo CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id)) ?>
