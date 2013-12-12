@@ -32,12 +32,21 @@ div.items div.view {
 	float: left;
 	margin: 5px 10px 5px 0;
 }
+div.yiiTab div.view {
+	height: auto;
+}
+div.yiiTab div.person {
+	height: 130px;
+}
 div.view div.photo {
 	position: absolute;
 }
 div.fields {
 	position: absolute;
 	left: 220px;
+}
+div.yiiTab div.person div.fields {
+	left: 140px;
 }
 div.items div.view div.fields {
 	position: absolute;

@@ -22,7 +22,7 @@
 /* @var $data People */
 ?>
 
-<div class="view">
+<div class="person view">
 
 	<?php if (!$data) { ?>
 		No data exists

@@ -73,6 +73,8 @@ class FamilyController extends RController
 	{
 		$uri = Yii::app()->request->baseUrl . '/css/family-view.css';
 		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
