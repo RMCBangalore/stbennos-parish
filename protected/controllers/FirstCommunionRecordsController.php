@@ -90,7 +90,7 @@ class FirstCommunionRecordsController extends RController
 		{
 			$model->attributes=$_POST['FirstCommunionRecord'];
 			if($model->save()) {
-				if (isset($model->member_id)) {
+				if (isset($model->member_id) and $model->member_id) {
 					if (!isset($model->member->first_comm_dt)) {
 						$member = $model->member;
 						$member->first_comm_dt = $model->communion_dt;

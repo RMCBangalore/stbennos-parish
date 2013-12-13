@@ -93,7 +93,7 @@ class MarriageRecordsController extends RController
 		{
 			$model->attributes=$_POST['MarriageRecord'];
 			if($model->save()) {
-				if (isset($model->groom_id) and !isset($model->groom->marriage_dt)) {
+				if (isset($model->groom_id) and $model->groom_id and !isset($model->groom->marriage_dt)) {
 					$groom = $model->groom;
 					$groom->marriage_dt = $model->marriage_dt;
 					Yii::trace("MRC.create groom " . $groom->id . " marriage_dt " . $groom->marriage_dt . ".", 'application.controllers.MarriageRecordsController');
@@ -105,7 +105,7 @@ class MarriageRecordsController extends RController
 						}
 					}
 				}
-				if (isset($model->bride_id) and !isset($model->bride->marriage_dt)) {
+				if (isset($model->bride_id) and $model->bride_id and !isset($model->bride->marriage_dt)) {
 					$bride = $model->bride;
 					$bride->marriage_dt = $model->marriage_dt;
 					Yii::trace("MRC.create bride " . $bride->id . " marriage_dt " . $bride->marriage_dt . ".", 'application.controllers.MarriageRecordsController');

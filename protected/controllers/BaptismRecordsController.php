@@ -90,7 +90,7 @@ class BaptismRecordsController extends RController
 		{
 			$model->attributes=$_POST['BaptismRecord'];
 			if($model->save()) {
-				if (isset($model->member_id)) {
+				if (isset($model->member_id) and $model->member_id) {
 					if (!isset($model->member->baptism_dt)) {
 						$member = $model->member;
 						$member->baptism_dt = $model->baptism_dt;

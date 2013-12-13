@@ -60,8 +60,8 @@ function update_member(p) {
 	$('#DeathRecord_member_id').val(p.id);
 	$('#DeathRecord_age').attr('readonly', true);
 	$('#DeathRecord_death_dt').change(function() {
-		var dob = new Date($('#DeathRecord_dob').val());
-		var death_dt = new Date(this.value);
+		var dob = $.datepicker.parseDate('".Yii::app()->params['dateFmtDP']."', $('#DeathRecord_dob').val());
+		var death_dt = $.datepicker.parseDate('".Yii::app()->params['dateFmtDP']."', this.value);
 		var age = death_dt.getFullYear() - dob.getFullYear();
 		if (death_dt.getMonth() < dob.getMonth() ||
 			death_dt.getMonth() == dob.getMonth() && death_dt.getDate() < dob.getDate()) {

@@ -71,3 +71,4 @@ function date_ind($dt) {
 	$id = $member->id;
 	$pdf->Output("membership-cert-$id.pdf", "I");
 	Yii::app()->end();
+?>

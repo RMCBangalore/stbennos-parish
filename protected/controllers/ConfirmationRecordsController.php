@@ -90,7 +90,7 @@ class ConfirmationRecordsController extends RController
 		{
 			$model->attributes=$_POST['ConfirmationRecord'];
 			if($model->save()) {
-				if (isset($model->member_id)) {
+				if (isset($model->member_id) and $model->member_id) {
 					if (!isset($model->member->confirmation_dt)) {
 						$member = $model->member;
 						$member->confirmation_dt = $model->confirmation_dt;

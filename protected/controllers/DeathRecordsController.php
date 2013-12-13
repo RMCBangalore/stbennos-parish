@@ -90,8 +90,17 @@ class DeathRecordsController extends RController
 		{
 			$model->attributes=$_POST['DeathRecord'];
 			if($model->save()) {
+				if ($model->member_id) {
+					if (!isset($model->member->death_dt)) {
+						$member = $model->member;
+						$member->death_dt = $model->death_dt;
+						if (!$member->save(true, array('death_dt'))) {
+							Yii::trace(sprintf('Error saving member %d death_dt: %s', $member->id, implode(', ', $member->getErrors('death_dt'))), 'application.controllers.DeathRecord');
+						}
+					}
+				}
 				$model->ref_no = $model->get_refno();
-				$model->save();
+				$model->save(true, array('ref_no'));
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
