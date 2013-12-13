@@ -95,12 +95,14 @@
 	if ($data->mobile) {
 		echo '<span class="mobile">';
 		echo '<span class="val">' . CHtml::encode($data->mobile).'</span>';
-		echo '</span><br>';
+		echo '</span>';
 	}
 
 	if ($data->email) {
-		echo '<span class="email">';
-		echo '<span class="val">' . CHtml::encode($data->email).'</span>';
+		echo ', <span class="email">';
+		$mail = $data->email;
+		$val = substr($mail, 0, 5) . '..';
+		echo "<span class='val' title='$mail'>" . CHtml::encode($val).'</span>';
 		echo '</span>';
 	}
 
@@ -110,15 +112,14 @@
 		echo "</div>";
 	}
 
-	if ($data->confirmation_dt) {
-		echo "<div class='confirmation'><label>Confirmed:</label> ";
-		echo "<span class='val'>" . $data->confirmation_dt . "</span>";
-		echo "</div>";
-	}
 
 	if ($data->marriage_dt) {
 		echo "<div class='marriage'><label>Married:</label> ";
 		echo "<span class='val'>" . $data->marriage_dt . "</span>";
+		echo "</div>";
+	} elseif ($data->confirmation_dt) {
+		echo "<div class='confirmation'><label>Confirmed:</label> ";
+		echo "<span class='val'>" . $data->confirmation_dt . "</span>";
 		echo "</div>";
 	}
 
@@ -130,12 +131,12 @@
 				echo "<span class='val'>". $data->cemetery_church ."</span>";
 		}
 		echo "</div>";
+	} else {
+		echo "<div class='languages'>";
+		echo "<label>Primary Language: </label>";
+		echo "<span class='val'>". $data->lang_pri . "</span><br>";
+		echo "</div>";
 	}
-
-	echo "<div class='languages'>";
-	echo "<label>Primary Language: </label>";
-	echo "<span class='val'>". $data->lang_pri . "</span><br>";
-	echo "</div>";
 ?>
 
 </div>
