@@ -621,6 +621,7 @@ CREATE TABLE `people` (
   `special_skill` varchar(25) DEFAULT NULL,
   `photo` varchar(50) DEFAULT NULL,
   `mid` varchar(10) DEFAULT NULL,
+  `death_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `people_family_id` (`family_id`),
   CONSTRAINT `people_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
