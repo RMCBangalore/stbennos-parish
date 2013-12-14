@@ -80,6 +80,7 @@ $tabs = array(
 			'form'=>$form,
 			'person'=>'husband',
 			'model'=>$husband,
+			'ac'=>$ppl_ac
 		),
 	),
 	2=>array(
@@ -89,6 +90,7 @@ $tabs = array(
 			'form'=>$form,
 			'person'=>'wife',
 			'model'=>$wife,
+			'ac'=>$ppl_ac
 		),
 	),
 	3=>array(
@@ -98,6 +100,7 @@ $tabs = array(
 			'form'=>$form,
 			'person'=>'dependent][0',
 			'model'=>(isset($dependents[0])?$dependents[0]:new People()),
+			'ac'=>$ppl_ac
 		),
 	),
 	4=>array(
@@ -107,6 +110,7 @@ $tabs = array(
 			'form'=>$form,
 			'person'=>'dependent][1',
 			'model'=>(isset($dependents[1])?$dependents[1]:new People()),
+			'ac'=>$ppl_ac
 		),
 	),
 );
@@ -121,7 +125,8 @@ for($i = 0; $i < 3; ++$i) {
 		'data'	=> array(
 			'form'		=> $form,
 			'person'	=> "child][$i",
-			'model'		=> $child
+			'model'		=> $child,
+			'ac'=>$ppl_ac
 		)
 	);
 }

@@ -60,7 +60,8 @@ $this->menu=array(
 			'data'	=> array(
 				'form'		=> $form,
 				'person'	=> "dependent][$i",
-				'model'		=> $dependent
+				'model'		=> $dependent,
+				'ac'		=> $ppl_ac,
 			)
 		);
 	}

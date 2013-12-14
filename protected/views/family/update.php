@@ -73,6 +73,7 @@ $this->menu=array(
 				'form'=>$form,
 				'person'=>'husband',
                 'model'=>$husband,
+				'ac'=>$ppl_ac
             ),
         ),
         'tab3'=>array(
@@ -82,6 +83,7 @@ $this->menu=array(
 				'form'=>$form,
 				'person'=>'wife',
                 'model'=>$wife,
+				'ac'=>$ppl_ac
             ),
         ),
         'tab4'=>array(
@@ -91,6 +93,7 @@ $this->menu=array(
 				'form'=>$form,
 				'person'=>'dependent][0',
                 'model'=>(isset($dependents[0])?$dependents[0]:new People()),
+				'ac'=>$ppl_ac
 			),
 		),
         'tab5'=>array(
@@ -100,6 +103,7 @@ $this->menu=array(
 				'form'=>$form,
 				'person'=>'dependent][1',
                 'model'=>(isset($dependents[1])?$dependents[1]:new People()),
+				'ac'=>$ppl_ac
 			),
 		),
 	);
@@ -113,7 +117,8 @@ $this->menu=array(
 			'data'	=> array(
 				'form'		=> $form,
 				'person'	=> "child][$i",
-				'model'		=> $child
+				'model'		=> $child,
+				'ac'=>$ppl_ac
 			)
 		);
 	}

@@ -386,4 +386,42 @@ class People extends CActiveRecord
 		));
 		return $this->family->fid . '/' . count($recs);
 	}
+
+	public static function getAutoCompleteFields() {
+		$people = People::model()->findAll();
+		$specialSkills = array();
+		$professions = array();
+		$occupations = array();
+		$baptism_churches = array();
+		$baptism_places = array();
+		$cemetery_churches = array();
+		foreach($people as $p) {
+			if (!isset($specialSkills[$p->special_skill])) {
+				$specialSkills[$p->special_skill] = 1;
+			}
+			if (!isset($professions[$p->profession])) {
+				$professions[$p->profession] = 1;
+			}
+			if (!isset($occupations[$p->occupation])) {
+				$occupations[$p->occupation] = 1;
+			}
+			if (!isset($baptism_churches[$p->baptism_church])) {
+				$baptism_churches[$p->baptism_church] = 1;
+			}
+			if (!isset($baptism_places[$p->baptism_place])) {
+				$baptism_places[$p->baptism_place] = 1;
+			}
+			if (!isset($cemetery_churches[$p->cemetery_church])) {
+				$cemetery_churches[$p->cemetery_church] = 1;
+			}
+		}
+		return array(
+			'special_skills' => array_keys($specialSkills),
+			'professions'	 => array_keys($professions),
+			'occupations'	 => array_keys($occupations),
+			'baptism_churches'	 => array_keys($baptism_churches),
+			'baptism_places'	 => array_keys($baptism_places),
+			'cemetery_churches'	 => array_keys($cemetery_churches),
+		);
+	}
 }

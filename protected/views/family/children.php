@@ -60,7 +60,8 @@ $this->menu=array(
 			'data'	=> array(
 				'form'		=> $form,
 				'person'	=> "child][$i",
-				'model'		=> $child
+				'model'		=> $child,
+				'ac'		=> $ppl_ac,
 			)
 		);
 	}

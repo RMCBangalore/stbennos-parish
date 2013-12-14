@@ -102,12 +102,20 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'profession'); ?>
-		<?php echo $form->textField($model,'profession',array('size'=>25,'maxlength'=>25)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'profession',
+			'source' => $ac['professions'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>25))); ?>
 		<?php echo $form->error($model,'profession'); ?>
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'occupation'); ?>
-		<?php echo $form->textField($model,'occupation',array('size'=>25,'maxlength'=>25)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'occupation',
+			'source' => $ac['occupations'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>25))); ?>
 		<?php echo $form->error($model,'occupation'); ?>
 	</span>
 	</div>
@@ -115,7 +123,11 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,"special_skill"); ?>
-		<?php echo $form->textField($model,"special_skill",array('size'=>25,'maxlength'=>25)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'special_skill',
+			'source' => $ac['special_skills'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>25))); ?>
 		<?php echo $form->error($model,"special_skill"); ?>
 	</span>
 	<span class="rightHalf">
@@ -175,7 +187,11 @@
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'baptism_church'); ?>
-		<?php echo $form->textField($model,'baptism_church',array('size'=>25,'maxlength'=>50)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'baptism_church',
+			'source' => $ac['baptism_churches'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>50))); ?>
 		<?php echo $form->error($model,'baptism_church'); ?>
 	</span>
 	</div>
@@ -183,7 +199,11 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'baptism_place'); ?>
-		<?php echo $form->textField($model,'baptism_place',array('size'=>15,'maxlength'=>15)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'baptism_place',
+			'source' => $ac['baptism_places'],
+			'htmlOptions' => array('size'=>15,'maxlength'=>15))); ?>
 		<?php echo $form->error($model,'baptism_place'); ?>
 	</span>
 	<span class="rightHalf">
@@ -288,7 +308,11 @@
 	<div class="row">
 	<span>
 		<?php echo $form->labelEx($model,'cemetery_church'); ?>
-		<?php echo $form->textField($model,'cemetery_church',array('size'=>25,'maxlength'=>25)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => 'cemetery_church',
+			'source' => $ac['cemetery_churches'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>25))); ?>
 		<?php echo $form->error($model,'cemetery_church'); ?>
 	</span>
 	</div>

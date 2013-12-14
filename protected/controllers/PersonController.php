@@ -98,9 +98,8 @@ class PersonController extends RController
 			}
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		$ac = People::getAutoCompleteFields();
+		$this->render('create', array('model' => $model, 'ac' => $ac));
 	}
 
 	/**
@@ -126,9 +125,8 @@ class PersonController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		$ac = People::getAutoCompleteFields();
+		$this->render('update', array('model' => $model, 'ac' => $ac));
 	}
 
 	public function actionPhoto($id) {
@@ -387,8 +385,10 @@ class PersonController extends RController
 			Yii::app()->end();
 		}
 
+		$ac = People::getAutoCompleteFields();
 		$this->render('admin',array(
-			'model'=>$model,
+			'model'	=>$model,
+			'ac'	=>$ac,
 		));
 	}
 
