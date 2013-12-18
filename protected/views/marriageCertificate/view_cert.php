@@ -43,10 +43,6 @@
 
 $count = 0;
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 function draw_line($pdf) {
 	global $count;
 	$pdf->Line(10.2,9.6+$count*0.7,16,9.6+$count*0.7,array('width' => 0.01, 'dash' => 3));
@@ -59,16 +55,16 @@ function show_field($pdf, $label, $value) {
 	draw_line($pdf);
 }
 
-	show_field($pdf, "Date of Marriage", date_ind($marriage->marriage_dt));
+	show_field($pdf, "Date of Marriage", $marriage->marriage_dt);
 	show_field($pdf, "Name of Bridegroom", $marriage->groom_name);
-	show_field($pdf, "DATE OF BIRTH/AGE", date_ind($marriage->groom_dob));
+	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->groom_dob);
 	show_field($pdf, "Status", $marriage->groom_status);
 	show_field($pdf, "Rank or Profession", $marriage->groom_rank_prof);
 	show_field($pdf, "Name of father", $marriage->groom_fathers_name);
 	show_field($pdf, "name of mother", $marriage->groom_mothers_name);
 	show_field($pdf, "residence", $marriage->groom_residence);
 	show_field($pdf, "Name of Bride", $marriage->bride_name);
-	show_field($pdf, "DATE OF BIRTH/AGE", date_ind($marriage->bride_dob));
+	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->bride_dob);
 	show_field($pdf, "Status", $marriage->bride_status);
 	show_field($pdf, "Rank or Profession", $marriage->bride_rank_prof);
 	show_field($pdf, "Name of father", $marriage->bride_fathers_name);
@@ -89,7 +85,7 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,0,"OF MARRIAGES KEPT AT $pstr",0,1,'C');
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->SetFont("courier", "R", 11);
-	$pdf->Cell(10,1,'DATE: '.date_ind($model->cert_dt),0,1,'C');
+	$pdf->Cell(10,1,'DATE: '.$model->cert_dt,0,1,'C');
 	$pdf->Cell(0,0,'PARISH PRIEST             ',0,0,'R');
 	$pdf->Line(13,26.5,18,26.5,array('dash' => 3, 'width' => 0.01));
 	$mid = $model->id;

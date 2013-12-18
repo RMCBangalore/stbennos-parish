@@ -48,7 +48,7 @@
 	$pdf->SetFont("courier", "R", 10);
 	$pdf->Cell(0,0,'Receipt No.: ' . $model->id,0,0,'L');
 	$pdf->SetFont("courier", "R", 9.5);
-	$pdf->Cell(0,0,date_ind($trans->created),0,1,'R');
+	$pdf->Cell(0,0,$trans->created,0,1,'R');
 	$pdf->SetFont("courier", "R", 11);
 
 	$pdf->Cell(0,1,'',0,1);
@@ -61,14 +61,6 @@
 
 $count = 0;
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y H:i:s');
-}
-
-function date_mass($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 function draw_line($pdf) {
 	global $count;
 	$pdf->Line(10.2,9.6+$count*0.8,16,9.6+$count*0.8,array('width' => 0.01, 'dash' => 3));
@@ -79,13 +71,6 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(4,0,"",0,0);
 	$pdf->Cell(0,0.8,sprintf("%-20s: %s", strtoupper($label), strtoupper($value)),0,1,'L');
 	draw_line($pdf);
-}
-
-function format_mass($dt, $time, $lcode) {
-	$s = date_format(new DateTime($dt), 'D, ');
-	$s .= date_format(new DateTime($time), 'g:ia');
-	$s .= ' ' . FieldNames::value('languages', $lcode);
-	return $s;
 }
 
 	$pdf->Cell(1,0,'',0,0,'L');

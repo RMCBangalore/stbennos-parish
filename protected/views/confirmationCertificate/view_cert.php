@@ -65,8 +65,7 @@ function draw_line($pdf, $y=20, $x1=9.0, $x2=14.3) {
 	draw_line($pdf,16.6,10.5,11.2);
 	draw_line($pdf,16.6,12.6,14.8);
 	draw_line($pdf,18.3,10.1,11.5);
-	$dt = explode('-', $confirmation->confirmation_dt);
-	$month = date_format(new DateTime($confirmation->confirmation_dt),'F');
+	$dt = explode('/', $confirmation->confirmation_dt);
 
 function th($dt) {
 	$dt = intval($dt);
@@ -87,11 +86,14 @@ function th($dt) {
 	}
 }
 
-	$pdf->Cell(0,0,"on the ".th($dt[2])." day of $month",0,1,'L');
+	$month = '';
+# ToDO: format to short month text date_format(new DateTime($confirmation->confirmation_dt),'F');
+#	$pdf->Cell(0,0,"on the ".th($dt[2])." day of $month",0,1,'L');
+	$pdf->Cell(0,0,"on the ".th($dt[0])." day of $month",0,1,'L');
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(9,0,'',0,0);
 	$pdf->SetFont("times", "R", 18);
-	$pdf->Cell(0,0,$dt[0],0,1,'L');
+	$pdf->Cell(0,0,$dt[2],0,1,'L');
 #	$pdf->Cell(0,0,"on the ",0,0,'L');
 #	$pdf->Cell(0,0,$dt[2],0,0,'L');
 #	$pdf->Cell(0,0,"th day of",0,0,'L');

@@ -33,10 +33,6 @@
 
 $line = 0;
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 function draw_line($pdf, $x1 = 0, $x2 = 14.9) {
 	global $line;
 	$pdf->Line(3.1+$x1,10.2+$line*0.8,3.1+$x2,10.2+$line*0.8,array('width' => 0.01, 'dash' => 3));
@@ -65,7 +61,7 @@ function show_field_ln($pdf, $value, $text = '') {
 
 	$pdf->Cell(0,4,"",0,1);
 	$pdf->SetFont("times", "R", 14);
-	$pdf->Cell(0,0,"Date: " . date_ind($model->res_dt) . "              ",0,1,'R');
+	$pdf->Cell(0,0,"Date: " . $model->res_dt . "              ",0,1,'R');
 	$pdf->Cell(2,0,'',0,0);
 	$pdf->Cell(0,0,"Dear Rev. Father,",0,1,'L');
 	$pdf->Cell(0,1,'',0,1);

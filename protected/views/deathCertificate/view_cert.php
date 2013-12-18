@@ -48,11 +48,8 @@
 $count = 0;
 
 function yr($dt) {
-	return date_format(new DateTime($dt), 'Y');
-}
-
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
+	$da = explode('/', $dt);
+	return $da[2]; # ToDo: make it work for non GB/Indian formats date_format(new DateTime($dt), 'Y');
 }
 
 function draw_line($pdf) {
@@ -67,7 +64,7 @@ function show_field($pdf, $label, $value) {
 	draw_line($pdf);
 }
 
-	show_field($pdf, 'DATE OF DEATH', date_ind($death->death_dt));
+	show_field($pdf, 'DATE OF DEATH', $death->death_dt);
 	show_field($pdf, 'CAUSE OF DEATH', $death->cause);
 	show_field($pdf, 'CHRISTIAN NAME', $death->fname);
 	show_field($pdf, 'SUR NAME', $death->lname);
@@ -84,7 +81,7 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,0,"OF DEATHS KEPT AT $pstr",0,1,'C');
 
 	$pdf->Cell(0,3,"",0,1);
-	$pdf->Cell(10,1,'DATE: '.date_ind($model->cert_dt),0,0,'C');
+	$pdf->Cell(10,1,'DATE: '.$model->cert_dt,0,0,'C');
 	$pdf->Cell(0,1,'PARISH PRIEST          ',0,0,'R');
 	#$pdf->AliasNbPages();
 	$id = $model->id;

@@ -33,10 +33,6 @@
 
 $line = 0;
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 function draw_line($pdf, $x1 = 0, $x2 = 14.9) {
 	global $line;
 	$pdf->Line(3.1+$x1,10.8+$line*0.8,3.1+$x2,10.8+$line*0.8,array('width' => 0.01, 'dash' => 3));
@@ -75,7 +71,7 @@ function get_parish($parish) {
 	$pdf->SetFont("times", "R", 14);
 	$pdf->Cell(2,0,'',0,0);
 	$pdf->Cell(0,0,'J.M.J.A.T.',0,1,'L');
-	$pdf->Cell(0,0,"Date: " . date_ind($model->letter_dt) . "                     ",0,1,'R');
+	$pdf->Cell(0,0,"Date: " . $model->letter_dt . "                     ",0,1,'R');
 	$pdf->Cell(0,1,"",0,1);
 	$pdf->Cell(2,0,'',0,0);
 	$pdf->Cell(0,0,"Dear Rev. Father,",0,1,'L');

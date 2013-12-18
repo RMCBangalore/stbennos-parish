@@ -43,10 +43,6 @@
 
 $count = 0;
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 function draw_line($pdf,$x1=5.0) {
 	global $count;
 	$pdf->Line($x1,22.6+$count*0.8,16,22.6+$count*0.8,array('width' => 0.01, 'dash' => 3));
@@ -56,7 +52,7 @@ function draw_line($pdf,$x1=5.0) {
 	$pdf->Cell(0,0.8,$firstCommunion->name,0,1,'L');
 	draw_line($pdf);
 	$pdf->Cell(4,0,"",0,0);
-	$pdf->Cell(0,0.8,"received First Holy Communion on " . date_ind($firstCommunion->communion_dt),0,1,'L');
+	$pdf->Cell(0,0.8,"received First Holy Communion on " . $firstCommunion->communion_dt,0,1,'L');
 	draw_line($pdf,12.7);
 	$pdf->Cell(4,0,"",0,0);
 	$pdf->Cell(0,0.8,"in " . Parish::get()->name,0,1,'L');

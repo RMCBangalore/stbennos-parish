@@ -61,12 +61,8 @@ function draw_line($pdf, $y=20, $x1=8.5, $x2=16.0) {
 	$pdf->Cell(3,0,'',0,0);
 	$pdf->SetFont("courier", "I", 11);
 
-function date_ind($dt) {
-	return date_format(new DateTime($dt), 'd/m/Y');
-}
-
 	draw_line($pdf,17.6,11.3,17.3);
-	$pdf->Cell(0,1,'Date: '.date_ind($model->cert_dt),0,1,'L');
+	$pdf->Cell(0,1,'Date: '.$model->cert_dt,0,1,'L');
 	$pdf->Cell(0,0,'Parish Priest or Assistant            ',0,0,'R');
 	$id = $member->id;
 	$pdf->Output("membership-cert-$id.pdf", "I");
