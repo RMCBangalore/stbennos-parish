@@ -47,11 +47,6 @@
 
 $count = 0;
 
-function yr($dt) {
-	$da = explode('/', $dt);
-	return $da[2]; # ToDo: make it work for non GB/Indian formats date_format(new DateTime($dt), 'Y');
-}
-
 function draw_line($pdf) {
 	global $count;
 	$pdf->Line(10.6,12.2+$count*0.8,16,12.3+$count*0.8,array('width' => 0.01, 'dash' => 3));

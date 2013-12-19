@@ -30,7 +30,6 @@
 	$pdf->SetKeywords("PDF");
 	$pdf->setPrintHeader(false);
 	$pdf->setPrintFooter(false);
-	#$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont("times", "R", 16);
 	$pdf->Cell(0,6,"",0,1);
@@ -65,7 +64,14 @@ function draw_line($pdf, $y=20, $x1=9.0, $x2=14.3) {
 	draw_line($pdf,16.6,10.5,11.2);
 	draw_line($pdf,16.6,12.6,14.8);
 	draw_line($pdf,18.3,10.1,11.5);
-	$dt = explode('/', $confirmation->confirmation_dt);
+
+	$date = CDateTimeParser::parse(
+		$confirmation->confirmation_dt,
+		Yii::app()->locale->getDateFormat('short'));
+
+	$month = date('F', $date);
+	$dd = date('d', $date);
+	$yr = date('Y', $date);
 
 function th($dt) {
 	$dt = intval($dt);
@@ -86,18 +92,11 @@ function th($dt) {
 	}
 }
 
-	$month = '';
-# ToDO: format to short month text date_format(new DateTime($confirmation->confirmation_dt),'F');
-#	$pdf->Cell(0,0,"on the ".th($dt[2])." day of $month",0,1,'L');
-	$pdf->Cell(0,0,"on the ".th($dt[0])." day of $month",0,1,'L');
+	$pdf->Cell(0,0,"on the ".th($dd)." day of $month",0,1,'L');
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(9,0,'',0,0);
 	$pdf->SetFont("times", "R", 18);
-	$pdf->Cell(0,0,$dt[2],0,1,'L');
-#	$pdf->Cell(0,0,"on the ",0,0,'L');
-#	$pdf->Cell(0,0,$dt[2],0,0,'L');
-#	$pdf->Cell(0,0,"th day of",0,0,'L');
-#	$pdf->Cell(0,0,$month,0,0,'L');
+	$pdf->Cell(0,0,$yr,0,1,'L');
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->Cell(8,0,'',0,0);
 	$pdf->Cell(0,0,"in the Church of",0,1,'L');
@@ -109,7 +108,6 @@ function th($dt) {
 	draw_line($pdf,23);
 
 	$pdf->Cell(0,4,'',0,1);
-#	$pdf->Cell(10,1,'DATE: '.$model->cert_dt,0,1,'C');
 	draw_line($pdf,25.5);
 	$pdf->Cell(0,0,'Bishop                                              ',0,0,'R');
 	$id = $model->id;
