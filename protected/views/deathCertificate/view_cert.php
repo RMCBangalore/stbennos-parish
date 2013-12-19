@@ -41,7 +41,7 @@
 	$death = $model->death;
 	$pdf->Cell(0,1,"",0,1);
 	$pdf->Cell(3.5,0,"",0,0);
-	$pdf->Cell(0,0,"REF. NO.   " . $death->get_refno(), 0,1,'L');
+	$pdf->Cell(0,0,"REF. NO.   " . $death->ref_no, 0,1,'L');
 	$pdf->SetFont("courier", "R", 12);
 	$pdf->Cell(0,1.9,"",0,1);
 
