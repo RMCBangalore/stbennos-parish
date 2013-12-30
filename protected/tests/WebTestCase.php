@@ -23,7 +23,8 @@
  * Change the following URL based on your server configuration
  * Make sure the URL ends with a slash so that we can use relative URLs in test cases
  */
-define('TEST_BASE_URL','http://localhost/testdrive/index-test.php/');
+$url = defined($_ENV['TEST_BASE_URL']) ? $_ENV['TEST_BASE_URL'] : 'http://parish.holyfamily.in/index-test.php/';
+define('TEST_BASE_URL',$url);
 
 /**
  * The base class for functional test cases.
@@ -40,5 +41,28 @@ class WebTestCase extends CWebTestCase
 	{
 		parent::setUp();
 		$this->setBrowserUrl(TEST_BASE_URL);
+	}
+
+	protected function loginAs($username, $password)
+	{
+                $this->open('');
+                // ensure the user is logged out
+                if($this->isTextPresent('Logout')) {
+			if ($this->isTextPresent("Logout ($username)")) {
+				return; # already logged in as $username
+			} else {
+				$this->clickAndWait('link=Logout (*)');
+			}
+		}
+
+                // test login process, including validation
+                $this->clickAndWait('link=Login');
+                if ($this->isElementPresent('name=LoginForm[username]')
+				and $this->isElementPresent('name=LoginForm[password]')) {
+			$this->type('name=LoginForm[username]',$username);
+			$this->type('name=LoginForm[password]',$password);
+		}
+                $this->clickAndWait("//input[@value='Login']");
+                $this->assertTextPresent('Logout');
 	}
 }

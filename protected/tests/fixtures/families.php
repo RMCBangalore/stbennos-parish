@@ -1,4 +1,24 @@
 <?php
+#
+# This file is part of St. Benno's Parish Software
+#
+# St. Benno's Parish Software - software to manage tomorrow's parish
+# Copyright (C) 2013  Redemptorist Media Center
+#
+# St. Benno's Parish Software is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# St. Benno's Parish Software is distributed in the hope that it will
+# be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 return array(
 	'family1' => array(
 		'fid' => 'A1',
@@ -18,9 +38,8 @@ return array(
 		'monthly_income' => '3',
 		'husband_id' => 1,
 		'wife_id' => 2,
-		'photo' => 'Olympus Cam Test 005_06.jpg',
-		'gmap_url' => 'http://maps.google.co.in/maps?q=Lingarajapuram,+Bangalore,+Karnataka&amp;hl=en&amp;ll=13.012008,77.624001&amp;spn=0.00178,0.003264&amp;sll=12.953997,77.63094&amp;sspn=0.9114,1.671295&amp;oq=ling&amp;hnear=Lingarajapuram,+Bangalore,+Bangalore+Urban,+Karnataka&amp;t=h&amp;z=19&amp;output=embed',
 		'reg_date' => '01/12/1997',
 	),
 );
+
 ?>
