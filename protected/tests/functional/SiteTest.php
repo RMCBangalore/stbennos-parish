@@ -21,13 +21,11 @@
 
 class SiteTest extends WebTestCase
 {
-	public function testIndex()
-	{
-		$this->open('');
-		$this->assertTextPresent('Welcome');
-	}
+	protected $captureScreenshotOnFailure = TRUE;
+	protected $screenshotPath = '/home/hacker/public_html/screenshots';
+	protected $screenshotUrl = 'http://localhost/~hacker/screenshots';
 
-	public function testContact()
+/*	public function testContact()
 	{
 		$this->open('?r=site/contact');
 		$this->assertTextPresent('Contact Us');
@@ -39,28 +37,30 @@ class SiteTest extends WebTestCase
 		$this->click("//input[@value='Submit']");
 		$this->waitForTextPresent('Body cannot be blank.');
 	}
-
+*/
 	public function testLoginLogout()
 	{
 		$this->open('');
 		// ensure the user is logged out
 		if($this->isTextPresent('Logout'))
-			$this->clickAndWait('link=Logout (demo)');
+			$this->clickAndWait('link=Logout (*)');
 
-		// test login process, including validation
-		$this->clickAndWait('link=Login');
-		$this->assertElementPresent('name=LoginForm[username]');
-		$this->type('name=LoginForm[username]','demo');
-		$this->click("//input[@value='Login']");
-		$this->waitForTextPresent('Password cannot be blank.');
-		$this->type('name=LoginForm[password]','demo');
-		$this->clickAndWait("//input[@value='Login']");
-		$this->assertTextNotPresent('Password cannot be blank.');
-		$this->assertTextPresent('Logout');
+		foreach(array('staff', 'pastor') as $uname) {
+			// test login process, including validation
+			$this->clickAndWait('link=Login');
+			$this->assertElementPresent('name=LoginForm[username]');
+			$this->type('name=LoginForm[username]',$uname);
+			$this->click("//input[@value='Login']");
+			$this->waitForTextPresent('Password cannot be blank.');
+			$this->type('name=LoginForm[password]',$uname);
+			$this->clickAndWait("//input[@value='Login']");
+			$this->assertTextNotPresent('Password cannot be blank.');
+			$this->assertTextPresent('Logout');
 
-		// test logout process
-		$this->assertTextNotPresent('Login');
-		$this->clickAndWait('link=Logout (demo)');
-		$this->assertTextPresent('Login');
+			// test logout process
+			$this->assertTextNotPresent('Login');
+			$this->clickAndWait("link=Logout ($uname)");
+			$this->assertTextPresent('Login');
+		}
 	}
 }
