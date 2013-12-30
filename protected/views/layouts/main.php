@@ -127,7 +127,12 @@ function googleTranslateElementInit() {
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?>, Redemptorist Media Center.<br/>
+		<a href="http://www.stbennos.com">St.Bennos Parish</a> <?php $vfile = dirname(__FILE__) . '/../../../VERSION.txt';
+			if (file_exists($vfile)) {
+				$ver_full = file_get_contents($vfile);
+				$ver = preg_replace('/-g.*$/', '', $ver_full);
+				echo "<acronym title='$ver_full'>$ver</acronym>";
+			} ?>&nbsp;| Copyright &copy;<?php echo date('Y'); ?>, <a href="http://www.rmcbangalore.com">Redemptorist Media Center</a>.<br/>
 	</div><!-- footer -->
 
 </div><!-- page -->
