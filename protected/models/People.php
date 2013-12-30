@@ -96,13 +96,12 @@ class People extends CActiveRecord
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 150, 'maxHeight' => 200, 'on' => 'photo'),
 			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'safe'),
-			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'date', 'format' => 'yyyy-MM-dd'),
-			array('baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'dob', 'allowEmpty' => true,
+/*			array('baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'dob', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before date of birth'),
 			array('first_comm_dt, confirmation_dt, marriage_dt', 'compare', 'compareAttribute' => 'baptism_dt', 'allowEmpty' => true,
 					'operator' => '>=', 'message' => 'Must not be before baptism date'),
 			array('marriage_dt', 'compare', 'compareAttribute' => 'confirmation_dt', 'allowEmpty' => true,
-					'operator' => '>=', 'message' => 'Must not be before confirmation date'),
+					'operator' => '>=', 'message' => 'Must not be before confirmation date'),*/
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('dob, baptism_dt, first_comm_dt, marriage_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			// The following rule is used by search().
