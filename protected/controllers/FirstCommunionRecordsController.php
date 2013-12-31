@@ -101,8 +101,6 @@ class FirstCommunionRecordsController extends RController
 						}
 					}
 				}
-				$model->ref_no = $model->get_refno();
-				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -127,9 +125,6 @@ class FirstCommunionRecordsController extends RController
 		if(isset($_POST['FirstCommunionRecord']))
 		{
 			$model->attributes=$_POST['FirstCommunionRecord'];
-			if (!isset($model->ref_no)) {
-				$model->ref_no = $model->get_refno();
-			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

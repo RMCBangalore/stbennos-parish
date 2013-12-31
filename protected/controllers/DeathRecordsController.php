@@ -99,8 +99,6 @@ class DeathRecordsController extends RController
 						}
 					}
 				}
-				$model->ref_no = $model->get_refno();
-				$model->save(true, array('ref_no'));
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -125,9 +123,6 @@ class DeathRecordsController extends RController
 		if(isset($_POST['DeathRecord']))
 		{
 			$model->attributes=$_POST['DeathRecord'];
-			if (!isset($model->ref_no)) {
-				$model->ref_no = $model->get_refno();
-			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

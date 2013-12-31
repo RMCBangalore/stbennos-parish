@@ -199,6 +199,23 @@ class MarriageRecord extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
+                if (!isset($this->ref_no)) {
+                    $cond = 'year(marriage_dt) = year(:marriage_dt)';
+                    $parms = array(':marriage_dt' => $this->marriage_dt);
+                    if (isset($this->id)) {
+                        $parms[':id'] = $this->id;
+                        $cond = "$cond and id<=:id";
+                    }
+                    $recs = MarriageRecord::model()->findAll(array(
+                        'condition'     => $cond,
+                        'params'        => $parms, 
+                    ));
+                    $cnt = count($recs);
+                    if (!isset($this->id)) {
+                        ++$cnt;
+                    }
+                    $this->ref_no = date_format(new DateTime($this->marriage_dt), 'Y') . '/' . $cnt;
+                }
 		return true;
 	    }
 	    else

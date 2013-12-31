@@ -164,6 +164,23 @@ class BaptismRecord extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
+                if (!isset($this->ref_no)) {
+                    $cond = 'year(baptism_dt)=year(:baptism_dt)';
+                    $parms = array(':baptism_dt' => $this->baptism_dt);
+                    if (isset($this->id)) {
+                        $parms[':id'] = $this->id;
+                        $cond = "$cond and id<=:id";
+                    }
+                    $recs = BaptismRecord::model()->findAll(array(
+                        'condition'     => $cond,
+                        'params'        => $parms, 
+                    ));
+                    $cnt = count($recs);
+                    if (!isset($this->id)) {
+                        ++$cnt;
+                    }
+                    $this->ref_no = date_format(new DateTime($this->baptism_dt), 'Y') . '/' . $cnt;
+                }
 		return true;
 	    }
 	    else

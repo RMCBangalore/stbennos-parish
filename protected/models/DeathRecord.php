@@ -165,6 +165,23 @@ class DeathRecord extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
+                if (!isset($this->ref_no)) {
+                    $cond = 'year(death_dt)=year(:death_dt)';
+                    $parms = array(':death_dt' => $this->death_dt);
+                    if (isset($this->id)) {
+                        $parms[':id'] = $this->id;
+                        $cond = "$cond and id<=:id";
+                    }
+                    $recs = DeathRecord::model()->findAll(array(
+                        'condition'     => $cond,
+                        'params'        => $parms, 
+                    ));
+                    $cnt = count($recs);
+                    if (!isset($this->id)) {
+                        ++$cnt;
+                    }
+                    $this->ref_no = date_format(new DateTime($this->death_dt), 'Y') . '/' . $cnt;
+                }
 		return true;
 	    }
 	    else

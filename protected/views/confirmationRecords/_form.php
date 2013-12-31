@@ -56,9 +56,9 @@ function set_sort() {
 function update_member(p) {
 	$('#ConfirmationRecord_name').val(p.name).attr('readonly', true);
 	$('#ConfirmationRecord_dob').val(p.dob).attr('readonly', true);
-	$('#ConfirmationRecord_dob').datepicker().datepicker('disable');
+	$('#ConfirmationRecord_dob').datepicker('destroy');
 	$('#ConfirmationRecord_baptism_dt').val(p.baptism_dt).attr('readonly', true);
-	$('#ConfirmationRecord_baptism_dt').datepicker().datepicker('disable');
+	$('#ConfirmationRecord_baptism_dt').datepicker('destroy');
 	$('#ConfirmationRecord_baptism_place').val(p.baptism_place);
 	$('#ConfirmationRecord_parents_name').val(p.parents_name).attr('readonly', true);
 	$('#ConfirmationRecord_godparent_name').val(p.god_parents).attr('readonly', true);
@@ -85,9 +85,9 @@ function set_clear_fields(id) {
 	$('#member_clear').click(function() {
 		$('#ConfirmationRecord_name').val('').attr('readonly', false);
 		$('#ConfirmationRecord_dob').val('').attr('readonly', false);
-		$('#ConfirmationRecord_dob').datepicker('enable');
+		jQuery('#ConfirmationRecord_dob').datepicker({'dateFormat':'dd/mm/yy','yearRange':'1900:c+10','changeYear':true});
 		$('#ConfirmationRecord_baptism_dt').val('').attr('readonly', false);
-		$('#ConfirmationRecord_baptism_dt').datepicker('enable');
+		jQuery('#ConfirmationRecord_baptism_dt').datepicker({'dateFormat':'dd/mm/yy','yearRange':'1900:c+10','changeYear':true});
 		$('#ConfirmationRecord_baptism_place').val('');
 		$('#ConfirmationRecord_parents_name').val('').attr('readonly', false);
 		$('#ConfirmationRecord_godparent_name').val('').attr('readonly', false);

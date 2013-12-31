@@ -134,6 +134,23 @@ class FirstCommunionRecord extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
+                if (!isset($this->ref_no)) {
+                    $cond = 'year(communion_dt)=year(:communion_dt)';
+                    $parms = array(':communion_dt' => $this->communion_dt);
+                    if (isset($this->id)) {
+                        $parms[':id'] = $this->id;
+                        $cond = "$cond and id<=:id";
+                    }
+                    $recs = FirstCommunionRecord::model()->findAll(array(
+                        'condition'     => $cond,
+                        'params'        => $parms, 
+                    ));
+                    $cnt = count($recs);
+                    if (!isset($this->id)) {
+                        ++$cnt;
+                    }
+                    $this->ref_no = date_format(new DateTime($this->communion_dt), 'Y') . '/' . $cnt;
+                }
 		return true;
 	    }
 	    else

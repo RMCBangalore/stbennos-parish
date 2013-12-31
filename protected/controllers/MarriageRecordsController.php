@@ -117,8 +117,6 @@ class MarriageRecordsController extends RController
 						}
 					}
 				}
-				$model->ref_no = $model->get_refno();
-				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -143,9 +141,6 @@ class MarriageRecordsController extends RController
 		if(isset($_POST['MarriageRecord']))
 		{
 			$model->attributes=$_POST['MarriageRecord'];
-			if (!isset($model->ref_no)) {
-				$model->ref_no = $model->get_refno();
-			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

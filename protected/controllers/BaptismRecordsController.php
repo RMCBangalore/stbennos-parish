@@ -101,8 +101,6 @@ class BaptismRecordsController extends RController
 						}
 					}
 				}
-				$model->ref_no = $model->get_refno();
-				$model->save();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -127,9 +125,6 @@ class BaptismRecordsController extends RController
 		if(isset($_POST['BaptismRecord']))
 		{
 			$model->attributes=$_POST['BaptismRecord'];
-			if (!isset($model->ref_no)) {
-				$model->ref_no = $model->get_refno();
-			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
