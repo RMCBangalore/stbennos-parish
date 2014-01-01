@@ -33,12 +33,15 @@
 	#$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont("times", "R", 22);
-	$pdf->Cell(0,5.5,"",0,1);
+	$pdf->Cell(0,5,"",0,1);
 	$pdf->Cell(0,0,"MARRIAGE CERTIFICATE",0,1,'C');
 	$pdf->SetFont("times", "B", 11);
 	$pdf->Cell(0,0,"EXTRACT FROM THE REGISTER OF MARRIAGES",0,1,'C');
 	$pdf->SetFont("courier", "R", 11);
+	$pdf->Cell(0,0.5,'',0,1);
+	$pdf->Cell(3.5,0,'',0,0);
 	$marriage = $model->marriage;
+	$pdf->Cell(0,0,"REF. NO. ".$marriage->ref_no);
 	$pdf->Cell(0,1.1,'',0,1);
 
 $count = 0;

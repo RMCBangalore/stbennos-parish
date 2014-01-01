@@ -38,8 +38,11 @@
 	$pdf->SetFont("times", "B", 11);
 	$pdf->Cell(0,0,"TRUE EXTRACT",0,1,'C');
 	$pdf->SetFont("courier", "R", 11);
+	$pdf->Cell(0,0.5,'',0,1);
+	$pdf->Cell(4,0,'',0,0);
+	$pdf->Cell(0,0,"REF. NO. ".$model->baptism->ref_no);
 	$baptism = $model->baptism;
-	$pdf->Cell(0,2,'',0,1);
+	$pdf->Cell(0,1.5,'',0,1);
 
 $count = 0;
 
