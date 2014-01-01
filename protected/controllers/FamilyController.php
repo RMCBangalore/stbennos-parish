@@ -191,9 +191,11 @@ class FamilyController extends RController
 			}
 			break;
 		default:
-			if (++$step > 8 and isset($model->id)) {
-				$this->redirect(array('view','id'=>$model->id));
-			}
+			++$step;
+		}
+
+		if ($step > 8 and isset($model->id)) {
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		Yii::trace("FC.actionCreate rendering", 'application.controllers.FamilyController');
