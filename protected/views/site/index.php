@@ -62,6 +62,13 @@ foreach($iconMenu as $icon) {
 		}
 	}
 	$iconUrl = $icon['url'];
+	if (preg_match('?^/?', $iconUrl[0])) {
+		$action = preg_replace('?^/?', '', $iconUrl[0]);
+	}
+	$action = ucwords(preg_replace('?/?', '.', $action));
+	if (!preg_match('/^Site\./', $action) and !Yii::app()->user->checkAccess($action)) {
+		continue;
+	}
 	if (isset($iconUrl[1])) {
 		echo CHtml::link(CHtml::image(Yii::app()->baseUrl . $icon['icon'], $icon['title']),
 			Yii::app()->createUrl($iconUrl[0], $iconUrl[1]));

@@ -28,9 +28,21 @@ $this->beginContent('//layouts/main'); ?>
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
+		$contr = ucfirst($this->uniqueid);
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));
+		foreach($this->menu as $i => $mitem) {
+			if (preg_match('?^/?', $mitem['url'][0])) {
+				$action = preg_replace('?^/?', '', $mitem['url'][0]);
+				$action = ucfirst(preg_replace('?/?', '.', $action));
+			} else {
+				$action = "$contr." . ucfirst($mitem['url'][0]);
+			}
+			if (!Yii::app()->user->checkAccess($action)) {
+				unset($this->menu[$i]);
+			}
+		}
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,
 			'htmlOptions'=>array('class'=>'operations'),
@@ -55,8 +67,15 @@ $this->beginContent('//layouts/main'); ?>
 						continue;
 					}
 				}
-				Yii::trace("Ready to render icon " . $icon['title'], 'application.views.layouts.column2');
 				$iconUrl = $icon['url'];
+				if (preg_match('?^/?', $iconUrl[0])) {
+					$action = preg_replace('?^/?', '', $iconUrl[0]);
+				}
+				$action = ucwords(preg_replace('?/?', '.', $action));
+				if (!preg_match('/^Site\./', $action) and !Yii::app()->user->checkAccess($action)) {
+					continue;
+				}
+				Yii::trace("Ready to render icon " . $icon['title'], 'application.views.layouts.column2');
 				if (isset($iconUrl[1])) {
 					$url = Yii::app()->createUrl($iconUrl[0], $iconUrl[1]);
 				} else {
