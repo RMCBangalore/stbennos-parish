@@ -89,7 +89,6 @@ class UsersController extends RController
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			$model->password = crypt($_POST['User']['password'], CryptoHelper::blowfishSalt());
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -114,7 +113,6 @@ class UsersController extends RController
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			$model->password = crypt($_POST['User']['password'], CryptoHelper::blowfishSalt());
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

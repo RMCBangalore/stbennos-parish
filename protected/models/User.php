@@ -105,4 +105,10 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function beforeSave()
+	{
+		$this->password = crypt($this->password, CryptoHelper::blowfishSalt());
+		return true;
+	}
 }
