@@ -94,7 +94,7 @@ CREATE TABLE `awareness_data` (
   KEY `awareness_id` (`awareness_id`),
   KEY `family_id` (`family_id`),
   CONSTRAINT `awareness_data_ibfk_1` FOREIGN KEY (`awareness_id`) REFERENCES `awareness_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `awareness_data_ibfk_2` FOREIGN KEY (`family_id`) REFERENCES `families` (`id` ON DELETE CASCADE ON UPDATE CASCADE)
+  CONSTRAINT `awareness_data_ibfk_2` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `baptisms` (
   `godfathers_name` varchar(75) DEFAULT NULL,
   `godmothers_name` varchar(75) DEFAULT NULL,
   `minister` varchar(75) DEFAULT NULL,
-  `ref_no` varchar(10) DEFAULT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `baptism_place` varchar(50) DEFAULT NULL,
   `mother_tongue` varchar(25) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE `confirmation_certs` (
 DROP TABLE IF EXISTS `confirmations`;
 CREATE TABLE `confirmations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ref_no` varchar(10) DEFAULT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `name` varchar(75) DEFAULT NULL,
   `confirmation_dt` date DEFAULT NULL,
   `church` varchar(50) DEFAULT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE `deaths` (
   `buried_dt` date NOT NULL,
   `minister` varchar(75) DEFAULT NULL,
   `burial_place` varchar(25) NOT NULL,
-  `ref_no` varchar(10) DEFAULT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `residence` varchar(75) DEFAULT NULL,
   `community` varchar(50) DEFAULT NULL,
   `parents_relatives` varchar(75) DEFAULT NULL,
@@ -367,7 +367,7 @@ CREATE TABLE `first_communions` (
   `name` varchar(75) DEFAULT NULL,
   `church` varchar(50) DEFAULT NULL,
   `communion_dt` date DEFAULT NULL,
-  `ref_no` varchar(10) DEFAULT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `member_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ref_no` (`ref_no`),
@@ -416,7 +416,7 @@ CREATE TABLE `marriages` (
   `witness1` varchar(75) DEFAULT NULL,
   `witness2` varchar(75) DEFAULT NULL,
   `remarks` varchar(75) DEFAULT NULL,
-  `ref_no` varchar(10) DEFAULT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `groom_baptism_dt` date DEFAULT NULL,
   `bride_baptism_dt` date DEFAULT NULL,
   `groom_id` int(11) DEFAULT NULL,
@@ -615,23 +615,17 @@ CREATE TABLE `people` (
   `first_comm_dt` date DEFAULT NULL,
   `confirmation_dt` date DEFAULT NULL,
   `marriage_dt` date DEFAULT NULL,
+  `death_dt` date DEFAULT NULL,
   `cemetery_church` varchar(25) DEFAULT NULL,
   `family_id` int(11) DEFAULT NULL,
   `role` varchar(10) DEFAULT NULL,
   `special_skill` varchar(25) DEFAULT NULL,
   `photo` varchar(50) DEFAULT NULL,
   `mid` varchar(10) DEFAULT NULL,
-  `death_dt` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `people_family_id` (`family_id`),
   CONSTRAINT `people_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `families` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
-
-CREATE TABLE prefs (
-	name	varchar(25) not null,
-	value varchar(100) default null,
-	primary key(name)
-) ENGINE=InnoDB;
 
 --
 -- Table structure for table `satisfaction_data`
@@ -695,7 +689,8 @@ CREATE TABLE `transactions` (
   `created` datetime DEFAULT NULL,
   `creator` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -711,7 +706,8 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-CREATE TABLE visits (
+DROP TABLE IF EXISTS `visits`;
+CREATE TABLE `visits` (
 	id	INTEGER NOT NULL AUTO_INCREMENT,
 	pastor_id	INTEGER,
 	visit_dt	DATE,
@@ -723,7 +719,7 @@ CREATE TABLE visits (
 ) ENGINE=InnoDB;
 
 
--- Dump completed on 2013-09-23 17:03:48
+-- Dump completed on 2014-01-02 17:02:22
 
 
 --  END OF DATABASE TABLE DEFINITIONS ---
@@ -735,6 +731,9 @@ CREATE TABLE visits (
 --
 
 LOCK TABLES `AuthItem` WRITE;
+INSERT INTO `AuthItem` VALUES ('Profile.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Profile.ChangePassword',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Profile.Index',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Admin',2,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Authenticated',2,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('AwarenessData.*',1,NULL,NULL,'N;');
@@ -834,6 +833,8 @@ INSERT INTO `AuthItem` VALUES ('Family.Children',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Create',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Delete',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Dependents',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Disable',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Enable',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.FindMatch',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Index',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Locate',0,NULL,NULL,'N;');
@@ -843,6 +844,7 @@ INSERT INTO `AuthItem` VALUES ('Family.Subscriptions',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Survey',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.Update',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Family.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Family.Visits',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('FieldName.*',1,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('FieldName.Admin',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('FieldName.Create',0,NULL,NULL,'N;');
@@ -898,6 +900,7 @@ INSERT INTO `AuthItem` VALUES ('MassBooking.Calendar',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Create',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Delete',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('MassBooking.MassAmt',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Masses',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Search',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('MassBooking.Update',0,NULL,NULL,'N;');
@@ -963,6 +966,13 @@ INSERT INTO `AuthItem` VALUES ('OpenQuestions.Index',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('OpenQuestions.Update',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('OpenQuestions.View',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Pastor',2,'Pastor',NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Pastor.View',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.*',1,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.Admin',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.Baptised',0,NULL,NULL,'N;');
@@ -976,6 +986,13 @@ INSERT INTO `AuthItem` VALUES ('Person.Photo',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.Search',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.Update',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Person.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.Anniversaries',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.Birthdays',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.Families',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.MassBookings',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Reports.ParishProfile',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('SatisfactionData.*',1,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('SatisfactionData.Admin',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('SatisfactionData.Create',0,NULL,NULL,'N;');
@@ -998,6 +1015,7 @@ INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Index',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('SatisfactionItems.Update',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('SatisfactionItems.View',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Site.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Site.Config',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Site.Contact',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Site.Error',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Site.Index',0,NULL,NULL,'N;');
@@ -1059,6 +1077,13 @@ INSERT INTO `AuthItem` VALUES ('Users.Delete',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Users.Index',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Users.Update',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('Users.View',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.*',1,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.Admin',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.Create',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.Delete',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.Index',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.Update',0,NULL,NULL,'N;');
+INSERT INTO `AuthItem` VALUES ('Visit.View',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('YesnoData.*',1,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('YesnoData.Admin',0,NULL,NULL,'N;');
 INSERT INTO `AuthItem` VALUES ('YesnoData.Create',0,NULL,NULL,'N;');
@@ -1116,6 +1141,8 @@ INSERT INTO `AuthItemChild` VALUES ('Admin','User.User.*');
 INSERT INTO `AuthItemChild` VALUES ('Admin','Users.*');
 INSERT INTO `AuthItemChild` VALUES ('Admin','YesnoData.*');
 INSERT INTO `AuthItemChild` VALUES ('Admin','YesnoQuestion.*');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Profile.ChangePassword');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','Profile.Index');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Family.Index');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Family.View');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Contact');
@@ -1123,6 +1150,7 @@ INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Error');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Index');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.Logout');
 INSERT INTO `AuthItemChild` VALUES ('Authenticated','Site.ParishProfile');
+INSERT INTO `AuthItemChild` VALUES ('Authenticated','User.Profile.Changepassword');
 INSERT INTO `AuthItemChild` VALUES ('Guest','Site.Index');
 INSERT INTO `AuthItemChild` VALUES ('Guest','Site.Login');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','BannsRecords.Admin');
@@ -1348,7 +1376,6 @@ INSERT INTO `field_names` VALUES (13,'sex');
 INSERT INTO `field_names` VALUES (19,'visit_purpose');
 INSERT INTO `field_names` VALUES (15,'weekdays');
 INSERT INTO `field_names` VALUES (10,'zones');
-
 UNLOCK TABLES;
 
 --
@@ -1478,7 +1505,7 @@ INSERT INTO `satisfaction_items` VALUES (13,'Retreats');
 INSERT INTO `satisfaction_items` VALUES (14,'Parish website');
 UNLOCK TABLES;
 
--- Dump completed on 2013-09-23 17:03:48
+-- Dump completed on 2014-01-02 17:02:22
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 
 --   END OF DATABASE TABLE DATA   ---
@@ -1507,11 +1534,13 @@ ALTER TABLE `membership_certs` AUTO_INCREMENT=1;
 ALTER TABLE `need_data` AUTO_INCREMENT=1;
 ALTER TABLE `no_impediment_letters` AUTO_INCREMENT=1;
 ALTER TABLE `open_data` AUTO_INCREMENT=1;
+ALTER TABLE `pastors` AUTO_INCREMENT=1;
 ALTER TABLE `people` AUTO_INCREMENT=1;
 ALTER TABLE `satisfaction_data` AUTO_INCREMENT=1;
 ALTER TABLE `subscriptions` AUTO_INCREMENT=1;
 ALTER TABLE `transactions` AUTO_INCREMENT=1;
 ALTER TABLE `users` AUTO_INCREMENT=1;
+ALTER TABLE `visits` AUTO_INCREMENT=1;
 
 
 --   END OF AUTO INCREMENT RESET   ---
