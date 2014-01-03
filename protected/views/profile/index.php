@@ -18,11 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-/* @var $this AccountController */
+/* @var $this ProfileController */
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Account',
+	'Profile',
 );
 
 $this->menu=array(
@@ -30,7 +30,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>My Account (<?php echo $model->username; ?>)</h1>
+<h1>My Profile (<?php echo $model->username; ?>)</h1>
 
 <?php $success = Yii::app()->user->getFlash('success');
 if (!empty($success)) {

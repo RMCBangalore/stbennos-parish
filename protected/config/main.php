@@ -116,13 +116,13 @@ return array(
 			'iconMenu' => array(
 				array(
 					'title' => 'Parish Profile',
-					'url' => array('site/parishProfile'),
+					'url' => array('/site/parishProfile'),
 					'icon' => '/images/icons/parish profile-new.png',
 					'role' => 'Pastor',
 				),
 				array(
 					'title' => 'View Families',
-					'url' => array('family/index'),
+					'url' => array('/family/index'),
 					'icon' => '/images/icons/view family.png',
 				),
 				array(
@@ -132,13 +132,13 @@ return array(
 				),
 				array(
 					'title' => 'Manage Families',
-					'url' => array('family/admin'),
+					'url' => array('/family/admin'),
 					'icon' => '/images/icons/manage famil.png',
 					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Mass Bookings',
-					'url' => array('massBooking/index'),
+					'url' => array('/massBooking/index'),
 					'icon' => '/images/icons/mass booking.png',
 					'role' => 'Staff',
 				),
@@ -150,13 +150,13 @@ return array(
 				),
 				array(
 					'title' => 'Parish Registers',
-					'url' => array('site/page', array('view' => 'registers')),
+					'url' => array('/site/page', array('view' => 'registers')),
 					'icon' => '/images/icons/parish register1.png',
 					'role' => 'Staff',
 				),
 				array(
 					'title' => 'Certificates',
-					'url' => array('site/page', array('view' => 'certificates')),
+					'url' => array('/site/page', array('view' => 'certificates')),
 					'icon' => '/images/icons/certificate archives.png',
 					'role' => 'Staff',
 				)

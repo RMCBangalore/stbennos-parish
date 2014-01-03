@@ -96,16 +96,85 @@
 
 	<div id="google_translate_element"></div>
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+	<div id="mainMbMenu">
+		<?php
+#			$this->widget('zii.widgets.CMenu',array(
+			$this->widget('application.extensions.mbmenu.MbMenu', array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Pastor')),
-				array('label'=>'Reports', 'url'=>array('/reports'), 'visible' => Yii::app()->user->checkAccess('Pastor')),
+				array('label'=>'Home', 'url'=>array('/site/index'),'items'=>array(
+					array('label'=>'Parish Prolile','url'=>array('/site/parishProfile'),'visible'=>Yii::app()->user->checkAccess('Pastor')),
+					array('label'=>'Families','visible'=>!Yii::app()->user->isGuest,'items'=>array(
+						array('label'=>'View Families','url'=>array('/family/index')), 
+						array('label'=>'Manage','url'=>array('/family/admin'),'visible'=>Yii::app()->user->checkAccess('Family.Admin')), 
+						array('label'=>'Members','url'=>array('/person/index')), 
+						array('label'=>'Subscriptions','url'=>array('subscription/index')),
+					)),
+					array('label'=>'Mass Booking','visible'=>Yii::app()->user->checkAccess('MassBooking.Index'),'url'=>array('massBooking/index')),
+					array('label'=>'Registers','visible'=>!Yii::app()->user->isGuest,'url'=>array('/site/page','view'=>'registers'),'items'=>array(
+						array('label'=>'Baptism','url'=>array('/baptismRecords/index')),
+						array('label'=>'First Communion','url'=>array('/firstCommunionRecords/index')),
+						array('label'=>'Confirmation','url'=>array('/confirmationRecords/index')),
+						array('label'=>'Marriage','url'=>array('/marriageRecords/index')),
+						array('label'=>'Banns','url'=>array('/bannsRecords/index')),
+						array('label'=>'Death','url'=>array('/deathRecords/index')),
+					)),
+					array('label'=>'Certificates','visible'=>!Yii::app()->user->isGuest,'url'=>array('/site/page','view'=>'certificates'),'items'=>array(
+						array('label'=>'Baptism','url'=>array('/baptismCertificate/index')),
+						array('label'=>'First Communion','url'=>array('/firstCommunionCertificate/index')),
+						array('label'=>'Confirmation','url'=>array('/confirmationCertificate/index')),
+						array('label'=>'Marriage','url'=>array('/marriageCertificate/index')),
+						array('label'=>'Death','url'=>array('/deathCertificate/index')),
+						array('label'=>'Banns Letters','items'=>array(
+							array('label'=>'Request','url'=>array('bannsRequest/index')),
+							array('label'=>'Response','url'=>array('bannsResponse/index')),
+							array('label'=>'No Impediment','url'=>array('noImpedimentLetter/index')),
+						)),
+					)),
+				)),
+				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Pastor'), 'items'=>array(
+					array('label'=>'Parish','url'=>array('/site/config'),'items'=>array(
+						array('label'=>'Parish Config','url'=>array('/site/config')),
+						array('label'=>'Pastors','url'=>array('/pastor/admin')),
+						array('label'=>'Mass Schedule','url'=>array('/massSchedule/index')),
+						array('label'=>'Zones','url'=>array('/fieldValue/admin', 'type'=>'zones')),
+					)),
+					array('label'=>'Users','url'=>array('/users/admin'), 'items'=>array(
+						array('label'=>'Manage','url'=>array('/users/admin')),
+						array('label'=>'Role Assignments','url'=>array('/rights/assignment/view')),
+						array('label'=>'Permissions','url'=>array('/rights/authItem/permissions')),
+						array('label'=>'Roles','url'=>array('/rights/authItem/roles')),
+					)),
+					array('label'=>'Fields','items'=>array(
+						array('label'=>'Languages','url'=>array('/fieldValue/admin', 'type'=>'languages')),
+						array('label'=>'Education','url'=>array('/fieldValue/admin', 'type'=>'education')),
+						array('label'=>'Domicile Statuses','url'=>array('/fieldValue/admin', 'type'=>'domicile_status')),
+						array('label'=>'Rite','url'=>array('/fieldValue/admin', 'type'=>'rite')),
+						array('label'=>'Monthly Household Income','url'=>array('/fieldValue/admin', 'type'=>'monthly_household_income')),
+					)),
+					array('label'=>'Survey', 'items'=>array(
+						array('label'=>'Need Level','url'=>array('/fieldValue/admin', 'type'=>'need_level')),
+						array('label'=>'Satisfaction Level','url'=>array('/fieldValue/admin', 'type'=>'satisfaction_level')),
+						array('label'=>'Awareness Level','url'=>array('/fieldValue/admin', 'type'=>'awareness_level')),
+					)),
+				)),
+				array('label'=>'Reports', 'url'=>array('/reports/index'), 'visible' => Yii::app()->user->checkAccess('Pastor'), 'items' => array(
+					array('label'=>'Birthdays', 'url'=>array('/reports/birthdays')),
+					array('label'=>'Anniversaries', 'url'=>array('/reports/anniversaries')),
+					array('label'=>'Mass Bookings', 'url'=>array('/reports/massBookings')),
+					array('label'=>'Survey', 'url'=>array('/surveyReports'), 'items' => array(
+						array('label'=>'Needs', 'url'=>array('/surveyReports/needs')),
+						array('label'=>'Satisfaction', 'url'=>array('/surveyReports/satisfaction')),
+						array('label'=>'Awareness', 'url'=>array('/surveyReports/awareness')),
+						array('label'=>'Open Questions', 'url'=>array('/surveyReports/openQuestions')),
+					)),
+				)),
 				array('label'=>'Help', 'url'=>array('/site/page', 'view'=>'help')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'My Account', 'url'=>array('/account'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Profile', 'url'=>array('/profile'), 'visible'=>!Yii::app()->user->isGuest, 'items' => array(
+					array('label'=>'My Profile', 'url'=>array('/profile/index'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Change Password', 'url'=>array('/profile/changePassword'), 'visible' => !Yii::app()->user->isGuest),
+					array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
+				)),
 			),
 		)); ?>
 	</div><!-- mainmenu -->

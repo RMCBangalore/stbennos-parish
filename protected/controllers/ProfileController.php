@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AccountController extends RController
+class ProfileController extends RController
 {
 	public $layout='//layouts/column2';
 
@@ -52,3 +52,4 @@ class AccountController extends RController
 	    $this->render('changePassword',array('model'=>$model));
 	}
 }
+

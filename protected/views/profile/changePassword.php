@@ -18,12 +18,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-/* @var $this AccountController */
+/* @var $this ProfileController */
 /* @var $model ChangePasswordForm */
 /* @var $form CActiveForm  */
 
 $this->breadcrumbs=array(
-	'Account'=>array('/account'),
+	'Profile'=>array('/profile'),
 	'Change Password',
 );
 $this->pageTitle=Yii::app()->name . ' - Change password.';
