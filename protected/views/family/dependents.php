@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List Families', 'url'=>array('index')),
 	array('label'=>'Create Family', 'url'=>array('create')),
-	array('label'=>'View Families', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'View Family', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Families', 'url'=>array('admin')),
 );
 ?>

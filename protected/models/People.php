@@ -317,6 +317,26 @@ class People extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
+		if (!isset($this->mid)) { 
+			$cond = "family_id=:fid";
+			$parms = array(':fid'=>$this->family_id);
+			if (isset($this->id)) {
+				$parms[':id'] = $this->id;
+				$recs = People::model()->findAll(array(
+					'condition' => "$cond and id<=:id",
+					'params' => $parms
+				));
+				$cnt = count($recs);
+			} else {
+				$recs = People::model()->findAll(array(
+					'condition' => $cond,
+					'params' => $parms
+				));
+				$cnt = 1 + count($recs);
+			}
+			$family = Families::model()->findByPk($this->family_id);
+			$this->mid = $family->fid . "/$cnt";
+		}
 		return true;
 	    }
 	    else

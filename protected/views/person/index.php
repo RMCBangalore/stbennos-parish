@@ -22,7 +22,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Peoples',
+	'People',
 );
 
 $this->menu=array(

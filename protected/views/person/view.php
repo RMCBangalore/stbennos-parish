@@ -22,7 +22,7 @@
 /* @var $model People */
 
 $this->breadcrumbs=array(
-	'Peoples'=>array('index'),
+	'People'=>array('index'),
 	$model->id,
 );
 

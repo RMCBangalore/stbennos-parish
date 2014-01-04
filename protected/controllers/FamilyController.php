@@ -138,16 +138,17 @@ class FamilyController extends RController
 				$p->family_id = $model->id;
 				$p->role = $person;
 				if ($p->save()) {
-					$p->mid = $p->get_mid();
-					$p->save(false);
 					++$step;
 					switch ($person) {
-						case 'husband': $model->husband_id = $p->id;
+						case 'husband': $model->saveAttributes(array(
+								'husband_id' => $p->id
+							));
 							break;
-						case 'wife': $model->wife_id = $p->id;
+						case 'wife': $model->saveAttributes(array(
+								'wife_id' => $p->id
+							));
 							break;
 					}
-					$model->save(false);
 				}
 			}
 			break;
@@ -163,8 +164,6 @@ class FamilyController extends RController
 					$p->family_id = $model->id;
 					$p->role = 'dependent';
 					if ($p->save()) {
-						$p->mid = $p->get_mid();
-						$p->save(false);
 						++$step;
 					}
 				}
@@ -183,8 +182,6 @@ class FamilyController extends RController
 					$p->family_id = $model->id;
 					$p->role = 'child';
 					if ($p->save()) {
-						$p->mid = $p->get_mid();
-						$p->save(false);
 						++$step;
 					}
 				}
@@ -301,10 +298,6 @@ class FamilyController extends RController
 				foreach($parents as $parent) {
 					$parent->family_id = $model->id;
 					$parent->save();
-					if (!isset($parent->mid)) {
-						$parent->mid = $parent->get_mid();
-						$parent->save(false);
-					}
 					switch ($parent->role) {
 						case 'husband': if (!isset($model->husband_id)) {
 							$model->husband_id = $parent->id;
@@ -324,18 +317,10 @@ class FamilyController extends RController
 				foreach($dependents as $dependent) {
 					$dependent->family_id = $model->id;
 					$dependent->save();
-					if (!isset($dependent->mid)) {
-						$dependent->mid = $dependent->get_mid();
-						$dependent->save(false);
-					}
 				}
 				foreach($children as $child) {
 					$child->family_id = $model->id;
 					$child->save();
-					if (!isset($child->mid)) {
-						$child->mid = $child->get_mid();
-						$child->save(false);
-					}
 				}
 			}
 		}
