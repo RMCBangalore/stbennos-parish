@@ -32,13 +32,13 @@ return array(
 		'zone' => '1',
 		'bpl_card' => '0',
 		'marriage_church' => 'Holy Cross Church, Cordel, Mangalore',
-		'marriage_date' => '22/02/1981',
+		'marriage_date' => '1981-02-22',
 		'marriage_type' => '1',
 		'marriage_status' => '1',
 		'monthly_income' => '3',
 		'husband_id' => 1,
 		'wife_id' => 2,
-		'reg_date' => '01/12/1997',
+		'reg_date' => '1997-12-01',
 	),
 );
 

@@ -196,6 +196,7 @@ class FamilyTest extends WebTestCase
 			),
 		);
 		$rc = array();
+		$members = array();
 		foreach($people as $member) {
 			if (!isset($member)) {
 				$this->clickAndWait("link=Skip");
@@ -209,7 +210,10 @@ class FamilyTest extends WebTestCase
 				} else {
 					$rc[$role]++;
 				}
+				$members[ucfirst($role) . " " . ($rc[$role] + 1)] = $member;
 				$role = $role . "][" . $rc[$role];
+			} else {
+				$members[ucfirst($role)] = $member;
 			}
 			$this->assertElementPresent("name=People[$role][fname]");
 			foreach($member as $key => $value) {
@@ -224,18 +228,51 @@ class FamilyTest extends WebTestCase
 		}
 
 		/* Should now be at view page */
-		$this->assertTextPresent('Husband');
-		$this->assertTextPresent('Wife');
+		$this->assertTextPresent($family['reg_date']);
+		$this->assertTextPresent($family['fid']);
+		$this->assertTextPresent($family['addr_nm']);
+		$this->assertTextPresent($family['addr_stt']);
+		$this->assertTextPresent($family['addr_area']);
+		$this->assertTextPresent($family['addr_pin']);
+		$this->assertTextPresent($family['phone']);
+		$this->assertTextPresent($family['marriage_church']);
+		$this->assertTextPresent($family['marriage_date']);
+		$this->_testMember('Husband', $members['Husband']);
+		$this->_testMember('Wife', $members['Wife']);
 		for($i = 1; $i <= 3; ++$i) {
-			$this->assertTextPresent("Child $i");
+			$tab = "Child $i";
+			$this->_testMember($tab, $members[$tab]);
 		}
 		$this->_testMoreChildren();
 	}
 
+	protected function _testMember($role, $member)
+	{
+		$this->assertTextPresent($role);
+		$this->click("link=$role");
+		$this->assertTextPresent($member['dob']);
+		$this->assertTextPresent($member['baptism_dt']);
+		if (isset($member['marriage_dt'])) {
+			$this->assertTextPresent($member['marriage_dt']);
+		}
+		$url = $this->getLocation();
+		$this->clickAndWait("link=" . $member['fname'] . ' ' . $member['lname'] . ': #*');
+		foreach(array('mobile', 'profession', 'occupation', 'baptism_church', 'baptism_place', 'god_parents', 'cemetery_church') as $fld) {
+			if (isset($member[$fld]) and $member[$fld]) {
+				$this->assertTextPresent($member[$fld]);
+			}
+		}
+		foreach(array('lang_pri', 'lang_lit', 'lang_edu') as $fld) {
+			if (isset($member[$fld])) {
+				$val = FieldNames::value('languages', $member[$fld]);
+				$this->assertTextPresent($val);
+			}
+		}
+		$this->open($url);
+	}
+
 	public function _testMoreChildren()
 	{
-		$this->open('family/index');
-		$this->clickAndWait("link=John Solomon");
 		$this->clickAndWait("link=More Children");
 
 		$more_children = array(
@@ -320,9 +357,9 @@ class FamilyTest extends WebTestCase
 			$this->click("link=Child " . ($i+4));
 		}
 		$this->clickAndWait("//input[@value='Save']");
-		$this->clickAndWait("link=View Families");
+		$this->clickAndWait("link=View Family");
 		for($i = 0; $i < count($more_children); ++$i) {
-			$this->assertTextPresent("Child " . ($i+4));
+			$this->_testMember("Child " . ($i+4), $more_children[$i]);
 		}
 	}
 }
