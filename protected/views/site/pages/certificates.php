@@ -29,9 +29,6 @@ $this->breadcrumbs=array(
 <h1>Certificates</h1>
 
 	<?php echo CHtml::link(
-				CHtml::image(Yii::app()->baseUrl . '/images/icons/marriage certificates.png', 'Marriage Certificates'),
-				array('marriageCertificate/index')); ?>
-	<?php echo CHtml::link(
 				CHtml::image(Yii::app()->baseUrl . '/images/icons/baptism certificates.png', 'Baptism Certificates'),
 				array('baptismCertificate/index')); ?>
 	<?php echo CHtml::link(
@@ -40,6 +37,9 @@ $this->breadcrumbs=array(
 	<?php echo CHtml::link(
 				CHtml::image(Yii::app()->baseUrl . '/images/icons/confirmation certificates.png', 'Confirmation Certificates'),
 				array('confirmationCertificate/index')); ?>
+	<?php echo CHtml::link(
+				CHtml::image(Yii::app()->baseUrl . '/images/icons/marriage certificates.png', 'Marriage Certificates'),
+				array('marriageCertificate/index')); ?>
 	<?php echo CHtml::link(
 				CHtml::image(Yii::app()->baseUrl . '/images/icons/death&burial certificates.png', 'Death Certificates'),
 				array('deathCertificate/index')); ?>
