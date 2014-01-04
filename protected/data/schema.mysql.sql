@@ -284,7 +284,7 @@ CREATE TABLE `deaths` (
 DROP TABLE IF EXISTS `families`;
 CREATE TABLE `families` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` varchar(11) DEFAULT NULL,
+  `fid` varchar(11) NOT NULL,
   `addr_nm` varchar(50) DEFAULT NULL,
   `addr_stt` varchar(75) DEFAULT NULL,
   `addr_area` varchar(50) DEFAULT NULL,
@@ -305,6 +305,7 @@ CREATE TABLE `families` (
   `gmap_url` varchar(1024) DEFAULT NULL,
   `reg_date` date DEFAULT NULL,
   `disabled` tinyint(4) DEFAULT '0',
+  `leaving_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fid` (`fid`),
   KEY `husband_id` (`husband_id`),
@@ -602,6 +603,7 @@ CREATE TABLE `people` (
   `education` varchar(15) DEFAULT NULL,
   `profession` varchar(25) DEFAULT NULL,
   `occupation` varchar(25) DEFAULT NULL,
+  `remarks` varchar(50) DEFAULT NULL,
   `mobile` varchar(10) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `lang_pri` varchar(25) DEFAULT NULL,
@@ -687,9 +689,10 @@ CREATE TABLE `transactions` (
   `type` varchar(10) DEFAULT NULL,
   `descr` varchar(99) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
-  `creator` int(11) DEFAULT NULL,
+  `creator` int(11) NOT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `transactions_ibfk_1` (`creator`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -1185,7 +1188,6 @@ INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageCertificate.Update');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageRecords.Admin');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MarriageRecords.Update');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MassBooking.Admin');
-INSERT INTO `AuthItemChild` VALUES ('Pastor','MassBooking.Update');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MassSchedule.Admin');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MassSchedule.Update');
 INSERT INTO `AuthItemChild` VALUES ('Pastor','MembershipCertificate.Admin');
@@ -1287,10 +1289,13 @@ INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageCertificate.ViewCert');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.Create');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.Index');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MarriageRecords.View');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Admin');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Calendar');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Create');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Delete');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Index');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Masses');
+INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.Update');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.View');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassBooking.ViewCert');
 INSERT INTO `AuthItemChild` VALUES ('Staff','MassSchedule.Create');
