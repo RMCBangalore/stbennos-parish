@@ -24,7 +24,7 @@
 
 ## <a id="index"></a>Frequently Asked Questions ##
 
-1. [What can St. Bennos do?](#features)
+1. [What can Alive Parish do?](#features)
 1. [How do I create a family?](#family-create)
 1. [How do I edit a family?](#family-edit)
 1. [How do I capture family survey details?](#family-survey)
@@ -43,9 +43,9 @@
 
 ## FAQ - Answers <a id="features"></a>##
 
-1. What can St. Bennos do?
+1. What can Alive Parish do?
 
-	St. Benno's Parish Software can help you:
+	Alive Parish Software can help you:
 
 	 * Create, Edit and View families
 	 * Add members to families, edit, view members
@@ -162,7 +162,7 @@
 	Click the "Locate on Google maps" link.<br>
 	In another tab, open [Google maps](http://maps.google.com) and locate the address.<br>
 	Click the Share link (anchor) and copy the URL.<br>
-	Paste the URL in the St. Benno's textarea and click "Save".<br>
+	Paste the URL in the Alive Parish textarea and click "Save".<br>
 
   [Back to Index](#index)
 

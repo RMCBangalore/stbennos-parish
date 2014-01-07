@@ -68,7 +68,7 @@ class InstallController extends CController
 			if (isset($_POST['accept'])) {
 				$this->redirect(array('dbconf'));
 			} else {
-				$this->redirect('http://stbennos.com');
+				$this->redirect('http://aliveparish.com');
 			}
 		}
 

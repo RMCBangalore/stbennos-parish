@@ -24,10 +24,10 @@ $this->breadcrumbs=array(
 	'Install',
 );
 ?>
-<h1>Welcome to St. Bennos Parish Software</h1>
+<h1>Welcome to Alive Parish Software</h1>
 
 <p>
-If you are seeing this page, it means you are ready to install St. Bennos Parish Software!<br /> Doing this is as simple as 1, 2, 3.
+If you are seeing this page, it means you are ready to install Alive Parish Software!<br /> Doing this is as simple as 1, 2, 3.
 </p>
 
 <h2>Step 1: Configure your database</h2>

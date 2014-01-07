@@ -193,7 +193,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		<a href="http://www.stbennos.com">St.Bennos Parish</a> <?php $vfile = dirname(__FILE__) . '/../../../VERSION.txt';
+		<a href="http://www.aliveparish.com">Alive Parish</a> <?php $vfile = dirname(__FILE__) . '/../../../VERSION.txt';
 			if (file_exists($vfile)) {
 				$ver_full = file_get_contents($vfile);
 				$ver = preg_replace('/-g.*$/', '', $ver_full);

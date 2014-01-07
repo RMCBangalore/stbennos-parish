@@ -32,7 +32,7 @@ $msg = Yii::app()->user->getFlash('msg');
 if (!empty($msg)) {
 	echo '<div class="msgSummary">' . $msg . '</div>';
 } else {
-	echo 'Use this form to configure your parish data to fine-tune St. Bennos to your parish.';
+	echo 'Use this form to configure your parish data to fine-tune Alive Parish to your parish.';
 }
 ?>
 </p>

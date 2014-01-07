@@ -38,7 +38,7 @@ div.license {
 }
 </style>
 
-<h1>Welcome to St. Bennos Parish Software</h1>
+<h1>Welcome to Alive Parish Software</h1>
 
 <div class="form">
 
@@ -47,7 +47,7 @@ div.license {
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p>St. Benno's Parish Software is licensed under the GNU GPL version 3 and guarantees the <a href="http://www.gnu.org/philosophy/free-sw">Four Freedoms</a>:</p>
+	<p>Alive Parish Software is licensed under the GNU GPL version 3 and guarantees the <a href="http://www.gnu.org/philosophy/free-sw">Four Freedoms</a>:</p>
 	</p>
 
 	<div class="license">

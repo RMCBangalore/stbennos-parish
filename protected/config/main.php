@@ -27,7 +27,7 @@ Yii::setPathOfAlias('ecalendarview', dirname(__FILE__) . '/../extensions/ecalend
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'St. Benno\'s Parish',
+	'name'=>'Alive Parish',
 /*	'theme'=>'indigo',*/
 
 	// preloading 'log' component
