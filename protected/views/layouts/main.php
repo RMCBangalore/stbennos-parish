@@ -55,7 +55,7 @@
 		   } else {
 				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',
 					CHtml::encode(Yii::app()->name),
-						array('width' => 405, 'height' => 100)), Yii::app()->request->baseUrl . '/');
+						array('width' => 200, 'height' => 100)), Yii::app()->request->baseUrl . '/');
 		   } ?></div>
 		<?php if (!Yii::app()->user->isGuest): ?>
 		<div id="search">
