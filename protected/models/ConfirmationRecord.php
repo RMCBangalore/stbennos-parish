@@ -163,8 +163,9 @@ class ConfirmationRecord extends CActiveRecord
 		    }
 		}
                 if (!isset($this->ref_no)) {
-                    $cond = 'year(confirmation_dt)=year(:confirmation_dt)';
-                    $parms = array(':confirmation_dt' => $this->confirmation_dt);
+                    $year = date_format(new DateTime($this->confirmation_dt), 'Y');
+                    $cond = "confirmation_dt >= '$year-01-01' and confirmation_dt <= '$year-12-31'";
+                    $parms = array();
                     if (isset($this->id)) {
                         $parms[':id'] = $this->id;
                         $cond = "$cond and id<=:id";
@@ -177,7 +178,7 @@ class ConfirmationRecord extends CActiveRecord
                     if (!isset($this->id)) {
                         ++$cnt;
                     }
-                    $this->ref_no = date_format(new DateTime($this->confirmation_dt), 'Y') . '/' . $cnt;
+                    $this->ref_no = "$year/$cnt";
                 }
 		return true;
 	    }

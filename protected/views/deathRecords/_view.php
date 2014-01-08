@@ -52,9 +52,9 @@
 	<?php echo CHtml::encode($data->age); ?>
 	<br />
 
-	<!--b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
 	<?php echo CHtml::encode($data->profession); ?>
-	<br /-->
+	<br >
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('buried_dt')); ?>:</b>

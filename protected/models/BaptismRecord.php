@@ -165,8 +165,9 @@ class BaptismRecord extends CActiveRecord
 		    }
 		}
                 if (!isset($this->ref_no)) {
-                    $cond = 'year(baptism_dt)=year(:baptism_dt)';
-                    $parms = array(':baptism_dt' => $this->baptism_dt);
+                    $year = date_format(new DateTime($this->baptism_dt), 'Y');
+                    $cond = "baptism_dt >= '$year-01-01' and baptism_dt <= '$year-12-31'";
+                    $parms = array();
                     if (isset($this->id)) {
                         $parms[':id'] = $this->id;
                         $cond = "$cond and id<=:id";
@@ -179,7 +180,7 @@ class BaptismRecord extends CActiveRecord
                     if (!isset($this->id)) {
                         ++$cnt;
                     }
-                    $this->ref_no = date_format(new DateTime($this->baptism_dt), 'Y') . '/' . $cnt;
+                    $this->ref_no = "$year/$cnt";
                 }
 		return true;
 	    }

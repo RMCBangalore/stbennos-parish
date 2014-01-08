@@ -104,6 +104,19 @@ set_clear_fields();
 
 ?>
 
+<style>
+span.leftDt, span.leftAge {
+	display: block;
+	float: left;
+}
+span.leftDt {
+	width: 137px;
+}
+span.leftAge {
+	width: 205px;
+}
+</style>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -143,6 +156,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 
 	<div class="row">
 	<span class="leftHalf">
+	<span class="leftDt">
 		<?php echo $form->labelEx($model,'death_dt'); ?>
 		<?php echo CHtml::hiddenField('dob', '', array('id'=>'DeathRecord_dob')); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -160,10 +174,24 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 		)); ?>
 		<?php echo $form->error($model,'death_dt'); ?>
 	</span>
-	<span class="rightHalf">
+	<span class="leftAge">
 		<?php echo $form->labelEx($model,'age'); ?>
 		<?php echo $form->textField($model,'age'); ?>
 		<?php echo $form->error($model,'age'); ?>
+	</span>
+	</span>
+	<span class="rightHalf">
+	<!--table style="margin-bottom:0; width: 350px">
+	<tr>
+	<td-->
+	<!--/td>
+	<td-->
+		<?php echo $form->labelEx($model,'profession'); ?>
+		<?php echo $form->textField($model,'profession',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,'profession'); ?>
+	<!--/td>
+	</tr>
+	</table-->
 	</span>
 	</div>
 

@@ -49,7 +49,7 @@ $this->menu=array(
 		'fname',
 		'lname',
 		'age',
-//		'profession',
+		'profession',
 		'sacrament',
 		'community',
 		'residence',

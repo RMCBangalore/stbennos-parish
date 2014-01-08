@@ -166,8 +166,9 @@ class DeathRecord extends CActiveRecord
 		    }
 		}
                 if (!isset($this->ref_no)) {
-                    $cond = 'year(death_dt)=year(:death_dt)';
-                    $parms = array(':death_dt' => $this->death_dt);
+                    $year = date_format(new DateTime($this->death_dt), 'Y');
+                    $cond = "death_dt >= '$year-01-01' and death_dt <= '$year-12-31'";
+                    $parms = array();
                     if (isset($this->id)) {
                         $parms[':id'] = $this->id;
                         $cond = "$cond and id<=:id";
@@ -180,7 +181,7 @@ class DeathRecord extends CActiveRecord
                     if (!isset($this->id)) {
                         ++$cnt;
                     }
-                    $this->ref_no = date_format(new DateTime($this->death_dt), 'Y') . '/' . $cnt;
+                    $this->ref_no = "$year/$cnt";
                 }
 		return true;
 	    }

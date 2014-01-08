@@ -200,8 +200,9 @@ class MarriageRecord extends CActiveRecord
 		    }
 		}
                 if (!isset($this->ref_no)) {
-                    $cond = 'year(marriage_dt) = year(:marriage_dt)';
-                    $parms = array(':marriage_dt' => $this->marriage_dt);
+                    $year = date_format(new DateTime($this->marriage_dt), 'Y');
+                    $cond = "marriage_dt >= '$year-01-01' and marriage_dt <= '$year-12-31'";
+                    $parms = array();
                     if (isset($this->id)) {
                         $parms[':id'] = $this->id;
                         $cond = "$cond and id<=:id";
@@ -214,7 +215,7 @@ class MarriageRecord extends CActiveRecord
                     if (!isset($this->id)) {
                         ++$cnt;
                     }
-                    $this->ref_no = date_format(new DateTime($this->marriage_dt), 'Y') . '/' . $cnt;
+                    $this->ref_no = "$year/$cnt";
                 }
 		return true;
 	    }
