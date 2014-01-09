@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `banns_requests`;
 CREATE TABLE `banns_requests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banns_id` int(11) DEFAULT NULL,
-  `req_dt` date DEFAULT NULL,
+  `req_dt` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
   CONSTRAINT `banns_requests_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS `banns_responses`;
 CREATE TABLE `banns_responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banns_id` int(11) DEFAULT NULL,
-  `res_dt` date DEFAULT NULL,
+  `res_dt` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
   CONSTRAINT `banns_responses_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
@@ -162,7 +162,7 @@ CREATE TABLE `banns_responses` (
 DROP TABLE IF EXISTS `baptism_certs`;
 CREATE TABLE `baptism_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   `baptism_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `baptism_id` (`baptism_id`),
@@ -203,7 +203,7 @@ CREATE TABLE `baptisms` (
 DROP TABLE IF EXISTS `confirmation_certs`;
 CREATE TABLE `confirmation_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   `confirmation_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `confirmation_id` (`confirmation_id`),
@@ -219,7 +219,7 @@ CREATE TABLE `confirmations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ref_no` varchar(10) NOT NULL,
   `name` varchar(75) DEFAULT NULL,
-  `confirmation_dt` date DEFAULT NULL,
+  `confirmation_dt` date NOT NULL,
   `church` varchar(50) DEFAULT NULL,
   `dob` date NOT NULL,
   `baptism_dt` date NOT NULL,
@@ -243,7 +243,7 @@ DROP TABLE IF EXISTS `death_certs`;
 CREATE TABLE `death_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `death_id` int(11) NOT NULL,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `death_cert_death` (`death_id`),
   CONSTRAINT `death_cert_death` FOREIGN KEY (`death_id`) REFERENCES `deaths` (`id`) ON UPDATE CASCADE
@@ -351,7 +351,7 @@ CREATE TABLE `field_values` (
 DROP TABLE IF EXISTS `first_communion_certs`;
 CREATE TABLE `first_communion_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   `first_comm_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `first_comm_id` (`first_comm_id`),
@@ -367,7 +367,7 @@ CREATE TABLE `first_communions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) DEFAULT NULL,
   `church` varchar(50) DEFAULT NULL,
-  `communion_dt` date DEFAULT NULL,
+  `communion_dt` date NOT NULL,
   `ref_no` varchar(10) NOT NULL,
   `member_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -383,7 +383,7 @@ CREATE TABLE `first_communions` (
 DROP TABLE IF EXISTS `marriage_certs`;
 CREATE TABLE `marriage_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   `marriage_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `marriage_id` (`marriage_id`),
@@ -397,7 +397,7 @@ CREATE TABLE `marriage_certs` (
 DROP TABLE IF EXISTS `marriages`;
 CREATE TABLE `marriages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `marriage_dt` date DEFAULT NULL,
+  `marriage_dt` date NOT NULL,
   `groom_name` varchar(100) DEFAULT NULL,
   `groom_dob` date DEFAULT NULL,
   `groom_status` varchar(10) DEFAULT NULL,
@@ -472,7 +472,7 @@ DROP TABLE IF EXISTS `membership_certs`;
 CREATE TABLE `membership_certs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) DEFAULT NULL,
-  `cert_dt` date DEFAULT NULL,
+  `cert_dt` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `member_id` (`member_id`),
   CONSTRAINT `membership_certs_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -514,7 +514,7 @@ DROP TABLE IF EXISTS `no_impediment_letters`;
 CREATE TABLE `no_impediment_letters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banns_id` int(11) DEFAULT NULL,
-  `letter_dt` date DEFAULT NULL,
+  `letter_dt` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `banns_id` (`banns_id`),
   CONSTRAINT `no_impediment_letters_ibfk_1` FOREIGN KEY (`banns_id`) REFERENCES `banns` (`id`) ON UPDATE CASCADE
