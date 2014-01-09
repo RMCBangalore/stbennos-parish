@@ -89,6 +89,8 @@ class MarriageRecord extends CActiveRecord
 			array('ref_no', 'length', 'max'=>10),
 			array('groom_id, bride_id, marriage_type', 'numerical', 'integerOnly'=>true),
 			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'safe'),
+			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', , 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
+			array('groom_baptism_dt, bride_baptism_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, marriage_type, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),
@@ -192,7 +194,7 @@ class MarriageRecord extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date')
+		    if ($column->dbType == 'date' and isset($this->$columnName))
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,

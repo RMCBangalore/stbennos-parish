@@ -67,6 +67,7 @@ class BannsRecord extends CActiveRecord
 			array('groom_parish, bride_parish', 'length', 'max'=>50),
 			array('banns_dt1, banns_dt2, banns_dt3', 'safe'),
 			array('groom_parish, bride_parish, banns_dt1, banns_dt2, banns_dt3', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('banns_dt1, banns_dt2, banns_dt3', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, groom_name, groom_parent, groom_parish, bride_name, bride_parent, bride_parish, banns_dt1, banns_dt2, banns_dt3', 'safe', 'on'=>'search'),
@@ -140,7 +141,7 @@ class BannsRecord extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date')
+		    if ($column->dbType == 'date' and isset($this->columnName))
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,

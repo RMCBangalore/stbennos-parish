@@ -89,7 +89,8 @@ class Families extends CActiveRecord
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
 			array('marriage_date, bpl_card, disabled, leaving_date', 'safe'),
-			array('marriage_date, reg_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
+			array('marriage_date, reg_date, leaving_date', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('marriage_date, reg_date, leaving_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			array('gmap_url', 'url'),
 			// The following rule is used by search().
@@ -285,7 +286,7 @@ class Families extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date')
+		    if ($column->dbType == 'date' and isset($this->columnName))
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,
