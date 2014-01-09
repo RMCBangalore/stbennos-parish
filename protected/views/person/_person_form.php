@@ -157,7 +157,8 @@
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,"[$person]baptism_dt"); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+		<?php $pstr = preg_replace('/\]\[/', '_', $person);
+		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
 			'attribute' => "[$person]baptism_dt",
 			'options'	=> array(
@@ -167,7 +168,7 @@
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt > $.datepicker.parseDate("'
-						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_dob").val()),
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $pstr . '_dob").val()),
 					"", "Cannot be before the date of birth"); }'
 			),
 			'htmlOptions' => array(
@@ -217,7 +218,7 @@
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt > $.datepicker.parseDate("'
-						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_baptism_dt").val()),
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $pstr . '_baptism_dt").val()),
 					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
@@ -239,7 +240,7 @@
 				'maxDate'	=> 0,
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt > $.datepicker.parseDate("'
-						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $person . '_baptism_dt").val()),
+						.Yii::app()->params['dateFmtDP'].'", $("#People_' . $pstr . '_baptism_dt").val()),
 					"", "Cannot be before the baptism date"); }',
 				'changeYear' => true
 			),
@@ -265,7 +266,7 @@
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt > $.datepicker.parseDate("'
 						.Yii::app()->params['dateFmtDP']
-						.'", $("#People_' . $person . '_confirmation_dt").val()),
+						.'", $("#People_' . $pstr . '_confirmation_dt").val()),
 					"", "Cannot be before the confirmation date"); }',
 				'changeYear' => true
 			),
@@ -288,7 +289,7 @@
 				'beforeShowDay' => 'js:function(dt) {
 					return new Array(dt > $.datepicker.parseDate("'
 						.Yii::app()->params['dateFmtDP']
-						.'", $("#People_' . $person . '_confirmation_dt").val()),
+						.'", $("#People_' . $pstr . '_confirmation_dt").val()),
 					"", "Cannot be before the confirmation date"); }',
 				'changeYear' => true
 			),
