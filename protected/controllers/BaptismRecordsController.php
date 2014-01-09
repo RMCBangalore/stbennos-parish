@@ -93,8 +93,7 @@ class BaptismRecordsController extends RController
 				if (isset($model->member_id) and $model->member_id) {
 					if (!isset($model->member->baptism_dt)) {
 						$member = $model->member;
-						$member->baptism_dt = $model->baptism_dt;
-						if (!$member->save(true, array('baptism_dt'))) {
+						if (!$member->saveAttributes(array('baptism_dt' => $model->baptism_dt))) {
 							Yii::trace(sprintf("Error saving member %s baptism_dt: %s",
 								$member->id, implode(", ", $member->getErrors('baptism_dt'))),
 								'application.controllers.BaptismRecord');

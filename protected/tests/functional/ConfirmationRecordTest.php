@@ -68,6 +68,13 @@ class ConfirmationRecordTest extends WebTestCase
 			foreach($conf as $key => $value) {
 				$this->assertTextPresent($value);
 			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($conf as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->assertTextPresent(date('d/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
 		}
 	}
 }

@@ -32,3 +32,31 @@
 	<?php echo CHtml::encode($data->church); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('dob')); ?>:</b>
+	<?php echo CHtml::encode($data->dob); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->baptism_dt); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_place')); ?>:</b>
+	<?php echo CHtml::encode($data->baptism_place); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('parents_name')); ?>:</b>
+	<?php echo CHtml::encode($data->parents_name); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('godparent_name')); ?>:</b>
+	<?php echo CHtml::encode($data->godparent_name); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('residence')); ?>:</b>
+	<?php echo CHtml::encode($data->residence); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('minister')); ?>:</b>
+	<?php echo CHtml::encode($data->minister); ?>
+	<br />
+

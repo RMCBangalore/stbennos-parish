@@ -102,6 +102,20 @@ class MarriageRecordTest extends WebTestCase
 					$this->assertTextPresent($value);
 				}
 			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($marriage as $key => $value) {
+				if ('banns_licence' == $key) {
+					$value = ucfirst($value);
+				}
+				if (preg_match('/^(?:marriage_type)$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('marriage_type', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
+			$this->assertTextPresent(date('d/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
 		}
 	}
 }

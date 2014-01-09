@@ -20,6 +20,10 @@
 #
 ?>
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
+	<?php echo CHtml::encode($data->ref_no); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('death_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->death_dt); ?>
 	<br />
@@ -42,6 +46,22 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
 	<?php echo CHtml::encode($data->profession); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('sacrament')); ?>:</b>
+	<?php echo CHtml::encode($data->sacrament); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('community')); ?>:</b>
+	<?php echo CHtml::encode($data->community); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('residence')); ?>:</b>
+	<?php echo CHtml::encode($data->residence); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('parents_relatives')); ?>:</b>
+	<?php echo CHtml::encode($data->parents_relatives); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('buried_dt')); ?>:</b>

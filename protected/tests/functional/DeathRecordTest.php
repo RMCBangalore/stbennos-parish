@@ -64,6 +64,13 @@ class DeathRecordTest extends WebTestCase
 			foreach($death as $key => $value) {
 				$this->assertTextPresent($value);
 			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($death as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->assertTextPresent(date_format(new DateTime(), 'd/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
 		}
 	}
 }

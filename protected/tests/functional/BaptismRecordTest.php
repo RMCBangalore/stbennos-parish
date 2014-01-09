@@ -64,6 +64,17 @@ class BaptismRecordTest extends WebTestCase
 					$this->assertTextPresent($value);
 				}
 			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($bap as $key => $value) {
+				if (preg_match('/^sex$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('sex', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
+			$this->assertTextPresent(date_format(new DateTime(), 'd/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
 		}
 	}
 }

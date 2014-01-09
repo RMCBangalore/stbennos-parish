@@ -37,13 +37,10 @@ $this->menu=array(
 
 <h1>View FirstCommunionCertificate #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'cert_dt',
-		'first_comm_id',
-	),
-)); ?>
+<?php echo $this->renderPartial('../firstCommunionRecords/_view_fields', array('data' => $model->firstCommunion)); ?>
+
+<b><?php echo CHtml::encode($model->getAttributeLabel('cert_dt')); ?>:</b>
+<?php echo CHtml::encode($model->cert_dt); ?>
+<br />
 
 <?php echo CHtml::link('Download Certificate', array('viewCert', 'id' => $model->id), array('target' => '_blank')); ?>

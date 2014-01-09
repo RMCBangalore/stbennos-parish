@@ -32,9 +32,6 @@
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('confirmation_id')); ?>:</b>
-	<?php echo CHtml::encode($data->confirmation_id); ?>
-	<br />
-
+	<?php echo $this->renderPartial('../confirmationRecords/_view_fields', array('data' => $data->confirmation)); ?>
 
 </div>

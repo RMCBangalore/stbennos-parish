@@ -105,7 +105,7 @@ class FirstCommunionCertificateController extends RController
 		$this->render('create',array(
 			'model'=>$model,
 			'firstCommunion' => $rec,
-			'now' => date_format(new DateTime(), 'Y-m-d'),
+			'now' => date_format(new DateTime(), 'd/m/Y'),
 		));
 	}
 

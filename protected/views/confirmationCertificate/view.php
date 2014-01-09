@@ -37,14 +37,11 @@ $this->menu=array(
 
 <h1>View ConfirmationCertificate #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'cert_dt',
-		'confirmation_id',
-	),
-)); ?>
+<?php echo $this->renderPartial('../confirmationRecords/_view_fields', array('data' => $model->confirmation)); ?>
+
+<b><?php echo CHtml::encode($model->getAttributeLabel('cert_dt')); ?>:</b>
+<?php echo CHtml::encode($model->cert_dt); ?>
+<br />
 
 <?php echo CHtml::link('Download Certificate', array('viewCert', 'id' => $model->id), array('target' => '_blank')); ?>
 
