@@ -37,6 +37,7 @@ function set_find() {
 			set_find();
 			set_sort();
 			set_select();
+			set_pager();
 		} );
 		return false;
 	} );
@@ -49,6 +50,19 @@ function set_sort() {
 			set_find();
 			set_sort();
 			set_select();
+			set_pager();
+		} );
+		return false;
+	} );
+}
+function set_pager() {
+	$('div.pager li a').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find();
+			set_sort();
+			set_select();
+			set_pager();
 		} );
 		return false;
 	} );
@@ -71,6 +85,7 @@ $('#member_search').fancybox( {
 		set_find();
 		set_sort();
 		set_select();
+		set_pager();
 	}
 } );
 

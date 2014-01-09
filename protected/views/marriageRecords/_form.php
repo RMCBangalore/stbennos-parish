@@ -38,10 +38,23 @@ function set_find(crit) {
 			set_find(crit);
 			set_sort(crit);
 			set_select(crit);
+			set_pager(crit);
 		} );
 		return false;
 	} );
 	$('#key').focus();
+}
+function set_pager(crit) {
+	$('div.pager li a').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find(crit);
+			set_sort(crit);
+			set_select(crit);
+			set_pager(crit);
+		} );
+		return false;
+	} );
 }
 function set_sort(crit) {
 	$('a.sort-link').click(function() {
@@ -50,6 +63,7 @@ function set_sort(crit) {
 			set_find(crit);
 			set_sort(crit);
 			set_select(crit);
+			set_pager(crit);
 		} );
 		return false;
 	} );
@@ -85,6 +99,7 @@ $('#groom_search').fancybox( {
 		set_find(groom);
 		set_sort(groom);
 		set_select(groom);
+		set_pager(groom);
 	}
 } );
 
@@ -97,6 +112,7 @@ $('#bride_search').fancybox( {
 		set_find(bride);
 		set_sort(bride);
 		set_select(bride);
+		set_pager(bride);
 	}
 } );
 
@@ -120,8 +136,10 @@ set_clear_fields('bride');
 ");
 
 $baseScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('zii.widgets.assets'));
-
 Yii::app()->clientScript->registerCssFile($baseScriptUrl.'/gridview/styles.css');  
+
+$pagerScriptUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('system.web.widgets.pagers'));
+Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');  
 
 ?>
 

@@ -38,6 +38,7 @@ function set_find(crit) {
 			set_find(crit);
 			set_sort(crit);
 			set_select(crit);
+			set_pager(crit);
 		} );
 		return false;
 	} );
@@ -50,6 +51,7 @@ function set_sort(crit) {
 			set_find(crit);
 			set_sort(crit);
 			set_select(crit);
+			set_pager(crit);
 		} );
 		return false;
 	} );
@@ -60,6 +62,18 @@ function set_select(crit) {
 		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
 			'person': $('input:checked').val()
 		}, crit['callback'], 'json' );
+	} );
+}
+function set_pager(crit) {
+	$('div.pager li a').click(function() {
+		$.get($(this).attr('href'), function(data) {
+			$('#fancybox-content').html(data);
+			set_find(crit);
+			set_sort(crit);
+			set_select(crit);
+			set_pager(crit);
+		} );
+		return false;
 	} );
 }
 var groom = new Object;
@@ -79,6 +93,7 @@ $('#groom_search').fancybox( {
 		set_find(groom);
 		set_sort(groom);
 		set_select(groom);
+		set_pager(groom);
 	}
 } );
 $('#groom_clear').click(function() {
@@ -109,6 +124,7 @@ $('#bride_search').fancybox( {
 		set_find(bride);
 		set_sort(bride);
 		set_select(bride);
+		set_pager(bride);
 	}
 } );
 $('#bride_clear').click(function() {
