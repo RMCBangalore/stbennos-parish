@@ -45,6 +45,9 @@ class BaptismRecordTest extends WebTestCase
 				'mother_tongue' => 'Kannada',
 				'fathers_name' => 'Lambert Jacob',
 				'mothers_name' => 'Preethi Jacob',
+				'godfathers_name' => 'Oliver Prabhu',
+				'godmothers_name' => 'Yvonne Prabhu',
+				'minister' => 'Fr. Mark Mascarenhas'
 			),
 		);
 		foreach($baps as $bap) {
@@ -75,6 +78,58 @@ class BaptismRecordTest extends WebTestCase
 			}
 			$this->assertTextPresent(date_format(new DateTime(), 'd/m/Y'));
 			$this->assertElementPresent("link=Download Certificate");
+		}
+	}
+
+	public function testCreateParishioner()
+	{
+		$this->loginAs('pastor', 'pastor');
+		$baps = array(
+			array(
+				'name' => 'Subramaniam',
+				'baptism_dt' => '11/12/2013',
+				'baptism_place' => 'Bangalore',
+				'residence' => 'Bangalore',
+				'mother_tongue' => 'Kannada',
+				'fathers_name' => 'Prashanth Subramaniam',
+				'mothers_name' => 'Annapurna Subramaniam',
+				'godfathers_name' => 'Nirmal Raj',
+				'godmothers_name' => 'Arokia Mary',
+				'minister' => 'Fr. Adrian Gomes'
+			)
+		);
+		foreach($baps as $bap) {
+			$this->open('baptismRecords/create');
+			$this->click("css=#member_search > img");
+			sleep(2);
+			$this->type("id=key", $bap['name']);
+			$this->click('css=#find_match > input[name="yt0"]');
+			sleep(1);
+			$this->click("id=yw0_c0_0");
+			sleep(1);
+			$this->click("id=submitMatch");
+			sleep(2);
+			unset($bap['name']);
+			foreach($bap as $key => $value) {
+				$this->type("name=BaptismRecord[$key]", $value);
+			}
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($bap as $key => $value) {
+				if (preg_match('/^sex$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('sex', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($bap as $key => $value) {
+				if (preg_match('/^sex$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('sex', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
 		}
 	}
 }

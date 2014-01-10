@@ -49,7 +49,6 @@ return array(
 		'ref_no' =>	'2008/1',
 		'baptism_place' =>	'Bangalore',
 		'mother_tongue' =>	'Kannada',
-		'member_id' =>	55,
 	),
 /*	array(
 		'id' =>	3,
