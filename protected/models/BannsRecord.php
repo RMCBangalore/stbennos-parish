@@ -141,7 +141,7 @@ class BannsRecord extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date' and isset($this->columnName))
+		    if ($column->dbType == 'date' and isset($this->$columnName))
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,
