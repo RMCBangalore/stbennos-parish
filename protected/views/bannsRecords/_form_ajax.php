@@ -30,7 +30,7 @@ $this->widget('application.extensions.fancybox.EFancyBox', array(
 Yii::app()->clientScript->registerScript('findMatches', "
 function set_find(crit) {
 	$('#findMatchForm').submit(function() {
-		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+		$.get('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'sex': crit['sex'],
 			'key': $('#key').val()
 		}, function(data) {
@@ -59,7 +59,7 @@ function set_sort(crit) {
 function set_select(crit) {
 	$('#submitMatch').click(function() {
 		$.fancybox.close();
-		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+		$.post('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'person': $('input:checked').val()
 		}, crit['callback'], 'json' );
 	} );
@@ -196,6 +196,7 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 	<div class="row">
 		<?php echo $form->labelEx($model,'bride_parish'); ?>
 		<?php echo $form->textField($model,'bride_parish',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo CHtml::hiddenField('bride_parish_hid','',array('id'=>'BannsRecord_bride_parish_hid')); ?>
 		<?php echo $form->error($model,'bride_parish'); ?>
 	</div>
 

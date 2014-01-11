@@ -30,7 +30,7 @@ $this->widget('application.extensions.fancybox.EFancyBox', array(
 Yii::app()->clientScript->registerScript('findMatches', "
 function set_find(crit) {
 	$('#findMatchForm').submit(function() {
-		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+		$.get('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'sex': crit['sex'],
 			'key': $('#key').val()
 		}, function(data) {
@@ -71,8 +71,8 @@ function set_sort(crit) {
 function get_cb(id) {
 	return function(p) {
 		$('#MarriageRecord_'+id+'_name').val(p.name).attr('readonly', true);
-		$('#MarriageRecord_'+id+'_dob').datepicker().datepicker('disable');
-		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true).attr('disabled', false);
+		$('#MarriageRecord_'+id+'_dob').datepicker('destroy');
+		$('#MarriageRecord_'+id+'_dob').val(p.dob).attr('readonly', true);
 		$('#MarriageRecord_'+id+'_baptism_dt').datepicker().datepicker('disable');
 		$('#MarriageRecord_'+id+'_baptism_dt').val(p.baptism_dt).attr('readonly', true).attr('disabled', false);
 		$('#MarriageRecord_'+id+'_fathers_name').val(p.fathers_name).attr('readonly', true);
@@ -84,7 +84,7 @@ function get_cb(id) {
 function set_select(crit) {
 	$('#submitMatch').click(function() {
 		$.fancybox.close();
-		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+		$.post('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'person': $('input:checked').val()
 		}, get_cb(crit['id']), 'json' );
 	} );
@@ -120,7 +120,7 @@ function set_clear_fields(id) {
 	$('#' + id + '_clear').click(function() {
 		$('#MarriageRecord_'+id+'_name').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_dob').val('').attr('readonly', false);
-		$('#MarriageRecord_'+id+'_dob').datepicker('enable');
+		jQuery('#MarriageRecord_'+id+'_dob').datepicker({'dateFormat':'dd/mm/yy','yearRange':'1900:c+10','changeYear':true});
 		$('#MarriageRecord_'+id+'_baptism_dt').val('').attr('readonly', false);
 		$('#MarriageRecord_'+id+'_baptism_dt').datepicker('enable');
 		$('#MarriageRecord_'+id+'_fathers_name').val('').attr('readonly', false);

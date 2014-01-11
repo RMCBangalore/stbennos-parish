@@ -30,7 +30,7 @@ $this->widget('application.extensions.fancybox.EFancyBox', array(
 Yii::app()->clientScript->registerScript('findMatches', "
 function set_find() {
 	$('#findMatchForm').submit(function() {
-		$.get('" . Yii::app()->request->baseUrl . "/person/findMatch', {
+		$.get('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'key': $('#key').val()
 		}, function(data) {
 			$('#fancybox-content').html(data);
@@ -69,16 +69,20 @@ function set_pager() {
 }
 function update_member(p) {
 	$('#BaptismRecord_name').val(p.name).attr('readonly', true);
-	$('#BaptismRecord_fathers_name').val(p.fathers_name).attr('readonly', true);
-	$('#BaptismRecord_mothers_name').val(p.mothers_name).attr('readonly', true);
+	if (p.fathers_name) {
+		$('#BaptismRecord_fathers_name').val(p.fathers_name).attr('readonly', true);
+	}
+	if (p.mothers_name) {
+		$('#BaptismRecord_mothers_name').val(p.mothers_name).attr('readonly', true);
+	}
 	$('#BaptismRecord_sex').val(p.sex).attr('readonly', true);
 	$('#BaptismRecord_dob').val(p.dob).attr('readonly', true);
-	$('#BaptismRecord_dob').datepicker().datepicker('disable');
+	$('#BaptismRecord_dob').datepicker('destroy');
 	$('#BaptismRecord_member_id').val(p.id);
 }
 function set_select() {
 	$('#submitMatch').click(function() {
-		$.post('" . Yii::app()->request->baseUrl . "/person/findMatch". "', {
+		$.post('" . Yii::app()->createAbsoluteUrl('/person/findMatch') . "', {
 			'person': $('input:checked').val()
 		}, update_member, 'json' );
 		$.fancybox.close();
@@ -97,11 +101,15 @@ $('#member_search').fancybox( {
 function set_clear_fields(id) {
 	$('#member_clear').click(function() {
 		$('#BaptismRecord_name').val('').attr('readonly', false);
-		$('#BaptismRecord_fathers_name').val('').attr('readonly', true);
-		$('#BaptismRecord_mothers_name').val('').attr('readonly', true);
+		if ($('#BaptismRecord_fathers_name').attr('readonly')) {
+			$('#BaptismRecord_fathers_name').val('').attr('readonly', false);
+		}
+		if ($('#BaptismRecord_mothers_name').attr('readonly')) {
+			$('#BaptismRecord_mothers_name').val('').attr('readonly', false);
+		}
 		$('#BaptismRecord_sex').val('').attr('readonly', true);
 		$('#BaptismRecord_dob').val('').attr('readonly', true);
-		$('#BaptismRecord_dob').datepicker('enable');
+		jQuery('#BaptismRecord_dob').datepicker({'dateFormat':'dd/mm/yy','yearRange':'1900:c+10','changeYear':true});
 		$('#BaptismRecord_member_id').val('');
 		return false;
 	} );
