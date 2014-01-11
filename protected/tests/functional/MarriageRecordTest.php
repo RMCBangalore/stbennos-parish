@@ -29,9 +29,20 @@ class MarriageRecordTest extends WebTestCase
 		'families' => 'Families',
 		'people' => 'People',
 		'marriages' => 'MarriageRecord',
+		'marriage_certs' => 'MarriageCertificate',
 	);
 
-	public function testCreate()
+	protected function spouse_test($details) {
+		foreach($details as $key => $value) {
+			if (preg_match('/^(?:bride|groom)_status$/', $key)) {
+				$this->assertTextPresent(FieldNames::value('marital_status', $value));
+			} else {
+				$this->assertTextPresent($value);
+			}
+		}
+	}
+
+	public function testCreateNonParishioner()
 	{
 		$this->loginAs('pastor', 'pastor');
 		$marriages = array(
@@ -92,6 +103,8 @@ class MarriageRecordTest extends WebTestCase
 				}
 			}
 			$this->clickAndWait("//input[@value='Create']");
+			$this->spouse_test($groom_details);
+			$this->spouse_test($bride_details);
 			foreach($marriage as $key => $value) {
 				if ('banns_licence' == $key) {
 					$value = ucfirst($value);
@@ -104,6 +117,114 @@ class MarriageRecordTest extends WebTestCase
 			}
 			$this->clickAndWait("link=Create Certificate");
 			$this->clickAndWait("//input[@value='Create']");
+			$this->spouse_test($groom_details);
+			$this->spouse_test($bride_details);
+			foreach($marriage as $key => $value) {
+				if ('banns_licence' == $key) {
+					$value = ucfirst($value);
+				}
+				if (preg_match('/^(?:marriage_type)$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('marriage_type', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
+			$this->assertTextPresent(date('d/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
+		}
+	}
+
+	public function testCreateParishioner()
+	{
+		$this->loginAs('pastor', 'pastor');
+		$marriages = array(
+			array(
+				'groom' => array(
+					'groom_name' =>	'Luigi',
+					'groom_status' =>	1,
+					'groom_rank_prof' =>	'Engineer',
+					'groom_residence' =>	'Bangalore',
+				),
+				'bride' => array(
+					'bride_name' =>	'Nicole',
+					'bride_status' =>	1,
+					'bride_rank_prof' =>	'Housewife',
+					'bride_residence' =>	'Bangalore',
+				),
+				'marriage_dt' =>	'15/12/2010',
+				'marriage_type' =>	1,
+				'banns_licence' =>	'banns',
+				'minister' =>	'Fr. Marcion',
+				'witness1' =>	'Sam Lopez',
+				'witness2' =>	'Gregory Peron',
+				'remarks' =>	'',
+			),
+		);
+		foreach($marriages as $marriage) {
+			$this->open('marriageRecords/create');
+			$groom_details = $marriage['groom'];
+			$this->click("css=#groom_search > img");
+			sleep(2);
+			$this->type("id=key", $groom_details['groom_name']);
+			$this->click('css=#find_match > input[name="yt0"]');
+			sleep(1);
+			$this->click("id=yw0_c0_0");
+			sleep(1);
+			$this->click("id=submitMatch");
+			sleep(1);
+			foreach($groom_details as $key => $value) {
+				if ('groom_name' === $key) continue;
+				if (preg_match('/^groom_status$/', $key)) {
+					$this->select("name=MarriageRecord[$key]", "value=$value");
+				} else {
+					$this->type("name=MarriageRecord[$key]", $value);
+				}
+			}
+			unset($marriage['groom']);
+			$this->click('link=Bride Details');
+			$bride_details = $marriage['bride'];
+			$this->click("css=#bride_search > img");
+			sleep(2);
+			$this->type("id=key", $bride_details['bride_name']);
+			$this->click('css=#find_match > input[name="yt0"]');
+			sleep(1);
+			$this->click("id=yw0_c0_0");
+			sleep(1);
+			$this->click("id=submitMatch");
+			sleep(1);
+			foreach($bride_details as $key => $value) {
+				if ('bride_name' === $key) continue;
+				if (preg_match('/^bride_status$/', $key)) {
+					$this->select("name=MarriageRecord[$key]", "value=$value");
+				} else {
+					$this->type("name=MarriageRecord[$key]", $value);
+				}
+			}
+			unset($marriage['bride']);
+			foreach($marriage as $key => $value) {
+				if (preg_match('/^(?:marriage_type|banns_licence)$/', $key)) {
+					$this->select("name=MarriageRecord[$key]", "value=$value");
+				} else {
+					$this->type("name=MarriageRecord[$key]", $value);
+				}
+			}
+			$this->clickAndWait("//input[@value='Create']");
+			$this->spouse_test($groom_details);
+			$this->spouse_test($bride_details);
+			foreach($marriage as $key => $value) {
+				if ('banns_licence' == $key) {
+					$value = ucfirst($value);
+				}
+				if (preg_match('/^(?:marriage_type)$/', $key)) {
+					$this->assertTextPresent(FieldNames::value('marriage_type', $value));
+				} else {
+					$this->assertTextPresent($value);
+				}
+			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			$this->spouse_test($groom_details);
+			$this->spouse_test($bride_details);
 			foreach($marriage as $key => $value) {
 				if ('banns_licence' == $key) {
 					$value = ucfirst($value);

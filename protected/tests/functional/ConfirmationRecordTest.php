@@ -77,6 +77,46 @@ class ConfirmationRecordTest extends WebTestCase
 			$this->assertElementPresent("link=Download Certificate");
 		}
 	}
+
+	public function testCreateParishioner()
+	{
+		$this->loginAs('pastor', 'pastor');
+		$confs = array(
+			array(
+				'name' => 'Chris',
+				'confirmation_dt' => '12/09/2013',
+				'residence' => 'Bangalore',
+				'minister' => 'Fr. Francisco Ramos'
+			),
+		);
+		foreach($confs as $conf) {
+			$this->open('confirmationRecords/create');
+			$this->click("css=#member_search > img");
+			sleep(2);
+			$this->type("id=key", $conf['name']);
+			$this->click('css=#find_match > input[name="yt0"]');
+			sleep(1);
+			$this->click("id=yw0_c0_0");
+			sleep(1);
+			$this->click("id=submitMatch");
+			sleep(1);
+			foreach($conf as $key => $value) {
+				if ('name' === $key) continue;
+				$this->type("name=ConfirmationRecord[$key]", $value);
+			}
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($conf as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->clickAndWait("link=Create Certificate");
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($conf as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->assertTextPresent(date('d/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
+		}
+	}
 }
 
 ?>

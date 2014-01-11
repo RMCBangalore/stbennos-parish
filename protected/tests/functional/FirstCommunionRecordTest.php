@@ -31,7 +31,7 @@ class FirstCommunionRecordTest extends WebTestCase
 		'first_communions' => 'FirstCommunionRecord',
 	);
 
-	public function testCreate()
+	public function testCreateNonParishioner()
 	{
 		$this->loginAs('pastor', 'pastor');
 		$comms = array(
@@ -49,6 +49,45 @@ class FirstCommunionRecordTest extends WebTestCase
 			foreach($comm as $key => $value) {
 				$this->type("name=FirstCommunionRecord[$key]", $value);
 			}
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($comm as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->clickAndWait("link=Create Certificate");
+			foreach($comm as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->clickAndWait("//input[@value='Create']");
+			foreach($comm as $key => $value) {
+				$this->assertTextPresent($value);
+			}
+			$this->assertTextPresent(date_format(new DateTime(), 'd/m/Y'));
+			$this->assertElementPresent("link=Download Certificate");
+		}
+	}
+
+	public function testCreateParishioner()
+	{
+		$this->loginAs('pastor', 'pastor');
+		$comms = array(
+			array(
+				'name' => 'Chris',
+				'communion_dt' => '21/09/2012',
+			),
+		);
+		foreach($comms as $comm) {
+			$this->open('firstCommunionRecords/create');
+			$this->click("css=#member_search > img");
+			sleep(2);
+			$this->type("id=key", $comm['name']);
+			$this->click('css=#find_match > input[name="yt0"]');
+			sleep(1);
+			$this->click("id=yw0_c0_0");
+			sleep(1);
+			$this->click("id=submitMatch");
+			sleep(1);
+			#unset($comm['name']);
+			$this->type("name=FirstCommunionRecord[communion_dt]", $comm['communion_dt']);
 			$this->clickAndWait("//input[@value='Create']");
 			foreach($comm as $key => $value) {
 				$this->assertTextPresent($value);

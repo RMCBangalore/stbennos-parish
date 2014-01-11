@@ -31,14 +31,14 @@ class BannsRecordTest extends WebTestCase
 		'banns' => 'BannsRecord',
 	);
 
-	public function testCreateNonParishioner()
+	public function testCreate()
 	{
 		$this->loginAs('pastor', 'pastor');
-		$baps = array(
+		$banns = array(
 			array(
 				'groom_name' => 'Ronald Cornelius',
-				'groom_parish' => 'Gerson Cornelius',
-				'groom_parent' => 'St. John the Evangelist',
+				'groom_parish' => 'St. John the Evangelist',
+				'groom_parent' => 'Gerson Cornelius',
 				'bride_name' => 'Sally Victor',
 				'bride_parish' => 'Resurrection',
 				'bride_parent' => 'Brendon Victor',
@@ -46,10 +46,60 @@ class BannsRecordTest extends WebTestCase
 				'banns_dt2' => '12/01/2014',
 				'banns_dt3' => '19/01/2014',
 			),
+			array(
+				'groom_name' => 'Luigi',
+				'bride_name' => 'Nicole',
+				'banns_dt1' => '09/02/2014',
+				'banns_dt2' => '16/02/2014',
+				'banns_dt3' => '23/02/2014',
+			),
+			array(
+				'groom_name' => 'Gennaro',
+				'bride_name' => 'Marceline Platska',
+				'bride_parish' => 'Resurrection',
+				'bride_parent' => 'Augustine Platska',
+				'banns_dt1' => '09/02/2014',
+				'banns_dt2' => '16/02/2014',
+				'banns_dt3' => '23/02/2014',
+			),
+			array(
+				'groom_name' => 'Ignace Toppo',
+				'groom_parish' => 'Infant Jesus',
+				'groom_parent' => 'Raguel Toppo',
+				'bride_name' => 'Celine',
+				'banns_dt1' => '09/02/2014',
+				'banns_dt2' => '16/02/2014',
+				'banns_dt3' => '23/02/2014',
+			)
 		);
-		foreach($baps as $bap) {
+
+		foreach($banns as $bann) {
 			$this->open('bannsRecords/create');
-			foreach($bap as $key => $value) {
+			if (!isset($bann['groom_parish'])) {
+				$this->click("css=#groom_search > img");
+				sleep(2);
+				$this->type("id=key", $bann['groom_name']);
+				$this->click('css=#find_match > input[name="yt0"]');
+				sleep(1);
+				$this->click("id=yw0_c0_0");
+				sleep(1);
+				$this->click("id=submitMatch");
+				sleep(1);
+				unset($bann['groom_name']);
+			}
+			if (!isset($bann['bride_parish'])) {
+				$this->click("css=#bride_search > img");
+				sleep(2);
+				$this->type("id=key", $bann['bride_name']);
+				$this->click('css=#find_match > input[name="yt0"]');
+				sleep(1);
+				$this->click("id=yw0_c0_0");
+				sleep(1);
+				$this->click("id=submitMatch");
+				sleep(1);
+				unset($bann['bride_name']);
+			}
+			foreach($bann as $key => $value) {
 				if (preg_match('/^sex$/', $key)) {
 					$this->select("name=BannsRecord[$key]", "value=$value");
 				} else {
@@ -57,7 +107,7 @@ class BannsRecordTest extends WebTestCase
 				}
 			}
 			$this->clickAndWait("//input[@value='Create']");
-			foreach($bap as $key => $value) {
+			foreach($bann as $key => $value) {
 				if (preg_match('/^sex$/', $key)) {
 					$this->assertTextPresent(FieldNames::value('sex', $value));
 				} else {

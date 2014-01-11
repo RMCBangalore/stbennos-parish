@@ -50,9 +50,34 @@ class DeathRecordTest extends WebTestCase
 				'parents_relatives' => 'Jacqueline Malone',
 				'sacrament' => 'Viaticum'
 			),
+			array(
+				'death_dt' => '04/01/2014',
+				'cause' => 'Old age',
+				'fname' => 'Carl',
+				'profession' => 'Artisan',
+				'buried_dt' => '10/01/2014',
+				'minister' => 'Fr. Lee Roche',
+				'burial_place' => 'Kalpalli cemetery',
+				'residence' => 'Lazar Road',
+				'community' => 'Anglo Indian',
+				'parents_relatives' => 'Wendy Lazar',
+				'sacrament' => 'Confession'
+			)
 		);
 		foreach($deaths as $death) {
 			$this->open('deathRecords/create');
+			if (!isset($death['lname'])) {
+				$this->click("css=#member_search > img");
+				sleep(2);
+				$this->type("id=key", $death['fname']);
+				$this->click('css=#find_match > input[name="yt0"]');
+				sleep(1);
+				$this->click("id=yw0_c0_0");
+				sleep(1);
+				$this->click("id=submitMatch");
+				sleep(1);
+				unset($death['fname']);
+			}
 			foreach($death as $key => $value) {
 				if (preg_match('/^sacrament$/', $key)) {
 					$this->select("name=DeathRecord[$key]", "value=$value");
