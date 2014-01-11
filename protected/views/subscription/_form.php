@@ -30,7 +30,7 @@ $this->widget('application.extensions.fancybox.EFancyBox', array(
 Yii::app()->clientScript->registerScript('findMatches', "
 function set_find() {
 	$('#findMatchForm').submit(function() {
-		$.get('" . Yii::app()->request->baseUrl . "/family/findMatch', {
+		$.get('" . Yii::app()->createAbsoluteUrl('/family/findMatch') . "', {
 			'key': $('#key').val()
 		}, function(data) {
 			$('#fancybox-content').html(data);
@@ -65,7 +65,7 @@ function update_family(f) {
 function set_select() {
 	$('#submitMatch').click(function() {
 		$.fancybox.close();
-		$.post('" . Yii::app()->request->baseUrl . "/family/findMatch". "', {
+		$.post('" . Yii::app()->createAbsoluteUrl('/family/findMatch') . "', {
 			'family': $('input:checked').val()
 		}, update_family, 'json' );
 	} );
