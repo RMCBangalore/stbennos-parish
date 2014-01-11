@@ -53,7 +53,7 @@
 						array('width' => $parish->logo_width, 'height' => $parish->logo_height)),
 					 Yii::app()->request->baseUrl . '/');
 		   } else {
-				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',
+				echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.gif',
 					CHtml::encode(Yii::app()->name),
 						array('width' => 200, 'height' => 100)), Yii::app()->request->baseUrl . '/');
 		   } ?></div>
