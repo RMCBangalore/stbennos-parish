@@ -412,13 +412,15 @@ class PersonController extends RController
 				'god_parents' => $model->god_parents,
 			);
 			$fam = $model->family;
-			if (isset($fam->husband_id)) {
-				$person['fathers_name'] = $fam->husband->fullname();
+			if ('child' === $model->role) {
+				if (isset($fam->husband_id)) {
+					$person['fathers_name'] = $fam->husband->fullname();
+				}
+				if (isset($fam->wife_id)) {
+					$person['mothers_name'] = $fam->wife->fullname();
+				}
+				$person['parents_name'] = $model->getParent()->fullname();
 			}
-			if (isset($fam->wife_id)) {
-				$person['mothers_name'] = $fam->wife->fullname();
-			}
-			$person['parents_name'] = $model->getParent()->fullname();
 			if (isset($model->profession)) {
 				$person['rank_prof'] = $model->profession;
 			} elseif (isset($model->occupation)) {
