@@ -89,7 +89,7 @@ class MarriageRecord extends CActiveRecord
 			array('ref_no', 'length', 'max'=>10),
 			array('groom_id, bride_id, marriage_type', 'numerical', 'integerOnly'=>true),
 			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'safe'),
-			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', , 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
+			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			array('groom_baptism_dt, bride_baptism_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
