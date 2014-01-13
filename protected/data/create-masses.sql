@@ -1,15 +1,15 @@
 --
--- This file is part of St. Benno's Parish Software
+-- This file is part of Alive Parish Software
 --
--- St. Benno's Parish Software - software to manage tomorrow's parish
+-- Alive Parish - software to manage tomorrow's parish
 -- Copyright (C) 2013  Redemptorist Media Center
 --
--- St. Benno's Parish Software is free software: you can redistribute it
+-- Alive Parish Software is free software: you can redistribute it
 -- and/or modify it under the terms of the GNU General Public License as
 -- published by the Free Software Foundation, either version 3 of the
 -- License, or (at your option) any later version.
 --
--- St. Benno's Parish Software is distributed in the hope that it will
+-- Alive Parish Software is distributed in the hope that it will
 -- be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.

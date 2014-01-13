@@ -1,4 +1,4 @@
-Alive Parish Software - software to manage tomorrow's parish
+Alive Parish - software to manage tomorrow's parish
 
 This software is written in PHP and based on the Yii framework. It is
 developed by Redemptorist Media Center, Bangalore. http://rmcbangalore.com
@@ -11,7 +11,7 @@ Apache or other Web Server that can run PHP applications
 
 INSTALLATION
 
-1. Copy the parish folder to document root
+1. Copy the parish folder under DocumentRoot
 
 2. In your Apache configuration, ensure that AllowOverride All is set
 for the parish folder
@@ -27,7 +27,7 @@ for the parish folder
 BUGS
 
 Please report any issues to issues@stbennos.com . Kindly mention the issue with a
-full text of any error message you may have encounntered or a screenshot and also,
+full text of any error message you may have encountered or a screenshot and also,
 how you got the error and information needed to reproduce the issue.
 
 LICENCE
