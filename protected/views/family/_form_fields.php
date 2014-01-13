@@ -162,7 +162,7 @@
 	</span>
 	</div>
 
-	<?php if (!$model->isNewRecord): ?>
+	<?php /* if (!$model->isNewRecord): ?>
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'disabled'); ?>
@@ -187,5 +187,5 @@
 		<?php echo $form->error($model,'leaving_date'); ?>
 	</span>
 	</div>
-	<?php endif ?>
+	<?php endif */ ?>
 

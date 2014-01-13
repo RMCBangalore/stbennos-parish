@@ -208,12 +208,27 @@ class FamilyController extends RController
 
 	public function actionDisable($id) {
 		$model=$this->loadModel($id);
-		$model->disabled = 1;
-		$model->leaving_date = date_format(new DateTime(), 'Y-m-d');
-		if ($model->save(false)) {
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		if (Yii::app()->request->isPostRequest) {
+			foreach($_POST as $key => $value) {
+				Yii::trace("POST data: $key: $value", 'application.controllers.FamilyController');
+			}
+			if (isset($_POST['leaving_date'])) {
+				Yii::trace("POST Families received", 'application.controllers.FamilyController');
+				$model->disabled = 1;
+				$model->leaving_date = $_POST['leaving_date'];
+				if ($model->save(false)) {
+					if(!isset($_GET['ajax']))
+						$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				}
+			}
+			return;
 		}
+		Yii::trace("FC.actionDisable GET", 'application.controllers.FamilyController');
+		$now = date_format(new DateTime(), 'Y-m-d');
+		$this->renderPartial('leaving_date', array(
+			'model'=>$model,
+			'now'=>$now,
+		));
 	}
 
 	public function actionEnable($id) {

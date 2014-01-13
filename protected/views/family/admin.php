@@ -31,7 +31,28 @@ $this->menu=array(
 	array('label'=>'Create Families', 'url'=>array('create')),
 );
 
+$this->widget('application.extensions.fancybox.EFancyBox', array(
+    'target'=>'a[rel=gallery]',
+	'config'=>array(),
+));
+
 Yii::app()->clientScript->registerScript('search', "
+function set_datepicker(url) {
+	jQuery('#Families_leaving_date').datepicker( {
+		'dateFormat':'dd/mm/yy',
+		'yearRange':'1900:c+10',
+		'changeYear':true,
+		'onSelect': function(ds, inst) {
+			$.post(url, { 'leaving_date': ds });
+			$.fancybox.close();
+		}
+	} );
+}
+$('td.button-column a.delete').fancybox( {
+	'onComplete': function() {
+		set_datepicker($(this).attr('href'));
+	}
+} );
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
