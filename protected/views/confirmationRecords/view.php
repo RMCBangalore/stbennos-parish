@@ -37,14 +37,12 @@ $this->menu=array(
 );
 ?>
 
-<h1>View ConfirmationRecord #<?php echo $model->id; ?></h1>
+<h1><?php echo CHtml::encode($model->name); ?>: #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'ref_no',
-		'name',
 		'confirmation_dt',
 		'church',
 		'dob',
@@ -57,5 +55,7 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php echo CHtml::link('Create Certificate', array('confirmationCertificate/create', 'id' => $model->id)) ?>
+<?php echo CHtml::link('Edit', array('update', 'id' => $model->id)) . ' | ';
+if ($model->confirmationCerts) { echo CHtml::link('View Certificates', array('confirmationCertificate/byRecord', 'id' => $model->id)) . ' | '; }
+echo CHtml::link('Create Certificate', array('confirmationCertificate/create', 'id' => $model->id)) ?>
 

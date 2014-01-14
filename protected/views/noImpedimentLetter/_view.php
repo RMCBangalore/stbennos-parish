@@ -34,5 +34,7 @@
 	<?php echo CHtml::encode($data->letter_dt); ?>
 	<br />
 
+	<?php echo CHtml::link('View Record', array('bannsRecords/view', 'id' => $data->banns_id)) . ' | ';
+	echo CHtml::link('Download Letter', array('viewCert', 'id' => $data->id), array('target' => '_blank')) ?>
 
 </div>

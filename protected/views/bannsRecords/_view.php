@@ -25,50 +25,47 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<div class="fields">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_name')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_name); ?>
-	<br />
+	<div class="ident">
+	<span class="head">
+	<?php echo CHtml::link(CHtml::encode($data->groom_name . ' & ' . $data->bride_name), array('view', 'id'=>$data->id)); ?>
+	</span>
+	</div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parent')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_parent); ?>
+	<div class="field">
+	<?php echo CHtml::encode($data->getAttributeLabel('groom_parent')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->groom_parent); ?></span>
 	<br />
 
 	<?php if (ctype_digit($data->groom_parish)) { $local = 'groom' ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
-	<?php echo BannsRecord::get_parish($data->groom_parish); ?>
+	<?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:
+	<span class="val"><?php echo BannsRecord::get_parish($data->groom_parish); ?></span>
 	<br />
 
-	<b><?php echo 'Groom DOB' ?>:</b>
-	<?php echo $data->groom()->dob; ?>
+	<?php echo 'Groom DOB' ?>:
+	<span class="val"><?php echo $data->groom()->dob; ?></span>
 	<br />
 
-	<b><?php echo 'Groom Baptism Date' ?>:</b>
-	<?php echo $data->groom()->baptism_dt; ?>
+	<?php echo 'Groom Baptism Date' ?>:
+	<span class="val"><?php echo $data->groom()->baptism_dt; ?></span>
 	<br />
 
 	<?php } else {?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_parish); ?>
+	<?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->groom_parish); ?></span>
 	<br />
 
 	<?php } ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_name')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_name); ?>
+	<?php echo CHtml::encode($data->getAttributeLabel('bride_parent')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->bride_parent); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_parent')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_parent); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_parish')); ?>:</b>
-	<?php echo BannsRecord::get_parish($data->bride_parish); ?>
+	<?php echo CHtml::encode($data->getAttributeLabel('bride_parish')); ?>:
+	<span class="val"><?php echo BannsRecord::get_parish($data->bride_parish); ?></span>
 	<br />
 
 	<?php if (ctype_digit($data->bride_parish)) {
@@ -79,15 +76,16 @@
 			$local = 'bride';
 		}
 
-		echo '<b>Bride DOB:</b> ';
-		echo CHtml::encode($data->bride()->dob);
+		echo 'Bride DOB: ';
+		echo '<span class="val">'.CHtml::encode($data->bride()->dob).'</span>';
 		echo '<br />';
 
-		echo '<b>Bride Baptism Date:</b> ';
-		echo CHtml::encode($data->bride()->baptism_dt);
+		echo 'Bride Baptism Date: ';
+		echo '<span class="val">' . CHtml::encode($data->bride()->baptism_dt).'</span>';
 		echo '<br />';
 
 	} ?>
+	</div>
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt1')); ?>:</b>
@@ -113,4 +111,6 @@
 		echo '<br />';
 	} ?>
 
-</div>
+</div> <!-- fields -->
+
+</div> <!-- view -->

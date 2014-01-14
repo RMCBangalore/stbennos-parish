@@ -24,51 +24,43 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+<div class="fields">
+
+	<div class="ident">
+	<span class="head">
+	<?php echo CHtml::link(CHtml::encode($data->fname . ' ' . $data->lname . ': #' . $data->id), array('view', 'id'=>$data->id)); ?>
+	</div>
+
+	<div class="field">
+	<?php echo CHtml::encode('Ref'); ?>
+	<span class="val"><?php echo CHtml::encode(' #' . $data->ref_no); ?></span>,
+
+	<?php echo CHtml::encode('Died'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->death_dt); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
-	<?php echo CHtml::encode($data->ref_no); ?>
+	<?php echo CHtml::encode('Cause'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->cause); ?></span>,
+	<?php echo CHtml::encode($data->getAttributeLabel('age')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->age); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('death_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->death_dt); ?>
+	<?php echo CHtml::encode('Buried'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->buried_dt); ?></span>,
+	<?php echo CHtml::encode('At'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->burial_place); ?></span>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cause')); ?>:</b>
-	<?php echo CHtml::encode($data->cause); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fname')); ?>:</b>
-	<?php echo CHtml::encode($data->fname); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('lname')); ?>:</b>
-	<?php echo CHtml::encode($data->lname); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('age')); ?>:</b>
-	<?php echo CHtml::encode($data->age); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('profession')); ?>:</b>
-	<?php echo CHtml::encode($data->profession); ?>
-	<br >
+	<?php echo CHtml::encode($data->getAttributeLabel('minister')); ?>:
+	<?php echo CHtml::encode($data->minister); ?>
+	</div>
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('buried_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->buried_dt); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('minister')); ?>:</b>
-	<?php echo CHtml::encode($data->minister); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('burial_place')); ?>:</b>
-	<?php echo CHtml::encode($data->burial_place); ?>
 	<br />
 
 	*/ ?>
 
-</div>
+</div> <!-- fields -->
+
+</div> <!-- view -->

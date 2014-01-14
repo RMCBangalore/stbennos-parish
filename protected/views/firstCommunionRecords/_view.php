@@ -23,18 +23,19 @@
 ?>
 
 <div class="view">
+<div class="fields">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+	<div class="ident">
+	<span class="head"><?php echo CHtml::link(
+		CHtml::encode($data->name . ': #' . $data->id), array('view', 'id'=>$data->id)); ?></span>
+	</div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('communion_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->communion_dt); ?>
-	<br />
+	<div class="sacrament">
+	<?php echo CHtml::encode('Date'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->communion_dt); ?></span>, 
+	Ref <span class="val"><?php echo CHtml::encode('#'.$data->ref_no); ?></span>
+	</div>
 
 
-</div>
+</div> <!-- fields -->
+</div> <!-- view -->

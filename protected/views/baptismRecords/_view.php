@@ -24,33 +24,32 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+<div class="fields">
+	<div class="ident">
+	<span class="head"><?php echo CHtml::link(CHtml::encode($data->name . ': #' . $data->id), array('view', 'id'=>$data->id)); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
-	<?php echo CHtml::encode($data->ref_no); ?>
+	<?php echo CHtml::encode('Ref '); ?>
+	<span class="ref"><?php echo CHtml::encode('#'.$data->ref_no); ?></span>; 
+	<span class="val"><?php echo CHtml::encode(isset($data->sex) ? FieldNames::value('sex', $data->sex) : ''); ?></span>
+	</div>
+
+	<div class="sacrament">
+	<?php echo CHtml::encode('Born'); #data->getAttributeLabel('dob')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->dob); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('dob')); ?>:</b>
-	<?php echo CHtml::encode($data->dob); ?>
+	<?php echo CHtml::encode('Baptised'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->baptism_dt); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('baptism_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->baptism_dt); ?>
+	<?php echo CHtml::encode('Father'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->fathers_name); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('sex')); ?>:</b>
-	<?php echo CHtml::encode(isset($data->sex) ? FieldNames::value('sex', $data->sex) : ''); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fathers_name')); ?>:</b>
-	<?php echo CHtml::encode($data->fathers_name); ?>
-	<br />
+	<?php echo CHtml::encode('Mother'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->mothers_name); ?></span>
+	</div>
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mothers_name')); ?>:</b>
@@ -74,5 +73,6 @@
 	<br />
 
 	*/ ?>
+	</div> <!-- fields -->
 
 </div>

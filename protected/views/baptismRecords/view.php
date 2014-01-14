@@ -37,7 +37,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View BaptismRecord #<?php echo $model->id; ?></h1>
+<h1><?php echo CHtml::encode($model->name . ': '); ?> #<?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_view_main', array('data' => $model));
 

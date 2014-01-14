@@ -40,20 +40,21 @@ $this->menu=array(
 
 ?>
 
-<h1>View BannsRecord #<?php echo $model->id; ?></h1>
+<h1><?php echo $model->groom_name . ' & ' . $model->bride_name ?>: #<?php echo $model->id; ?></h1>
 
 
 <?php
+	$letters = false;
+	if (ctype_digit($model->groom_parish) xor ctype_digit($model->bride_parish)) {
+		$letters = true;
+	}
 $model->groom_parish = BannsRecord::get_parish($model->groom_parish);
 $model->bride_parish = BannsRecord::get_parish($model->bride_parish);
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'groom_name',
 		'groom_parent',
 		'groom_parish',
-		'bride_name',
 		'bride_parent',
 		'bride_parish',
 		'banns_dt1',
@@ -61,3 +62,30 @@ $this->widget('zii.widgets.CDetailView', array(
 		'banns_dt3',
 	),
 )); ?>
+
+<?php
+	if ($letters) {
+		echo 'Create Letter: ' . CHtml::link('Request', array('bannsRequest/create', 'bid' => $model->id));
+		echo ' | ';
+		echo CHtml::link('Response', array('bannsResponse/create', 'bid' => $model->id));
+		echo ' | ';
+		echo CHtml::link('No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $model->id));
+		echo '<br />';
+	}
+
+	echo CHtml::link('Edit', array('bannsRecords/view', 'id'=>$model->id)) . ' | ';
+
+	if ($letters) {
+		echo 'View ';
+		if ($model->requests) {
+			echo CHtml::link('Requests', array('bannsRequest/byRecord', 'id' => $model->id));
+			echo ' | ';
+		}
+		if ($model->responses) {
+			echo CHtml::link('Responses', array('bannsResponse/byRecord', 'id' => $model->id));
+			echo ' | ';
+		}
+		if ($model->noImpedimentLetters) {
+			echo CHtml::link('No Impediment Letters', array('noImpedimentLetter/byRecord', 'id' => $model->id));
+		}
+	} ?>

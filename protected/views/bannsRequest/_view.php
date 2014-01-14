@@ -27,7 +27,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
-
 	
 	<?php echo $this->renderPartial('../bannsRecords/_view_fields', array('data' => $data->banns)); ?>
 
@@ -35,5 +34,7 @@
 	<?php echo CHtml::encode($data->req_dt); ?>
 	<br />
 
+	<?php echo CHtml::link('View Record', array('bannsRecords/view', 'id'=>$data->banns_id)) . ' | ';
+	echo CHtml::link('Download Letter', array('viewCert', 'id' => $data->id), array('target' => '_blank')) ?>
 
 </div>

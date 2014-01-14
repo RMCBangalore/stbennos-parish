@@ -45,6 +45,8 @@
 
 	*/ ?>
 
-	<?php echo CHtml::link('Create Certificate', array('baptismCertificate/create', 'bid' => $data->id)) ?>
+	<?php echo CHtml::link('Edit', array('update', 'id'=>$data->id)) . ' | ' .
+		CHtml::link('View Certificates', array('/baptismCertificate/byRecord', 'id'=>$data->id)) . ' | ' . 
+		CHtml::link('Create Certificate', array('baptismCertificate/create', 'bid' => $data->id)); ?>
 
 </div>

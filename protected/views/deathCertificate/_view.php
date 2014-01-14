@@ -28,13 +28,12 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('death_id')); ?>:</b>
-	<?php echo CHtml::encode($data->death_id); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cert_dt')); ?>:</b>
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
 
+	<?php $this->renderPartial('../deathRecords/_view_fields', array('model' => $data, 'data' => $data->death)); ?>
 
+	<?php echo CHtml::link('View Record', array('deathRecords/view', 'id'=>$data->death_id)) . ' | ';
+	echo CHtml::link('Download Certificate', array('viewCert', 'id'=>$data->id), array('target' => '_blank')) ?>
 </div>

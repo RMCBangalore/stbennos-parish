@@ -34,4 +34,7 @@
 
 	<?php echo $this->renderPartial('../confirmationRecords/_view_fields', array('data' => $data->confirmation)); ?>
 
+	<?php echo CHtml::link('View Record', array('/confirmationRecords/view', 'id' => $data->confirmation_id)) . ' | ' .
+		CHtml::link('Download Certificate', array('viewCert', 'id' => $data->id), array('target' => '_blank')); ?>
+
 </div>

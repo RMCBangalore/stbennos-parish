@@ -43,5 +43,6 @@ $this->menu=array(
 <?php echo CHtml::encode($model->cert_dt); ?>
 <br />
 
-<?php echo CHtml::link('Download Certificate', array('viewCert', 'id' => $model->id), array('target' => '_blank')); ?>
+<?php echo CHtml::link('View Record', array('/confirmationRecords/view', 'id' => $model->confirmation_id)) . ' | ' .
+	CHtml::link('Download Certificate', array('viewCert', 'id' => $model->id), array('target' => '_blank')); ?>
 

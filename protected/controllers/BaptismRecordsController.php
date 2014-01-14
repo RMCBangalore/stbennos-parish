@@ -157,6 +157,8 @@ class BaptismRecordsController extends RController
 	 */
 	public function actionIndex()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/register-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('BaptismRecord');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

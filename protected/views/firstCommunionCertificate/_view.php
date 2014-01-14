@@ -34,4 +34,7 @@
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
 
+	<?php echo CHtml::link('View Record', array('/firstCommunionRecords/view/', 'id'=>$data->first_comm_id)) . ' | ' .
+		CHtml::link('Download Certificate', array('viewCert', 'id' => $data->id), array('target' => '_blank')); ?>
+
 </div>

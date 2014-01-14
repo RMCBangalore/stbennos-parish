@@ -24,26 +24,25 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+<div class="fields">
+
+	<div class="ident">
+	<span class="head"><?php echo CHtml::link(
+		CHtml::encode($data->groom_name . ' & ' . $data->bride_name),
+		array('view', 'id'=>$data->id)); ?></span>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ref_no')); ?>:</b>
-	<?php echo CHtml::encode($data->ref_no); ?>
-	<br />
+	<span class="val"><?php echo CHtml::encode('#'.$data->id); ?></span>;
+	<?php echo CHtml::encode('Ref '); ?>:
+	<span class="val"><?php echo CHtml::encode('#'.$data->ref_no); ?></span>, 
+	<?php echo CHtml::encode('Married'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->marriage_dt); ?></span>
+	</div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->marriage_dt); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_name')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_dob')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_dob); /* ?>
-	<br />
-
+	<div class="sacrament">
+	<?php echo CHtml::encode($data->getAttributeLabel('groom_dob')); ?>:</b>
+	<span class="val"><?php echo CHtml::encode($data->groom_dob); ?></span>,
+<?php /*
 	<b><?php 
 	echo CHtml::encode($data->getAttributeLabel('groom_status')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_status); ?>
@@ -63,16 +62,12 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_residence')); ?>:</b>
-	<?php echo CHtml::encode($data->groom_residence); */ ?>
+	<?php echo CHtml::encode($data->groom_residence); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_name')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_dob')); ?>:</b>
-	<?php echo CHtml::encode($data->bride_dob); ?>
-	<br />
+*/ ?>
+	<?php echo CHtml::encode('Bride'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->bride_dob); ?></span>
+	</div>
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
@@ -117,4 +112,5 @@
 
 	*/ ?>
 
-</div>
+</div><!-- fields -->
+</div><!-- view -->

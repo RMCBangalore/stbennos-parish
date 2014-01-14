@@ -37,16 +37,20 @@ $this->menu=array(
 );
 ?>
 
-<h1>View First Communion Record #<?php echo $model->id; ?></h1>
+<h1><?php echo $model->name ?>: #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'name',
+		'ref_no',
 		'communion_dt',
+		'church',
 	),
 )); ?>
 
-<?php echo CHtml::link('Create Certificate', array('firstCommunionCertificate/create', 'id' => $model->id)) ?>
+<?php echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ';
+if ($model->firstCommunionCerts) {
+	echo CHtml::link('View Certificates', array('firstCommunionCertificate/byRecord', 'id' => $model->id)) . ' | ';
+}
+	echo CHtml::link('Create Certificate', array('firstCommunionCertificate/create', 'id' => $model->id)) ?>
 

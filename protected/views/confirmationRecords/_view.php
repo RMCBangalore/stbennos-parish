@@ -23,22 +23,29 @@
 ?>
 
 <div class="view">
+<div class="fields">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<div class="ident">
+	<span class="head"><?php echo CHtml::link(
+		CHtml::encode($data->name.': #'.$data->id), array('view', 'id'=>$data->id)); ?></span>
+	</div>
+
+	<div class="sacrament">
+	<?php echo CHtml::encode('Ref '); ?>
+	<span class="val"><?php echo CHtml::encode('#'.$data->ref_no); ?></span>,
+	<?php echo CHtml::encode('Confirmed'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->confirmation_dt); ?></span>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
+	<?php echo CHtml::encode($data->getAttributeLabel('church')); ?>:
+	<span class="val"><?php echo CHtml::encode($data->church); ?></span>
 	<br />
+	<?php echo CHtml::encode('Born'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->dob); ?></span>,
+	<?php echo CHtml::encode('Baptised'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->baptism_dt); ?></span><br>
+	<?php echo CHtml::encode('Parent'); ?>:
+	<span class="val"><?php echo CHtml::encode($data->parents_name); ?></span>
+	</div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('confirmation_dt')); ?>:</b>
-	<?php echo CHtml::encode($data->confirmation_dt); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('church')); ?>:</b>
-	<?php echo CHtml::encode($data->church); ?>
-	<br />
-
-
-</div>
+</div><!-- fields -->
+</div><!-- view -->

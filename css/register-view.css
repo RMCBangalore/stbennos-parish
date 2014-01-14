@@ -1,0 +1,49 @@
+/*
+ *  This file is part of Alive Parish Software
+ * 
+ *  Alive Parish - software to manage tomorrow's parish
+ *  Copyright (C) 2013  Redemptorist Media Center
+ * 
+ *  Alive Parish Software is free software: you can redistribute it
+ *  and/or modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  Alive Parish Software is distributed in the hope that it will
+ *  be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ *  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+div.ident {
+	font-size: 110%;
+}
+div.items div.view {
+	position: relative;
+	width: 320px;
+	float: left;
+	margin: 5px 10px 5px 0;
+}
+span.head {
+	font-family: 'Times New Roman', serif;
+	font-size: 120%;
+	color: #223153;
+}
+span.head a {
+	color: #114153;
+}
+span.ref {
+	font-family: 'Times New Roman', serif;
+	color: #223153;
+	font-size: 110%;
+	font-weight: bold;
+}
+div.ident span.val,
+div.sacrament span.val,
+div.field span.val
+{
+	font-size: 110%;
+	color: rgb(10, 30, 50);
+}

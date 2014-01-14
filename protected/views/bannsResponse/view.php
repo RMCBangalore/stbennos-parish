@@ -44,4 +44,5 @@ $this->menu=array(
 <?php echo CHtml::encode($model->res_dt); ?>
 <br />
 
-<?php echo CHtml::link('Download Letter', array('viewCert', 'id' => $model->id), array('target' => '_blank')) ?>
+<?php echo CHtml::link('View Record', array('../bannsRecords/view', 'id'=>$model->id));
+echo CHtml::link('Download Letter', array('viewCert', 'id' => $model->id), array('target' => '_blank')) ?>

@@ -34,6 +34,7 @@
 
 	<?php $this->renderPartial('../marriageRecords/_view_cert', array('model' => $data, 'data' => $data->marriage)); ?>
 
-	<?php echo CHtml::link('Download Certificate', array('viewCert', 'id'=>$data->id), array('target' => '_blank')) ?>
+	<?php echo CHtml::link('View Record', array('marriageRecords/view', 'id'=>$data->marriage_id)) . ' | ';
+	echo CHtml::link('Download Certificate', array('viewCert', 'id'=>$data->id), array('target' => '_blank')) ?>
 
 </div>

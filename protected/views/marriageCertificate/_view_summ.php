@@ -34,4 +34,7 @@
 	<?php echo CHtml::encode($data->cert_dt); ?>
 	<br />
 
+	<?php echo CHtml::link('View Record', array('marriageRecords/view', 'id'=>$data->marriage_id)) . ' | ';
+	echo CHtml::link('Download Certificate', array('viewCert', 'id'=>$data->id), array('target' => '_blank')) ?>
+
 </div>
