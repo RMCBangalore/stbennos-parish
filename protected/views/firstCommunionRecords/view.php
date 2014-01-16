@@ -48,9 +48,19 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ';
+<?php echo CHtml::link('Edit', array('update', 'id'=>$model->id));
 if ($model->firstCommunionCerts) {
-	echo CHtml::link('View Certificates', array('firstCommunionCertificate/byRecord', 'id' => $model->id)) . ' | ';
+	echo ' | ' . CHtml::link('View Certificates', array('firstCommunionCertificate/byRecord', 'id' => $model->id));
 }
-	echo CHtml::link('Create Certificate', array('firstCommunionCertificate/create', 'id' => $model->id)) ?>
+	$cert = new FirstCommunionCertificate;
+	$form = $this->beginWidget('CActiveForm', array(
+		'id'=>'first-communion-certificate-form',
+		'action'=>array('/firstCommunionCertificate/create'),
+		'enableAjaxValidation' => false,
+	));
+	echo $form->hiddenField($cert,'first_comm_id',array('value'=>$model->id));
+	echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
+	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+	$this->endWidget();
+?>
 

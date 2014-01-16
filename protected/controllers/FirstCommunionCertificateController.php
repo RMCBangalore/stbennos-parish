@@ -86,7 +86,7 @@ class FirstCommunionCertificateController extends RController
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id)
+	public function actionCreate($id = null)
 	{
 		$model=new FirstCommunionCertificate;
 

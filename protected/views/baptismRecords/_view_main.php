@@ -26,7 +26,12 @@
 
 	<?php $this->renderPartial('_view_fields', array('data' => $data)); ?>
 	
-	<?php /*
+	<?php 
+	echo CHtml::link('Edit', array('update', 'id'=>$data->id));
+	if ($data->baptismCerts) {
+		echo ' | ' . CHtml::link('View Certificates', array('/baptismCertificate/byRecord', 'id'=>$data->id));
+	} 
+	/*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('residence')); ?>:</b>
 	<?php echo CHtml::encode($data->residence); ?>
 	<br />
@@ -44,9 +49,5 @@
 	<br />
 
 	*/ ?>
-
-	<?php echo CHtml::link('Edit', array('update', 'id'=>$data->id)) . ' | ' .
-		CHtml::link('View Certificates', array('/baptismCertificate/byRecord', 'id'=>$data->id)) . ' | ' . 
-		CHtml::link('Create Certificate', array('baptismCertificate/create', 'bid' => $data->id)); ?>
 
 </div>

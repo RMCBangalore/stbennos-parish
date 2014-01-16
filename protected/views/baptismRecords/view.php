@@ -41,6 +41,17 @@ $this->menu=array(
 
 <?php $this->renderPartial('_view_main', array('data' => $model));
 
+$cert = new BaptismCertificate;
+$form = $this->beginWidget('CActiveForm', array(
+	'id'=>'baptism-certificate-form',
+	'action'=>array('/baptismCertificate/create'),
+	'enableAjaxValidation' => false,
+));
+echo $form->hiddenField($cert,'baptism_id',array('value'=>$model->id));
+echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
+echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+$this->endWidget();
+
 /*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

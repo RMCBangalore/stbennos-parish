@@ -86,7 +86,7 @@ class BannsRequestController extends RController
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($bid)
+	public function actionCreate($bid = null)
 	{
 		$model=new BannsRequest;
 
@@ -95,9 +95,10 @@ class BannsRequestController extends RController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BannsRequest']))
+		if(isset($_POST['banns_id']))
 		{
-			$model->attributes=$_POST['BannsRequest'];
+			$model->banns_id = $_POST['banns_id'];
+			$model->req_dt = $_POST['cert_dt'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

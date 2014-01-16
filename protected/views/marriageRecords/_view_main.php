@@ -117,10 +117,20 @@
 	<?php echo CHtml::encode($data->remarks); ?>
 	<br />
 
-	<?php echo CHtml::link('Edit', array('marriageRecords/update', 'id'=>$data->id)) . ' | ';
+	<?php echo CHtml::link('Edit', array('marriageRecords/update', 'id'=>$data->id));
 	if ($data->marriageCerts) {
-		echo CHtml::link('View Certificates', array('marriageCertificate/byRecord', 'id'=>$data->id)) . ' | ';
+		echo ' | ' . CHtml::link('View Certificates', array('marriageCertificate/byRecord', 'id'=>$data->id));
 	}
-	echo CHtml::link('Create Certificate', array('marriageCertificate/create', 'mid'=>$data->id)) ?>
+	$cert = new MarriageCertificate;
+	$form = $this->beginWidget('CActiveForm', array(
+		'id'=>'marriage-certificate-form',
+		'action'=>array('/marriageCertificate/create'),
+		'enableAjaxValidation' => false,
+	));
+	echo $form->hiddenField($cert,'marriage_id',array('value'=>$model->id));
+	echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
+	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+	$this->endWidget();
+?>
 
 </div>

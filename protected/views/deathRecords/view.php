@@ -60,8 +60,18 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php echo CHtml::link('Create Certificate', array('deathCertificate/create', 'id' => $model->id));
+<?php echo CHtml::link('Edit', array('update', 'id' => $model->id));
 if ($model->deathCerts) {
 	echo ' | ' . CHtml::link('View Certificates', array('deathCertificate/byRecord', 'id'=>$model->id));
-} ?>
-
+}
+	$cert = new DeathCertificate;
+	$form = $this->beginWidget('CActiveForm', array(
+		'id'=>'death-certificate-form',
+		'action'=>array('/deathCertificate/create'),
+		'enableAjaxValidation' => false,
+	));
+	echo $form->hiddenField($cert,'death_id',array('value'=>$model->id));
+	echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
+	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+	$this->endWidget();
+ ?>

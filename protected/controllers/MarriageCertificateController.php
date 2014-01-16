@@ -86,7 +86,7 @@ class MarriageCertificateController extends RController
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($mid)
+	public function actionCreate($mid = null)
 	{
 		$model=new MarriageCertificate;
 

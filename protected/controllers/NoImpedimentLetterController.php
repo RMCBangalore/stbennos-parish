@@ -87,7 +87,7 @@ class NoImpedimentLetterController extends RController
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($bid)
+	public function actionCreate($bid = null)
 	{
 		$model=new NoImpedimentLetter;
 
@@ -96,9 +96,10 @@ class NoImpedimentLetterController extends RController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['NoImpedimentLetter']))
+		if(isset($_POST['banns_id']))
 		{
-			$model->attributes=$_POST['NoImpedimentLetter'];
+			$model->banns_id = $_POST['banns_id'];
+			$model->letter_dt = $_POST['cert_dt'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

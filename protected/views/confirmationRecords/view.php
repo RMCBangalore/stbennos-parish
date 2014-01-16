@@ -55,7 +55,17 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php echo CHtml::link('Edit', array('update', 'id' => $model->id)) . ' | ';
-if ($model->confirmationCerts) { echo CHtml::link('View Certificates', array('confirmationCertificate/byRecord', 'id' => $model->id)) . ' | '; }
-echo CHtml::link('Create Certificate', array('confirmationCertificate/create', 'id' => $model->id)) ?>
+<?php echo CHtml::link('Edit', array('update', 'id' => $model->id));
+if ($model->confirmationCerts) { echo ' | ' . CHtml::link('View Certificates', array('confirmationCertificate/byRecord', 'id' => $model->id)); }
+	$cert = new ConfirmationCertificate;
+	$form = $this->beginWidget('CActiveForm', array(
+		'id'=>'confirmation-certificate-form',
+		'action'=>array('/confirmationCertificate/create'),
+		'enableAjaxValidation' => false,
+	));
+	echo $form->hiddenField($cert,'confirmation_id',array('value'=>$model->id));
+	echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
+	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+	$this->endWidget();
+?>
 

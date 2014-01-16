@@ -27,6 +27,15 @@ $this->breadcrumbs=array(
 	$model->id,
 );
 
+Yii::app()->clientScript->registerScript('createBannsLetters', "
+$('#banns-letter-form a').click(function(e) {
+	frm = $('#banns-letter-form');
+	frm.attr('action', $(this).attr('href'));
+	frm.submit();
+	return false;
+} );
+");
+
 $this->menu=array(
 	array('label'=>'List BannsRecord', 'url'=>array('index')),
 	array('label'=>'Create BannsRecord', 'url'=>array('create')),
@@ -40,8 +49,9 @@ $this->menu=array(
 
 ?>
 
-<h1><?php echo $model->groom_name . ' & ' . $model->bride_name ?>: #<?php echo $model->id; ?></h1>
+<div class="view">
 
+<h1><?php echo $model->groom_name . ' & ' . $model->bride_name ?>: #<?php echo $model->id; ?></h1>
 
 <?php
 	$letters = false;
@@ -50,6 +60,7 @@ $this->menu=array(
 	}
 $model->groom_parish = BannsRecord::get_parish($model->groom_parish);
 $model->bride_parish = BannsRecord::get_parish($model->bride_parish);
+
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -61,31 +72,41 @@ $this->widget('zii.widgets.CDetailView', array(
 		'banns_dt2',
 		'banns_dt3',
 	),
-)); ?>
+));
+
+echo '<br />';
+echo CHtml::link('Edit', array('bannsRecords/view', 'id'=>$model->id)) . ' | ';
+
+if ($letters) {
+	if ($model->requests) {
+		echo CHtml::link('View Request Letters', array('bannsRequest/byRecord', 'id' => $model->id));
+		echo ' | ';
+	}
+	if ($model->responses) {
+		echo CHtml::link('View Response Letters', array('bannsResponse/byRecord', 'id' => $model->id));
+		echo ' | ';
+	}
+	if ($model->noImpedimentLetters) {
+		echo CHtml::link('View No Impediment Letters', array('noImpedimentLetter/byRecord', 'id' => $model->id));
+	}
+}
+ ?>
+</div><!-- view -->
 
 <?php
-	if ($letters) {
-		echo 'Create Letter: ' . CHtml::link('Request', array('bannsRequest/create', 'bid' => $model->id));
-		echo ' | ';
-		echo CHtml::link('Response', array('bannsResponse/create', 'bid' => $model->id));
-		echo ' | ';
-		echo CHtml::link('No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $model->id));
-		echo '<br />';
-	}
-
-	echo CHtml::link('Edit', array('bannsRecords/view', 'id'=>$model->id)) . ' | ';
-
-	if ($letters) {
-		echo 'View ';
-		if ($model->requests) {
-			echo CHtml::link('Requests', array('bannsRequest/byRecord', 'id' => $model->id));
-			echo ' | ';
-		}
-		if ($model->responses) {
-			echo CHtml::link('Responses', array('bannsResponse/byRecord', 'id' => $model->id));
-			echo ' | ';
-		}
-		if ($model->noImpedimentLetters) {
-			echo CHtml::link('No Impediment Letters', array('noImpedimentLetter/byRecord', 'id' => $model->id));
-		}
-	} ?>
+$form = $this->beginWidget('CActiveForm', array(
+	'id'=>'banns-letter-form',
+	'enableAjaxValidation' => false,
+));
+echo CHtml::hiddenField('banns_id',$model->id,array('id'=>'banns_id'));
+echo CHtml::hiddenField('cert_dt',date('d/m/Y'),array('id'=>'cert_dt'));
+if ($letters) {
+	echo CHtml::link('Create Request Letter', array('bannsRequest/create', 'bid' => $model->id), array('class' => 'request'));
+	echo ' | ';
+	echo CHtml::link('Create Response Letter', array('bannsResponse/create', 'bid' => $model->id), array('class' => 'response'));
+	echo ' | ';
+	echo CHtml::link('Create No Impediment Letter', array('noImpedimentLetter/create', 'bid' => $model->id), array('class' => 'noImpediment'));
+	echo '<br />';
+}
+$this->endWidget();
+?>

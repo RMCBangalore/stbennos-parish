@@ -70,6 +70,8 @@ class MarriageRecordsController extends RController
 	 */
 	public function actionView($id)
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/register-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$now = date_format(new DateTime(), 'Y-m-d H:i:s');
 
 		$this->render('view',array(
@@ -174,7 +176,7 @@ class MarriageRecordsController extends RController
 	 */
 	public function actionIndex()
 	{
-		$uri = Yii::app()->request->baseUrl . '/css/register-view.css';
+		$uri = Yii::app()->request->baseUrl . '/css/register-index.css';
 		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('MarriageRecord');
 		$this->render('index',array(
