@@ -31,7 +31,7 @@ class DeathRecordTest extends WebTestCase
 		'deaths' => 'DeathRecord',
 	);
 
-	public function testCreateNonParishioner()
+	public function testCreate()
 	{
 		$this->loginAs('pastor', 'pastor');
 		$deaths = array(
@@ -89,8 +89,7 @@ class DeathRecordTest extends WebTestCase
 			foreach($death as $key => $value) {
 				$this->assertTextPresent($value);
 			}
-			$this->clickAndWait("link=Create Certificate");
-			$this->clickAndWait("//input[@value='Create']");
+			$this->clickAndWait("//input[@value='Create Certificate']");
 			foreach($death as $key => $value) {
 				$this->assertTextPresent($value);
 			}

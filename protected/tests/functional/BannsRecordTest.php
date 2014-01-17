@@ -114,6 +114,32 @@ class BannsRecordTest extends WebTestCase
 					$this->assertTextPresent($value);
 				}
 			}
+			if (isset($bann['groom_parish']) xor isset($bann['bride_parish'])) {
+				$this->clickAndWait("link=Create Request Letter");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+				$this->clickAndWait("link=View Record");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+				$this->clickAndWait("link=Create Response Letter");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+				$this->clickAndWait("link=View Record");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+				$this->clickAndWait("link=Create No Impediment Letter");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+				$this->clickAndWait("link=View Record");
+				foreach($bann as $key => $value) {
+					$this->assertTextPresent($value);
+				}
+			}
 		}
 	}
 }

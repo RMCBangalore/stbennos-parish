@@ -115,8 +115,7 @@ class MarriageRecordTest extends WebTestCase
 					$this->assertTextPresent($value);
 				}
 			}
-			$this->clickAndWait("link=Create Certificate");
-			$this->clickAndWait("//input[@value='Create']");
+			$this->clickAndWait("//input[@value='Create Certificate']");
 			$this->spouse_test($groom_details);
 			$this->spouse_test($bride_details);
 			foreach($marriage as $key => $value) {
@@ -221,8 +220,7 @@ class MarriageRecordTest extends WebTestCase
 					$this->assertTextPresent($value);
 				}
 			}
-			$this->clickAndWait("link=Create Certificate");
-			$this->clickAndWait("//input[@value='Create']");
+			$this->clickAndWait("//input[@value='Create Certificate']");
 			$this->spouse_test($groom_details);
 			$this->spouse_test($bride_details);
 			foreach($marriage as $key => $value) {

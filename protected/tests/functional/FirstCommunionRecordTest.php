@@ -53,11 +53,7 @@ class FirstCommunionRecordTest extends WebTestCase
 			foreach($comm as $key => $value) {
 				$this->assertTextPresent($value);
 			}
-			$this->clickAndWait("link=Create Certificate");
-			foreach($comm as $key => $value) {
-				$this->assertTextPresent($value);
-			}
-			$this->clickAndWait("//input[@value='Create']");
+			$this->clickAndWait("//input[@value='Create Certificate']");
 			foreach($comm as $key => $value) {
 				$this->assertTextPresent($value);
 			}
@@ -92,11 +88,7 @@ class FirstCommunionRecordTest extends WebTestCase
 			foreach($comm as $key => $value) {
 				$this->assertTextPresent($value);
 			}
-			$this->clickAndWait("link=Create Certificate");
-			foreach($comm as $key => $value) {
-				$this->assertTextPresent($value);
-			}
-			$this->clickAndWait("//input[@value='Create']");
+			$this->clickAndWait("//input[@value='Create Certificate']");
 			foreach($comm as $key => $value) {
 				$this->assertTextPresent($value);
 			}
