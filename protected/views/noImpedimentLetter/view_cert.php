@@ -59,14 +59,6 @@ function show_field_ln($pdf, $value, $text = '') {
 	$col = 0;
 }
 
-function get_parish($parish) {
-	if (ctype_digit($parish)) {
-		return Parish::get()->name;
-	} else {
-		return $parish;
-	}
-}
-
 	$pdf->Cell(0,4,"",0,1);
 	$pdf->SetFont("times", "R", 14);
 	$pdf->Cell(2,0,'',0,0);
@@ -84,16 +76,16 @@ function get_parish($parish) {
 	show_field($pdf, $banns->groom_name);
 	show_field_ln($pdf, '', ', ');
 	show_field_ln($pdf, $banns->groom_parent, 'S/o    ');
-	show_field($pdf, get_parish($banns->groom_parish), 'of  ');
+	show_field($pdf, BannsRecord::get_parish($banns->groom_parish), 'of  ');
 	show_field_ln($pdf, '', ' parish');
 /*	$pdf->Cell(2,0,"",0,0);
-	$pdf->Cell(0,0.8,get_parish($banns->groom_parish). ' Parish and ',0,1,'L');
+	$pdf->Cell(0,0.8,BannsRecord::get_parish($banns->groom_parish). ' Parish and ',0,1,'L');
 */	
 	show_field_ln($pdf, '', '        and');
 	show_field($pdf, $banns->bride_name, '');
 	show_field_ln($pdf, '', ', ');
 	show_field_ln($pdf, $banns->bride_parent, 'D/o  ');
-	show_field($pdf, get_parish($banns->bride_parish), 'of  ');
+	show_field($pdf, BannsRecord::get_parish($banns->bride_parish), 'of  ');
 	show_field_ln($pdf, '', ' parish');
 
 	if (ctype_digit($banns->groom_parish)) {

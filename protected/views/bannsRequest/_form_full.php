@@ -19,13 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-function get_parish($parish) {
-	if (ctype_digit($parish)) {
-		return Parish::get()->name . ' (our parish)';
-	} else {
-		return $parish;
-	}
-}
 ?>
 
 <div class="view">
@@ -41,7 +34,7 @@ function get_parish($parish) {
 	<?php if (ctype_digit($data->groom_parish)) { ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_parish')); ?>:</b>
-	<?php echo get_parish($data->groom_parish); ?>
+	<?php echo BannsRecord::get_parish($data->groom_parish); ?>
 	<br />
 
 	<b><?php echo 'Groom DOB' ?>:</b>
@@ -70,7 +63,7 @@ function get_parish($parish) {
 
 	<?php if (ctype_digit($data->bride_parish)) {
 		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . ':</b> ';
-		echo get_parish($data->bride_parish);
+		echo BannsRecord::get_parish($data->bride_parish);
 		echo '<br />';
 
 		echo '<b>Bride DOB:</b> ';
@@ -83,7 +76,7 @@ function get_parish($parish) {
 
 	} else {
 		echo '<b>' . CHtml::encode($data->getAttributeLabel('bride_parish')) . ':</b> ';
-		echo get_parish($data->bride_parish);
+		echo BannsRecord::get_parish($data->bride_parish);
 		echo '<br />';
 	} ?>
 
