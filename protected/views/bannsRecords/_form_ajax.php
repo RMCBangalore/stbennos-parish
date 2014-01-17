@@ -86,7 +86,7 @@ groom['callback'] = function(p) {
 	$('#BannsRecord_groom_parish').val('" . Parish::get()->name . "');
 	$('#BannsRecord_groom_parish').attr('readonly', true);
 	$('#BannsRecord_groom_parish_hid').val(p.id);
-	$('#BannsRecord_groom_parish_hid').attr('name', 'groom_parish');
+	$('#BannsRecord_groom_parish_hid').attr('name', 'BannsRecord[groom_parish]');
 };
 $('#groom_search').fancybox( {
 	'onComplete': function() {
@@ -97,7 +97,7 @@ $('#groom_search').fancybox( {
 	}
 } );
 $('#groom_clear').click(function() {
-	$('#BannsRecord_groom_parish').attr('name', 'groom_parish');
+	$('#BannsRecord_groom_parish').attr('name', 'BannsRecord[groom_parish]');
 	$('#BannsRecord_groom_parish').val('');
 	$('#BannsRecord_groom_parish').attr('readonly', false);
 	$('#BannsRecord_groom_parish_hid').val('');
@@ -117,7 +117,7 @@ bride['callback'] = function(p) {
 	$('#BannsRecord_bride_parish').val('" . Parish::get()->name . "');
 	$('#BannsRecord_bride_parish').attr('readonly', true);
 	$('#BannsRecord_bride_parish_hid').val(p.id);
-	$('#BannsRecord_bride_parish_hid').attr('name', 'bride_parish');
+	$('#BannsRecord_bride_parish_hid').attr('name', 'BannsRecord[bride_parish]');
 };
 $('#bride_search').fancybox( {
 	'onComplete': function() {
@@ -128,7 +128,7 @@ $('#bride_search').fancybox( {
 	}
 } );
 $('#bride_clear').click(function() {
-	$('#BannsRecord_bride_parish').attr('name', 'bride_parish');
+	$('#BannsRecord_bride_parish').attr('name', 'BannsRecord[bride_parish]');
 	$('#BannsRecord_bride_parish').val('');
 	$('#BannsRecord_bride_parish').attr('readonly', false);
 	$('#BannsRecord_bride_parish_hid').val('');

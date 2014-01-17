@@ -171,7 +171,9 @@ $this->menu=array(
 	echo "<label>Education: </label>";
 	echo "<span class='val'>". $model->lang_edu . "</span>";
 	echo "</div>";
-	echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ' . CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id));
+	echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ' . 
+	  CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id)) . ' | ' .
+	  CHtml::link('View Family', array('/family/view', 'id'=>$model->family_id));
 ?>
 
 </div>

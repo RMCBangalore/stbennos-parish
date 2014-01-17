@@ -75,18 +75,19 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 
 echo '<br />';
-echo CHtml::link('Edit', array('bannsRecords/view', 'id'=>$model->id)) . ' | ';
+echo CHtml::link('Edit', array('bannsRecords/update', 'id'=>$model->id));
 
 if ($letters) {
 	if ($model->requests) {
-		echo CHtml::link('View Request Letters', array('bannsRequest/byRecord', 'id' => $model->id));
 		echo ' | ';
+		echo CHtml::link('View Request Letters', array('bannsRequest/byRecord', 'id' => $model->id));
 	}
 	if ($model->responses) {
-		echo CHtml::link('View Response Letters', array('bannsResponse/byRecord', 'id' => $model->id));
 		echo ' | ';
+		echo CHtml::link('View Response Letters', array('bannsResponse/byRecord', 'id' => $model->id));
 	}
 	if ($model->noImpedimentLetters) {
+		echo ' | ';
 		echo CHtml::link('View No Impediment Letters', array('noImpedimentLetter/byRecord', 'id' => $model->id));
 	}
 }

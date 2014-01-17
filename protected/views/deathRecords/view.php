@@ -72,6 +72,6 @@ if ($model->deathCerts) {
 	));
 	echo $form->hiddenField($cert,'death_id',array('value'=>$model->id));
 	echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
-	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+	echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"), array('value'=>'Create Certificate'));
 	$this->endWidget();
  ?>

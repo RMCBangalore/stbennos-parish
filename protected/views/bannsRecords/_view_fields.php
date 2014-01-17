@@ -70,3 +70,15 @@ function get_parish($parish) {
 	<?php echo get_parish($data->bride_parish); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt1')); ?>:</b>
+	<?php echo get_parish($data->banns_dt1); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt2')); ?>:</b>
+	<?php echo get_parish($data->banns_dt2); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('banns_dt3')); ?>:</b>
+	<?php echo get_parish($data->banns_dt3); ?>
+	<br />
+

@@ -49,7 +49,7 @@ $form = $this->beginWidget('CActiveForm', array(
 ));
 echo $form->hiddenField($cert,'baptism_id',array('value'=>$model->id));
 echo $form->hiddenField($cert,'cert_dt',array('value'=>date('d/m/Y')));
-echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"));
+echo CHtml::imageButton(Yii::app()->createUrl("/images/create-cert.jpg"), array('value'=>'Create Certificate'));
 $this->endWidget();
 
 /*$this->widget('zii.widgets.CDetailView', array(
