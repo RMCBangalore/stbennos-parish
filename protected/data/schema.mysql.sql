@@ -565,7 +565,7 @@ CREATE TABLE `parish` (
   `mass_book_basic` double NOT NULL,
   `mass_book_sun` double NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
-  `website` varchar(20) DEFAULT NULL,
+  `website` varchar(50) DEFAULT NULL,
   `logo_src` varchar(50) DEFAULT NULL,
   `logo_width` int(11) DEFAULT NULL,
   `logo_height` int(11) DEFAULT NULL,

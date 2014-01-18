@@ -100,10 +100,10 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,1,'',0,1);
 	$pdf->SetFont("times", "R", 14);
 	$pdf->Cell(1.6,0,"",0,0);
-	$pdf->count += 2.9;
-	show_field($pdf, "A. Between Catholics", "", 0, 1, 'L');
-	show_field($pdf, "B. Between Catholic & Non Catholic", "", 0, 1, 'L');
-	show_field($pdf, "Total Numbers of Marriages (A+B)", "", 0, 1, 'L');
+	$pdf->count += 3.05;
+	show_field($pdf, "A. Between Catholics", $married_cath, 0, 1, 'L');
+	show_field($pdf, "B. Between Catholic & Non Catholic", $married_nc, 0, 1, 'L');
+	show_field($pdf, "Total Numbers of Marriages (A+B)", $married, 0, 1, 'L');
 #	draw_line($pdf);
 
 	$pdf->SetFont("times", "B", 12);
@@ -124,11 +124,15 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,0.3,'',0,1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(6.5,1,'Name & Address of the Parish',0,0,'L');
-	$pdf->Cell(9,1,'','B',1);
+	$pdf->Cell(9,1,Parish::get()->name,'B',1);
 	$pdf->Cell(7.5,0,'',0,0);
-	$pdf->Cell(9,1,'','B',1);
+	$pAddr = explode("\n", Parish::get()->address);
+	array_push($pAddr, implode(' - ', array(
+		Parish::get()->city,
+		Parish::get()->pin)));
+	$pdf->Cell(9,1,$pAddr[0],'B',1);
 	$pdf->Cell(7.5,0,'',0,0);
-	$pdf->Cell(9,1,'','B',1);
+	$pdf->Cell(9,1,$pAddr[1],'B',1);
 
 	$pdf->Cell(0,1,'',0,1,'L');
 	$pdf->Cell(1.5,0,'',0,0,'L');
@@ -216,37 +220,37 @@ foreach ($day_masses as $day => $masses) {
 	$pdf->Cell(10,$ht,strtoupper(Parish::get()->name),'TR',1,'L');
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(7,$ht*4,'Address','LBR',0,'L',false,'',0,false,'T','T');
-	$pAddr = explode("\n", Parish::get()->address);
-	array_push($pAddr, implode(' - ', array(
-		Parish::get()->city,
-		Parish::get()->pin)));
 	foreach($pAddr as $addr) {
 		$pdf->Cell(10,$ht,strtoupper($addr),'R',1,'L');
 		$pdf->Cell(8,0,'',0,0,'L');
 	}
 	$pdf->Cell(10,$ht,'','BR',1,'L');
 
-function show_data($pdf, $label, $value='')
+function show_data($pdf, $label, $value='', $uc=true)
 {
 	$pdf->Cell(1,0);
 	$pdf->Cell(7,$pdf->ht,$label,'BLR',0,'L');
-	$pdf->Cell(10,$pdf->ht,strtoupper($value),'RB',1,'L');
+	if ($uc) {
+		$value = strtoupper($value);
+	}
+	$pdf->Cell(10,$pdf->ht,$value,'RB',1,'L');
 }
-	show_data($pdf, 'Established Year');
-	show_data($pdf, 'Name of the Parish Priest');
+	show_data($pdf, 'Established Year', Parish::get()->est_year);
+	show_data($pdf, 'Name of the Parish Priest', $pp->fullname);
 	show_data($pdf, 'No. of Catholics', $members);
 	show_data($pdf, 'No. of Families', $families);
-	show_data($pdf, 'Telephone No.');
-	show_data($pdf, 'Mobile No.');
-	show_data($pdf, 'Email ID');
+	show_data($pdf, 'Telephone No.', Parish::get()->phone);
+	show_data($pdf, 'Mobile No.', $pp->mobile);
+	show_data($pdf, 'Email ID', $pp->email, false);
 	show_data($pdf, 'Fax No.');
-	show_data($pdf, 'Web Site:');
-foreach(array(1,2) as $i) {
-	show_data($pdf, 'Name of the Assistant Parish Priest');
-	show_data($pdf, 'Telephone No.');
-	show_data($pdf, 'Mobile No.');
+	show_data($pdf, 'Web Site:', Parish::get()->website, false);
+
+foreach($apps as $app) {
+	show_data($pdf, 'Name of the Assistant Parish Priest', $app->fullname);
+	show_data($pdf, 'Mobile No.', $app->mobile);
+	show_data($pdf, 'Email', $app->email, false);
 }
-	
+
 	$pdf->SetFont("times", "B", 12);
 	$y = 27;
 	$pdf->Text(2,$y,'Date:');

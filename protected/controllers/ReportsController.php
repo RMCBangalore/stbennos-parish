@@ -32,10 +32,13 @@ class ReportsController extends RController
 		$confirmed = ConfirmationRecord::model()->findAll('confirmation_dt > NOW() - INTERVAL 1 YEAR ');
 		$firstComm = FirstCommunionRecord::model()->findAll('communion_dt > NOW() - INTERVAL 1 YEAR ');
 		$married = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR');
+		$married_cath = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR AND marriage_type <= 2');
+		$married_nc = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR AND marriage_type > 2');
 		$schedule = MassSchedule::model()->findAll(array(
 			'order' => 'day, time'
 		));
-
+		$pp = Pastors::model()->find('role = 1');
+		$apps = Pastors::model()->findAll('role != 1');
 
 		$this->render('parish-profile', array(
 			'families'	=> count($fams),
@@ -47,6 +50,10 @@ class ReportsController extends RController
 			'confirmed'	=> count($confirmed),
 			'firstComm' => count($firstComm),
 			'married'	=> count($married),
+			'married_nc'	=> count($married_nc),
+			'married_cath'	=> count($married_cath),
+			'pp'		=> $pp,
+			'apps'		=> $apps,
 			'schedule'	=> $schedule
 		));
 	}
