@@ -125,14 +125,14 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(1,0,'',0,0);
 	$pdf->Cell(6.5,1,'Name & Address of the Parish',0,0,'L');
 	$pdf->Cell(9,1,Parish::get()->name,'B',1);
-	$pdf->Cell(7.5,0,'',0,0);
 	$pAddr = explode("\n", Parish::get()->address);
 	array_push($pAddr, implode(' - ', array(
 		Parish::get()->city,
 		Parish::get()->pin)));
-	$pdf->Cell(9,1,$pAddr[0],'B',1);
-	$pdf->Cell(7.5,0,'',0,0);
-	$pdf->Cell(9,1,$pAddr[1],'B',1);
+	foreach($pAddr as $addr) {
+		$pdf->Cell(7.5,0,'',0,0);
+		$pdf->Cell(9,1,$addr,'B',1);
+	}
 
 	$pdf->Cell(0,1,'',0,1,'L');
 	$pdf->Cell(1.5,0,'',0,0,'L');

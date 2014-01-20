@@ -1,0 +1,162 @@
+Alive Parish v1.0-beta2, 2014-01-18
+-----------------------------------
+ * Updated name to Alive Parish in headers, added README.md
+ * Restyled all registers, added view certs links, links back from certs
+ * Creation of certificates, letters at single click + Certificate image button
+ * Updated functional tests to accomodate single click certificates, letters
+ * Fixed banns register create parishioner memberid issue + view updates
+ * Removed redeclarations of get_parish using BannsRecord::get_parish instead
+ * Updated a simple favicon, updated cleaner logo
+ * Populated missing fields in parish profile report
+
+Alive Parish v1.0-beta1, 2014-01-13
+------------------------------------
+ * Fixed registers record create issue for non-parishioners
+ * Added death_dt column to people table
+ * Added member search by special skill, auto complete
+ * Show software version for tracking updates
+ * Redirect to family view after 3rd child is added
+ * Showing ref_no in baptism, marriage certificates
+ * Favicon with transparent background in chrome, firefox, IE8+
+ * Profile with change password added
+ * Allowing page elements load when offline
+ * Checking access before showing menu icons
+ * Hierachical menu (mbmenu)
+ * Member remarks field added
+ * Staff update/delete right for mass booking
+ * Reordered certificate index: baptism..confirmation, marriage
+ * ref_no NOT NULL, DBMS independent setting
+ * Person search pager links work properly
+ * Ensuring all empty dates set to NULL in database
+ * Letter, Certificate generation, Sacrament dates required
+ * Fixed parents issue: husband/wife parent as self
+ * Orange-purple menu and logo
+ * Baptism record fields: parents, godparents, minister
+ * Confirmation new fileds: parish
+ * Functional tests for family, mass bookings, subscription,
+ 	registers and certificates
+ * On disable family, pop to record leaving date
+ * Fixed URLs in popup family, person search
+
+Alive Parish v1.0-alpha4, 2013-11-27
+------------------------------------
+ * Family: expanded street address to 75, addr_area to 25 chars
+ * Member language of liturgy not required field
+ * Increased all calendar popup year range start to 1900
+ * All displayed, entry dates in localized format
+ * Fixed issue with Update Visits: undefined variable
+ * FAQ: added 2 questions, fixed formatting
+ * Restyled family view, member view
+ * Photo placeholders for family, members, google map
+
+Alive Parish v1.0-alpha3, 2013-11-13
+------------------------------------
+ * Members profile icon + corrected home link when running on /
+ * Fixed logo not saving issue
+ * Fixed Mass Booking Create PHP 5.4.3 compatibility issue
+ * Mass bookings - show type in view, show booked_by in report
+ * Updated schema with new ACL permissions, foreign key cascades,
+ 	marriages.marriage_type
+ * Disabled Update Certificates, since data comes from Registers
+ * Fixed issue with Manage Certificates
+
+Alive Parish v1.0-alpha2, 2013-11-13
+------------------------------------
+ * Displaying license at the start of software installation
+ * Removed reference to /gpl.html, Parish model in install view
+ * Schema: Added fields-pastor role, salutation, visit purpose
+ * Marriage records: marital_status field for bride/groom status
+ * Banns record: fixed reference to Parish::get_parish
+ * Parish address format change updated for parish profile, subscription
+
+Alive Parish v1.0-alpha, 2013-11-07
+------------------------------------
+ * Initial commit: Family, Member, Registers, Survey
+ * Authentication based on User model entity (database)
+ * User management CRUD functionality
+ * Added rights module + configuration
+ * Handling family where husband/wife not entered initially
+ * PHP 5.3 compatibility for family survey
+ * Certificate dates in local format (d/m/Y)
+ * Multiple dependents handling. Fixes dependent2 dob calendar issue
+ * Added Death Records, Certificates
+ * Added ref_no for all Registers & Certificates
+ * Confirmation certificate - corrected author, title
+ * Added member photo upload, view
+ * Wizard based create family
+ * Family photo upload with generic image size validation
+ * Person photo upload/update page in separate page
+ * Added crop Family, Member photo (requires gd library)
+ * Banns request letter generation added
+ * Banns records with selection of groom/bride from our parish
+ * Banns response letters creation and download
+ * No impediment letters creation and download
+ * Download Certificate link opens new window
+ * Banns both from our parish
+ * Family photo crop: smaller 450x300, less CPU intensive
+ * Google map location for families
+ * MySQL: Schema + initial data, parish data
+ * Fixed Banns Response issue: missing get_parish method
+ * Fixed multiple submission of family form issue
+ * People search by age, baptised years, confirmed years..
+ * Export family,people search results to spreadsheet (TSV)
+ * Reset auto_increment for initially empty tables
+ * Create open question - more comprehensible types
+ * Family view: show family head fullname in family tab
+ * Mass schedule creation, update, view
+ * Mass bookings with transactions, receipt
+ * Multiple-dependents facility for family
+ * Google translate to Kannada, Tamil & Hindi
+ * Admin section: manage 11 fields: languages, zones..
+ * FAQ added: features, families, subscriptions, registers, certificates
+ * Marriage register: bride, groom baptism dates, ref_no
+ * Death register: fixed issue with delete
+ * Extra fields in search Baptism, Confirmation, Marriage, Death
+ * Family id unique validation - simple error msg
+ * Year of Registration replaced with Family Registration Date
+ * Family View: head as part of heading title
+ * Sacrament date value validation - not future, after dob
+ * Fixed issue fetching awareness items for awareness survey
+ * Family subscriptions listing, payment, receipts
+ * Manage families fix: Registration date & marriage date CJuiDatePicker
+ * Mass bookings calendar with clickable links to book mass
+ * Daily mass bookings listing
+ * Survey reports: need items, satisfaction, awareness, open questions
+ * Proper breadcrumbs for different pages under Home and Admin
+ * Iconified homepage & home links, Admin breadcrumbs for rights
+ * Iconifed Parish Registers & Certificate archives
+ * Removed Create Certificate links
+ * Fixed Mass booking update error
+ * Global search on families, members, registers, mass bookings
+ * Added links from Registers to corresponding certificates/letters
+ * Added corresponding Create Record link for all certificates, letters
+ * Added new field member id mid for family members
+ * Added marriage, banns register bride/groom search
+ * Family record integration with registers: search, update on create, mid link
+ * Disabling/enabling popup datepicker of dates based on readonly true/false
+ * Baptism certificate duplicate minister column removed from form
+ * Showing member name for member view
+ * Family Search: by zone, BPL, marriage type/status, registered/married years
+ * Subscription independent of family: fancyBox family search
+ * Family search: by subscription paid/due
+ * Fixed issue dob disabled when datepicker disabled
+ * Charts for parish surveys: needs, awareness, satisfaction, openQuestions
+ * People Reports added: birthday, anniversary reports (Excel download)
+ * Added smart-card support (reading scanned bar code)
+ * Fixed birthday, anniversary bug where period ends next year
+ * Added Family disable option: when family moves out
+ * Family Subscriptions: option to pay total amount instead of monthly
+ * Checking records for linked certificates/letters before deletion
+ * Parish profile report for given year by archdiocese format
+ * Factored out database config into separate file dbconf.php
+ * Installer: automatically setup database, configure parish data & create users
+ * Auto-redirect to install, site config option after install for admin
+ * Parish profile report using Sacramental registers instead of family records
+ * Pastors (Parish clergy): Parish Priest, Assistant
+ * House visits addition facility
+ * Mass booking reports: daily, weekly and monthly
+ * Moving context operations above main menu icons
+ * Set parents marriage date based on family marriage date
+ * Added marriage type for marriage records to determine Catholic/non-Catholic
+ * Mass booking: showing type of mass (Sunday or name of Solemnity) if applicable
+
