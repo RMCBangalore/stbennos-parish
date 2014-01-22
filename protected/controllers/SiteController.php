@@ -184,17 +184,13 @@ class SiteController extends RController
 		if (!isset($model)) {
 			$model = new Parish;
 		}
-
-		if (!is_writable($path)) {
+		$installed = Yii::app()->params['installed'];
+		if (!$installed and !is_writable($path)) {
 			Yii::app()->user->setFlash("error", "WARNING: the file $path needs to be writable before submitting this form." .
 				"Please change the permissions of the file or, if it does not exist, of the parent config directory");
 		} elseif (isset($_POST['Parish'])) {
 			$model->attributes = $_POST['Parish'];
 			Yii::trace("model attributes: " . var_export($model->attributes, true), 'application.controllers.SiteController');
-
-			$params = array(
-				'installed'		=> true,
-			);
 
 			try {
 				if (isset($_FILES['Parish'])) {
@@ -245,8 +241,24 @@ class SiteController extends RController
 					}
 				}
 
-				$conf = "<?php\n\nreturn " . var_export($params, true) . ";\n";
-				file_put_contents($path, $conf);
+				if (!$installed) {
+					$params = array(
+						'installed'		=> true,
+					);
+
+					$fh = fopen($path, "r");
+					$header = "";
+					for($i = 0; $i < 21; ++$i) {
+						if (($line = fgets($fh)) !== false) {
+							$header .= $line;
+						} else {
+							break;
+						}
+					}
+					fclose($fh);
+					$conf = $header . "return " . var_export($params, true) . ";\n";
+					file_put_contents($path, $conf);
+				}
 
 				if (!$model->save(false)) {
 					$errs = $model->errors;

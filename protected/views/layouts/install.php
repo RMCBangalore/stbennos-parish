@@ -46,9 +46,9 @@
 
 	<div id="header">
 		<div id="logo"><?php
-			echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.png',
+			echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl . '/images/logo-new.gif',
 				CHtml::encode(Yii::app()->name),
-					array('width' => 405, 'height' => 100)), array('/'));
+					array('width' => 200, 'height' => 100)), array('/'));
 		?></div>
 		<?php if (!Yii::app()->user->isGuest): ?>
 		<div id="search">

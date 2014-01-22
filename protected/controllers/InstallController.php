@@ -114,7 +114,17 @@ class InstallController extends CController
 				Yii::app()->user->setFlash('error', "Error restoring MySQL database" . mysql_error());
 			}
 
-			$dbconf = "<?php\n\nreturn " . var_export($db, true) . ";\n";
+			$fh = fopen($path, "r");
+			$header = "";
+			for($i = 0; $i < 21; ++$i) {
+				if (($line = fgets($fh)) !== false) {
+					$header .= $line;
+				} else {
+					break;
+				}
+			}
+			fclose($fh);
+			$dbconf = $header . "return " . var_export($db, true) . ";\n";
 			file_put_contents($path, $dbconf);
 
 			$this->redirect(array('admin'));
