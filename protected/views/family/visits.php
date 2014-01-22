@@ -29,6 +29,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Create Visits', 'url'=>array('visit/create','fid'=>$fid)),
+	array('label' => 'View Family', 'url'=>array('view', 'id' => $fid)),
 );
 ?>
 

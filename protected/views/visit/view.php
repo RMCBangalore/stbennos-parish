@@ -41,8 +41,20 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'pastor_id',
+		array(
+			'label' => 'Pastor',
+			'name' => 'pastor_id',
+			'value' => Pastors::model()->findByPk($model->pastor_id)->fullname,
+		),
 		'visit_dt',
-		'purpose',
+		array(
+			'label' => 'Purpose',
+			'name' => 'purpose',
+			'value' => FieldNames::value('visit_purpose', $model->purpose),
+		),
 	),
-)); ?>
+));
+
+echo CHtml::link('View Family', array('/family/view', 'id' => $model->family_id));
+
+?>
