@@ -65,7 +65,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'mass_id',
+		'mass_dt',
+#		'mass_id',
 		'booked_by',
 		'intention',
 		'trans_id',

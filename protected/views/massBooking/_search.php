@@ -36,8 +36,20 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'mass_id'); ?>
-		<?php echo $form->textField($model,'mass_id'); ?>
+		<?php echo $form->label($model,"mass_dt"); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "mass_dt",
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row">
@@ -48,11 +60,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'intention'); ?>
 		<?php echo $form->textField($model,'intention',array('size'=>60,'maxlength'=>99)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'trans_id'); ?>
-		<?php echo $form->textField($model,'trans_id'); ?>
 	</div>
 
 	<div class="row buttons">
