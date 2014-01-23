@@ -39,7 +39,7 @@ $this->menu=array(
 $now = new DateTime();
 $this_yr = date_format($now, 'Y');
 $this_mth = date_format($now, 'm');
-$reg_yr = date_format(new DateTime($family->reg_date), 'Y');
+$reg_yr = date('Y', CDateTimeParser::parse($family->reg_date, Yii::app()->locale->getDateFormat('short')));
 $start_yr = $this_yr - 13;
 if ($reg_yr > $start_yr) {
 	$start_yr = $reg_yr;

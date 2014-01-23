@@ -99,7 +99,9 @@ class SubscriptionController extends RController
 				$dt->add(new DateInterval('P1M'));
 				return $dt;
 			} else {
-				return new DateTime($family->reg_date);
+				$dt = new DateTime();
+				$dt->setTimestamp(CDateTimeParser::parse($family->reg_date, Yii::app()->locale->getDateFormat('short')));
+				return $dt;
 			}
 	}
 
