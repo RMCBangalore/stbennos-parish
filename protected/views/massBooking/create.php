@@ -23,6 +23,7 @@
 
 $this->breadcrumbs=array(
 	'Mass Bookings'=>array('index'),
+	'Calendar'=>array('calendar'),
 	'Create',
 );
 

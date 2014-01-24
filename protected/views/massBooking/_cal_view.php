@@ -39,7 +39,7 @@ if($data->isRelevantDate) {
 			echo "<a class='mass' ";
 		}
 		echo "href='" . Yii::app()->createUrl('/massBooking/create', array(
-			'for' => date_format($data->date, 'Y-m-d '),
+			'for' => Yii::app()->dateFormatter->formatDateTime($data->date->getTimestamp(), 'short', null),
 			'mass_id' => $mass->id)) . "'>$text</a>";
 	}
 	echo '</div>';

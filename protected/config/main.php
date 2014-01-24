@@ -138,7 +138,7 @@ return array(
 				),
 				array(
 					'title' => 'Mass Bookings',
-					'url' => array('/massBooking/index'),
+					'url' => array('/massBooking/calendar'),
 					'icon' => '/images/icons/mass booking.png',
 					'role' => 'Staff',
 				),

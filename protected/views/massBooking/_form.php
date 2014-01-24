@@ -101,20 +101,28 @@
 
 </div><!-- form -->
 
-<?php if (strlen($mass_dt) > 0): ?>
-<script>
-$(document).ready(function() {
+<?php if (strlen($mass_dt) > 0) {
+	Yii::app()->clientScript->registerScript('getMasses', "
 jQuery.ajax( {
 	'id':'MassBooking_mass_dt',
 	'type':'POST',
-	'url':'/massBooking/masses',
-	'data': { 'MassBooking[mass_dt]' : "<?php echo $mass_dt ?>" },
+	'url': '" . Yii::app()->createUrl('/massBooking/masses') . "',
+	'data': { 'MassBooking[mass_dt]' : '$mass_dt' },
 	'cache':false,
 	'success':function(html){
-		jQuery("#MassBooking_mass_id").html(html)
-		$("#MassBooking_mass_id").val(<?php echo $mass_id ?>);
+		jQuery('#MassBooking_mass_id').html(html)
+		$('#MassBooking_mass_id').val($mass_id);
 	}
 } );
+jQuery.ajax( {
+	'id':'MassBooking_mass_dt',
+	'type':'POST',
+	'url': '" . Yii::app()->createUrl('/massBooking/massAmt') . "',
+	'data': { 'MassBooking[mass_dt]' : '$mass_dt' },
+	'cache':false,
+	'success':function(html){
+		jQuery('#amount').html(html)
+	}
 } );
-</script>
-<?php endif ?>
+");
+} ?>

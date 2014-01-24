@@ -20,13 +20,23 @@
 #
 
 $this->breadcrumbs=array(
-	'Mass Bookings',
+	'Mass Bookings'=>array('index'),
+	'Calendar',
 );
 
 $this->menu=array(
 	array('label'=>'Create MassBooking', 'url'=>array('create')),
 	array('label'=>'Manage MassBooking', 'url'=>array('admin')),
 );
+
+Yii::app()->clientScript->registerScript('removeIrrelevant', "
+function removeIrrelevant() {
+	if ($('#MyCalendar tbody').children('tr').last().children('td').first().hasClass('not-relevant')) {
+		$('#MyCalendar tbody').children('tr').last().remove();
+	}
+}
+removeIrrelevant();
+");
 ?>
 
 <h1>Mass Booking Calendar</h1>
@@ -37,7 +47,7 @@ $this->menu=array(
   'weeksInRow' => 1,
   'itemView' => '_cal_view',
   'cssFile' => 'css/calendar.css',
-  'ajaxUpdate' => true,
+  'ajaxUpdate' => false,
   'dataProvider' => array(
     'pagination' => array(
       'currentDate' => new DateTime("now"),
