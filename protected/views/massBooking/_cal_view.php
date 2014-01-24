@@ -20,10 +20,18 @@
 #
 if($data->isRelevantDate) {
 	$masses = $this->getMasses($data->date);
-	echo '<div class="mass">';
-	foreach ($masses as $mass) {
-		$text = date_format(new DateTime($mass->time), 'g:ia') . '&nbsp;'
-			. substr(FieldNames::value('languages', $mass->language), 0, 3);
+	$class = "";
+	$title = "";
+	if ($feast = $this->isSpecialMass($data->date)) {
+		$class = "special";
+		$title = "title='$feast'";
+	}
+	echo "<div class='mass $class'>";
+	echo "<div class='left'>";
+	foreach ($masses as $i => $mass) {
+		if ($i == 5) echo "</div><div class='right'>";
+		$text = date_format(new DateTime($mass->time), 'g:ia') . '&nbsp;' . '&nbsp;';
+		$lang = FieldNames::value('languages', $mass->language);
 		$bookings = $this->getMassBookings($data->date, $mass->id);
 		$ttip = null;
 		foreach ($bookings as $bkg) {
@@ -34,18 +42,19 @@ if($data->isRelevantDate) {
 			}
 		}
 		if (isset($ttip)) {
-			echo "<a class='mass booked' title='$ttip' onclick='js:return confirm(" . '"Mass already booked. Still want to book?"' . ")' ";
+			echo "<a class='mass booked' title='$lang $ttip' onclick='js:return confirm(" . '"Mass already booked. Still want to book?"' . ")' ";
 		} else {
-			echo "<a class='mass' ";
+			echo "<a class='mass' title='$lang'";
 		}
 		echo "href='" . Yii::app()->createUrl('/massBooking/create', array(
 			'for' => Yii::app()->dateFormatter->formatDateTime($data->date->getTimestamp(), 'short', null),
 			'mass_id' => $mass->id)) . "'>$text</a>";
 	}
 	echo '</div>';
-	echo '<br><br><br><a class="dt" href="' .
+	echo '</div>';
+	echo "<br><br><br><a $title class='dt $class' href='" .
 		Yii::app()->createUrl('/massBooking/index', array('date' => date_format($data->date, 'Y-m-d'))) .
-		'">' . $data->date->format('j') . '</a>';
+		"'>" . $data->date->format('j') . '</a>';
 } else {
 	echo '<br><br><br><span class="dt"> ' . $data->date->format('j') . '</span>';
 } ?>

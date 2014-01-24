@@ -24,6 +24,12 @@ table.e-calendar-view td {
   border-color: #88a;
 }
 
+table.e-calendar-view tr.month-year-row a.navigation-link {
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 180%;
+}
+
 table.e-calendar-view { border-width: 1px 0 0 1px; }
 
 table.e-calendar-view thead th,
@@ -32,6 +38,18 @@ table.e-calendar-view tbody td {
   text-align: right;
   padding-right: 15px;
   border-width: 0 1px 1px 0;
+}
+
+table.e-calendar-view tr.weekdays-row th {
+  font-size: 110%;
+  font-weight: normal;
+  text-align: center;
+  color: rgb(60, 80, 90);
+}
+table.e-calendar-view thead th.month-year {
+  font-size: 160%;
+  text-align: center;
+  color: rgb(50, 70, 90);
 }
 
 table.e-calendar-view td.current {
@@ -48,7 +66,12 @@ table.e-calendar-view td {
 }
 
 table.e-calendar-view td a.dt {
-  font-size: 110%;
+  font-size: 150%;
+  color: rgb(30, 30, 100);
+}
+
+table.e-calendar-view td a.dt.special {
+  color: rgb(160, 50, 50);
 }
 
 span.mass, a.mass {
@@ -56,14 +79,21 @@ span.mass, a.mass {
 }
 
 a.booked {
-	color: rgb(100, 10, 10);
+	color: rgb(180, 110, 250);
 }
 
 div.mass {
 	float: left;
 	font-size: 70%;
+  position: relative;
 }
 
+div.mass div.right {
+  position: absolute;
+  left: 45px;
+}
+
+div.mass a,
 a.dt {
   text-decoration: none;
 }
