@@ -308,26 +308,19 @@ class FamilyController extends RController
 			$this->performAjaxValidation($models);
 
 			if ($model->save()) {
-				$save_it = false;
-
 				foreach($parents as $parent) {
 					$parent->family_id = $model->id;
 					$parent->save();
 					switch ($parent->role) {
 						case 'husband': if (!isset($model->husband_id)) {
-							$model->husband_id = $parent->id;
-							$save_it = true;
+							$model->saveAttributes(array('husband_id' => $parent->id));
 						}
 						break;
 						case 'wife': if (!isset($model->wife_id)) {
-							$model->wife_id = $parent->id;
-							$save_it = true;
+							$model->saveAttributes(array('wife_id' => $parent->id));
 						}
 						break;
 					}
-				}
-				if ($save_it) {
-					$model->save(false);
 				}
 				foreach($dependents as $dependent) {
 					$dependent->family_id = $model->id;
@@ -337,6 +330,7 @@ class FamilyController extends RController
 					$child->family_id = $model->id;
 					$child->save();
 				}
+				$model=$this->loadModel($id);
 			}
 		}
 
