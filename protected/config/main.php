@@ -144,7 +144,7 @@ return array(
 				),
 				array(
 					'title' => 'Family Subscriptions',
-					'url' => array('/subscription/index'),
+					'url' => array('/family/subscriptions'),
 					'icon' => '/images/icons/family subscription.png',
 					'role' => 'Staff',
 				),

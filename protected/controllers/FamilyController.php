@@ -737,19 +737,22 @@ class FamilyController extends RController
 		));
 	}
 
-	public function actionSubscriptions($id) {
-		$family = Families::model()->findByPk($id);
-		
-		$subscriptions = Subscription::model()->findAllByAttributes(array(
-								'family_id' => $family->id
-							), array(
-								'order' => 'end_year ASC, end_month ASC'	
-							));
+	public function actionSubscriptions($id = null) {
+		$parms = array();
+		if (isset($id)) {
+			$family = Families::model()->findByPk($id);
+			$parms['family'] = $family;
+			
+			$parms['subscriptions'] = Subscription::model()->findAllByAttributes(array(
+									'family_id' => $family->id
+								), array(
+									'order' => 'end_year ASC, end_month ASC'	
+								));
+		} else {
+			$parms['families'] = Families::model()->findAllByAttributes(array('disabled' => false));
+		}
 
-		$this->render('subscriptions',array(
-			'family' => $family,
-			'subscriptions' => $subscriptions
-		));
+		$this->render('subscriptions', $parms);
 	}
 
 	public function actionVisits($id) {

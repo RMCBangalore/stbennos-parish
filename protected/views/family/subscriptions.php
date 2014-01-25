@@ -22,16 +22,26 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Subscriptions',
+	'Subscriptions' => array('/subscription/index'),
+	'Family Subscriptions'
 );
 
-$this->menu=array(
-	array('label'=>'Create Subscription', 'url'=>array('subscription/create','fid'=>$family->id)),
-	array('label'=>'List Subscriptions', 'url'=>array('subscription/index','fid'=>$family->id)),
-	array('label'=>'Manage Subscriptions', 'url'=>array('subscription/admin','fid'=>$family->id)),
-	array('label'=>'View Family','url'=>array('view','id'=>$family->id)),
-);
+if (isset($family)) {
+	$this->menu=array(
+		array('label'=>'Create Subscription', 'url'=>array('subscription/create','fid'=>$family->id)),
+		array('label'=>'List Subscriptions', 'url'=>array('subscription/index','fid'=>$family->id)),
+		array('label'=>'Manage Subscriptions', 'url'=>array('subscription/admin','fid'=>$family->id)),
+		array('label'=>'View Family','url'=>array('view','id'=>$family->id)),
+	);
+} else {
+	$this->menu=array(
+		array('label'=>'Create Subscription', 'url'=>array('subscription/create')),
+	);
+}
+
 ?>
+
+<?php if (isset($family)) { ?>
 
 <h1>Subscriptions: <?php echo $family->head()->fullname() . "'s family"; ?></h1>
 
@@ -111,4 +121,63 @@ for ($yr = $this_yr; $yr >= $start_yr; --$yr) {
 echo '</tbody>';
 echo '</table>';
 
-?>
+} else { ?>
+
+<h1>Family Subscriptions</h1>
+
+<?php
+
+$fam_list = array();
+$paid = array();
+$due = array();
+$now = new DateTime('now');
+foreach($families as $family) {
+	array_push($fam_list, $family->head_name);
+	$reg = new DateTime;
+	$reg->setTimestamp(CDateTimeParser::parse(
+		$family->reg_date,
+		Yii::app()->locale->getDateFormat('short')
+	));
+	$sub_till = new DateTime();
+	$st_dt = $family->sub_till;
+	$fmt = Yii::app()->locale->getDateFormat('short');
+	if (preg_match('/^\d{4}-\d\d$/', $st_dt)) {
+		$st_dt .= "-15";
+		$fmt = 'yyyy-MM-dd';
+	}
+	$sub_till->setTimestamp(CDateTimeParser::parse($st_dt, $fmt));
+	$diff = $sub_till->diff($reg);
+	array_push($paid, $diff->format('%y') * 12 + $diff->format('%m'));
+	$diff = $sub_till->diff($now);
+	array_push($due, $diff->format('%y') * 12 + $diff->format('%m'));
+}
+$this->Widget('ext.highcharts.HighchartsWidget', array(
+	'options' => array(
+		'chart' => array('type' => 'bar'),
+		'title' => array('text' => 'Subsrciptions Paid/Due'),
+		'xAxis' => array(
+			'categories' => $fam_list
+		),
+		'yAxis' => array(
+			'min' => 0,
+			'title' => array('text' => 'Subscription months'),
+		),
+		'plotOptions' => array(
+			'series' => array('stacking' => 'normal'),
+		),
+		'series' => array(
+			array(
+				'name' => 'Due',
+				'data' => $due,
+				'color' => '#aa1919',
+			),
+			array(
+				'name' => 'Paid',
+				'data' => $paid,
+				'color' => '#a4d53a',
+			),
+		),
+	)
+));
+
+} ?>
