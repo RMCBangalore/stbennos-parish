@@ -147,9 +147,16 @@ foreach($families as $family) {
 	}
 	$sub_till->setTimestamp(CDateTimeParser::parse($st_dt, $fmt));
 	$diff = $sub_till->diff($reg);
-	array_push($paid, $diff->format('%y') * 12 + $diff->format('%m'));
+	$pval = $diff->format('%y') * 12 + $diff->format('%m');
 	$diff = $sub_till->diff($now);
-	array_push($due, $diff->format('%y') * 12 + $diff->format('%m'));
+	$dval = $diff->format('%y') * 12 + $diff->format('%m');
+	if ($pval) { # account for registered month
+		++$pval;
+	} else {
+		++$dval;
+	}
+	array_push($paid, $pval);
+	array_push($due, $dval);
 }
 $this->Widget('ext.highcharts.HighchartsWidget', array(
 	'options' => array(

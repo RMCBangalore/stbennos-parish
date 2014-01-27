@@ -98,7 +98,6 @@
 
 	<div id="mainMbMenu">
 		<?php
-#			$this->widget('zii.widgets.CMenu',array(
 			$this->widget('application.extensions.mbmenu.MbMenu', array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index'),'items'=>array(
@@ -107,7 +106,7 @@
 						array('label'=>'View Families','url'=>array('/family/index')), 
 						array('label'=>'Manage','url'=>array('/family/admin'),'visible'=>Yii::app()->user->checkAccess('Family.Admin')), 
 						array('label'=>'Members','url'=>array('/person/index')), 
-						array('label'=>'Subscriptions','url'=>array('subscription/index')),
+						array('label'=>'Subscriptions','url'=>array('family/subscriptions')),
 					)),
 					array('label'=>'Mass Booking','visible'=>Yii::app()->user->checkAccess('MassBooking.Index'),'url'=>array('massBooking/index')),
 					array('label'=>'Registers','visible'=>!Yii::app()->user->isGuest,'url'=>array('/site/page','view'=>'registers'),'items'=>array(
