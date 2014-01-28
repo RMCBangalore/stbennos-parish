@@ -42,7 +42,19 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'req_dt'); ?>
-		<?php echo $form->textField($model,'req_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'req_dt',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row buttons">

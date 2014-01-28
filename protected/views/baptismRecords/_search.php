@@ -81,7 +81,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'sex'); ?>
-		<?php echo $form->textField($model,'sex'); ?>
+		<?php echo $form->dropDownList($model,"sex",FieldNames::values('sex'),array('prompt' => '--- Select ---')); ?>
 	</div>
 
 	<div class="row">

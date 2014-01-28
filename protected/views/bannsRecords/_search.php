@@ -67,17 +67,53 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'banns_dt1'); ?>
-		<?php echo $form->textField($model,'banns_dt1'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'banns_dt1',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'banns_dt2'); ?>
-		<?php echo $form->textField($model,'banns_dt2'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'banns_dt2',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'banns_dt3'); ?>
-		<?php echo $form->textField($model,'banns_dt3'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'banns_dt3',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row buttons">

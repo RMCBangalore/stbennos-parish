@@ -37,7 +37,19 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'death_dt'); ?>
-		<?php echo $form->textField($model,'death_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'death_dt',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row">
@@ -67,7 +79,19 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'buried_dt'); ?>
-		<?php echo $form->textField($model,'buried_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => 'buried_dt',
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
 	</div>
 
 	<div class="row">

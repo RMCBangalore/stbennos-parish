@@ -71,9 +71,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fname',
 		'lname',
 		'age',
+		'buried_dt',
 		/*
 		'profession',
-		'buried_dt',
 		'minister',
 		'burial_place',
 		*/
