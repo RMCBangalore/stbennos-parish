@@ -104,7 +104,11 @@ class DeathCertificate extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('death_id',$this->death_id);
-		$criteria->compare('cert_dt',$this->cert_dt,true);
+		if (isset($this->cert_dt) and $this->cert_dt) {
+			$criteria->compare('cert_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->cert_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

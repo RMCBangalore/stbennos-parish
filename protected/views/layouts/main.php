@@ -81,7 +81,7 @@
 				return true;
 			} );
 			$('#search_form').submit(function() {
-				$.get('/site/search', {
+				$.get($(this).attr('action'), {
 					'key': $('#search_key').val()
 				}, function(data) {
 					$('#content').html(data);

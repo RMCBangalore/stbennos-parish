@@ -103,7 +103,11 @@ class BannsRequest extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('banns_id',$this->banns_id);
-		$criteria->compare('req_dt',$this->req_dt,true);
+		if (isset($this->req_dt) and $this->req_dt) {
+			$criteria->compare('req_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->req_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

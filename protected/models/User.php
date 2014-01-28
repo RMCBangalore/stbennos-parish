@@ -109,7 +109,11 @@ class User extends CActiveRecord
 
 	public function beforeSave()
 	{
-		$this->password = crypt($this->password, CryptoHelper::blowfishSalt());
-		return true;
+		if(parent::beforeSave()) {
+			$this->password = crypt($this->password, CryptoHelper::blowfishSalt());
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

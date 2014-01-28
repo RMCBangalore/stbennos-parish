@@ -112,7 +112,11 @@ class FirstCommunionRecord extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('church',$this->church,true);
-		$criteria->compare('communion_dt',$this->communion_dt,true);
+		if (isset($this->communion_dt) and $this->communion_dt) {
+			$criteria->compare('communion_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->communion_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('ref_no',$this->ref_no,true);
 
 		return new CActiveDataProvider($this, array(

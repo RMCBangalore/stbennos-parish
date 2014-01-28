@@ -157,18 +157,38 @@ class MarriageRecord extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('marriage_dt',$this->marriage_dt,true);
+		if (isset($this->marriage_dt) and $this->marriage_dt) {
+			$criteria->compare('marriage_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->marriage_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('groom_name',$this->groom_name,true);
-		$criteria->compare('groom_dob',$this->groom_dob,true);
-		$criteria->compare('groom_baptism_dt',$this->groom_baptism_dt,true);
+		if (isset($this->groom_dob) and $this->groom_dob) {
+			$criteria->compare('groom_dob', date('Y-m-d',
+				CDateTimeParser::parse($this->groom_dob,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->groom_baptism_dt) and $this->groom_baptism_dt) {
+			$criteria->compare('groom_baptism_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->groom_baptism_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('groom_status',$this->groom_status);
 		$criteria->compare('groom_rank_prof',$this->groom_rank_prof,true);
 		$criteria->compare('groom_fathers_name',$this->groom_fathers_name,true);
 		$criteria->compare('groom_mothers_name',$this->groom_mothers_name,true);
 		$criteria->compare('groom_residence',$this->groom_residence,true);
 		$criteria->compare('bride_name',$this->bride_name,true);
-		$criteria->compare('bride_dob',$this->bride_dob,true);
-		$criteria->compare('bride_baptism_dt',$this->bride_baptism_dt,true);
+		if (isset($this->bride_dob) and $this->bride_dob) {
+			$criteria->compare('bride_dob', date('Y-m-d',
+				CDateTimeParser::parse($this->bride_dob,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->bride_baptism_dt) and $this->bride_baptism_dt) {
+			$criteria->compare('bride_baptism_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->bride_baptism_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('bride_status',$this->bride_status);
 		$criteria->compare('bride_rank_prof',$this->bride_rank_prof,true);
 		$criteria->compare('bride_fathers_name',$this->bride_fathers_name,true);

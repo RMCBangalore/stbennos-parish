@@ -119,7 +119,11 @@ class MassBooking extends CActiveRecord
 		$criteria->compare('booked_by',$this->booked_by,true);
 		$criteria->compare('intention',$this->intention,true);
 		$criteria->compare('trans_id',$this->trans_id);
-		$criteria->compare('mass_dt',$this->mass_dt,true);
+		if (isset($this->mass_dt) and $this->mass_dt) {
+			$criteria->compare('mass_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->mass_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(

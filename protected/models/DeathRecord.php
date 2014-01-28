@@ -131,13 +131,21 @@ class DeathRecord extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('death_dt',$this->death_dt,true);
+		if (isset($this->death_dt) and $this->death_dt) {
+			$criteria->compare('death_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->death_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('cause',$this->cause,true);
 		$criteria->compare('fname',$this->fname,true);
 		$criteria->compare('lname',$this->lname,true);
 		$criteria->compare('age',$this->age);
 		$criteria->compare('profession',$this->profession,true);
-		$criteria->compare('buried_dt',$this->buried_dt,true);
+		if (isset($this->buried_dt) and $this->buried_dt) {
+			$criteria->compare('buried_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->buried_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('minister',$this->minister,true);
 		$criteria->compare('residence',$this->residence,true);
 		$criteria->compare('community',$this->community,true);

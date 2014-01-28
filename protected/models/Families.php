@@ -239,13 +239,21 @@ class Families extends CActiveRecord
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('zone',$this->zone);
-		$criteria->compare('reg_date',$this->reg_date);
+		if (isset($this->reg_date) and $this->reg_date) {
+			$criteria->compare('reg_date', date('Y-m-d',
+				    CDateTimeParser::parse($this->reg_date,
+				    Yii::app()->locale->getDateFormat('short'))));
+		}
 		if (isset($this->reg_yrs)) {
 			$this->date_search($criteria, 'reg_date', 'reg_yrs');
 		}
 		$criteria->compare('bpl_card',$this->bpl_card);
 		$criteria->compare('marriage_church',$this->marriage_church,true);
-		$criteria->compare('marriage_date',$this->marriage_date,true);
+		if (isset($this->marriage_date) and $this->marriage_date) {
+			$criteria->compare('marriage_date', date('Y-m-d',
+				    CDateTimeParser::parse($this->marriage_date,
+				    Yii::app()->locale->getDateFormat('short'))));
+		}
 		if (isset($this->marriage_yrs)) {
 			$this->date_search($criteria, 'marriage_date', 'marriage_yrs');
 		}

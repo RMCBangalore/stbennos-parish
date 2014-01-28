@@ -131,8 +131,16 @@ class BaptismRecord extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('dob',$this->dob,true);
-		$criteria->compare('baptism_dt',$this->baptism_dt,true);
+		if (isset($this->dob) and $this->dob) {
+			$criteria->compare('dob', date('Y-m-d',
+				CDateTimeParser::parse($this->dob,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->baptism_dt) and $this->baptism_dt) {
+			$criteria->compare('baptism_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->baptism_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('baptism_place',$this->baptism_place,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('sex',$this->sex);

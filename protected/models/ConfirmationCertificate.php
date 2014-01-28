@@ -102,7 +102,11 @@ class ConfirmationCertificate extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('cert_dt',$this->cert_dt,true);
+		if (isset($this->cert_dt) and $this->cert_dt) {
+			$criteria->compare('cert_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->cert_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('confirmation_id',$this->confirmation_id);
 
 		return new CActiveDataProvider($this, array(

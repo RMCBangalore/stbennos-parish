@@ -257,7 +257,11 @@ class People extends CActiveRecord
 		$criteria->compare('lname',$this->lname,true);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('domicile_status',$this->domicile_status,true);
-		$criteria->compare('dob',$this->dob,true);
+		if (isset($this->dob) and $this->dob) {
+			$criteria->compare('dob', date('Y-m-d',
+				CDateTimeParser::parse($this->dob,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		if (isset($this->age)) {
 			$this->date_search($criteria, 'dob', 'age');
 		}
@@ -272,26 +276,46 @@ class People extends CActiveRecord
 		$criteria->compare('lang_lit',$this->lang_lit,true);
 		$criteria->compare('lang_edu',$this->lang_edu,true);
 		$criteria->compare('rite',$this->rite,true);
-		$criteria->compare('baptism_dt',$this->baptism_dt,true);
+		if (isset($this->baptism_dt) and $this->baptism_dt) {
+			$criteria->compare('baptism_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->baptism_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		if (isset($this->baptised_yrs)) {
 			$this->date_search($criteria, 'baptism_dt', 'baptised_yrs');
 		}
 		$criteria->compare('baptism_church',$this->baptism_church,true);
 		$criteria->compare('baptism_place',$this->baptism_place,true);
 		$criteria->compare('god_parents',$this->god_parents,true);
-		$criteria->compare('first_comm_dt',$this->first_comm_dt,true);
+		if (isset($this->first_comm_dt) and $this->first_comm_dt) {
+			$criteria->compare('first_comm_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->first_comm_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		if (isset($this->first_comm_yrs)) {
 			$this->date_search($criteria, 'first_comm_dt', 'first_comm_yrs');
 		}
-		$criteria->compare('confirmation_dt',$this->confirmation_dt,true);
+		if (isset($this->confirmation_dt) and $this->confirmation_dt) {
+			$criteria->compare('confirmation_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->confirmation_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		if (isset($this->confirmation_yrs)) {
 			$this->date_search($criteria, 'confirmation_dt', 'confirmation_yrs');
 		}
-		$criteria->compare('marriage_dt',$this->marriage_dt,true);
+		if (isset($this->marriage_dt) and $this->marriage_dt) {
+			$criteria->compare('marriage_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->marriage_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		if (isset($this->marriage_yrs)) {
 			$this->date_search($criteria, 'marriage_dt', 'marriage_yrs');
 		}
-		$criteria->compare('death_dt',$this->death_dt,true);
+		if (isset($this->death_dt) and $this->death_dt) {
+			$criteria->compare('death_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->death_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('cemetery_church',$this->cemetery_church,true);
 		$criteria->compare('family_id',$this->family_id);
 		$criteria->compare('role',$this->role,true);
@@ -310,7 +334,7 @@ class People extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date' and isset($this->$columnName))
+		    if ($column->dbType == 'date' and isset($this->$columnName) and $this->$columnName)
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,

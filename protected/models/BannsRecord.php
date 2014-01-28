@@ -125,9 +125,21 @@ class BannsRecord extends CActiveRecord
 		$criteria->compare('bride_name',$this->bride_name,true);
 		$criteria->compare('bride_parent',$this->bride_parent,true);
 		$criteria->compare('bride_parish',$this->bride_parish,true);
-		$criteria->compare('banns_dt1',$this->banns_dt1,true);
-		$criteria->compare('banns_dt2',$this->banns_dt2,true);
-		$criteria->compare('banns_dt3',$this->banns_dt3,true);
+		if (isset($this->banns_dt1) and $this->banns_dt1) {
+			$criteria->compare('banns_dt1', date('Y-m-d',
+				CDateTimeParser::parse($this->banns_dt1,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->banns_dt2) and $this->banns_dt2) {
+			$criteria->compare('banns_dt2', date('Y-m-d',
+				CDateTimeParser::parse($this->banns_dt2,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->banns_dt3) and $this->banns_dt3) {
+			$criteria->compare('banns_dt3', date('Y-m-d',
+				CDateTimeParser::parse($this->banns_dt3,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

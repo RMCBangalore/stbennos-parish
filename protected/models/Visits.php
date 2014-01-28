@@ -91,7 +91,7 @@ class Visits extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pastor_id' => 'Pastor',
-			'visit_dt' => 'Visit Dt',
+			'visit_dt' => 'Visit Date',
 			'purpose' => 'Purpose',
 			'family_id' => 'Family',
 		);
@@ -110,7 +110,11 @@ class Visits extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('pastor_id',$this->pastor_id);
-		$criteria->compare('visit_dt',$this->visit_dt,true);
+		if (isset($this->visit_dt) and $this->visit_dt) {
+			$criteria->compare('visit_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->visit_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 		$criteria->compare('purpose',$this->purpose);
 		$criteria->compare('family_id',$this->family_id);
 

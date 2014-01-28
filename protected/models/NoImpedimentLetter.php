@@ -103,7 +103,11 @@ class NoImpedimentLetter extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('banns_id',$this->banns_id);
-		$criteria->compare('letter_dt',$this->letter_dt,true);
+		if (isset($this->letter_dt) and $this->letter_dt) {
+			$criteria->compare('letter_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->letter_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

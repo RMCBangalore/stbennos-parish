@@ -103,7 +103,11 @@ class BannsResponse extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('banns_id',$this->banns_id);
-		$criteria->compare('res_dt',$this->res_dt,true);
+		if (isset($this->res_dt) and $this->res_dt) {
+			$criteria->compare('res_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->res_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
