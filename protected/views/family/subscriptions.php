@@ -127,12 +127,10 @@ echo '</table>';
 
 <?php
 
-$fam_list = array();
-$paid = array();
-$due = array();
+$fam_data = array();
 $now = new DateTime('now');
 foreach($families as $family) {
-	array_push($fam_list, $family->head_name);
+	$fam = array('family' => $family);
 	$reg = new DateTime;
 	$reg->setTimestamp(CDateTimeParser::parse(
 		$family->reg_date,
@@ -155,15 +153,39 @@ foreach($families as $family) {
 	} else {
 		++$dval;
 	}
-	array_push($paid, $pval);
-	array_push($due, $dval);
+	$fam['due'] = $dval;
+	$fam['paid'] = $pval;
+	array_push($fam_data, $fam);
+}
+usort($fam_data, function($a, $b) {
+	if ($a['due'] == $b['due']) return 0;
+	return $a['due'] < $b['due'] ? 1 : -1;
+} );
+$fam_list = array();
+$fam_constr = "";
+$due = array();
+$paid = array();
+for($i = 0; $i < 15 and isset($fam_data[$i]); ++$i) {
+	$fam = $fam_data[$i];
+	array_push($fam_list, $fam['family']->id);
+	$fam_constr .= "fams[".$fam['family']->id."] = '".$fam['family']->head_name."';\n";
+	array_push($due, $fam['due']);
+	array_push($paid, $fam['paid']);
 }
 $this->Widget('ext.highcharts.HighchartsWidget', array(
 	'options' => array(
 		'chart' => array('type' => 'bar'),
 		'title' => array('text' => 'Subsrciptions Paid/Due'),
 		'xAxis' => array(
-			'categories' => $fam_list
+			'categories' => $fam_list,
+			'labels' => array(
+				'formatter' => "js:function() {
+var fams = new Object;
+$fam_constr
+	return '<a href=\"" . Yii::app()->createAbsoluteUrl('/family/subscriptions/') . 
+		"/' + this.value + '\">' + fams[this.value] + ' (' + this.value + ') </a>';
+}"
+			)
 		),
 		'yAxis' => array(
 			'min' => 0,
