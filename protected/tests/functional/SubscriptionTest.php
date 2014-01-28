@@ -28,6 +28,7 @@ class SubscriptionTest extends WebTestCase
 	public $fixtures = array(
 		'families' => 'Families',
 		'people' => 'People',
+		'subscriptions' => 'Subscription',
 	);
 
 	public function testCreate()
@@ -43,7 +44,6 @@ class SubscriptionTest extends WebTestCase
 		$this->click('css=#family-search > img');
 		sleep(2);
 		$this->type("id=key", $sub['family']);
-		sleep(2);
 		$this->click('css=#find_match > input[name="yt0"]');
 		sleep(1);
 		$this->click("id=yw0_c0_0");

@@ -23,8 +23,7 @@
  * Change the following URL based on your server configuration
  * Make sure the URL ends with a slash so that we can use relative URLs in test cases
  */
-$url = defined($_ENV['TEST_BASE_URL']) ? $_ENV['TEST_BASE_URL'] : 'http://parish.holyfamily.in/index-test.php/';
-define('TEST_BASE_URL',$url);
+define('TEST_BASE_URL', 'http://parish.holyfamily.in/index-test.php/');
 
 /**
  * The base class for functional test cases.
@@ -40,7 +39,9 @@ class WebTestCase extends CWebTestCase
 	protected function setUp()
 	{
 		parent::setUp();
-		$this->setBrowserUrl(TEST_BASE_URL);
+		$tb_url = getenv('TEST_BASE_URL');
+		if (!isset($tb_url)) $tb_url = TEST_BASE_URL;
+		$this->setBrowserUrl($tb_url);
 	}
 
 	protected function loginAs($username, $password)

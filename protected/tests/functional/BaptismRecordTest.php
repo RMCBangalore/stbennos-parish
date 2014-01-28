@@ -105,9 +105,9 @@ class BaptismRecordTest extends WebTestCase
 			$this->click('css=#find_match > input[name="yt0"]');
 			sleep(1);
 			$this->click("id=yw0_c0_0");
-			sleep(1);
+			sleep(2);
 			$this->click("id=submitMatch");
-			sleep(1);
+			sleep(2);
 			unset($bap['name']);
 			foreach($bap as $key => $value) {
 				$this->type("name=BaptismRecord[$key]", $value);
