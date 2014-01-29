@@ -1,0 +1,36 @@
+div.summary {
+	margin: 10px auto 10px 0;
+	font-family: serif;
+}
+span.non-ph {
+	font-style: italic;
+}
+span.label {
+	font-size: 120%;
+	font-weight: bold;
+}
+span.value {
+	font-size: 120%;
+}
+span.indent {
+	padding-left: 3em;
+}
+table.accounts {
+	border-width: 1px 0 0 1px;
+	border-style: solid;
+	border-color: #888;
+}
+table.accounts th {
+	font-family: times;
+	font-size: 110%;
+}
+table.accounts th,
+table.accounts td {
+	border-width: 0 1px 1px 0;
+	border-style: solid;
+	border-color: #888;
+}
+th.rt,
+td.rt {
+	text-align: right;
+}

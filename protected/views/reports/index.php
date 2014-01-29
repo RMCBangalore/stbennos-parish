@@ -25,7 +25,7 @@ $this->breadcrumbs=array(
 );
 ?>
 <div>
-<span class="leftHalf">
+<span class="leftPart">
 <h1>People Reports</h1>
 
 <?php
@@ -40,7 +40,18 @@ echo CHtml::link('Mass Bookings', array('reports/massBookings'));
 echo '</p>';
 ?>
 </span>
-<span class="rightHalf">
+<span class="centerPart">
 <?php $this->renderPartial('../surveyReports/index'); ?>
+</span>
+<span class="rightPart">
+<h1>Financials</h1>
+
+<?php
+echo '<p>';
+echo CHtml::link('Account Statement', array('reports/accountStatement'));
+echo '</p><p>';
+echo CHtml::link('Account Summary', array('reports/accountSummary'));
+echo '</p>';
+?>
 </span>
 </div>

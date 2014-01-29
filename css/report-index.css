@@ -1,0 +1,13 @@
+div span.leftPart {
+	width: 250px;
+	float: left;
+}
+
+div span.centerPart {
+	width: 250px;
+	float: left;
+}
+
+div span.rightPart {
+	width: 250px;
+}

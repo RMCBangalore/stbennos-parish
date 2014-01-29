@@ -254,14 +254,116 @@ class ReportsController extends RController
 		));
 	}
 
-	public function actionFamilies()
-	{
-		$this->render('families');
-	}
-
 	public function actionIndex()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/report-index.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$this->render('index');
+	}
+
+	public function actionAccountStatement()
+	{
+		$uri = Yii::app()->request->baseUrl . '/css/account-statement.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
+
+		$model = new Transaction;
+
+		if (isset($_POST['from_dt'])) {
+			$from_dt = $_POST['from_dt'];
+			$to_dt = $_POST['to_dt'];
+			$from_dt = date('Y-m-d',
+                                    CDateTimeParser::parse($from_dt,
+                                    Yii::app()->locale->getDateFormat('short')));
+			$to_dt = date('Y-m-d',
+                                    CDateTimeParser::parse($to_dt,
+                                    Yii::app()->locale->getDateFormat('short')));
+
+			$trans = $model->findAll("created < '$from_dt'");
+			$obal = 0;
+			foreach($trans as $tr) 
+			{
+				if ('credit' === $tr->type) {
+					$obal += $tr->amount;
+				} else {
+					$obal -= $tr->amount;
+				}
+			}
+			$data = $model->findAll("created >= '$from_dt' AND created <= '$to_dt'");
+			$this->render('accountStatement', array('from_dt' => $_POST['from_dt'], 'to_dt' => $_POST['to_dt'], 'obal' => $obal, 'data' => $data));
+			return;
+		}
+
+		$this->render('accountStatement', array('model' => $model));
+	}
+
+	public function actionAccountSummary()
+	{
+		$uri = Yii::app()->request->baseUrl . '/css/account-statement.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
+
+		if (isset($_POST['from_dt'])) {
+			$from_dt = $_POST['from_dt'];
+			$to_dt = $_POST['to_dt'];
+			$from_dt = date('Y-m-d',
+                                    CDateTimeParser::parse($from_dt,
+                                    Yii::app()->locale->getDateFormat('short')));
+			$to_dt = date('Y-m-d',
+                                    CDateTimeParser::parse($to_dt,
+                                    Yii::app()->locale->getDateFormat('short')));
+
+			function processAccounts(&$accounts, $from_dt, $to_dt, $accts, $depth=0) {
+				foreach($accts as $acct) {
+					$ph = $acct->placeholder;
+					$account = array(
+						'name' => $acct->name,
+						'depth' => $depth,
+						'placeholder' => $ph,
+					);
+					if (!isset($ph)) {
+						$trans = Transaction::model()->findAll("created < '$from_dt' and account_id = " . $acct->id);
+						$obal = 0;
+						foreach($trans as $tr) {
+							if ('credit' === $tr->type) {
+								$obal += $tr->amount;
+							} else {
+								$obal -= $tr->amount;
+							}
+						}
+						$trans = Transaction::model()->findAll("created between '$from_dt' and '$to_dt' and account_id = " . $acct->id);
+						$cr = $deb = 0;
+						foreach($trans as $tr) {
+							if ('credit' === $tr->type) {
+								$cr += $tr->amount;
+							} else {
+								$deb += $tr->amount;
+							}
+						}
+						$cbal = $obal + $cr - $deb;
+						$account['obal'] = $obal;
+						$account['credit'] = $cr;
+						$account['debit'] = $deb;
+						$account['cbal'] = $cbal;
+					}
+					array_push($accounts, $account);
+					$children = $acct->childAccounts;
+					if ($children) {
+						processAccounts($accounts, $from_dt, $to_dt, $children, $depth+1);
+					}
+				}
+			};
+
+			$accounts = array();
+			$accts = Account::model()->findAll("parent IS NULL");
+			processAccounts($accounts, $from_dt, $to_dt, $accts);
+
+			$this->render('accountSummary', array(
+				'from_dt' => $_POST['from_dt'],
+				'to_dt' => $_POST['to_dt'],
+				'accounts' => $accounts));
+			return;
+		}
+
+		$this->render('accountSummary');
 	}
 
 	// Uncomment the following methods and override them if needed

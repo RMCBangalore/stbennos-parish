@@ -81,6 +81,20 @@ CREATE TABLE `Rights` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`,`parent`),
+  KEY `account_parent` (`parent`),
+  CONSTRAINT `account_parent` FOREIGN KEY (`parent`) REFERENCES `accounts` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `awareness_data`
 --
 
@@ -686,6 +700,7 @@ CREATE TABLE `subscriptions` (
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` int(11) NOT NULL,
   `type` varchar(10) DEFAULT NULL,
   `descr` varchar(99) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -693,7 +708,9 @@ CREATE TABLE `transactions` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transactions_ibfk_1` (`creator`),
-  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+  KEY `account` (`account`),
+  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`account`) REFERENCES `accounts` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
