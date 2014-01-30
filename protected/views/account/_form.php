@@ -23,8 +23,21 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent'); ?>
+		<?php echo $form->dropDownList($model,'parent',Account::values()); ?>
 		<?php echo $form->error($model,'parent'); ?>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model,'placeholder'); ?>
+		<?php echo $form->checkBox($model,'placeholder'); ?>
+		<?php echo $form->error($model,'placeholder'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'reserved'); ?>
+		<?php echo $form->checkBox($model,'reserved'); ?>
+		<?php echo $form->error($model,'reserved'); ?>
+	</span>
 	</div>
 
 	<div class="row buttons">

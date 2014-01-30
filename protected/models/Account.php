@@ -100,4 +100,24 @@ class Account extends CActiveRecord
 	{
 		return Account::model()->findByAttributes(array('name' => $name));
 	}
+
+	public static function values() {
+		$data = self::model()->findAll();
+		$list = array();
+		foreach($data as $item) {
+			$list[$item->id] = $item->name;
+		}
+		return $list;
+	}
+
+	public static function selectables() {
+		$data = self::model()->findAll("reserved IS NULL AND placeholder IS NULL");
+
+		$list = array();
+		foreach($data as $item) {
+			$list[$item->id] = $item->name;
+		}
+
+		return $list;
+	}
 }

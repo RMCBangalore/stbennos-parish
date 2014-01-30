@@ -93,8 +93,9 @@ class Transaction extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'account_id' => 'Account',
 			'type' => 'Type',
-			'descr' => 'Descr',
+			'descr' => 'Description',
 			'created' => 'Created',
 			'creator' => 'Creator',
 			'amount' => 'Amount',
