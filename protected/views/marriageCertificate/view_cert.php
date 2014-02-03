@@ -61,14 +61,14 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "Date of Marriage", $marriage->marriage_dt);
 	show_field($pdf, "Name of Bridegroom", $marriage->groom_name);
 	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->groom_dob);
-	show_field($pdf, "Status", $marriage->groom_status);
+	show_field($pdf, "Status", FieldNames::value('marital_status', $marriage->groom_status));
 	show_field($pdf, "Rank or Profession", $marriage->groom_rank_prof);
 	show_field($pdf, "Name of father", $marriage->groom_fathers_name);
 	show_field($pdf, "name of mother", $marriage->groom_mothers_name);
 	show_field($pdf, "residence", $marriage->groom_residence);
 	show_field($pdf, "Name of Bride", $marriage->bride_name);
 	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->bride_dob);
-	show_field($pdf, "Status", $marriage->bride_status);
+	show_field($pdf, "Status", FieldNames::value('marital_status', $marriage->bride_status));
 	show_field($pdf, "Rank or Profession", $marriage->bride_rank_prof);
 	show_field($pdf, "Name of father", $marriage->bride_fathers_name);
 	show_field($pdf, "name of mother", $marriage->bride_mothers_name);
