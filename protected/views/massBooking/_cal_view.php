@@ -44,11 +44,14 @@ if($data->isRelevantDate) {
 		if (isset($ttip)) {
 			echo "<a class='mass booked' title='$lang $ttip' onclick='js:return confirm(" . '"Mass already booked. Still want to book?"' . ")' ";
 		} else {
-			echo "<a class='mass' title='$lang'";
+			echo "<a class='mass' title='$lang' ";
 		}
-		echo "href='" . Yii::app()->createUrl('/massBooking/create', array(
-			'for' => Yii::app()->dateFormatter->formatDateTime($data->date->getTimestamp(), 'short', null),
-			'mass_id' => $mass->id)) . "'>$text</a>";
+		if ($data->date > new DateTime()) {
+			echo "href='" . Yii::app()->createUrl('/massBooking/create', array(
+				'for' => Yii::app()->dateFormatter->formatDateTime($data->date->getTimestamp(), 'short', null),
+				'mass_id' => $mass->id));
+		}
+		echo "'>$text</a>";
 	}
 	echo '</div>';
 	echo '</div>';

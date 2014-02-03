@@ -43,6 +43,7 @@
 			'options'	=> array(
 				'dateFormat' => Yii::app()->params['dateFmtDP'],
 				'yearRange'  => '1900:c+10',
+				'minDate'    => 0,
 				'changeYear' => true
 			),
 			'htmlOptions' => array(
