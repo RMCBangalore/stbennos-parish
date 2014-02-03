@@ -40,7 +40,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cert_dt'); ?>
-		<?php echo $form->textField($model,'cert_dt',array('readonly'=>1,'value'=>date_format(new DateTime(),'Y-m-d'))); ?>
+		<?php echo $form->textField($model,'cert_dt',array('readonly'=>1)); ?>
 		<?php echo $form->error($model,'cert_dt'); ?>
 	</div>
 

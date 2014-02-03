@@ -102,7 +102,7 @@ class MarriageCertificateController extends RController
 
 		$data = MarriageRecord::model()->findByPk($mid);
 
-		$now = date_format(new DateTime(), 'd/m/Y');
+		$now = Yii::app()->dateFormatter->formatDateTime(time(), 'short', null);
 
 		$this->render('create',array(
 			'model'	=>$model,

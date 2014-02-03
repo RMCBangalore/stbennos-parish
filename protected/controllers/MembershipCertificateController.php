@@ -101,6 +101,7 @@ class MembershipCertificateController extends RController
 		}
 
 		$rec = People::model()->findByPk($id);
+		$model->cert_dt = Yii::app()->dateFormatter->formatDateTime(time(), 'short', null);
 
 		$this->render('create',array(
 			'model'=>$model,

@@ -105,7 +105,7 @@ class FirstCommunionCertificateController extends RController
 		$this->render('create',array(
 			'model'=>$model,
 			'firstCommunion' => $rec,
-			'now' => date_format(new DateTime(), 'd/m/Y'),
+			'now' => Yii::app()->dateFormatter->formatDateTime(time(), 'short', null),
 		));
 	}
 

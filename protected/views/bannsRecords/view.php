@@ -99,8 +99,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'banns-letter-form',
 	'enableAjaxValidation' => false,
 ));
-echo CHtml::hiddenField('banns_id',$model->id,array('id'=>'banns_id'));
-echo CHtml::hiddenField('cert_dt',date('d/m/Y'),array('id'=>'cert_dt'));
+echo CHtml::hiddenField('banns_id', $model->id, array('id'=>'banns_id'));
+echo CHtml::hiddenField('cert_dt', Yii::app()->dateFormatter->formatDateTime(time(), 'short', null), array('id'=>'cert_dt'));
 if ($letters) {
 	echo CHtml::link('Create Request Letter', array('bannsRequest/create', 'bid' => $model->id), array('class' => 'request'));
 	echo ' | ';

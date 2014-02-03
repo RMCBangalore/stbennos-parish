@@ -101,6 +101,7 @@ class DeathCertificateController extends RController
 		}
 
 		$rec = DeathRecord::model()->findByPk($id);
+		$model->cert_dt = Yii::app()->dateFormatter->formatDateTime(time(), 'short', null);
 
 		$this->render('create',array(
 			'model'=>$model,
