@@ -28,9 +28,9 @@ $this->breadcrumbs=array(
 
 if (isset($family)) {
 	$this->menu=array(
-		array('label'=>'Create Subscription', 'url'=>array('subscription/create','fid'=>$family->id)),
-		array('label'=>'List Subscriptions', 'url'=>array('subscription/index','fid'=>$family->id)),
-		array('label'=>'Manage Subscriptions', 'url'=>array('subscription/admin','fid'=>$family->id)),
+		array('label'=>'Create Subscription', 'url'=>array('/subscription/create','fid'=>$family->id)),
+		array('label'=>'List Subscriptions', 'url'=>array('/subscription/index','fid'=>$family->id)),
+		array('label'=>'Manage Subscriptions', 'url'=>array('/subscription/admin','fid'=>$family->id)),
 		array('label'=>'View Family','url'=>array('view','id'=>$family->id)),
 	);
 } else {

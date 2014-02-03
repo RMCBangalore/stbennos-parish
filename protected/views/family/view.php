@@ -29,7 +29,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Update Family', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Survey Family', 'url'=>array('survey', 'id'=>$model->id)),
-	array('label'=>'Subscriptions', 'url'=>array('/family/subscriptions', 'id'=>$model->id)),
+	array('label'=>'Subscriptions', 'url'=>array('subscriptions', 'id'=>$model->id)),
 	array('label'=>'House Visits', 'url'=>array('visits', 'id'=>$model->id))
 );
 ?>
