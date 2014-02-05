@@ -108,7 +108,7 @@
 						array('label'=>'Members','url'=>array('/person/index')), 
 						array('label'=>'Subscriptions','url'=>array('family/subscriptions')),
 					)),
-					array('label'=>'Mass Booking','visible'=>Yii::app()->user->checkAccess('MassBooking.Index'),'url'=>array('massBooking/index')),
+					array('label'=>'Mass Booking','visible'=>Yii::app()->user->checkAccess('MassBooking.Index'),'url'=>array('massBooking/calendar')),
 					array('label'=>'Registers','visible'=>!Yii::app()->user->isGuest,'url'=>array('/site/page','view'=>'registers'),'items'=>array(
 						array('label'=>'Baptism','url'=>array('/baptismRecords/index')),
 						array('label'=>'First Communion','url'=>array('/firstCommunionRecords/index')),
@@ -151,6 +151,10 @@
 						array('label'=>'Monthly Household Income','url'=>array('/fieldValue/admin', 'type'=>'monthly_household_income')),
 					)),
 					array('label'=>'Survey', 'items'=>array(
+						array('label'=>'Need Items','url'=>array('/needItems/admin')),
+						array('label'=>'Satisfaction Items','url'=>array('/satisfactionItems/admin')),
+						array('label'=>'Awareness Items','url'=>array('/awarenessItems/admin')),
+						array('label'=>'Open Questions','url'=>array('/openQuestions/admin')),
 						array('label'=>'Need Level','url'=>array('/fieldValue/admin', 'type'=>'need_level')),
 						array('label'=>'Satisfaction Level','url'=>array('/fieldValue/admin', 'type'=>'satisfaction_level')),
 						array('label'=>'Awareness Level','url'=>array('/fieldValue/admin', 'type'=>'awareness_level')),
