@@ -91,8 +91,6 @@ class NoImpedimentLetterController extends RController
 	{
 		$model=new NoImpedimentLetter;
 
-		$banns = BannsRecord::model()->findByPk($bid);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -103,6 +101,8 @@ class NoImpedimentLetterController extends RController
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+
+		$banns = BannsRecord::model()->findByPk($bid);
 
 		$this->render('create',array(
 			'model' => $model,

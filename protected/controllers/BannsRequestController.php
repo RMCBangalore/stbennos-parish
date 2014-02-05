@@ -90,8 +90,6 @@ class BannsRequestController extends RController
 	{
 		$model=new BannsRequest;
 
-		$banns = BannsRecord::model()->findByPk($bid);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -103,10 +101,12 @@ class BannsRequestController extends RController
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
+		$banns = BannsRecord::model()->findByPk($bid);
+
 		$this->render('create',array(
 			'model'=>$model,
 			'banns'=>$banns,
-			'now' => date_format(new DateTime(), 'Y-m-d H:i:s')
+			'now' => Yii::app()->dateFormatter->formatDateTime(time(), 'short', 'medium')
 		));
 	}
 
