@@ -268,15 +268,57 @@ class ReportsController extends RController
 
 		$model = new Transaction;
 
-		if (isset($_POST['from_dt'])) {
-			$from_dt = $_POST['from_dt'];
-			$to_dt = $_POST['to_dt'];
-			$from_dt = date('Y-m-d',
-                                    CDateTimeParser::parse($from_dt,
-                                    Yii::app()->locale->getDateFormat('short')));
-			$to_dt = date('Y-m-d',
-                                    CDateTimeParser::parse($to_dt,
-                                    Yii::app()->locale->getDateFormat('short')));
+		if (isset($_POST['range'])) {
+			$range = $_POST['range'];
+			if ('custom' == $range) {
+				$from_dt = $_POST['from_dt'];
+				$to_dt = $_POST['to_dt'];
+				$from_dt = date('Y-m-d',
+					    CDateTimeParser::parse($from_dt,
+					    Yii::app()->locale->getDateFormat('short')));
+				$to_dt = date('Y-m-d',
+					    CDateTimeParser::parse($to_dt,
+					    Yii::app()->locale->getDateFormat('short')));
+			} else {
+				$subrange = $_POST['subrange'];
+				if (preg_match('/^this-/', $subrange)) {
+					$to_dt = date('Y-m-d');
+				} elseif ('last-month' == $subrange) {
+					$to_dt = new DateTime(date('Y-m-') . '01');
+					$to_dt->sub(new DateInterval('P1D'));
+					$to_dt = date_format($to_dt, 'Y-m-d');
+				} elseif ('last-year' == $subrange) {
+					$last_yr = date('Y') - 1;
+					$to_dt = strval($last_yr) . '-12-31';
+				} elseif ('last-fy' == $subrange) {
+					$this_yr = date('Y');
+					if (date('m') > 3) {
+						$to_dt = strval($this_yr) . '-03-31';
+						$from_dt = strval($this_yr - 1) . '-04-01';
+					} else {
+						$to_dt = strval($this_yr - 1) . '-03-31';
+						$from_dt = strval($this_yr - 2) . '-04-01';
+					}
+				}
+				if (preg_match('/-month$/', $subrange)) {
+					$from_dt = preg_replace('/\d+$/', '01', $to_dt);
+				} elseif (preg_match('/-year$/', $subrange)) {
+					$from_dt = preg_replace('/[01]\d-\d\d$/', '01-01', $to_dt);
+				} elseif ('this-fy' == $subrange) {
+					$this_yr = date('Y');
+					if (date('m') > 3) {
+						$from_dt = strval($this_yr) . '-04-01';
+					} else {
+						$from_dt = strval($this_yr - 1) . '-04-01';
+					}
+				} elseif (!isset($from_dt)) {
+					$from_dt = new DateTime($to_dt);
+					$from_dt->sub(new DateInterval('P1Y'));
+					$from_dt->add(new DateInterval('P1D'));
+					$from_dt = date_format($from_dt, 'Y-m-d');
+				}
+				$to_dt .= ' 23:59:59';
+			}
 
 			$trans = $model->findAll("created < '$from_dt'");
 			$obal = 0;

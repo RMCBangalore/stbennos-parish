@@ -20,6 +20,41 @@
 #
 /* @var $this ReportsController */
 
+Yii::app()->clientScript->registerScript('rangeSet', "
+$('#cust-range').hide();
+$('#range').change(function(e) {
+	switch (this.value) {
+	case 'monthly':
+		$('#subrange').html('<option value=\'last-month\'>Last Month</option>' +
+		'<option value=\'this-month\'>This Month</option>');
+		$('#cust-range').hide();
+		$('#subrange-span').prev().addClass('leftHalf');
+		$('#subrange-span').show();
+		break;
+	case 'yearly':
+		$('#subrange').html('<option value=\'last-year\'>Last Year</option>' +
+		'<option value=\'this-year\'>This Year</option>');
+		$('#cust-range').hide();
+		$('#subrange-span').prev().addClass('leftHalf');
+		$('#subrange-span').show();
+		break;
+	case 'fy':
+		$('#subrange').html('<option value=\'last-fy\'>Last F.Y</option>' +
+		'<option value=\'this-fy\'>This F.Y</option>');
+		$('#cust-range').hide();
+		$('#subrange-span').prev().addClass('leftHalf');
+		$('#subrange-span').show();
+		break;
+	case 'custom':
+		$('#subrange').html('<option value=\'\'>-- Select range --</option>');
+		$('#cust-range').show();
+		$('#subrange-span').prev().removeClass('leftHalf');
+		$('#subrange-span').hide();
+		break;
+	}
+} );
+");
+
 ?>
 
 <h1>Account Statement</h1>
@@ -78,6 +113,21 @@ foreach($data as $trans): ?>
 	<div class="row">
 	<span class="leftHalf">
 		<?php
+			echo CHtml::label('Range', 'range');
+			echo CHtml::dropDownList('range', null, array('monthly' => 'Monthly', 'yearly' => 'Yearly', 'fy' => 'Financial', 'custom' => 'Custom'), array('id' => 'range', 'prompt' => '-- Select --'));
+		?>
+	</span>
+	<span id="subrange-span" class="rightHalf">
+		<?php
+			echo CHtml::label('Subrange', 'subrange');
+			echo CHtml::dropDownList('subrange', null, array(), array('prompt' => '-- Select --', 'id' => 'subrange'));
+		?>
+	</span>
+	</div>
+
+	<div id="cust-range" class="row">
+	<span class="leftHalf">
+		<?php
 		echo CHtml::label('From', 'from_dt');
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'name' => 'from_dt',
@@ -108,6 +158,7 @@ foreach($data as $trans): ?>
 		));
 		?>
 	</span>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Generate'); ?>
