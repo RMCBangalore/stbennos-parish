@@ -61,7 +61,7 @@ class Transaction extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('creator', 'numerical', 'integerOnly'=>true),
+			array('creator, account_id', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('type', 'length', 'max'=>10),
 			array('descr', 'length', 'max'=>99),

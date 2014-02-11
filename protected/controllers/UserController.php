@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class UsersController extends RController
+class UserController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -72,6 +72,18 @@ class UsersController extends RController
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+		));
+	}
+
+	public function actionTransactions($id)
+	{
+		$dataProvider = new CActiveDataProvider('Transaction', array(
+			'criteria' => array(
+				'condition' => "creator = $id"
+			)
+		));
+		$this->render('/transaction/index',array(
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
