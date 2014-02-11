@@ -22,7 +22,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'account_id',
+		array(
+			'name' => 'account_id',
+			'value'=>$model->account->name,
+		),
 		'type',
 		'descr',
 		'created',

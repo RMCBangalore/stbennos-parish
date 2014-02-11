@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('account_id')); ?>:</b>
-	<?php echo CHtml::encode($data->account_id); ?>
+	<?php echo CHtml::encode($data->account->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
