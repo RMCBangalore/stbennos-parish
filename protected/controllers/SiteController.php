@@ -177,7 +177,7 @@ class SiteController extends RController
 
 	public function actionConfig()
 	{
-		$cont = preg_replace('?/.*$?', '', Yii::app()->getRequest()->getPathInfo());
+		$cont = $this->getUniqueId();
 		$path = preg_replace('/controllers/', 'config/params.php', dirname(__FILE__));
 		Yii::trace("SC.actionConfig called with path $path", 'application.controllers.SiteController');
 		$model = Parish::model()->findByPk(1);
