@@ -44,6 +44,8 @@ class Account extends CActiveRecord
 			array('name', 'required'),
 			array('parent', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
+			array('type, placeholder, reserved', 'safe'),
+			array('placeholder, reserved', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, parent', 'safe', 'on'=>'search'),
@@ -108,6 +110,11 @@ class Account extends CActiveRecord
 			$list[$item->id] = $item->name;
 		}
 		return $list;
+	}
+
+	public static function value($id) {
+		$model = self::model()->findByPk($id);
+		return $model;
 	}
 
 	public static function selectables() {

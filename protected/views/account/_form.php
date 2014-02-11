@@ -2,6 +2,17 @@
 /* @var $this AccountController */
 /* @var $model Account */
 /* @var $form CActiveForm */
+
+Yii::app()->clientScript->registerScript('parent_select', "
+$(document).ready(function() {
+	$('#Account_parent').change(function(e) {
+		$.get('" . Yii::app()->createUrl('/account/get') . "/' + this.value, function(acc) {
+
+			$('#Account_type').val(acc.type);
+		}, 'json' );
+	} );
+} );
+");
 ?>
 
 <div class="form">
@@ -22,20 +33,31 @@
 	</div>
 
 	<div class="row">
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'parent'); ?>
-		<?php echo $form->dropDownList($model,'parent',Account::values()); ?>
+		<?php echo $form->dropDownList($model, 'parent', Account::values(),
+			array('prompt' => '-- Select one --')); ?>
 		<?php echo $form->error($model,'parent'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'type'); ?>
+		<?php echo $form->dropDownList($model,'type', array(
+			'credit' => 'Credit',
+			'debit' => 'Debit'
+		), array('prompt' => '-- Select --')); ?>
+		<?php echo $form->error($model, 'type'); ?>
+	</span>
 	</div>
 
 	<div class="row">
 	<span class="leftHalf">
 		<?php echo $form->labelEx($model,'placeholder'); ?>
-		<?php echo $form->checkBox($model,'placeholder'); ?>
+		<?php echo $form->checkBox($model,'placeholder',array('uncheckValue'=>null)); ?>
 		<?php echo $form->error($model,'placeholder'); ?>
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'reserved'); ?>
-		<?php echo $form->checkBox($model,'reserved'); ?>
+		<?php echo $form->checkBox($model,'reserved',array('uncheckValue'=>null)); ?>
 		<?php echo $form->error($model,'reserved'); ?>
 	</span>
 	</div>
