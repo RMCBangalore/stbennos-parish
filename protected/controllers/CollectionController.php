@@ -46,4 +46,25 @@ class CollectionController extends RController
 			'model' => $model
 		));
 	}
+
+	public function actionView($id)
+	{
+		$model=Transaction::model()->findByPk($id);
+		$this->render('view',array(
+			'model'=>$model
+		));
+	}
+
+	public function actionIndex()
+	{
+		$dataProvider = new CActiveDataProvider('Transaction', array(
+			'criteria' => array(
+				'condition' => "account_id = " . Account::get("Collection")->id
+			)
+		));
+
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
 }
