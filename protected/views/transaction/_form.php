@@ -2,6 +2,17 @@
 /* @var $this TransactionController */
 /* @var $model Transaction */
 /* @var $form CActiveForm */
+
+Yii::app()->clientScript->registerScript('parent_select', "
+$(document).ready(function() {
+	$('#Transaction_account_id').change(function(e) {
+		$.get('" . Yii::app()->createUrl('/account/get') . "/' + this.value, function(acc) {
+
+			$('#Transaction_type').val(acc.type);
+		}, 'json' );
+	} );
+} );
+");
 ?>
 
 <div class="form">
