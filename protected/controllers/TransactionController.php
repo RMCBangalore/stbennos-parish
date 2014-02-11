@@ -33,7 +33,7 @@ class TransactionController extends RController
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -143,7 +143,16 @@ class TransactionController extends RController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Transaction');
+		if (Yii::app()->user->checkAccess('Transaction.Admin')) {
+			$dataProvider=new CActiveDataProvider('Transaction');
+		} else {
+			$dataProvider = new CActiveDataProvider('Transaction', array(
+				'criteria' => array(
+					'condition' => "creator = " . Yii::app()->user->id
+				)
+			));
+		}
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
