@@ -150,14 +150,12 @@ class InstallController extends CController
 			}
 			$admin = new User;
 			$admin->attributes = $_POST['adm'];
-			$admin->password = crypt($_POST['adm']['password'], CryptoHelper::blowfishSalt());
 			$admin->superuser = 1;
 			$admin->save();
 			$authorizer->authManager->assign('Admin', $admin->id);
 			if (isset($_POST['pastor']['username']) and !empty($_POST['pastor']['username'])) {
 				$pastor = new User;
 				$pastor->attributes = $_POST['pastor'];
-				$pastor->password = crypt($_POST['pastor']['password'], CryptoHelper::blowfishSalt());
 				$pastor->superuser = 0;
 				$pastor->save();
 				$authorizer->authManager->assign('Pastor', $pastor->id);
@@ -165,7 +163,6 @@ class InstallController extends CController
 			if (isset($_POST['staff']['username']) and !empty($_POST['staff']['username'])) {
 				$staff = new User;
 				$staff->attributes = $_POST['staff'];
-				$staff->password = crypt($_POST['staff']['password'], CryptoHelper::blowfishSalt());
 				$staff->superuser = 0;
 				$staff->save();
 				$authorizer->authManager->assign('Staff', $staff->id);
