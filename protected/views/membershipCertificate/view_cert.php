@@ -37,26 +37,36 @@
 	$pdf->Cell(0,2,"",0,1);
 	$pdf->Cell(2,0,'',0,0);
 	$member = $model->member;
-	$rel = ( 'Male' === FieldNames::value('sex', $member->sex) ) ? 'son' : 'daughter';
-	$pdf->Cell(0,1,"    This is to certify that " . sprintf("%-40s", $member->fname . " " . $member->lname) . ", $rel of",0,1,'L');
-	$father = $member->family->husband;
-	$parent = "";
-	if ('child' == $member->role) {
-		if (isset($father)) {
-			$parent = $father->fname . " " . $father->lname;
-		}
-	}
-	$pdf->Cell(2,0,'',0,0);
-	$pdf->Cell(0,1,"    of " . sprintf("%-40s", $parent) . " belongs to my Parish and",0,1,'L');
 
 function draw_line($pdf, $y=20, $x1=8.5, $x2=16.0) {
 	$pdf->Line($x1,$y-0.2,$x2,$y-0.2,array('width' => 0.01, 'dash' => 3));
 }
 
-	draw_line($pdf,11);
-	$pdf->Cell(2,0,'',0,0);
-	$pdf->Cell(0,0,"    is regular to Church services.",0,1,'L');
-	draw_line($pdf,12,4.3,11.6);
+	if ('child' == $member->role) {
+		$rel = ( 'Male' === FieldNames::value('sex', $member->sex) ) ? 'son' : 'daughter';
+		$rel_name = $member->family->head_name;
+	} elseif ('Female' == FieldNames::value('sex', $member->sex)) {
+		$rel = 'wife';
+		$husband = $member->family->husband;
+		$rel_name = $husband->fullname();
+	}
+
+	if (isset($rel)) {
+		$pdf->Cell(0,1,"    This is to certify that " . sprintf("%-40s", $member->fname . " " . $member->lname) . ", $rel of",0,1,'L');
+		$pdf->Cell(2,0,'',0,0);
+		$pdf->Cell(0,1,"    of " . sprintf("%-40s", $rel_name) . " belongs to my Parish and",0,1,'L');
+		draw_line($pdf,11);
+		$pdf->Cell(2,0,'',0,0);
+		$pdf->Cell(0,0,"    is regular to Church services.",0,1,'L');
+		draw_line($pdf,12,4.3,11.6);
+	} else {
+		$pdf->Cell(0,1,"    This is to certify that " . sprintf("%-40s", $member->fname . " " . $member->lname) . "",0,1,'L');
+		draw_line($pdf,11);
+		$pdf->Cell(2,0,'',0,0);
+		$pdf->Cell(0,1,"    belongs to my Parish and is regular to Church services.",0,1,'L');
+		$pdf->Cell(0,0.7,'',0,1);
+	}
+
 	$pdf->Cell(0,4,'',0,1);
 	$pdf->Cell(3,0,'',0,0);
 	$pdf->SetFont("courier", "I", 11);
