@@ -121,6 +121,7 @@ class FamilyController extends RController
 				$model->attributes=$_POST['Families'];
 				if ($model->save()) {
 					++$step;
+					$model = $this->loadModel($model->id);
 				}
 			}
 			break;
