@@ -81,8 +81,7 @@ function show_field($pdf, $label, $value) {
 }
 
 function format_mass($dt, $time, $lcode) {
-	$s = "$dt, "; # ToDo: date_format(new DateTime($dt), 'D, ');
-	$s .= date_format(new DateTime($time), 'g:ia');
+	$s = date_format(new DateTime($time), 'g:ia');
 	$s .= ' ' . FieldNames::value('languages', $lcode);
 	return $s;
 }
