@@ -47,23 +47,11 @@ $this->endWidget();
 				'mid',
 				'fname',
 				'lname',
-				/*
-                array(
-					'value' => '$data->fullname()',
-					'name' => 'Name'
-				),
-				*/
                 'dob',
 				'baptism_dt',
 				'profession',
-                array(
-                    'value' => '$data->family->husband_id ? $data->family->husband->fullname() : ""',
-                    'name' => 'Fathers Name'                                                       
-                ),
-                array(
-                    'value' => '$data->family->wife_id ? $data->family->wife->fullname() : ""',
-                    'name' => 'Mothers Name'                                                       
-                )
+				'fathers_name',
+				'mothers_name',
             ),
         ));
 ?>

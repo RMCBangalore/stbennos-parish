@@ -410,6 +410,18 @@ class People extends CActiveRecord
 		return null;
 	}
 
+	public function getFathers_name() {
+		if ($this->role != 'child') return '';
+		$f = $this->family;
+		return isset($f->husband_id) ? $f->husband->fullname() : '';
+	}
+
+	public function getMothers_name() {
+		if ($this->role != 'child') return '';
+		$f = $this->family;
+		return isset($f->wife_id) ? $f->wife->fullname() : '';
+	}
+
 	public function fullname() {
 		if (isset($this->fname)) {
 			if (isset($this->lname)) {
