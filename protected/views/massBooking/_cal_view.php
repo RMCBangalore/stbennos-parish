@@ -36,7 +36,7 @@ if($data->isRelevantDate) {
 		$ttip = null;
 		foreach ($bookings as $bkg) {
 			if (isset($ttip)) {
-				$ttip = $bkg->type . ': ' . $bkg->intention;
+				$ttip .= '&#10;' . $bkg->type . ': ' . $bkg->intention;
 			} else {
 				$ttip = '&#10;' . $bkg->type . ': ' . $bkg->intention;
 			}
