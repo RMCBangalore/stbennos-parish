@@ -98,6 +98,15 @@
 
 	<div id="mainMbMenu">
 		<?php
+			$userMenu = array('label'=>'Users','url'=>array('/users/admin'));
+			if (Yii::app()->user->checkAccess('Admin')) {
+				$userMenu['items'] = array(
+					array('label'=>'Manage','url'=>array('/users/admin')),
+					array('label'=>'Role Assignments','url'=>array('/rights/assignment/view')),
+					array('label'=>'Permissions','url'=>array('/rights/authItem/permissions')),
+					array('label'=>'Roles','url'=>array('/rights/authItem/roles')),
+				);
+			}
 			$this->widget('application.extensions.mbmenu.MbMenu', array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index'),'items'=>array(
@@ -137,12 +146,7 @@
 						array('label'=>'Mass Schedule','url'=>array('/massSchedule/index')),
 						array('label'=>'Zones','url'=>array('/fieldValue/admin', 'type'=>'zones')),
 					)),
-					array('label'=>'Users','url'=>array('/users/admin'), 'items'=>array(
-						array('label'=>'Manage','url'=>array('/users/admin')),
-						array('label'=>'Role Assignments','url'=>array('/rights/assignment/view')),
-						array('label'=>'Permissions','url'=>array('/rights/authItem/permissions')),
-						array('label'=>'Roles','url'=>array('/rights/authItem/roles')),
-					)),
+					$userMenu,
 					array('label'=>'Fields','items'=>array(
 						array('label'=>'Languages','url'=>array('/fieldValue/admin', 'type'=>'languages')),
 						array('label'=>'Education','url'=>array('/fieldValue/admin', 'type'=>'education')),

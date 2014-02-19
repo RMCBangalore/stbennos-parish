@@ -46,12 +46,6 @@
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'superuser'); ?>
-		<?php echo $form->checkBox($model,'superuser'); ?>
-		<?php echo $form->error($model,'superuser'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

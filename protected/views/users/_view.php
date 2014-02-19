@@ -32,9 +32,4 @@
 	<?php echo CHtml::encode($data->username); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('superuser')); ?>:</b>
-	<?php echo CHtml::encode($data->superuser); ?>
-	<br />
-
-
 </div>

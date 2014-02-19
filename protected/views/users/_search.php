@@ -40,11 +40,6 @@
 		<?php echo $form->textField($model,'username',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'superuser'); ?>
-		<?php echo $form->textField($model,'superuser'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
