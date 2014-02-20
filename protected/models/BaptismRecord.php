@@ -73,8 +73,8 @@ class BaptismRecord extends CActiveRecord
 			array('name, fathers_name, mothers_name, sex, baptism_dt, dob', 'required'),
 			array('sex, member_id', 'numerical', 'integerOnly'=>true),
 			array('name, baptism_place', 'length', 'max'=>50),
-			array('fathers_name, mothers_name, godfathers_name, godmothers_name, minister', 'length', 'max'=>75),
-			array('residence, mother_tongue', 'length', 'max'=>25),
+			array('fathers_name, mothers_name, godfathers_name, godmothers_name, residence, minister', 'length', 'max'=>75),
+			array('mother_tongue', 'length', 'max'=>25),
 			array('ref_no', 'length', 'max'=>10),
 			array('dob, baptism_dt', 'safe'),
 			// The following rule is used by search().
