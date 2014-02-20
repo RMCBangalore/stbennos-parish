@@ -177,7 +177,12 @@ class SiteController extends RController
 
 	public function actionConfig()
 	{
-		$cont = preg_replace('?/.*$?', '', Yii::app()->getRequest()->getPathInfo());
+		$a = Yii::app();
+		list($cont, $action) = explode('/', $a->urlManager->parseUrl($a->request));
+		if ('site' == $cont) {
+			throw new CHttpException(403, 'Forbidden: You are not authorized to access this page.');
+		}
+
 		$path = preg_replace('/controllers/', 'config/params.php', dirname(__FILE__));
 		Yii::trace("SC.actionConfig called with path $path", 'application.controllers.SiteController');
 		$model = Parish::model()->findByPk(1);
