@@ -1,3 +1,26 @@
+Alive Parish v1.0, 2014-02-20
+-----------------------------
+ * 15 families in Subscriptions chart sorted by max due
+ * Fixed global search on non-root; all date search format conversion
+ * Datepicker in search for all date fields, deathRecords buried_dt shown
+ * Fixtures for subscriptions, marriage_certs; 2 functional tests fixed
+ * Decoding bride/groom marriage status in marriage certificate: fixes #232
+ * Family right sidebar menu: fixed absolute action urls
+ * Mass booking: prevent past date/time booking
+ * Member certificate date correctly formatted. Fixes #234
+ * Added Admin > Survey: manage+items for different survey types
+ * Installer account creation: double encryption issue fixed
+ * Family create: family data date fields incorrect load fixed
+ * Membership certificate for husband/father and wife/mother fixed
+ * Mass booking: formatted mass time correctly. Fixes #236
+ * Removed rights for Pastor (requires Admin role). Fixes #237
+ * Mass Booking Calendar: Show multiple intentions for same Mass. Fixes #238
+ * Baptism record find member: showing parents correctly. Fixes #239
+ * Moved admin, site config to separate AdminController. Fixes #241
+ * BaptismRecord residence field max increased to 75 chars
+ * Index paging: ajax changed to normal. Facilitates going back to page
+ * Parish profile, site global search moved to Parish controller
+
 Alive Parish v1.0-rc1, 2014-01-27
 ---------------------------------
  * Family visit view: actual pastor name, purpose, View Family link

@@ -116,7 +116,7 @@ return array(
 			'iconMenu' => array(
 				array(
 					'title' => 'Parish Profile',
-					'url' => array('/site/parishProfile'),
+					'url' => array('/parish/profile'),
 					'icon' => '/images/icons/parish profile-new.png',
 					'role' => 'Pastor',
 				),

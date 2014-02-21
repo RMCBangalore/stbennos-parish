@@ -61,7 +61,7 @@
 		<div id="search">
 			<?php $form=$this->beginWidget('CActiveForm', array(
 						'id' => 'search_form',
-						'action' => Yii::app()->createUrl('/site/search'),
+						'action' => Yii::app()->createUrl('/parish/search'),
 						'method' => 'GET',
 			));
 			echo CHtml::textField('key', '', array('id' => 'search_key'));
@@ -110,7 +110,7 @@
 			$this->widget('application.extensions.mbmenu.MbMenu', array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index'),'items'=>array(
-					array('label'=>'Parish Prolile','url'=>array('/site/parishProfile'),'visible'=>Yii::app()->user->checkAccess('Pastor')),
+					array('label'=>'Parish Prolile','url'=>array('/parish/profile'),'visible'=>Yii::app()->user->checkAccess('Pastor')),
 					array('label'=>'Families','visible'=>!Yii::app()->user->isGuest,'items'=>array(
 						array('label'=>'View Families','url'=>array('/family/index')), 
 						array('label'=>'Manage','url'=>array('/family/admin'),'visible'=>Yii::app()->user->checkAccess('Family.Admin')), 
@@ -139,9 +139,9 @@
 						)),
 					)),
 				)),
-				array('label'=>'Admin', 'url'=>array('/site/page', 'view' => 'admin'), 'visible' => Yii::app()->user->checkAccess('Pastor'), 'items'=>array(
-					array('label'=>'Parish','url'=>array('/site/config'),'items'=>array(
-						array('label'=>'Parish Config','url'=>array('/site/config')),
+				array('label'=>'Admin', 'url'=>array('/admin'), 'visible' => Yii::app()->user->checkAccess('Pastor'), 'items'=>array(
+					array('label'=>'Parish','url'=>array('/admin/config'),'items'=>array(
+						array('label'=>'Parish Config','url'=>array('/admin/config')),
 						array('label'=>'Pastors','url'=>array('/pastor/admin')),
 						array('label'=>'Mass Schedule','url'=>array('/massSchedule/index')),
 						array('label'=>'Zones','url'=>array('/fieldValue/admin', 'type'=>'zones')),
@@ -188,7 +188,7 @@
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php if(preg_match('/^rights\//', Yii::app()->request->pathInfo)) {
 			array_shift($this->breadcrumbs);
-			$this->breadcrumbs = array('Admin' => array('/site/page', 'view' => 'admin')) + $this->breadcrumbs;
+			$this->breadcrumbs = array('Admin' => array('/admin', 'view' => 'admin')) + $this->breadcrumbs;
 		} ?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,

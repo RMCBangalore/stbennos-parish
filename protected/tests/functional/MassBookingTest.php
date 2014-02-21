@@ -34,21 +34,21 @@ class MassBookingTest extends WebTestCase
 		$this->loginAs('pastor', 'pastor');
 		$mbs = array(
 			array(
-				'mass_dt' => '05/01/2014',
+				'mass_dt' => '02/03/2014',
 				'mass_id' => 1,
 				'booked_by' => 'Agnes Selvarani',
 				'type' => 'R.I.P',
 				'intention' => 'Maria Selvarani'
 			),
 			array(
-				'mass_dt' => '06/01/2014',
+				'mass_dt' => '03/03/2014',
 				'mass_id' => 8,
 				'booked_by' => 'Adrian Browne',
 				'type' => 'Thanksgiving',
 				'intention' => 'finding a good job'
 			),
 			array(
-				'mass_dt' => '01/01/2014',
+				'mass_dt' => '26/03/2014',
 				'mass_id' => 12,
 				'booked_by' => 'Sheldon Cooper',
 				'type' => 'Anniversary',
