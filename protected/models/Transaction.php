@@ -61,7 +61,7 @@ class Transaction extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('creator', 'numerical', 'integerOnly'=>true),
+			array('creator, account_id', 'numerical', 'integerOnly'=>true),
 			array('amount', 'numerical'),
 			array('type', 'length', 'max'=>10),
 			array('descr', 'length', 'max'=>99),
@@ -82,6 +82,7 @@ class Transaction extends CActiveRecord
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'creator'),
 			'massBookings' => array(self::HAS_MANY, 'MassBookings', 'trans_id'),
+			'account' => array(self::BELONGS_TO, 'Account', 'account_id'),
 		);
 	}
 
@@ -92,8 +93,9 @@ class Transaction extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'account_id' => 'Account',
 			'type' => 'Type',
-			'descr' => 'Descr',
+			'descr' => 'Description',
 			'created' => 'Created',
 			'creator' => 'Creator',
 			'amount' => 'Amount',
@@ -121,6 +123,51 @@ class Transaction extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+		$loc = Yii::app()->locale;
+
+		// Format dates based on the locale
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+		    if ($column->dbType == 'datetime' and isset($this->$columnName))
+		    {
+			Yii::trace("Datetime before: " . $this->$columnName,'application.models.Transaction');
+			$this->$columnName = date('Y-m-d H:i:s',
+			    CDateTimeParser::parse($this->$columnName,
+			    sprintf("%s %s", $loc->getDateFormat('short'), $loc->getTimeFormat('medium'))));
+			Yii::trace("Datetime before: " . $this->$columnName,'application.models.Transaction');
+		    }
+		}
+		return true;
+	    }
+	    else
+		return false;
+	}
+
+	protected function afterFind()
+	{
+	    // Format dates based on the locale
+	    foreach($this->metadata->tableSchema->columns as $columnName => $column)
+	    {           
+		if (!strlen($this->$columnName)) continue;
+	 
+		if ($column->dbType == 'datetime')
+		{ 
+		    $this->$columnName = Yii::app()->dateFormatter->formatDateTime(
+			    CDateTimeParser::parse(
+				$this->$columnName, 
+				'yyyy-MM-dd hh:mm:ss'
+			    ),
+			    'short', 'medium'
+			);
+		}
+	    }
+	    return parent::afterFind();
 	}
 
 	public static function convert_number_to_words($number) {

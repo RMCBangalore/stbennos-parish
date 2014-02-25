@@ -98,10 +98,10 @@
 
 	<div id="mainMbMenu">
 		<?php
-			$userMenu = array('label'=>'Users','url'=>array('/users/admin'));
+			$userMenu = array('label'=>'Users','url'=>array('/user/admin'));
 			if (Yii::app()->user->checkAccess('Admin')) {
 				$userMenu['items'] = array(
-					array('label'=>'Manage','url'=>array('/users/admin')),
+					array('label'=>'Manage','url'=>array('/user/admin')),
 					array('label'=>'Role Assignments','url'=>array('/rights/assignment/view')),
 					array('label'=>'Permissions','url'=>array('/rights/authItem/permissions')),
 					array('label'=>'Roles','url'=>array('/rights/authItem/roles')),
@@ -174,6 +174,23 @@
 						array('label'=>'Awareness', 'url'=>array('/surveyReports/awareness')),
 						array('label'=>'Open Questions', 'url'=>array('/surveyReports/openQuestions')),
 					)),
+				)),
+				array('label'=>'Finances', 'url'=>array('finance/index'), 'items'=>array(
+					array('label'=>'Accounts','url'=>array('/account/index'), 'visible'=>Yii::app()->user->checkAccess('Account.Admin'),'items'=>array(
+						array('label'=>'View Accounts','url'=>array('/account/index')),
+						array('label'=>'Manage','url'=>array('/account/admin')),
+						array('label'=>'Create','url'=>array('/account/create')),
+					)),
+					array('label'=>'Account Statement', 'url'=>array('/reports/accountStatement'), 'visible'=>Yii::app()->user->checkAccess('Reports.AccountStatement')),
+					array('label'=>'Account Summary', 'url'=>array('/reports/accountSummary'), 'visible'=>Yii::app()->user->checkAccess('Reports.AccountSummary')),
+					array('label'=>'Transactions', array('/transaction/index'), 'visible'=>Yii::app()->user->checkAccess('Transaction.Admin'),'items'=>array(
+						array('label'=>'View Transactions','url'=>array('/transaction/index')),
+						array('label'=>'Manage Transactions','url'=>array('/transaction/admin')),
+						array('label'=>'Create Transaction','url'=>array('/transaction/create')),
+					)),
+					array('label'=>'Create Collection','url'=>array('/collection/create'),'visible'=>Yii::app()->user->checkAccess('Collection.Create')),
+					array('label'=>'Create Transaction','url'=>array('/transaction/create'),'visible'=>!Yii::app()->user->checkAccess('Transaction.Admin')),
+					array('label'=>'View Transactions','url'=>array('/transaction/index')),
 				)),
 				array('label'=>'Help', 'url'=>array('/site/page', 'view'=>'help')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

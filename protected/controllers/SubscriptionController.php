@@ -143,6 +143,8 @@ class SubscriptionController extends RController
 			$end_dt->add(new DateInterval('P'.$till.'M'));
 
 			$trans = new Transaction;
+			$acct = Account::get('Family Subscriptions');
+			$trans->account_id = $acct->id;
 			$trans->type = 'credit';
 			if ('total' == $_POST['duration']) {
 				$total = $amt;
@@ -151,7 +153,7 @@ class SubscriptionController extends RController
 				$total = $till * $amt;
 			}
 			$trans->amount = $total;
-			$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
+			$trans->created = Yii::app()->dateFormatter->formatDateTime(time(), 'short', 'medium');
 			$trans->creator = Yii::app()->user->id;
 			$trans->descr = "Family #" . $family->id . ' subscription from '
 				. date_format($start_dt, 'M Y') . ' to ' . date_format($end_dt, 'M Y');

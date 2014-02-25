@@ -95,18 +95,21 @@ class MassBookingController extends RController
 
 		if(isset($_POST['MassBooking']))
 		{
+			$acct = Account::get('Mass Bookings');
 			$trans = new Transaction;
 			$trans->type = 'credit';
+			$trans->account_id = $acct->id;
 			$trans->amount = $_POST['amount'];
-			$trans->created = date_format(new DateTime(), 'Y-m-d H:i:s');
+			$trans->created = Yii::app()->dateFormatter->formatDateTime(time(), 'short', 'medium');
 			$trans->creator = Yii::app()->user->id;
 			$trans->descr = "Mass booking";
 			if ($trans->save()) {
 				$model->attributes=$_POST['MassBooking'];
 				$model->trans_id = $trans->id;
 				if($model->save()) {
-					$trans->descr = "Mass booking #" . $model->id;
-					$trans->save(false);
+					$trans->saveAttributes(array(
+						'descr' => "Mass booking #" . $model->id
+					));
 					$this->redirect(array('view','id'=>$model->id));
 				}
 			}
