@@ -173,7 +173,7 @@ $this->menu=array(
 	echo "</div>";
 	echo CHtml::link('Edit', array('update', 'id'=>$model->id)) . ' | ' . 
 	  CHtml::link('Create Certificate', array('membershipCertificate/create', 'id' => $model->id)) . ' | ' .
-	  CHtml::link('View Family', array('/family/view', 'id'=>$model->family_id));
+	  CHtml::link('View Family', array('/family/view', 'id'=>$model->unit_id));
 ?>
 
 </div>
@@ -208,7 +208,7 @@ $this->widget('zii.widgets.CDetailView', array(
 		'confirmation_dt',
 		'marriage_dt',
 		'cemetery_church',
-		'family_id',
+		'unit_id',
 	),
 )); */ ?>
 

@@ -238,8 +238,8 @@
 	<?php echo CHtml::encode($data->cemetery_church); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('family_id')); ?>:</b>
-	<?php echo CHtml::encode($data->family_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('unit_id')); ?>:</b>
+	<?php echo CHtml::encode($data->unit_id); ?>
 	<br />
 
 	*/ ?>

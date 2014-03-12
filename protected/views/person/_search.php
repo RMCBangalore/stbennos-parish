@@ -277,8 +277,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'family_id'); ?>
-		<?php echo $form->textField($model,'family_id'); ?>
+		<?php echo $form->label($model,'unit_id'); ?>
+		<?php echo $form->textField($model,'unit_id'); ?>
 	</div>
 
 	<div class="row buttons">

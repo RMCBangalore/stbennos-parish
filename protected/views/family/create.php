@@ -64,6 +64,7 @@ if (!isset($wife)) {
 	$wife->marriage_dt = $model->marriage_date;
 }
 $dependents = $model->dependents();
+$unit = $model->isNewRecord ? new Units() : $model->unit;
 $tabs = array(
 	0=>array(
 		'title'=>'Family Data',
@@ -71,6 +72,7 @@ $tabs = array(
 		'data'=>array(
 			'form'=>$form,
 			'model'=>$model,
+			'unit'=>$unit,
 		),
 	),
 	1=>array(

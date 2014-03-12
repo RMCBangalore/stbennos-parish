@@ -118,9 +118,16 @@ class FamilyController extends RController
 		case 1:
 			$this->performAjaxValidation($model);
 			if (isset($_POST['Families'])) {
-				$model->attributes=$_POST['Families'];
-				if ($model->save()) {
-					++$step;
+				if (isset($_POST['Units'])) {
+					$unit = new Units;
+					$unit->attributes = $_POST['Units'];
+					if ($unit->save()) {
+						$model->attributes=$_POST['Families'];
+						$model->id = $unit->id;
+						if ($model->save()) {
+							++$step;
+						}
+					}
 				}
 			}
 			break;
@@ -135,7 +142,7 @@ class FamilyController extends RController
 			$this->performAjaxValidation($p);
 			if(isset($_POST['People'][$person])) {
 				$p->attributes = $_POST['People'][$person];
-				$p->family_id = $model->id;
+				$p->unit_id = $model->id;
 				$p->role = $person;
 				if ($p->save()) {
 					++$step;
@@ -161,7 +168,7 @@ class FamilyController extends RController
 					$cur_model = $p;
 					$p->attributes = $_POST['People']['dependent'][$i];
 					$this->performAjaxValidation($p);
-					$p->family_id = $model->id;
+					$p->unit_id = $model->id;
 					$p->role = 'dependent';
 					if ($p->save()) {
 						++$step;
@@ -179,7 +186,7 @@ class FamilyController extends RController
 					$cur_model = $p;
 					$p->attributes = $_POST['People']['child'][$i];
 					$this->performAjaxValidation($p);
-					$p->family_id = $model->id;
+					$p->unit_id = $model->id;
 					$p->role = 'child';
 					if ($p->save()) {
 						++$step;
@@ -214,9 +221,10 @@ class FamilyController extends RController
 			}
 			if (isset($_POST['leaving_date'])) {
 				Yii::trace("POST Families received", 'application.controllers.FamilyController');
-				$model->disabled = 1;
-				$model->leaving_date = $_POST['leaving_date'];
-				if ($model->save(false)) {
+				$unit = $model->unit;
+				$unit->disabled = 1;
+				$unit->leaving_date = $_POST['leaving_date'];
+				if ($unit->save(false)) {
 					if(!isset($_GET['ajax']))
 						$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 				}
@@ -233,9 +241,10 @@ class FamilyController extends RController
 
 	public function actionEnable($id) {
 		$model=$this->loadModel($id);
-		$model->disabled = 0;
-		$model->leaving_date = null;
-		if ($model->save(false)) {
+		$unit = $model->unit;
+		$unit->disabled = 0;
+		$unit->leaving_date = null;
+		if ($unit->save(false)) {
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
@@ -256,6 +265,8 @@ class FamilyController extends RController
 		if(isset($_POST['Families']))
 		{
 			$model->attributes=$_POST['Families'];
+			$unit = $model->unit;
+			$unit->attributes = $_POST['Units'];
 			$models = array($model);
 			$parents = array();
 			foreach(array('husband', 'wife') as $person) {
@@ -308,8 +319,9 @@ class FamilyController extends RController
 			$this->performAjaxValidation($models);
 
 			if ($model->save()) {
+				$unit->save();
 				foreach($parents as $parent) {
-					$parent->family_id = $model->id;
+					$parent->unit_id = $model->id;
 					$parent->save();
 					switch ($parent->role) {
 						case 'husband': if (!isset($model->husband_id)) {
@@ -323,11 +335,11 @@ class FamilyController extends RController
 					}
 				}
 				foreach($dependents as $dependent) {
-					$dependent->family_id = $model->id;
+					$dependent->unit_id = $model->id;
 					$dependent->save();
 				}
 				foreach($children as $child) {
-					$child->family_id = $model->id;
+					$child->unit_id = $model->id;
 					$child->save();
 				}
 				$model=$this->loadModel($id);
@@ -483,7 +495,7 @@ class FamilyController extends RController
 						$p = new People();
 					}
 					$p->attributes = $_POST['People']['child'][$i];
-					$p->family_id = $model->id;
+					$p->unit_id = $model->id;
 					$p->role = 'child';
 					$p->save();
 				}
@@ -509,7 +521,7 @@ class FamilyController extends RController
 						$p = new People();
 					}
 					$p->attributes = $_POST['People']['dependent'][$i];
-					$p->family_id = $model->id;
+					$p->unit_id = $model->id;
 					$p->role = 'dependent';
 					$p->save();
 				}
@@ -529,14 +541,14 @@ class FamilyController extends RController
 		if (isset($_POST['SatisfactionData'])) {
 			foreach($_POST['SatisfactionData'] as $sid => $value) {
 				$sd = SatisfactionData::model()->findByAttributes(array(
-					'family_id' => $id,
+					'unit_id' => $id,
 					'satisfaction_item_id' => $sid
 				));
 				if (!$sd) {
 					$sd = new SatisfactionData();
 				}
 				$sd->attributes = $value;
-				$sd->family_id = $id;
+				$sd->unit_id = $id;
 				$sd->satisfaction_item_id = $sid;
 				$sd->save();
 			}
@@ -545,14 +557,14 @@ class FamilyController extends RController
 		if (isset($_POST['NeedData'])) {
 			foreach($_POST['NeedData'] as $nid => $value) {
 				$nd = NeedData::model()->findByAttributes(array(
-					'family_id' => $id,
+					'unit_id' => $id,
 					'need_id' => $nid
 				));
 				if (!$nd) {
 					$nd = new NeedData();
 				}
 				$nd->attributes = $value;
-				$nd->family_id = $id;
+				$nd->unit_id = $id;
 				$nd->need_id = $nid;
 				$nd->save();
 			}
@@ -568,7 +580,7 @@ class FamilyController extends RController
 					? $_POST['AwarenessData'][$aid] : 1;
 
 				$ad = AwarenessData::model()->findByAttributes(array(
-					'family_id' => $id,
+					'unit_id' => $id,
 					'awareness_id' => $aid
 				));
 
@@ -577,7 +589,7 @@ class FamilyController extends RController
 				}
 
 				$ad->value = $value;
-				$ad->family_id = $id;
+				$ad->unit_id = $id;
 				$ad->awareness_id = $aid;
 				$ad->save();
 			}
@@ -586,14 +598,14 @@ class FamilyController extends RController
 		if (isset($_POST['OpenData'])) {
 			foreach($_POST['OpenData'] as $qid => $value) {
 				$od = OpenData::model()->findByAttributes(array(
-					'family_id' => $id,
+					'unit_id' => $id,
 					'question_id' => $qid
 				));
 				if (!$od) {
 					$od = new OpenData();
 				}
 				$od->attributes = $value;
-				$od->family_id = $id;
+				$od->unit_id = $id;
 				$od->question_id = $qid;
 				$od->save();
 			}
@@ -640,7 +652,7 @@ class FamilyController extends RController
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Families', array(
-			'criteria' => array('condition' => 'disabled = 0'),
+			'criteria' => array('condition' => 'u.disabled = 0', 'join' => 'INNER JOIN units u ON t.id = u.id'),
 		));
 		$uri = Yii::app()->request->baseUrl . '/css/family-view.css';
 		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
@@ -738,7 +750,7 @@ class FamilyController extends RController
 			$parms['family'] = $family;
 			
 			$parms['subscriptions'] = Subscription::model()->findAllByAttributes(array(
-									'family_id' => $family->id
+									'unit_id' => $family->id
 								), array(
 									'order' => 'end_year ASC, end_month ASC'	
 								));
@@ -751,7 +763,7 @@ class FamilyController extends RController
 
 	public function actionVisits($id) {
 		$dataProvider=new CActiveDataProvider('Visits', array(
-			'criteria' => array('condition' => "family_id = $id")
+			'criteria' => array('condition' => "unit_id = $id")
 		));
 		$this->render('visits',array(
 			'dataProvider'=>$dataProvider,

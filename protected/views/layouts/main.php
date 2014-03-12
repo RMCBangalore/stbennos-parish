@@ -167,7 +167,7 @@
 						array('label'=>'Open Questions', 'url'=>array('/surveyReports/openQuestions')),
 					)),
 				)),
-				array('label'=>'Finances', 'url'=>array('finance/index'), 'items'=>array(
+				array('label'=>'Finances', 'url'=>array('finance/index'), 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
 					array('label'=>'Accounts','url'=>array('/account/index'), 'visible'=>Yii::app()->user->checkAccess('Account.Admin'),'items'=>array(
 						array('label'=>'View Accounts','url'=>array('/account/index')),
 						array('label'=>'Manage','url'=>array('/account/admin')),

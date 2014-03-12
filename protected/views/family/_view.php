@@ -35,9 +35,10 @@
 		echo "<span class='id'>" . CHtml::link(CHtml::encode('Family #' . $data->id), array('view', 'id' => $data->id)) . '</span>, ';
 	} 
 
-	if ($data->reg_date) {
+	$unit = $data->unit;
+	if ($unit->reg_date) {
 		echo '<span class="reg-date">' . CHtml::encode('reg: ');
-		echo '<span class="val">' . $data->reg_date . '</span>';
+		echo '<span class="val">' . $unit->reg_date . '</span>';
 		echo '</span>, ';
 	}
 
@@ -62,40 +63,40 @@
 	</div>
 
 	<div class="numbers">
-	<?php if ($data->phone) {
+	<?php if ($unit->phone) {
 		echo '<span class="phone">';
-	echo '<span class="val">' . CHtml::encode($data->phone) . '</span>, ';
+	echo '<span class="val">' . CHtml::encode($unit->phone) . '</span>, ';
 	echo '</span>';
 	}
-	if ($data->mobile) {
+	if ($unit->mobile) {
 		echo '<span class="mobile">';
-		echo '<span class="val">' . CHtml::encode($data->mobile).'</span>';
+		echo '<span class="val">' . CHtml::encode($unit->mobile).'</span>';
 		echo '</span>, ';
 	}
-	if ($data->email) {
+	if ($unit->email) {
 		echo '<span class="email">';
-		echo '<span class="val">' . CHtml::encode($data->email).'</span>';
+		echo '<span class="val">' . CHtml::encode($unit->email).'</span>';
 		echo '</span>, ';
 	}
-	echo 'Zone <span class="zone">' . FieldNames::value('zones', $data->zone) . '</span>, ';
+	echo 'Zone <span class="zone">' . FieldNames::value('zones', $unit->zone) . '</span>, ';
 	?>
 
 	<?php echo CHtml::encode('Code'); ?>:
 	<span class="fid"><?php echo CHtml::encode($data->fid); ?></span>
 
-	<?php if ($data->bpl_card) {
+	<?php if ($unit->bpl_card) {
 		echo ', <span class="bpl">BPL Card</span>';
 	} ?>
 	</div>
 
 	<div class="address">
-	<span class="field nm"><?php echo CHtml::encode($data->addr_nm) . ', '; ?></span>
-	<span class="field stt"><?php echo CHtml::encode($data->addr_stt); ?></span>
+	<span class="field nm"><?php echo CHtml::encode($unit->addr_nm) . ', '; ?></span>
+	<span class="field stt"><?php echo CHtml::encode($unit->addr_stt); ?></span>
 	<br />
 
-	<span class="field area"><?php echo CHtml::encode($data->addr_area); ?></span>
+	<span class="field area"><?php echo CHtml::encode($unit->addr_area); ?></span>
 	 - 
-	<span class="field pin"><?php echo CHtml::encode($data->addr_pin); ?></span>
+	<span class="field pin"><?php echo CHtml::encode($unit->addr_pin); ?></span>
 	<br />
 	</div>
 

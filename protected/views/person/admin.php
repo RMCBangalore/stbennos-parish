@@ -90,7 +90,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'confirmation_dt',
 		'marriage_dt',
 		'cemetery_church',
-		'family_id',
+		'unit_id',
 		*/
 		array(
 			'class'=>'CButtonColumn',

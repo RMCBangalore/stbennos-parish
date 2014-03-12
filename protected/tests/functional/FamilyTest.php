@@ -26,6 +26,7 @@ class FamilyTest extends WebTestCase
 	protected $screenshotUrl = 'http://localhost/~hacker/screenshots';
 
 	public $fixtures = array(
+		'units' => 'Units',
 		'families' => 'Families',
 		'people' => 'People',
 	);
@@ -64,10 +65,11 @@ class FamilyTest extends WebTestCase
 			'reg_date' => '11/03/1999',
 		);
 		foreach($family as $key => $value) {
+			$model = preg_match('/^(?:fid|marriage_.*)$/', $key) ? 'Families' : 'Units';
 			if (preg_match('/^(?:zone|bpl_card|marriage_(?:type|status)|monthly_income)$/', $key)) {
-				$this->select("name=Families[$key]", "value=$value");
+				$this->select("name=${model}[$key]", "value=$value");
 			} else {
-				$this->type("name=Families[$key]", $value);
+				$this->type("name=${model}[$key]", $value);
 			}
 		}
 		$this->clickAndWait("//input[@value='Create']");

@@ -299,33 +299,20 @@ DROP TABLE IF EXISTS `families`;
 CREATE TABLE `families` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fid` varchar(11) NOT NULL,
-  `addr_nm` varchar(50) DEFAULT NULL,
-  `addr_stt` varchar(75) DEFAULT NULL,
-  `addr_area` varchar(50) DEFAULT NULL,
-  `addr_pin` varchar(7) DEFAULT NULL,
-  `phone` varchar(10) DEFAULT NULL,
-  `mobile` varchar(10) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `zone` int(11) DEFAULT NULL,
-  `bpl_card` tinyint(4) DEFAULT NULL,
+  `unit_id` INTEGER NOT NULL,
   `marriage_church` varchar(50) DEFAULT NULL,
   `marriage_date` date DEFAULT NULL,
   `marriage_type` varchar(25) DEFAULT NULL,
   `marriage_status` varchar(25) DEFAULT NULL,
-  `monthly_income` varchar(15) DEFAULT NULL,
   `husband_id` int(11) DEFAULT NULL,
   `wife_id` int(11) DEFAULT NULL,
-  `photo` varchar(50) DEFAULT NULL,
-  `gmap_url` varchar(1024) DEFAULT NULL,
-  `reg_date` date DEFAULT NULL,
-  `disabled` tinyint(4) DEFAULT '0',
-  `leaving_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fid` (`fid`),
   KEY `husband_id` (`husband_id`),
   KEY `wife_id` (`wife_id`),
   CONSTRAINT `families_ibfk_1` FOREIGN KEY (`husband_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `families_ibfk_2` FOREIGN KEY (`wife_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `families_unit` FOREIGN KEY (`unid_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
@@ -389,6 +376,22 @@ CREATE TABLE `first_communions` (
   KEY `member_id` (`member_id`),
   CONSTRAINT `first_communions_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `individuals`
+--
+
+DROP TABLE IF EXISTS `individuals`;
+CREATE TABLE `individuals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(11) NOT NULL,
+  `unit_id` INTEGER NOT NULL,
+  `member_id` INTEGER DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  CONSTRAINT `individuals_member` FOREIGN KEY (`
+  CONSTRAINT `individuals_unit` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `marriage_certs`
@@ -712,6 +715,31 @@ CREATE TABLE `transactions` (
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`account`) REFERENCES `accounts` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `units`
+--
+
+DROP TABLE IF EXISTS `units`;
+CREATE TABLE `units` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `addr_nm` varchar(50) DEFAULT NULL,
+  `addr_stt` varchar(75) NOT NULL,
+  `addr_area` varchar(50) NOT NULL,
+  `addr_pin` varchar(7) NOT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `mobile` varchar(10) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `zone` int(11) DEFAULT NULL,
+  `bpl_card` tinyint(4) DEFAULT NULL,
+  `monthly_income` varchar(15) DEFAULT NULL,
+  `photo` varchar(50) DEFAULT NULL,
+  `gmap_url` varchar(1024) DEFAULT NULL,
+  `reg_date` date DEFAULT NULL,
+  `disabled` tinyint(4) DEFAULT '0',
+  `leaving_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
 
 --
 -- Table structure for table `users`

@@ -25,27 +25,14 @@
  * The followings are the available columns in table 'families':
  * @property integer $id
  * @property string $fid
- * @property string $addr_nm
- * @property string $addr_stt
- * @property string $addr_area
- * @property string $addr_pin
- * @property string $phone
- * @property string $mobile
- * @property string $email
- * @property integer $zone
- * @property integer $reg_date
  * @property integer $reg_yrs
- * @property integer $bpl_card
  * @property string $marriage_church
  * @property string $marriage_date
  * @property string $marriage_yrs
  * @property string $marriage_type
  * @property string $marriage_status
- * @property string $monthly_income
  * @property integer $husband_id
  * @property integer $wife_id
- * @property integer $disabled
- * @property integer $leaving_date
  *
  * The followings are the available model relations:
  * @property People[] $members
@@ -78,24 +65,18 @@ class Families extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('addr_stt, addr_area, addr_pin, fid, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
+			array('fid, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
 			array('fid', 'unique'),
-			array('zone', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),
-			array('addr_nm, addr_area, email, marriage_church', 'length', 'max'=>50),
-			array('addr_stt', 'length', 'max'=>75),
+			array('marriage_church', 'length', 'max'=>50),
 			array('marriage_type, marriage_status', 'length', 'max'=>25),
-			array('addr_pin', 'length', 'max'=>7),
-			array('phone, mobile', 'length', 'max'=>10),
-			array('monthly_income', 'length', 'max'=>15),
-			array('marriage_date, bpl_card, disabled, leaving_date', 'safe'),
-			array('marriage_date, reg_date, leaving_date', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('marriage_date, reg_date, leaving_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
+			array('id, marriage_date', 'safe'),
+			array('marriage_date', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('marriage_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
-			array('gmap_url', 'url'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, reg_date, reg_yrs, bpl_card, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, monthly_income, sub_till, leaving_date', 'safe', 'on'=>'search'),
+			array('id, fid, reg_yrs, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, sub_till', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,7 +85,7 @@ class Families extends CActiveRecord
 		if ($subs) {
 			return $subs[count($subs) - 1]->till_month;
 		} else {
-			return $this->reg_date;
+			return $this->unit->reg_date;
 		}
 	}
 
@@ -119,7 +100,7 @@ class Families extends CActiveRecord
 	}
 
 	public function getReg_yrs() {
-		return $this->reg_date ? (strtotime('now') - strtotime($this->reg_date)) / (60*60*24*365.2425) : null;
+		return $this->unit->reg_date ? (strtotime('now') - strtotime($this->unit->reg_date)) / (60*60*24*365.2425) : null;
 	}
 
 	public function setReg_yrs($val) {
@@ -142,14 +123,15 @@ class Families extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'members' => array(self::HAS_MANY, 'People', 'family_id'),
+			'members' => array(self::HAS_MANY, 'People', 'unit_id'),
 			'husband' => array(self::BELONGS_TO, 'People', 'husband_id'),
 			'wife' => array(self::BELONGS_TO, 'People', 'wife_id'),
-			'satisfactionData' => array(self::HAS_MANY, 'SatisfactionData', 'family_id'),
-			'needData' => array(self::HAS_MANY, 'NeedData', 'family_id'),
-			'awarenessData' => array(self::HAS_MANY, 'AwarenessData', 'family_id'),
-			'openData' => array(self::HAS_MANY, 'OpenData', 'family_id'),
-			'subscriptions' => array(self::HAS_MANY, 'Subscription', 'family_id'),
+			'unit' => array(self::BELONGS_TO, 'Units', 'id'),
+			'satisfactionData' => array(self::HAS_MANY, 'SatisfactionData', 'unit_id'),
+			'needData' => array(self::HAS_MANY, 'NeedData', 'unit_id'),
+			'awarenessData' => array(self::HAS_MANY, 'AwarenessData', 'unit_id'),
+			'openData' => array(self::HAS_MANY, 'OpenData', 'unit_id'),
+			'subscriptions' => array(self::HAS_MANY, 'Subscription', 'unit_id'),
 		);
 	}
 
@@ -161,24 +143,12 @@ class Families extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'fid' => 'Family Code',
-			'addr_nm' => 'House No./Name',
-			'addr_stt' => 'Street Address',
-			'addr_area' => 'Area',
-			'addr_pin' => 'Pin Code',
-			'phone' => 'Phone',
-			'mobile' => 'Mobile',
-			'email' => 'Email',
-			'zone' => 'Zone',
-			'gmap_url' => 'Google maps URL',
-			'reg_date' => 'Registration Date',
 			'reg_yrs' => 'Registered Years',
-			'bpl_card' => 'Bpl Card',
 			'marriage_church' => 'Marriage Church',
 			'marriage_date' => 'Marriage Date',
 			'marriage_yrs' => 'Married Years',
 			'marriage_type' => 'Marriage Type',
 			'marriage_status' => 'Marriage Status',
-			'monthly_income' => 'Monthly Household Income',
 			'sub_till' => 'Subscription Till',
 		);
 	}
@@ -231,23 +201,6 @@ class Families extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('fid',$this->fid,true);
-		$criteria->compare('addr_nm',$this->addr_nm,true);
-		$criteria->compare('addr_stt',$this->addr_stt,true);
-		$criteria->compare('addr_area',$this->addr_area,true);
-		$criteria->compare('addr_pin',$this->addr_pin,true);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('mobile',$this->mobile,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('zone',$this->zone);
-		if (isset($this->reg_date) and $this->reg_date) {
-			$criteria->compare('reg_date', date('Y-m-d',
-				    CDateTimeParser::parse($this->reg_date,
-				    Yii::app()->locale->getDateFormat('short'))));
-		}
-		if (isset($this->reg_yrs)) {
-			$this->date_search($criteria, 'reg_date', 'reg_yrs');
-		}
-		$criteria->compare('bpl_card',$this->bpl_card);
 		$criteria->compare('marriage_church',$this->marriage_church,true);
 		if (isset($this->marriage_date) and $this->marriage_date) {
 			$criteria->compare('marriage_date', date('Y-m-d',
@@ -259,12 +212,6 @@ class Families extends CActiveRecord
 		}
 		$criteria->compare('marriage_type',$this->marriage_type,true);
 		$criteria->compare('marriage_status',$this->marriage_status,true);
-		$criteria->compare('monthly_income',$this->monthly_income,true);
-		if ($this->disabled) {
-			$criteria->compare('disabled',$this->disabled);
-		} else {
-			$criteria->addCondition('disabled = 0');
-		}
 		if (isset($this->sub_till) and !empty($this->sub_till)) {
 			list($pref, $logi, $comp) = array("", " OR ", ">=");
 			if (preg_match('/^!/', $this->sub_till)) {
@@ -276,9 +223,10 @@ class Families extends CActiveRecord
 			if (count($mv) >= 2) {
 				list($yr, $mth) = $mv;
 				$m = sprintf("%d-%02d", $yr, $mth);
-				$criteria->addCondition("$pref EXISTS (SELECT s.id FROM subscriptions s " .
-					"WHERE s.family_id = t.id AND CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') $logi " .
-					"LEFT(t.reg_date,7) $comp '$m'");
+				$criteria->addCondition("$pref EXISTS (SELECT s.id FROM subscriptions s, units u " .
+					"WHERE s.unit_id = t.id AND t.id = u.id AND ".
+					"CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') $logi " .
+					"LEFT(u.reg_date,7) $comp '$m'");
 			}
 		}
 
@@ -332,7 +280,7 @@ class Families extends CActiveRecord
 		$p = new People();
 		return $p->findAllByAttributes(array(
 			'role' => 'child',
-			'family_id' => $this->id
+			'unit_id' => $this->id
 		));
 	}
 
@@ -340,7 +288,7 @@ class Families extends CActiveRecord
 		$p = new People();
 		return $p->findAllByAttributes(array(
 			'role' => 'dependent',
-			'family_id' => $this->id
+			'unit_id' => $this->id
 		));
 	}
 

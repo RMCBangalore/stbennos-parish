@@ -64,6 +64,7 @@ $this->menu=array(
             'data'=>array(
 				'form'=>$form,
                 'model'=>$model,
+		'unit'=>$model->unit,
             ),
         ),
         'tab2'=>array(

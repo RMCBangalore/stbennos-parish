@@ -38,9 +38,10 @@ $this->menu=array(
 
 <?php
 	echo '<table><tr><td>';
-	if ($model->photo) {
-		$src = Yii::app()->request->baseUrl . '/images/families/' . $model->photo;
-		list($width, $height) = getimagesize("./images/families/" . $model->photo);
+	$unit = $model->unit;
+	if ($unit->photo) {
+		$src = Yii::app()->request->baseUrl . '/images/families/' . $unit->photo;
+		list($width, $height) = getimagesize("./images/families/" . $unit->photo);
 		$label = 'Update Photo';
 	} else {
 		$photo_path = '/images/family-photo.jpg';
@@ -53,8 +54,8 @@ $this->menu=array(
 	echo CHtml::link($label, array('photo', 'id'=>$model->id));
 	echo '</td><td>';
 
-	if (isset($model->gmap_url)) {
-		$gmurl = $model->gmap_url;
+	if (isset($unit->gmap_url)) {
+		$gmurl = $unit->gmap_url;
 		echo "<iframe width=\"300\" height=\"275\" frameborder=\"0\" scrolling=\"no\"" .
 			" marginheight=\"0\" marginwidth=\"0\" src=\"$gmurl\"></iframe>" .
 			"<br /><small><a href=\"$gmurl\" style=\"color:#0000FF;text-align:left\">" .

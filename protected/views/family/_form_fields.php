@@ -31,65 +31,65 @@
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'addr_nm'); ?>
-		<?php echo $form->textField($model,'addr_nm',array('size'=>30,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'addr_nm'); ?>
+		<?php echo $form->labelEx($unit,'addr_nm'); ?>
+		<?php echo $form->textField($unit,'addr_nm',array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($unit,'addr_nm'); ?>
 	</span>
 	</div>
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->labelEx($model,'addr_stt'); ?>
-		<?php echo $form->textField($model,'addr_stt',array('size'=>30,'maxlength'=>75)); ?>
-		<?php echo $form->error($model,'addr_stt'); ?>
+		<?php echo $form->labelEx($unit,'addr_stt'); ?>
+		<?php echo $form->textField($unit,'addr_stt',array('size'=>30,'maxlength'=>75)); ?>
+		<?php echo $form->error($unit,'addr_stt'); ?>
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'addr_area'); ?>
-		<?php echo $form->textField($model,'addr_area',array('size'=>25,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'addr_area'); ?>
+		<?php echo $form->labelEx($unit,'addr_area'); ?>
+		<?php echo $form->textField($unit,'addr_area',array('size'=>25,'maxlength'=>50)); ?>
+		<?php echo $form->error($unit,'addr_area'); ?>
 	</span>
 	</div>
 
 	<div class="row">
     <span class="leftHalf">
-		<?php echo $form->labelEx($model,'addr_pin'); ?>
-		<?php echo $form->textField($model,'addr_pin',array('size'=>7,'maxlength'=>7)); ?>
-		<?php echo $form->error($model,'addr_pin'); ?>
+		<?php echo $form->labelEx($unit,'addr_pin'); ?>
+		<?php echo $form->textField($unit,'addr_pin',array('size'=>7,'maxlength'=>7)); ?>
+		<?php echo $form->error($unit,'addr_pin'); ?>
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'phone'); ?>
+		<?php echo $form->labelEx($unit,'phone'); ?>
+		<?php echo $form->textField($unit,'phone',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($unit,'phone'); ?>
 	</span>
 	</div>
 
 	<div class="row">
     <span class="leftHalf">
-		<?php echo $form->labelEx($model,'mobile'); ?>
-		<?php echo $form->textField($model,'mobile',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'mobile'); ?>
+		<?php echo $form->labelEx($unit,'mobile'); ?>
+		<?php echo $form->textField($unit,'mobile',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($unit,'mobile'); ?>
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'email'); ?>
+		<?php echo $form->labelEx($unit,'email'); ?>
+		<?php echo $form->textField($unit,'email',array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($unit,'email'); ?>
 	</span>
 	</div>
 
 	<div class="row">
     <span class="leftHalf">
-		<?php echo $form->labelEx($model,'zone'); ?>
-		<?php echo $form->dropDownList($model,'zone',FieldNames::values('zones'),array('prompt'=>'--- Select ---')); ?>
-		<?php echo $form->error($model,'zone'); ?>
+		<?php echo $form->labelEx($unit,'zone'); ?>
+		<?php echo $form->dropDownList($unit,'zone',FieldNames::values('zones'),array('prompt'=>'--- Select ---')); ?>
+		<?php echo $form->error($unit,'zone'); ?>
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'reg_date'); ?>
+		<?php echo $form->labelEx($unit,'reg_date'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				'model' => $model,
+				'model' => $unit,
 				'attribute' => "reg_date",
 				'options'       => array(
 						'dateFormat' => Yii::app()->params['dateFmtDP'],
@@ -102,15 +102,15 @@
 						'maxlength' => '10',    // textField maxlength
 				),
 		)); ?>
-		<?php echo $form->error($model,'reg_date'); ?>
+		<?php echo $form->error($unit,'reg_date'); ?>
 	</span>
 	</div>
 
 	<div class="row">
     <span class="leftHalf">
-		<?php echo $form->labelEx($model,'bpl_card'); ?>
-		<?php echo $form->dropDownList($model,'bpl_card',array(0=>'No',1=>'Yes')); ?>
-		<?php echo $form->error($model,'bpl_card'); ?>
+		<?php echo $form->labelEx($unit,'bpl_card'); ?>
+		<?php echo $form->dropDownList($unit,'bpl_card',array(0=>'No',1=>'Yes')); ?>
+		<?php echo $form->error($unit,'bpl_card'); ?>
 	</span>
 
 	<span class="rightHalf">
@@ -156,9 +156,9 @@
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'monthly_income'); ?>
-		<?php echo $form->dropDownList($model,'monthly_income',FieldNames::values('monthly_household_income'),array('prompt'=>'--- Select ---')); ?>
-		<?php echo $form->error($model,'monthly_income'); ?>
+		<?php echo $form->labelEx($unit,'monthly_income'); ?>
+		<?php echo $form->dropDownList($unit,'monthly_income',FieldNames::values('monthly_household_income'),array('prompt'=>'--- Select ---')); ?>
+		<?php echo $form->error($unit,'monthly_income'); ?>
 	</span>
 	</div>
 

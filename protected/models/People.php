@@ -48,7 +48,7 @@
  * @property string $marriage_dt
  * @property string $death_dt
  * @property string $cemetery_church
- * @property integer $family_id
+ * @property integer $unit_id
  * @property string $role
  * @property string $special_skill
  * @property string $photo
@@ -87,7 +87,7 @@ class People extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('fname, lname, sex, domicile_status, dob, lang_pri', 'required'),
-			array('sex, family_id', 'numerical', 'integerOnly'=>true),
+			array('sex, unit_id', 'numerical', 'integerOnly'=>true),
 			array('fname, email, baptism_church, god_parents', 'length', 'max'=>50),
 			array('lname, profession, occupation, lang_pri, lang_lit, lang_edu, rite, cemetery_church, special_skill', 'length', 'max'=>25),
 			array('domicile_status', 'length', 'max'=>4),
@@ -106,7 +106,7 @@ class People extends CActiveRecord
 			array('dob, baptism_dt, first_comm_dt, confirmation_dt, marriage_dt, death_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, family_id, role, special_skill, mid, remarks, death_dt', 'safe', 'on'=>'search'),
+			array('id, fname, lname, sex, age, domicile_status, dob, education, profession, occupation, mobile, email, lang_pri, lang_lit, lang_edu, rite, baptism_dt, baptism_church, baptism_place, god_parents, first_comm_dt, confirmation_dt, marriage_dt, cemetery_church, unit_id, role, special_skill, mid, remarks, death_dt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -158,7 +158,8 @@ class People extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'family' => array(self::BELONGS_TO, 'Families', 'family_id'),
+			'family' => array(self::BELONGS_TO, 'Families', 'unit_id'),
+			'unit' => array(self::BELONGS_TO, 'Families', 'unit_id'),
 			'membershipCerts' => array(self::HAS_MANY, 'MembershipCerts', 'member_id'),
 		);
 	}
@@ -197,7 +198,7 @@ class People extends CActiveRecord
 			'marriage_dt' => 'Marriage Date',
 			'marriage_yrs' => 'Marriage Years',
 			'cemetery_church' => 'Cemetery Church',
-			'family_id' => 'Family',
+			'unit_id' => 'Family',
 			'role' => 'Role',
 			'special_skill' => 'Special Skill',
 			'mid' => 'Member Id',
@@ -317,7 +318,7 @@ class People extends CActiveRecord
 				Yii::app()->locale->getDateFormat('short'))),true);
 		}
 		$criteria->compare('cemetery_church',$this->cemetery_church,true);
-		$criteria->compare('family_id',$this->family_id);
+		$criteria->compare('unit_id',$this->unit_id);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('special_skill',$this->special_skill,true);
 		$criteria->compare('mid',$this->mid,true);
@@ -342,8 +343,8 @@ class People extends CActiveRecord
 		    }
 		}
 		if (!isset($this->mid)) { 
-			$cond = "family_id=:fid";
-			$parms = array(':fid'=>$this->family_id);
+			$cond = "unit_id=:fid";
+			$parms = array(':fid'=>$this->unit_id);
 			if (isset($this->id)) {
 				$parms[':id'] = $this->id;
 				$recs = People::model()->findAll(array(
@@ -358,7 +359,7 @@ class People extends CActiveRecord
 				));
 				$cnt = 1 + count($recs);
 			}
-			$family = Families::model()->findByPk($this->family_id);
+			$family = Families::model()->findByPk($this->unit_id);
 			$this->mid = $family->fid . "/$cnt";
 		}
 		return true;
@@ -424,8 +425,8 @@ class People extends CActiveRecord
 
 	public function get_mid() {
 		$recs = People::model()->findAll(array(
-			'condition' => 'family_id=:fid and id<=:id',
-			'params'	=> array(':fid'=>$this->family_id, ':id'=>$this->id)
+			'condition' => 'unit_id=:fid and id<=:id',
+			'params'	=> array(':fid'=>$this->unit_id, ':id'=>$this->id)
 		));
 		return $this->family->fid . '/' . count($recs);
 	}
