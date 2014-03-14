@@ -159,7 +159,7 @@ class People extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'family' => array(self::BELONGS_TO, 'Families', 'unit_id'),
-			'unit' => array(self::BELONGS_TO, 'Families', 'unit_id'),
+			'unit' => array(self::BELONGS_TO, 'Units', 'unit_id'),
 			'membershipCerts' => array(self::HAS_MANY, 'MembershipCerts', 'member_id'),
 		);
 	}
@@ -359,8 +359,8 @@ class People extends CActiveRecord
 				));
 				$cnt = 1 + count($recs);
 			}
-			$family = Families::model()->findByPk($this->unit_id);
-			$this->mid = $family->fid . "/$cnt";
+			$unit = Units::model()->findByPk($this->unit_id);
+			$this->mid = $unit->uid . "/$cnt";
 		}
 		return true;
 	    }

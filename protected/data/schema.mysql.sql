@@ -297,9 +297,7 @@ CREATE TABLE `deaths` (
 
 DROP TABLE IF EXISTS `families`;
 CREATE TABLE `families` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` varchar(11) NOT NULL,
-  `unit_id` INTEGER NOT NULL,
+  `id` int(11) NOT DEFAULT '0',
   `marriage_church` varchar(50) DEFAULT NULL,
   `marriage_date` date DEFAULT NULL,
   `marriage_type` varchar(25) DEFAULT NULL,
@@ -312,7 +310,7 @@ CREATE TABLE `families` (
   KEY `wife_id` (`wife_id`),
   CONSTRAINT `families_ibfk_1` FOREIGN KEY (`husband_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `families_ibfk_2` FOREIGN KEY (`wife_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE
-  CONSTRAINT `families_unit` FOREIGN KEY (`unid_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `families_unit` FOREIGN KEY (`id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
@@ -383,14 +381,12 @@ CREATE TABLE `first_communions` (
 
 DROP TABLE IF EXISTS `individuals`;
 CREATE TABLE `individuals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` varchar(11) NOT NULL,
-  `unit_id` INTEGER NOT NULL,
+  `id` int(11) NOT NULL DEFAULT '0',
   `member_id` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
-  CONSTRAINT `individuals_member` FOREIGN KEY (`
-  CONSTRAINT `individuals_unit` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `individuals_member` FOREIGN KEY (`member_id`) REFERENCES `people` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `individuals_unit` FOREIGN KEY (`id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -723,6 +719,7 @@ CREATE TABLE `transactions` (
 DROP TABLE IF EXISTS `units`;
 CREATE TABLE `units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(11) NOT NULL,
   `addr_nm` varchar(50) DEFAULT NULL,
   `addr_stt` varchar(75) NOT NULL,
   `addr_area` varchar(50) NOT NULL,

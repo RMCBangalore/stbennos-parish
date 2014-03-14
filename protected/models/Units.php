@@ -24,6 +24,7 @@
  *
  * The followings are the available columns in table 'units':
  * @property integer $id
+ * @property string $uid
  * @property string $addr_nm
  * @property string $addr_stt
  * @property string $addr_area
@@ -71,6 +72,9 @@ class Units extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('uid', 'required'),
+			array('uid', 'unique'),
+			array('uid', 'length', 'max'=>11),
 			array('addr_stt, addr_area, addr_pin', 'required'),
 			array('zone, bpl_card, disabled', 'numerical', 'integerOnly'=>true),
 			array('addr_nm, addr_area, email, photo', 'length', 'max'=>50),
@@ -82,7 +86,7 @@ class Units extends CActiveRecord
 			array('reg_date, leaving_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, bpl_card, monthly_income, photo, gmap_url, reg_date, disabled, leaving_date', 'safe', 'on'=>'search'),
+			array('id, uid, addr_nm, addr_stt, addr_area, addr_pin, phone, mobile, email, zone, bpl_card, monthly_income, photo, gmap_url, reg_date, disabled, leaving_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +109,7 @@ class Units extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'uid' => 'Family/Unit Code',
 			'addr_nm' => 'House No./Name',
 			'addr_stt' => 'Street Address',
 			'addr_area' => 'Area',
@@ -135,6 +140,7 @@ class Units extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('uid',$this->uid,true);
 		$criteria->compare('addr_nm',$this->addr_nm,true);
 		$criteria->compare('addr_stt',$this->addr_stt,true);
 		$criteria->compare('addr_area',$this->addr_area,true);
