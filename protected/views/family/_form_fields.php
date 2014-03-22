@@ -25,9 +25,9 @@
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->labelEx($model,'fid'); ?>
-		<?php echo $form->textField($model,'fid',array('size'=>11,'maxlength'=>11)); ?>
-		<?php echo $form->error($model,'fid'); ?>
+		<?php echo $form->labelEx($unit,'uid'); ?>
+		<?php echo $form->textField($unit,'uid',array('size'=>11,'maxlength'=>11)); ?>
+		<?php echo $form->error($unit,'uid'); ?>
 	</span>
 
 	<span class="rightHalf">

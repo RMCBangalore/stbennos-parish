@@ -32,8 +32,20 @@ $this->menu=array(
 );
 ?>
 
+<style>
+div.msg {
+	float: right;
+}
+</style>
+
 <h1>Create Individual</h1>
-<?php echo "<p>Step $step of 2"; ?></p>
+<?php 
+if (1 == $step) {
+	echo '<div class="msg">Not what you want? ';
+	echo '<a href="' . Yii::app()->createUrl('/family/create', array('id' => $model->id)) . '">Create a family instead</a>';
+	echo '</div>';
+}
+echo "<p>Step $step of 2"; ?></p>
 <div class="form">
 
 <?php $parms = array('step' => $step);

@@ -32,8 +32,19 @@ $this->menu=array(
 );
 ?>
 
+<style>
+div.msg {
+	float: right;
+}
+</style>
+
 <h1>Create Family</h1>
 <?php
+if (1 == $step) {
+	echo '<div class="msg">Not what you want? ';
+	echo '<a href="' . Yii::app()->createUrl('/individual/create', array('id' => $model->id)) . '">Create an Individual instead</a>';
+	echo '</div>';
+}
 echo "<p>Step $step of 8";
 if (isset($model->id)) {
 	if ($step != 3 or isset($model->husband)) {

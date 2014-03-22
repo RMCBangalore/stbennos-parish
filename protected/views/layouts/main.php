@@ -104,6 +104,7 @@
 					array('label'=>'Parish Prolile','url'=>array('/site/parishProfile'),'visible'=>Yii::app()->user->checkAccess('Pastor')),
 					array('label'=>'Families','visible'=>!Yii::app()->user->isGuest,'items'=>array(
 						array('label'=>'View Families','url'=>array('/family/index')), 
+						array('label'=>'View Individuals','url'=>array('/individual/index')),
 						array('label'=>'Manage','url'=>array('/family/admin'),'visible'=>Yii::app()->user->checkAccess('Family.Admin')), 
 						array('label'=>'Members','url'=>array('/person/index')), 
 						array('label'=>'Subscriptions','url'=>array('family/subscriptions')),

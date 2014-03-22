@@ -80,7 +80,7 @@
 	?>
 
 	<?php echo CHtml::encode('Code'); ?>:
-	<span class="fid"><?php echo CHtml::encode($data->fid); ?></span>
+	<span class="fid"><?php echo CHtml::encode($unit->uid); ?></span>
 
 	<?php if ($unit->bpl_card) {
 		echo ', <span class="bpl">BPL Card</span>';
