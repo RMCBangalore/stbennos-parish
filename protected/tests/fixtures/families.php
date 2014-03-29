@@ -22,7 +22,6 @@
 return array(
 	'family1' => array(
 		'unit_id' => 1,
-		'fid' => 'A1',
 		'marriage_church' => 'Holy Cross Church, Cordel, Mangalore',
 		'marriage_date' => '1981-02-22',
 		'marriage_type' => '1',
@@ -33,7 +32,6 @@ return array(
 	),
 	'f2' => array(
 		'unit_id' => 2,
-		'fid' =>	'D1',
 		'marriage_church' =>	'St. Mary\'s Basilica',
 		'marriage_date' =>	'2012-06-13',
 		'marriage_type' =>	4,
@@ -44,7 +42,6 @@ return array(
 	),
 	'f3' => array(
 		'unit_id' => 3,
-		'fid' =>	'D2',
 		'marriage_church' =>	'St. Mary\'s Basilica',
 		'marriage_date' =>	'1978-01-19',
 		'marriage_type' =>	4,

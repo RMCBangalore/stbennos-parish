@@ -47,7 +47,7 @@ class FamilyTest extends WebTestCase
 		$this->loginAs('pastor', 'pastor');
 		$this->open('family/create');
 		$family = array(
-			'fid' => 'A3',
+			'uid' => 'A3',
 			'addr_nm' => '38',
 			'addr_stt' => '2nd Cross',
 			'addr_area' => 'Lingarajpuram',
@@ -65,7 +65,7 @@ class FamilyTest extends WebTestCase
 			'reg_date' => '11/03/1999',
 		);
 		foreach($family as $key => $value) {
-			$model = preg_match('/^(?:fid|marriage_.*)$/', $key) ? 'Families' : 'Units';
+			$model = preg_match('/^(?:marriage_.*)$/', $key) ? 'Families' : 'Units';
 			if (preg_match('/^(?:zone|bpl_card|marriage_(?:type|status)|monthly_income)$/', $key)) {
 				$this->select("name=${model}[$key]", "value=$value");
 			} else {
@@ -231,7 +231,7 @@ class FamilyTest extends WebTestCase
 
 		/* Should now be at view page */
 		$this->assertTextPresent($family['reg_date']);
-		$this->assertTextPresent($family['fid']);
+		$this->assertTextPresent($family['uid']);
 		$this->assertTextPresent($family['addr_nm']);
 		$this->assertTextPresent($family['addr_stt']);
 		$this->assertTextPresent($family['addr_area']);

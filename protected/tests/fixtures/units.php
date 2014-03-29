@@ -21,7 +21,7 @@
 
 return array(
 	'u1' => array(
-		'uid' => 'U1',
+		'uid' => 'A1',
 		'addr_nm' => '67, Terroy',
 		'addr_stt' => '10th Cross',
 		'addr_area' => 'Lingarajpuram',
@@ -34,6 +34,7 @@ return array(
 		'reg_date' => '1997-12-01',
 	),
 	'u2' => array(
+		'uid' => 'D1',
 		'addr_nm' =>	'19, Shubh Sandesh',
 		'addr_stt' =>	'4th Main',
 		'addr_area' =>	'Basavangudi',
@@ -48,6 +49,7 @@ return array(
 		'leaving_date' =>	'1970-01-01',
 	),
 	'u3' => array(
+		'uid' =>	'D2',
 		'addr_nm' =>	14,
 		'addr_stt' =>	'Joseph Street',
 		'addr_area' =>	'Sevanagar',
