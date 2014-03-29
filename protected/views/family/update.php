@@ -28,9 +28,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Families', 'url'=>array('index')),
 	array('label'=>'Create Family', 'url'=>array('create')),
+	array('label'=>'Survey Family', 'url'=>array('survey', 'id'=>$model->id)),
+	array('label'=>'Subscriptions', 'url'=>array('/family/subscriptions', 'id'=>$model->id)),
+	array('label'=>'House Visits', 'url'=>array('visits', 'id'=>$model->id))
 	array('label'=>'View Family', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'List Families', 'url'=>array('index')),
 	array('label'=>'Manage Families', 'url'=>array('admin')),
 );
 ?>
