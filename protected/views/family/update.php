@@ -58,58 +58,38 @@ $this->menu=array(
 	$children = $model->children();
 	$dependents = $model->dependents();
 	$tabs = array(
-        'tab1'=>array(
-            'title'=>'Family Data',
-            'view'=>'_form_fields',
-            'data'=>array(
-				'form'=>$form,
-                'model'=>$model,
-		'unit'=>$model->unit,
-            ),
-        ),
-        'tab2'=>array(
-            'title'=>'Husband',
-            'view'=>'../person/_person_form',
-            'data'=>array(
-				'form'=>$form,
-				'person'=>'husband',
-                'model'=>$husband,
-				'ac'=>$ppl_ac
-            ),
-        ),
-        'tab3'=>array(
-            'title'=>'Wife',
-            'view'=>'../person/_person_form',
-            'data'=>array(
-				'form'=>$form,
-				'person'=>'wife',
-                'model'=>$wife,
-				'ac'=>$ppl_ac
-            ),
-        ),
-        'tab4'=>array(
-            'title'=>'Dependent 1',
-            'view'=>'../person/_person_form',
-            'data'=>array(
-				'form'=>$form,
-				'person'=>'dependent][0',
-                'model'=>(isset($dependents[0])?$dependents[0]:new People()),
-				'ac'=>$ppl_ac
-			),
+		'tab1'=>array(
+		    'title'=>'Family Data',
+		    'view'=>'_form_fields',
+		    'data'=>array(
+					'form'=>$form,
+			'model'=>$model,
+			'unit'=>$model->unit,
+		    ),
 		),
-        'tab5'=>array(
-            'title'=>'Dependent 2',
-            'view'=>'../person/_person_form',
-            'data'=>array(
-				'form'=>$form,
-				'person'=>'dependent][1',
-                'model'=>(isset($dependents[1])?$dependents[1]:new People()),
-				'ac'=>$ppl_ac
-			),
+		'tab2'=>array(
+		    'title'=>'Husband',
+		    'view'=>'../person/_person_form',
+		    'data'=>array(
+					'form'=>$form,
+					'person'=>'husband',
+			'model'=>$husband,
+					'ac'=>$ppl_ac
+		    ),
+		),
+		'tab3'=>array(
+		    'title'=>'Wife',
+		    'view'=>'../person/_person_form',
+		    'data'=>array(
+					'form'=>$form,
+					'person'=>'wife',
+			'model'=>$wife,
+					'ac'=>$ppl_ac
+		    ),
 		),
 	);
 	for($i = 0; $i < 3; ++$i) {
-		$n = 6 + $i;
+		$n = 4 + $i;
 		$j = 1 + $i;
 		$child = isset($children[$i]) ? $children[$i] : new People();
 		$tabs["tab$n"] = array(
@@ -119,6 +99,21 @@ $this->menu=array(
 				'form'		=> $form,
 				'person'	=> "child][$i",
 				'model'		=> $child,
+				'ac'=>$ppl_ac
+			)
+		);
+	}
+	for($i = 0; $i < 2; ++$i) {
+		$n = 7 + $i;
+		$j = 1 + $i;
+		$dependent = isset($dependents[$i]) ? $dependents[$i] : new People();
+		$tabs["tab$n"] = array(
+			'title' => "Dependent $j",
+			'view'	=> '../person/_person_form',
+			'data'	=> array(
+				'form'		=> $form,
+				'person'	=> "dependent][$i",
+				'model'		=> $dependent,
 				'ac'=>$ppl_ac
 			)
 		);

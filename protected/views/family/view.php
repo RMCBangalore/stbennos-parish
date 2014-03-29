@@ -106,8 +106,24 @@ $this->menu=array(
             ),
         ),
 	);
-	for($i = 0; isset($dependents[$i]) and $i < 4; ++$i) {
+	for($i = 0; isset($children[$i]) and $i < 6; ++$i) {
 		$n = 4 + $i;
+		$j = 1 + $i;
+		if (isset($children[$i])) {
+			$child = $children[$i];
+			$tabs["tab$n"] = array(
+				'title' => "Child $j",
+				'view'	=> '../person/_view',
+				'data'	=> array(
+					'person'	=> "child][$i",
+					'data'		=> $child
+				)
+			);
+		}
+	}
+	$ntabs = 4 + $i;
+	for($i = 0; isset($dependents[$i]) and $i < 4; ++$i) {
+		$n = $ntabs + $i;
 		$j = 1 + $i;
 		if (isset($dependents[$i])) {
 			$title = $i ? "Dep $j" : "Dependent $j";
@@ -118,22 +134,6 @@ $this->menu=array(
 				'data'	=> array(
 					'person'	=> "dependent][$i",
 					'data'		=> $dep
-				)
-			);
-		}
-	}
-	$ntabs = 4 + $i;
-	for($i = 0; $i < 6; ++$i) {
-		$n = $ntabs + $i;
-		$j = 1 + $i;
-		if (isset($children[$i])) {
-			$child = $children[$i];
-			$tabs["tab$n"] = array(
-				'title' => "Child $j",
-				'view'	=> '../person/_view',
-				'data'	=> array(
-					'person'	=> "child][$i",
-					'data'		=> $child
 				)
 			);
 		}

@@ -161,25 +161,8 @@ class FamilyController extends RController
 			break;
 		case 4:
 		case 5:
-			$i = $step - 4;
-			if (isset($_POST['People']['dependent'])) {
-				if (isset($_POST['People']['dependent'][$i])) {
-					$p = new People();
-					$cur_model = $p;
-					$p->attributes = $_POST['People']['dependent'][$i];
-					$this->performAjaxValidation($p);
-					$p->unit_id = $model->id;
-					$p->role = 'dependent';
-					if ($p->save()) {
-						++$step;
-					}
-				}
-			}
-			break;
 		case 6:
-		case 7:
-		case 8:
-			$i = $step - 6;
+			$i = $step - 4;
 			if (isset($_POST['People']['child'])) {
 				if (isset($_POST['People']['child'][$i])) {
 					$p = new People();
@@ -188,6 +171,23 @@ class FamilyController extends RController
 					$this->performAjaxValidation($p);
 					$p->unit_id = $model->id;
 					$p->role = 'child';
+					if ($p->save()) {
+						++$step;
+					}
+				}
+			}
+			break;
+		case 7:
+		case 8:
+			$i = $step - 7;
+			if (isset($_POST['People']['dependent'])) {
+				if (isset($_POST['People']['dependent'][$i])) {
+					$p = new People();
+					$cur_model = $p;
+					$p->attributes = $_POST['People']['dependent'][$i];
+					$this->performAjaxValidation($p);
+					$p->unit_id = $model->id;
+					$p->role = 'dependent';
 					if ($p->save()) {
 						++$step;
 					}

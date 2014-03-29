@@ -106,30 +106,10 @@ $tabs = array(
 			'ac'=>$ppl_ac
 		),
 	),
-	3=>array(
-		'title'=>'Dependent 1',
-		'view'=>'../person/_person_form',
-		'data'=>array(
-			'form'=>$form,
-			'person'=>'dependent][0',
-			'model'=>(isset($dependents[0])?$dependents[0]:new People()),
-			'ac'=>$ppl_ac
-		),
-	),
-	4=>array(
-		'title'=>'Dependent 2',
-		'view'=>'../person/_person_form',
-		'data'=>array(
-			'form'=>$form,
-			'person'=>'dependent][1',
-			'model'=>(isset($dependents[1])?$dependents[1]:new People()),
-			'ac'=>$ppl_ac
-		),
-	),
 );
 $children = $model->children();
 for($i = 0; $i < 3; ++$i) {
-	$n = 5 + $i;
+	$n = 3 + $i;
 	$j = 1 + $i;
 	$child = isset($children[$i]) ? $children[$i] : new People();
 	$tabs[$n] = array(
@@ -139,6 +119,21 @@ for($i = 0; $i < 3; ++$i) {
 			'form'		=> $form,
 			'person'	=> "child][$i",
 			'model'		=> $child,
+			'ac'=>$ppl_ac
+		)
+	);
+}
+for($i = 0; $i < 2; ++$i) {
+	$n = 6 + $i;
+	$j = 1 + $i;
+	$dep = isset($dependents[$i]) ? $dependents[$i] : new People();
+	$tabs[$n] = array(
+		'title' => "Dependent $j",
+		'view'	=> '../person/_person_form',
+		'data'	=> array(
+			'form'		=> $form,
+			'person'	=> "dependent][$i",
+			'model'		=> $dep,
 			'ac'=>$ppl_ac
 		)
 	);
