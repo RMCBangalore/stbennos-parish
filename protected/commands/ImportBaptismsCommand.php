@@ -2,9 +2,19 @@
 
 function dateconv($dt) {
 	preg_match('/(\d{4})[-\/](\d\d?)[-\/](\d\d?)/', $dt, $m);
-	if (count($m) < 3) throw new Exception("Not a valid date format: $dt");
+	if (count($m) < 3) {
+		if (preg_match('/(\d\d?)[-\/](\d\d?)[-\/](\d{4})/', $dt)) {
+			$res = sprintf("%02d/%02d/%04d", $m[1], $m[2], $m[3]);
+			return $res;
+		} else if (preg_match('/(\d\d?)[-\/](\d\d?)[-\/](\d\d?)/', $dt, $m)) {
+			$Y = ($m[3] > 20) ? 1900 + $m[3] : 2000 + $m[3];
+			$res = sprintf("%02d/%02d/%04d", $m[1], $m[2], $Y);
+			return $res;
+		} else {
+			throw new Exception("Not a valid date format: $dt");
+		}
+	}
 	$res = sprintf("%02d/%02d/%04d", $m[3], $m[2], $m[1]);
-#	$res = sprintf("%04d-%02d-%02d", $m[1], $m[2], $m[3]);
 	return $res;
 }
 
