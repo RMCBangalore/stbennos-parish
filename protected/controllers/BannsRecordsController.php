@@ -234,6 +234,48 @@ class BannsRecordsController extends RController
 		if(isset($_GET['BannsRecord']))
 			$model->attributes=$_GET['BannsRecord'];
 
+		if( isset( $_GET[ 'export' ] ) )
+		{
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"banns-report.xls\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+			$fields = array(
+					'id',
+					'groom_name',
+					'groom_parent',
+					'groom_parish',
+					'bride_name',
+					'bride_parent',
+					'bride_parish',
+					'banns_dt1',
+					'banns_dt2',
+					'banns_dt3',
+				 );
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $field) {
+				array_push($fval, $labels[$field]);
+			}
+			echo implode("\t", $fval) . "\n";
+
+			foreach( $dataProvider->data as $data ) {
+				$fval = array();
+				foreach($fields as $field) {
+					$val = preg_match('/(?:bride|groom)_parish$/', $field) ?
+						BannsRecord::get_parish($data->$field) : $data->$field;
+					array_push($fval, $val);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));

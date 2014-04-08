@@ -129,7 +129,8 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton('Search', array('id' => 'submit-button')); ?>
+		<?php echo CHtml::submitButton('Excel Export', array('name' => 'export')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

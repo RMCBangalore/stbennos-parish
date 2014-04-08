@@ -104,10 +104,14 @@ class ConfirmationRecord extends CActiveRecord
 			'confirmation_dt' => 'Confirmation Date',
 			'dob' => 'Date of Birth',
 			'baptism_dt' => 'Baptism Date',
+			'baptism_place' => 'Baptism Place',
 			'church' => 'Church',
 			'ref_no' => 'Ref No',
+			'residence' => 'Residence',
 			'parents_name' => 'Parent’s Name',
 			'godparent_name' => 'Godparent’s Name',
+			'minister' => 'Minister',
+			'member_id' => 'Member ID',
 		);
 	}
 

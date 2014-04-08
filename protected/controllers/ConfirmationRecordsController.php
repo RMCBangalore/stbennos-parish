@@ -178,6 +178,49 @@ class ConfirmationRecordsController extends RController
 		if(isset($_GET['ConfirmationRecord']))
 			$model->attributes=$_GET['ConfirmationRecord'];
 
+		if(isset($_GET['export'])) {
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"confirmations-report.xls\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+			$fields = array(
+				'id',
+				'ref_no',
+				'name',
+				'confirmation_dt',
+				'church',
+				'dob',
+				'baptism_dt',
+				'baptism_place',
+				'parents_name',
+				'residence',
+				'godparent_name',
+				'minister',
+				'member_id'
+			);
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $field) {
+				array_push($fval, $labels[$field]);
+			}
+			echo implode("\t", $fval) . "\n";
+
+			foreach($dataProvider->data as $data) {
+				$fval = array();
+				foreach($fields as $field) {
+					$val = $data->$field;
+					array_push($fval, $val);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));

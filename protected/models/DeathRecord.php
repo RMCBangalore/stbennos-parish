@@ -105,6 +105,7 @@ class DeathRecord extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'member_id' => 'Member ID',
 			'death_dt' => 'Death Date',
 			'cause' => 'Cause of Death',
 			'fname' => 'First Name',
@@ -115,7 +116,10 @@ class DeathRecord extends CActiveRecord
 			'minister' => 'Minister',
 			'burial_place' => 'Burial Place',
 			'ref_no' => 'Ref No',
+			'residence' => 'Residence',
+			'community' => 'Community',
 			'parents_relatives' => 'Parents / Relatives Name',
+			'sacrament' => 'Sacrament',
 		);
 	}
 
