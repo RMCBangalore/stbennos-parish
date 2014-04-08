@@ -37,7 +37,7 @@ $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
-$('.search-form form').submit(function(){
+$('#submit-button').click(function(){
 	$('#baptism-record-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
@@ -64,6 +64,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'baptism-record-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'ajaxUpdate'=>false,
 	'columns'=>array(
 		'id',
 		'dob',

@@ -198,6 +198,50 @@ class BaptismRecordsController extends RController
 		if(isset($_GET['BaptismRecord']))
 			$model->attributes=$_GET['BaptismRecord'];
 
+		if(isset($_GET['export'])) {
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"baptisms-report.xls\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+			$fields = array('id',
+				'name',
+				'dob',
+				'baptism_dt',
+				'baptism_place',
+				'sex',
+				'residence',
+				'mother_tongue',
+				'fathers_name',
+				'mothers_name',
+				'godfathers_name',
+				'godmothers_name',
+				'minister');
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $field) {
+				array_push($fval, $labels[$field]);
+			}
+			echo implode("\t", $fval) . "\n";
+
+			foreach($dataProvider->data as $data) {
+				$fval = array();
+				foreach($fields as $field) {
+					$val = $data->$field;
+					if ('sex' == $field) {
+						$val = $val == 1 ? 'Male' : 'Female';
+					}
+					array_push($fval, $val);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));

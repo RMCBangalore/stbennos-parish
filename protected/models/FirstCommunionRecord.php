@@ -95,6 +95,8 @@ class FirstCommunionRecord extends CActiveRecord
 			'name' => 'Name',
 			'communion_dt' => 'Communion Date',
 			'ref_no' => 'Ref No',
+			'church' => 'Church',
+			'member_id' => 'Member ID',
 		);
 	}
 

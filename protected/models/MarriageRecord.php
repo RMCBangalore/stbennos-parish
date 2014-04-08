@@ -140,6 +140,8 @@ class MarriageRecord extends CActiveRecord
 			'minister' => 'Minister',
 			'witness1' => 'Witness1',
 			'witness2' => 'Witness2',
+			'groom_id' => 'Groom ID',
+			'bride_id' => 'Bride ID',
 			'remarks' => 'Remarks',
 			'ref_no' => 'Ref No',
 		);

@@ -194,6 +194,63 @@ class MarriageRecordsController extends RController
 		if(isset($_GET['MarriageRecord']))
 			$model->attributes=$_GET['MarriageRecord'];
 
+		if( isset( $_GET[ 'export' ] ) )
+		{
+			Yii::trace("MarriageRecords.admin: Export to Excel", 'application.controllers.MarriageRecordsController');
+			header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+			header( "Content-Disposition: inline; filename=\"marriages-report.xls\"" );
+
+			$dataProvider = $model->search();
+			$dataProvider->pagination = false;
+
+			$fields = array('id',
+				'ref_no',
+				'groom_name',
+				'groom_dob',
+				'groom_baptism_dt',
+				'groom_status',
+				'groom_rank_prof',
+				'groom_fathers_name',
+				'groom_mothers_name',
+				'groom_residence',
+				'bride_name',
+				'bride_dob',
+				'bride_baptism_dt',
+				'bride_status',
+				'bride_rank_prof',
+				'bride_fathers_name',
+				'bride_mothers_name',
+				'bride_residence',
+				'marriage_dt',
+				'marriage_type',
+				'banns_licence',
+				'minister',
+				'witness1',
+				'witness2',
+				'groom_id',
+				'bride_id',
+				'remarks');
+
+			$labels = $model->attributeLabels();
+			$fval = array();
+
+			foreach($fields as $field) {
+				array_push($fval, $labels[$field]);
+			}
+			echo implode("\t", $fval) . "\n";
+
+			foreach( $dataProvider->data as $data ) {
+				$fval = array();
+				foreach($fields as $field) {
+					$val = ('marriage_type' == $field) ? FieldNames::value('marriage_type', $data->$field): $data->$field;
+					array_push($fval, $val);
+				}
+				echo implode("\t", $fval) . "\n";
+			}
+
+			Yii::app()->end();
+		}
+
 		$this->render('admin',array(
 			'model'=>$model,
 		));
