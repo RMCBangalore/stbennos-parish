@@ -3,7 +3,7 @@
  * ECalendarViewPageSize.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
- * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @copyright Copyright &copy; 2014 by Martin Ludvik
  * @license http://opensource.org/licenses/MIT MIT license
  */
 

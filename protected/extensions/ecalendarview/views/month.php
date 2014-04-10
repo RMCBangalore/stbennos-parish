@@ -3,7 +3,7 @@
  * month.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
- * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @copyright Copyright &copy; 2014 by Martin Ludvik
  * @license http://opensource.org/licenses/MIT MIT license
  */
 ?>
@@ -14,8 +14,9 @@
       <?php echo CHtml::link('&larr;', $previousUrl, array('class' => 'navigation-link')); ?>
     </th>
     <th class="month-year" colspan="<?php echo $daysInRow - 2; ?>">
-      <?php echo Yii::t('ecalendarview', $pagination->getMiddleRelevantPageDate()->format('F')); ?>,
-      <?php echo $pagination->getMiddleRelevantPageDate()->format('Y'); ?>
+      <?php $this->getOwner()->renderFile($titleViewFile, array(
+        'pagination' => $pagination,
+      )); ?>
     </th>
     <th class="next">
       <?php echo CHtml::link('&rarr;', $nextUrl, array('class' => 'navigation-link')); ?>
@@ -26,7 +27,7 @@
       <th class="<?php echo strtolower($data[$i]->getDate()->format('D')); ?>">
         <?php echo Yii::t('ecalendarview', $data[$i]->getDate()->format('D')); ?>
       </th>
-    <? endfor ?>
+    <?php endfor ?>
   </tr>
 </thead>
 

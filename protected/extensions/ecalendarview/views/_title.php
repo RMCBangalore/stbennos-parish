@@ -1,6 +1,6 @@
 <?php
 /**
- * _view.php
+ * _title.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
  * @copyright Copyright &copy; 2014 by Martin Ludvik
@@ -8,5 +8,5 @@
  */
 ?>
 
-<?php echo CHtml::encode($data->date->format('j')); ?>
-
+<?php echo Yii::t('ecalendarview', $pagination->getMiddleRelevantPageDate()->format('F')); ?>,
+<?php echo $pagination->getMiddleRelevantPageDate()->format('Y'); ?>

@@ -3,7 +3,7 @@
  * day.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
- * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @copyright Copyright &copy; 2014 by Martin Ludvik
  * @license http://opensource.org/licenses/MIT MIT license
  */
 ?>
@@ -14,8 +14,9 @@
       <?php echo CHtml::link('&larr;', $previousUrl, array('class' => 'navigation-link')); ?>
     </th>
     <th class="month-year">
-      <?php echo Yii::t('ecalendarview', $data[0]->getDate()->format('F')); ?>,
-      <?php echo $data[0]->getDate()->format('Y'); ?>
+      <?php $this->getOwner()->renderFile($titleViewFile, array(
+        'pagination' => $pagination,
+      )); ?>
     </th>
     <th class="next">
       <?php echo CHtml::link('&rarr;', $nextUrl, array('class' => 'navigation-link')); ?>

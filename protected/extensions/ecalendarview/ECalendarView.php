@@ -3,7 +3,7 @@
  * ECalendarView.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
- * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @copyright Copyright &copy; 2014 by Martin Ludvik
  * @license http://opensource.org/licenses/MIT MIT license
  */
 
@@ -23,6 +23,11 @@ class ECalendarView extends CWidget {
    * @var string The custom view that is used to render each day cell.
    */
   private $_itemView;
+
+  /**
+   * @var string The custom view that is used to render month and year information on the top of calendar.
+   */
+  private $_titleView;
 
   /**
    * @var int The number of weeks that is be rendered in one row. Valid values are 1 - 3. Has effect only with page size set to @link{ECalendarViewPageSize::MONTH}.
@@ -47,6 +52,7 @@ class ECalendarView extends CWidget {
     parent::__construct($owner);
     $this->_dataProvider = new ECalendarViewDataProvider();
     $this->_itemView = null;
+    $this->_titleView = null;
     $this->_weeksInRow = 1;
     $this->_cssFile = null;
     $this->_ajaxUpdate = true;
@@ -82,6 +88,13 @@ class ECalendarView extends CWidget {
   }
 
   /**
+   * @see ECalendarView::$_titleView
+   */
+  public function setTitleView($titleView) {
+    $this->_titleView = $titleView;
+  }
+
+  /**
    * @see ECalendarView::$_cssFile
    */
   public function setCssFile($cssFile) {
@@ -114,6 +127,13 @@ class ECalendarView extends CWidget {
    */
   public function getItemView() {
     return $this->_itemView;
+  }
+
+  /**
+   * @see ECalendarView::$_titleView
+   */
+  public function getTitleView() {
+    return $this->_titleView;
   }
 
   /**
@@ -160,6 +180,7 @@ class ECalendarView extends CWidget {
       'pagination' => $this->getDataProvider()->getPagination(),
       'daysInRow' => $this->resolveDaysInWeek(),
       'itemViewFile' => $this->resolveViewFile($this->getItemView(), '_view'),
+      'titleViewFile' => $this->resolveViewFile($this->getTitleView(), '_title'),
       'previousUrl' => $this->getUrl($this->getDataProvider()->getPagination()->getPageIndex() - 1),
       'nextUrl' => $this->getUrl($this->getDataProvider()->getPagination()->getPageIndex() + 1),
     ));

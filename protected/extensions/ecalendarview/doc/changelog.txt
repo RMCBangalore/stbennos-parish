@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Vesrion 0.5
+-----------
+
+* Added attribute *ECalendarView::$_titleView*.
+
+Version 0.4
+-----------
+
+* Fixed "unexpected end of file" when disabled short_open_tag.
+
 Version 0.3
 -----------
 

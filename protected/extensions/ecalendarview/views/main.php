@@ -3,7 +3,7 @@
  * main.php
  *
  * @author Martin Ludvik <matolud@gmail.com>
- * @copyright Copyright &copy; 2013 by Martin Ludvik
+ * @copyright Copyright &copy; 2014 by Martin Ludvik
  * @license http://opensource.org/licenses/MIT MIT license
  */
 ?>
@@ -17,6 +17,7 @@
     'pagination' => $pagination,
     'daysInRow' => $daysInRow,
     'itemViewFile' => $itemViewFile,
+    'titleViewFile' => $titleViewFile,
     'previousUrl' => $previousUrl,
     'nextUrl' => $nextUrl,
   )); ?>

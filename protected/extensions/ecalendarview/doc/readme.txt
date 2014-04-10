@@ -53,6 +53,7 @@ Complete configuration looks like following.
   'id' => 'MyCalendar',
   'weeksInRow' => 1,
   'itemView' => '_view',
+  'titleView' => '_title',
   'cssFile' => 'css/calendar.css',
   'ajaxUpdate' => true,
   'dataProvider' => array(
@@ -74,7 +75,9 @@ Complete configuration looks like following.
   * *boolean $data->isCurrent* - Tells if the day is selected.
   * *boolean $data->isRelevant* - Tells if the day is not only padding in the beginning and end of the month page.
   * *CBaseController $this* - The controller.
-* *cssFile* - The css file to be used to style calendar. If not defined, default css file is used.
+* *titleView* - The view to be used to render month and year information on the top of calendar. If not defined, default view is used. Inside of view following data can be accessed:
+  * *ECalendarViewPagination $pagination* - The pagination of calendar.
+* *cssFile* - The css file to be used to style calendar. Path is relative to application root. If not defined, default css file is used.
 * *ajaxUpdate* - Tells if page navigation should be performed using ajax calls if possible. If not defined, true is used.
 * *currentDate* - The date selected in calendar. If not defined, current date is used.
 * *pageSize* - Pagination style. Can be set to 'month', 'week' or 'day'. If not defined, 'month' is used.
@@ -135,5 +138,5 @@ public function getForecast($date) {
 Copyright and License
 ---------------------
 
-copyright: Copyright &copy; 2013 by Martin Ludvik <matolud@gmail.com>
+copyright: Copyright &copy; 2014 by Martin Ludvik <matolud@gmail.com>
 license: http://opensource.org/licenses/MIT MIT license
