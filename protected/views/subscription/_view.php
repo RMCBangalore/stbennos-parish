@@ -41,12 +41,14 @@
 	<?php echo date_format(new DateTime(implode("-",array($data->end_year,$data->end_month,1))), "M, Y"); ?>
 	<br />
 
-	<b><?php echo CHtml::encode('Monthly Amt') . ' &#8377;'; ?>:</b>
-	<?php echo CHtml::encode($data->amount); ?>
+	<b><?php echo CHtml::encode('Monthly Amt'); ?>:</b>
+	<?php $NF = Yii::app()->numberFormatter;
+		$cur = Parish::get()->currency;
+		echo CHtml::encode($NF->formatCurrency($data->amount, $cur)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode('Total Amount') . ' &#8377;'; ?>:</b>
-	<?php echo CHtml::encode($data->trans->amount); ?>
+	<b><?php echo CHtml::encode('Total Amount') ?>:</b>
+	<?php echo CHtml::encode($NF->formatCurrency($data->trans->amount, $cur)); ?>
 	<br />
 
 </div>

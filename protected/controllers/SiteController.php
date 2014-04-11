@@ -246,7 +246,7 @@ class SiteController extends RController
 				 Yii::app()->user->setFlash('error', $e->getMessage());
 			}
 
-			if ("site" != $cont) {
+			if ("admin" != $cont) {
 				$this->render("/$cont/success");
 				return;
 			} else {

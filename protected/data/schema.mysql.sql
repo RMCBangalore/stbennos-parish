@@ -583,6 +583,7 @@ CREATE TABLE `parish` (
   `logo_src` varchar(50) DEFAULT NULL,
   `logo_width` int(11) DEFAULT NULL,
   `logo_height` int(11) DEFAULT NULL,
+  `currency` char(3) DEFAULT NULL,
   PRIMARY KEY (`isset`)
 ) ENGINE=InnoDB;
 
@@ -700,7 +701,7 @@ CREATE TABLE `subscriptions` (
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
   `type` varchar(10) DEFAULT NULL,
   `descr` varchar(99) DEFAULT NULL,
   `created` datetime DEFAULT NULL,

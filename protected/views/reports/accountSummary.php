@@ -66,9 +66,11 @@
 		echo "<span class='non-ph'>";
 	}
 	echo $account['name'] . "</span>";
+	$NF = Yii::app()->numberFormatter;
+	$cur = Parish::get()->currency;
 	foreach(array('obal', 'credit', 'debit', 'cbal') as $fld) {
 		echo '<td class="rt">';
-		echo isset($account[$fld]) ? number_format($account[$fld]) : '';
+		echo isset($account[$fld]) ? $NF->formatCurrency($account[$fld], $cur) : '';
 		echo '</td>';
 	}
 	echo "</tr>";

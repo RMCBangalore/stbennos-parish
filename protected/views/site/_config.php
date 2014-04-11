@@ -53,10 +53,13 @@
 		<?php echo $form->labelEx($model, 'est_year'); ?>
 		<?php echo $form->textField($model, 'est_year', array('size'=>15,'maxlength'=>30)); ?>
 		<?php echo $form->error($model, 'est_year') ?>
+		<?php echo $form->labelEx($model, 'currency'); ?>
+		<?php echo $form->dropDownList($model, 'currency', Yii::app()->params['currencies'], array('prompt'=>'--- Select one ---')); ?>
+		<?php echo $form->error($model, 'currency') ?>
 	</span>
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model, 'address'); ?>
-		<?php echo $form->textArea($model, 'address', array('rows'=>3,'cols'=>30)); ?>
+		<?php echo $form->textArea($model, 'address', array('rows'=>4,'cols'=>30)); ?>
 		<?php echo $form->error($model, 'address') ?>
 	</span>
 	</div>

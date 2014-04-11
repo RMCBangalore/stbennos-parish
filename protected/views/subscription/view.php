@@ -41,7 +41,10 @@ $this->menu=array(
 
 <h1>View Subscription #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php
+$NF = Yii::app()->numberFormatter;
+$cur = Parish::get()->currency;
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -61,12 +64,12 @@ $this->menu=array(
 			'value' => date_format(new DateTime(implode("-",array($model->end_year,$model->end_month,1))), "M, Y"),
 		),
 		array(
-			'label' => 'Monthly Amt &#8377;',
-			'value' => $model->amount,
+			'label' => 'Monthly Amt',
+			'value' => $NF->formatCurrency($model->amount, $cur),
 		),
 		array(
-			'label' => 'Total Amount &#8377;',
-			'value' => $model->trans->amount,
+			'label' => 'Total Amount',
+			'value' => $NF->formatCurrency($model->trans->amount, $cur),
 		),
 		'paid_by',
 	),

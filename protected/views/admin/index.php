@@ -31,7 +31,7 @@ $this->breadcrumbs=array(
 <table>
 <tr><td>
 <p>
-<?php echo CHtml::link('Site Configuration', array('site/config')); ?>
+<?php echo CHtml::link('Site Configuration', array('admin/config')); ?>
 </p><p>
 <?php echo CHtml::link('Manage Users', array('users/admin')); ?>
 </p><p>

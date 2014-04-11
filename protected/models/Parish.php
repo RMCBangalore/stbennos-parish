@@ -73,6 +73,7 @@ class Parish extends CActiveRecord
 			array('pin', 'length', 'max'=>10),
 			array('phone', 'length', 'max'=>12),
 			array('website', 'length', 'max'=>20),
+			array('currency', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('name, address, city, pin, est_year, mass_book_basic, mass_book_sun, isset, logo_src, logo_width, logo_height, phone, website', 'safe', 'on'=>'search'),

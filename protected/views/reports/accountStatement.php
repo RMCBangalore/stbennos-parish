@@ -66,7 +66,11 @@ $('#range').change(function(e) {
 <span class="value"><?php echo $from_dt . ' to ' . $to_dt ?></span>
 <br />
 <span class="label">Balance on <?php echo $from_dt ?>:</span>
-<span class="value">&#8377;<?php echo number_format($obal) ?></span>
+<span class="value">
+	<?php $NF = Yii::app()->numberFormatter;
+		$cur = Parish::get()->currency;
+		echo CHtml::encode($NF->formatCurrency($obal, $cur)); ?>
+</span>
 </div>
 
 <table class="accounts">
@@ -75,9 +79,9 @@ $('#range').change(function(e) {
 		<th>Date</th>
 		<th>Account Category</th>
 		<th>Description</th>
-		<th class="rt">Credit (&#8377;)</th>
-		<th class="rt">Debit (&#8377;)</th>
-		<th class="rt">Balance (&#8377;)</th>
+		<th class="rt">Credit</th>
+		<th class="rt">Debit</th>
+		<th class="rt">Balance</th>
 	</tr>
 </thead>
 <tbody>
@@ -88,14 +92,14 @@ foreach($data as $trans): ?>
 		<td><?php echo $trans->account->name ?></td>
 		<td><?php echo $trans->descr ?></td>
 		<td class="rt"><?php if ('credit' === $trans->type) {
-			echo number_format($trans->amount);
+			echo CHtml::encode($NF->formatCurrency($trans->amount, $cur));
 			$bal += $trans->amount;
 		} ?></td>
 		<td class="rt"><?php if ('debit' === $trans->type) {
-			echo number_format($trans->amount);
+			echo CHtml::encode($NF->formatCurrency($trans->amount, $cur));
 			$bal -= $trans->amount;
 		} ?></td>
-		<td class="rt"><?php echo number_format($bal) ?></td>
+		<td class="rt"><?php echo $NF->formatCurrency($bal, $cur) ?></td>
 	</tr>
 <?php endforeach ?>
 </tbody>

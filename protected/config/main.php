@@ -110,6 +110,26 @@ return array(
 	'params'=> CMap::mergeArray(
 		array(
 			'dateFmtDP' => 'dd/mm/yy',
+			'currencies' => array(
+				'AUD' => 'Australian Dollar',
+				'GBP' => 'British Pound',
+				'BRL' => 'Brazilian Real',
+				'CAD' => 'Canadian Dollar',
+				'CNY' => 'Chinese Yuan',
+				'XCD' => 'East Caribbean Dollar',
+				'EUR' => 'Euro',
+				'HKD' => 'Hong Kong Dollar',
+				'INR' => 'Indian Rupee',
+				'ILS' => 'Israeli New Shekel',
+				'JPY' => 'Japanese Yen',
+				'MXN' => 'Mexican Peso',
+				'NZD' => 'New Zealand Dollar',
+				'KRW' => 'S.Korean Won',
+				'THB' => 'Thai Bhat',
+				'VND' => 'Vietnamese Dong',
+				'XOF' => 'West African CFA Franc',
+				'USD' => 'US Dollar',
+			),
 			// this is used in contact page
 			'adminEmail'=>'webmaster@example.com',
 			'photoManip' => extension_loaded('gd'),
