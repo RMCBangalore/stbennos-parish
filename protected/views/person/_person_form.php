@@ -183,7 +183,7 @@
 		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model' => $model,
 			'attribute' => "[$person]baptism_church",
-			'source' => $ac['baptism_churches'],
+			'source' => $ac['churches'],
 			'htmlOptions' => array('size'=>25,'maxlength'=>50))); ?>
 		<?php echo $form->error($model,"[$person]baptism_church"); ?>
 	</span>

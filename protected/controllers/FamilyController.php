@@ -198,9 +198,12 @@ class FamilyController extends RController
 
 		Yii::trace("FC.actionCreate rendering", 'application.controllers.FamilyController');
 		$ppl_ac = People::getAutoCompleteFields();
+		$fam_ac = Families::getAutoCompleteFields();
+		$fam_ac['churches'] = $ppl_ac['churches'];
 		$this->render('create',array(
 			'model'=>$model,
 			'ppl_ac'=>$ppl_ac,
+			'fam_ac'=>$fam_ac,
 			'step'=>$step,
 			'cur_model'=>$cur_model,
 		));
@@ -336,10 +339,13 @@ class FamilyController extends RController
 		}
 
 		$ppl_ac = People::getAutoCompleteFields();
+		$fam_ac = Families::getAutoCompleteFields();
+		$fam_ac['churches'] = $ppl_ac['churches'];
 
 		$this->render('update',array(
 			'model'	=>$model,
 			'ppl_ac'=>$ppl_ac,
+			'fam_ac'=>$fam_ac,
 		));
 	}
 

@@ -46,7 +46,12 @@
 
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'addr_area'); ?>
-		<?php echo $form->textField($model,'addr_area',array('size'=>25,'maxlength'=>50)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => "addr_area",
+			'source' => $ac['areas'],
+			'htmlOptions' => array('size'=>25,'maxlength'=>25)
+		)); ?>
 		<?php echo $form->error($model,'addr_area'); ?>
 	</span>
 	</div>
@@ -54,7 +59,12 @@
 	<div class="row">
     <span class="leftHalf">
 		<?php echo $form->labelEx($model,'addr_pin'); ?>
-		<?php echo $form->textField($model,'addr_pin',array('size'=>7,'maxlength'=>7)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => "addr_pin",
+			'source' => $ac['pincodes'],
+			'htmlOptions' => array('size'=>7,'maxlength'=>7)
+		)); ?>
 		<?php echo $form->error($model,'addr_pin'); ?>
 	</span>
 
@@ -115,7 +125,12 @@
 
 	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'marriage_church'); ?>
-		<?php echo $form->textField($model,'marriage_church',array('size'=>30,'maxlength'=>50)); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'model' => $model,
+			'attribute' => "marriage_church",
+			'source' => $ac['churches'],
+			'htmlOptions' => array('size'=>30,'maxlength'=>50)
+		)); ?>
 		<?php echo $form->error($model,'marriage_church'); ?>
 	</span>
 	</div>

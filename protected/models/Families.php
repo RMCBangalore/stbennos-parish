@@ -44,7 +44,6 @@
  * @property string $monthly_income
  * @property integer $husband_id
  * @property integer $wife_id
- * @property integer $disabled
  * @property integer $leaving_date
  *
  * The followings are the available model relations:
@@ -88,7 +87,7 @@ class Families extends CActiveRecord
 			array('addr_pin', 'length', 'max'=>7),
 			array('phone, mobile', 'length', 'max'=>10),
 			array('monthly_income', 'length', 'max'=>15),
-			array('marriage_date, bpl_card, disabled, leaving_date', 'safe'),
+			array('marriage_date, bpl_card, leaving_date', 'safe'),
 			array('marriage_date, reg_date, leaving_date', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('marriage_date, reg_date, leaving_date', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
@@ -260,11 +259,6 @@ class Families extends CActiveRecord
 		$criteria->compare('marriage_type',$this->marriage_type,true);
 		$criteria->compare('marriage_status',$this->marriage_status,true);
 		$criteria->compare('monthly_income',$this->monthly_income,true);
-		if ($this->disabled) {
-			$criteria->compare('disabled',$this->disabled);
-		} else {
-			$criteria->addCondition('disabled = 0');
-		}
 		if (isset($this->sub_till) and !empty($this->sub_till)) {
 			list($pref, $logi, $comp) = array("", " OR ", ">=");
 			if (preg_match('/^!/', $this->sub_till)) {
@@ -326,6 +320,37 @@ class Families extends CActiveRecord
 		}
 	    }
 	    return parent::afterFind();
+	}
+
+	public static function getAutoCompleteFields() {
+		$families = Families::model()->findAll();
+		$areas = array();
+		$pincodes = array();
+		foreach($families as $fam) {
+			if (!isset($areas[$fam->addr_area])) {
+				$areas[$fam->addr_area] = 1;
+			}
+			if (!isset($pincodes[$fam->addr_pin])) {
+				$pincodes[$fam->addr_pin] = 1;
+			}
+		}
+		$people = People::model()->findAll();
+		$pincodekeys = array_keys($pincodes);
+		return array(
+			'areas'	    => array_keys($areas),
+			'pincodes'  => array_map('strval', array_keys($pincodes)),
+		);
+	}
+
+	public static function getAreas() {
+		$families = Families::model()->findAll();
+		$areas = array();
+		foreach($families as $fam) {
+			if (!isset($areas[$fam->addr_area])) {
+				$areas[$fam->addr_area] = 1;
+			}
+		}
+		return $areas;
 	}
 
 	public function children() {

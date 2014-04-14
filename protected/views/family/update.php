@@ -63,6 +63,7 @@ $this->menu=array(
             'view'=>'_form_fields',
             'data'=>array(
 				'form'=>$form,
+				'ac'=>$fam_ac,
                 'model'=>$model,
             ),
         ),

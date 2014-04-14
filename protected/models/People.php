@@ -447,7 +447,7 @@ class People extends CActiveRecord
 		$specialSkills = array();
 		$professions = array();
 		$occupations = array();
-		$baptism_churches = array();
+		$churches = array();
 		$baptism_places = array();
 		$cemetery_churches = array();
 		foreach($people as $p) {
@@ -461,7 +461,7 @@ class People extends CActiveRecord
 				$occupations[$p->occupation] = 1;
 			}
 			if (!isset($baptism_churches[$p->baptism_church])) {
-				$baptism_churches[$p->baptism_church] = 1;
+				$churches[$p->baptism_church] = 1;
 			}
 			if (!isset($baptism_places[$p->baptism_place])) {
 				$baptism_places[$p->baptism_place] = 1;
@@ -470,11 +470,17 @@ class People extends CActiveRecord
 				$cemetery_churches[$p->cemetery_church] = 1;
 			}
 		}
+		$families = Families::model()->findAll();
+		foreach($families as $fam) {
+			if (!isset($churches[$fam->marriage_church])) {
+				$churches[$fam->marriage_church] = 1;
+			}
+		}
 		return array(
 			'special_skills' => array_keys($specialSkills),
 			'professions'	 => array_keys($professions),
 			'occupations'	 => array_keys($occupations),
-			'baptism_churches'	 => array_keys($baptism_churches),
+			'churches'	 => array_keys($churches),
 			'baptism_places'	 => array_keys($baptism_places),
 			'cemetery_churches'	 => array_keys($cemetery_churches),
 		);
