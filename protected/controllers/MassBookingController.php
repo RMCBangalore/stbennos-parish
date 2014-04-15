@@ -95,6 +95,7 @@ class MassBookingController extends RController
 
 		if(isset($_POST['MassBooking']))
 		{
+			$tr = Yii::app()->db->beginTransaction();
 			$acct = Account::get('Mass Bookings');
 			$trans = new Transaction;
 			$trans->type = 'credit';
@@ -110,9 +111,12 @@ class MassBookingController extends RController
 					$trans->saveAttributes(array(
 						'descr' => "Mass booking #" . $model->id
 					));
+					$tr->commit();
 					$this->redirect(array('view','id'=>$model->id));
+					return;
 				}
 			}
+			$tr->rollback();
 		}
 
 		$parms = array(

@@ -142,6 +142,7 @@ class SubscriptionController extends RController
 			$end_dt = new DateTime(date_format($dt, 'Y-m-d'));
 			$end_dt->add(new DateInterval('P'.$till.'M'));
 
+			$tr = Yii::app()->db->beginTransaction();
 			$trans = new Transaction;
 			$acct = Account::get('Family Subscriptions');
 			$trans->account_id = $acct->id;
@@ -170,9 +171,13 @@ class SubscriptionController extends RController
 				$model->amount = $amt;
 				$model->trans_id = $trans->id;
 
-				if($model->save())
+				if($model->save()) {
+					$tr->commit();
 					$this->redirect(array('view','id'=>$model->id));
+					return;
+				}
 			}
+			$tr->rollback();
 		}
 
 		$parms['model'] = $model;
