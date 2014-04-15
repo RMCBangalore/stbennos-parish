@@ -49,7 +49,8 @@ if (isset($family)) {
 $now = new DateTime();
 $this_yr = date_format($now, 'Y');
 $this_mth = date_format($now, 'm');
-$reg_yr = date('Y', CDateTimeParser::parse($family->reg_date, Yii::app()->locale->getDateFormat('short')));
+$unit = $family->unit;
+$reg_yr = date('Y', CDateTimeParser::parse($unit->reg_date, Yii::app()->locale->getDateFormat('short')));
 $start_yr = $this_yr - 13;
 if ($reg_yr > $start_yr) {
 	$start_yr = $reg_yr;
@@ -132,8 +133,9 @@ $now = new DateTime('now');
 foreach($families as $family) {
 	$fam = array('family' => $family);
 	$reg = new DateTime;
+	$unit = $family->unit;
 	$reg->setTimestamp(CDateTimeParser::parse(
-		$family->reg_date,
+		$unit->reg_date,
 		Yii::app()->locale->getDateFormat('short')
 	));
 	$sub_till = new DateTime();

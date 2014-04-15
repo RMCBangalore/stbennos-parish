@@ -24,6 +24,7 @@
  *
  * The followings are the available columns in table 'families':
  * @property integer $id
+ * @property string $uid
  * @property integer $reg_yrs
  * @property string $marriage_church
  * @property string $marriage_date
@@ -64,7 +65,9 @@ class Families extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
+			array('uid, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
+			array('uid', 'unique'),
+			array('uid', 'length', 'max'=>11),
 			array('marriage_church', 'length', 'max'=>50),
 			array('marriage_type, marriage_status', 'length', 'max'=>25),
 			array('id, marriage_date', 'safe'),
@@ -73,7 +76,11 @@ class Families extends CActiveRecord
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 600, 'maxHeight' => 450, 'on' => 'photo'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, reg_yrs, marriage_church, marriage_date, marriage_yrs, marriage_type, marriage_status, sub_till', 'safe', 'on'=>'search'),
+			array('id, uid, reg_yrs, marriage_church, marriage_date, marriage_yrs, ' .
+				'marriage_type, marriage_status, sub_till, addr_nm, addr_stt, ' .
+				'addr_area, addr_pin, mobile, email, zone, bpl_card, ' .
+				'monthly_income, photo, gmap_url, reg_date, disabled, ' .
+				'leaving_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +89,7 @@ class Families extends CActiveRecord
 		if ($subs) {
 			return $subs[count($subs) - 1]->till_month;
 		} else {
-			return $this->unit->reg_date;
+			return !$this->isNewRecord ? $this->unit->reg_date : null;
 		}
 	}
 
@@ -97,7 +104,7 @@ class Families extends CActiveRecord
 	}
 
 	public function getReg_yrs() {
-		return $this->unit->reg_date ? (strtotime('now') - strtotime($this->unit->reg_date)) / (60*60*24*365.2425) : null;
+		return !$this->isNewRecord and $this->unit->reg_date ? (strtotime('now') - strtotime($this->unit->reg_date)) / (60*60*24*365.2425) : null;
 	}
 
 	public function setReg_yrs($val) {
@@ -110,6 +117,134 @@ class Families extends CActiveRecord
 
 	public function setMarriage_yrs($val) {
 		$this->marriage_yrs = $val;
+	}
+
+	public function setUid($val) {
+		$this->uid = $val;
+	}
+
+	public function setAddr_nm($val) {
+		$this->addr_nm = $val;
+	}
+
+	public function setAddr_stt($val) {
+		$this->addr_stt = $val;
+	}
+
+	public function setAddr_area($val) {
+		$this->addr_area = $val;
+	}
+
+	public function setAddr_pin($val) {
+		$this->addr_pin = $val;
+	}
+
+	public function setPhone($val) {
+		$this->phone = $val;
+	}
+
+	public function setMobile($val) {
+		$this->mobile = $val;
+	}
+
+	public function setEmail($val) {
+		$this->email = $val;
+	}
+
+	public function setZone($val) {
+		$this->zone = $val;
+	}
+
+	public function setBpl_card($val) {
+		$this->bpl_card = $val;
+	}
+
+	public function setMonthly_income($val) {
+		$this->monthly_income = $val;
+	}
+
+	public function setPhoto($val) {
+		$this->photo = $val;
+	}
+
+	public function setGmap_url($val) {
+		$this->gmap_url = $val;
+	}
+
+	public function setReg_date($val) {
+		$this->reg_date = $val;
+	}
+
+	public function setDisabled($val) {
+		$this->disabled = $val;
+	}
+
+	public function setLeaving_date($val) {
+		$this->leaving_date = $val;
+	}
+
+	public function getUid() {
+		return !$this->isNewRecord ? $this->unit->uid : null;
+	}
+
+	public function getAddr_nm() {
+		return !$this->isNewRecord ? $this->unit->addr_nm : null;
+	}
+
+	public function getAddr_stt() {
+		return !$this->isNewRecord ? $this->unit->addr_stt : null;
+	}
+
+	public function getAddr_area() {
+		return !$this->isNewRecord ? $this->unit->addr_area : null;
+	}
+
+	public function getAddr_pin() {
+		return !$this->isNewRecord ? $this->unit->addr_pin : null;
+	}
+
+	public function getPhone() {
+		return !$this->isNewRecord ? $this->unit->phone : null;
+	}
+
+	public function getMobile() {
+		return !$this->isNewRecord ? $this->unit->mobile : null;
+	}
+
+	public function getEmail() {
+		return !$this->isNewRecord ? $this->unit->email : null;
+	}
+
+	public function getZone() {
+		return !$this->isNewRecord ? $this->unit->zone : null;
+	}
+
+	public function getBpl_card() {
+		return !$this->isNewRecord ? $this->unit->bpl_card : null;
+	}
+
+	public function getMonthly_income() {
+		return !$this->isNewRecord ? $this->unit->monthly_income : null;
+	}
+
+	public function getPhoto() {
+		return !$this->isNewRecord ? $this->unit->photo : null;
+	}
+
+	public function getGmap_url() {
+		return !$this->isNewRecord ? $this->unit->gmap_url : null;
+	}
+
+	public function getReg_date() {
+		return !$this->isNewRecord ? $this->unit->reg_date : null;
+	}
+
+	public function getDisabled() {
+		return !$this->isNewRecord ? $this->unit->disabled : null;
+	}
+
+	public function getLeaving_date() {
+		return !$this->isNewRecord ? $this->unit->leaving_date : null;
 	}
 
 	/**
@@ -139,6 +274,7 @@ class Families extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'uid' => 'Family Code',
 			'reg_yrs' => 'Registered Years',
 			'marriage_church' => 'Marriage Church',
 			'marriage_date' => 'Marriage Date',
@@ -222,6 +358,66 @@ class Families extends CActiveRecord
 					"WHERE s.unit_id = t.id AND t.id = u.id AND ".
 					"CONCAT(s.end_year,'-',LPAD(s.end_month,2,0)) >= '$m') $logi " .
 					"LEFT(u.reg_date,7) $comp '$m'");
+			}
+		}
+
+		$ucond = array();
+		if (isset($this->uid) and !empty($this->uid)) {
+			array_push($ucond, "u.uid = '" . $this->uid . "'");
+		}
+		if (isset($this->addr_nm) and !empty($this->addr_nm)) {
+			array_push($ucond, "u.addr_nm like '%" . $this->addr_nm . "%'");
+		}
+		if (isset($this->addr_stt) and !empty($this->addr_stt)) {
+			array_push($ucond, "u.addr_stt like '%" . $this->addr_stt . "%'");
+		}
+		if (isset($this->addr_area) and !empty($this->addr_area)) {
+			array_push($ucond, "u.addr_area like '%" . $this->addr_area . "%'");
+		}
+		if (isset($this->addr_pin) and !empty($this->addr_pin)) {
+			array_push($ucond, "u.addr_pin like '%" . $this->addr_pin . "%'");
+		}
+		if (isset($this->phone) and !empty($this->phone)) {
+			array_push($ucond, "u.phone like '%" . $this->phone . "%'");
+		}
+		if (isset($this->mobile) and !empty($this->mobile)) {
+			array_push($ucond, "u.mobile like '%" . $this->mobile . "%'");
+		}
+		if (isset($this->email) and !empty($this->email)) {
+			array_push($ucond, "u.email like '%" . $this->email . "%'");
+		}
+		if (isset($this->zone) and !empty($this->zone)) {
+			array_push($ucond, "u.zone = " . $this->zone);
+		}
+		if (isset($this->bpl_card) and !empty($this->bpl_card)) {
+			array_push($ucond, "u.bpl_card = " . $this->bpl_card);
+		}
+		if (isset($this->monthly_income) and !empty($this->monthly_income)) {
+			array_push($ucond, "u.monthly_income = " . $this->monthly_income);
+		}
+		if (isset($this->reg_date) and !empty($this->reg_date)) {
+			array_push($ucond, "u.reg_date like '%" . $this->reg_date . "%'");
+		}
+		if (isset($this->disabled) and !empty($this->disabled)) {
+			array_push($ucond, "u.disabled = " . $this->disabled);
+		}
+		if (isset($this->leaving_date) and !empty($this->leaving_date)) {
+			array_push($ucond, "u.leaving_date like '%" . $this->leaving_date . "%'");
+		}
+		$uc = false;
+		if (count($ucond) > 0) {
+			$uc = true;
+			$criteria->mergeWith(array(
+				'join' => 'INNER JOIN units u ON u.id = t.id',
+				'condition' => implode(" AND ", $ucond),
+			));
+		}
+		if (isset($this->reg_yrs) and !empty($this->reg_yrs)) {
+			$this->date_search($criteria, "u.reg_date", "reg_yrs");
+			if (!$uc) {
+				$criteria->mergeWith(array(
+					'join' => 'INNER JOIN units u ON u.id = t.id'
+				));
 			}
 		}
 

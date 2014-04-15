@@ -24,7 +24,7 @@
  *
  * The followings are the available columns in table 'subscriptions':
  * @property integer $id
- * @property integer $family_id
+ * @property integer $unit_id
  * @property string $paid_by
  * @property integer $trans_id
  * @property integer $start_year
@@ -65,12 +65,12 @@ class Subscription extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('family_id, trans_id, amount', 'required'),
-			array('family_id, trans_id, start_year, start_month, end_year, end_month', 'numerical', 'integerOnly'=>true),
+			array('unit_id, trans_id, amount', 'required'),
+			array('unit_id, trans_id, start_year, start_month, end_year, end_month', 'numerical', 'integerOnly'=>true),
 			array('paid_by', 'length', 'max' => 99),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, family_id, trans_id, paid_by, start_year, start_month, end_year, end_month', 'safe', 'on'=>'search'),
+			array('id, unit_id, trans_id, paid_by, start_year, start_month, end_year, end_month', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +82,8 @@ class Subscription extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'family' => array(self::BELONGS_TO, 'Families', 'family_id'),
+			'family' => array(self::BELONGS_TO, 'Families', 'unit_id'),
+			'unit' => array(self::BELONGS_TO, 'Units', 'unit_id'),
 			'trans' => array(self::BELONGS_TO, 'Transaction', 'trans_id'),
 		);
 	}
@@ -94,7 +95,7 @@ class Subscription extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'family_id' => 'Family',
+			'unit_id' => 'Family/Unit',
 			'trans_id' => 'Trans',
 			'paid_by' => 'Paid By',
 			'start_year' => 'Start Year',
@@ -124,7 +125,7 @@ class Subscription extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('family_id',$this->family_id);
+		$criteria->compare('unit_id',$this->unit_id);
 		$criteria->compare('trans_id',$this->trans_id);
 		$criteria->compare('paid_by',$this->paid_by);
 		$criteria->compare('start_month',$this->start_month,true);

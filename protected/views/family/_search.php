@@ -37,8 +37,8 @@
 
 	<div class="row">
 	<span class="leftHalf">
-		<?php echo $form->label($model,'fid'); ?>
-		<?php echo $form->textField($model,'fid',array('size'=>11,'maxlength'=>11)); ?>
+		<?php echo $form->label($model,'uid'); ?>
+		<?php echo $form->textField($model,'uid',array('size'=>11,'maxlength'=>11)); ?>
 	</span>
 	<span class="rightHalf sub_till">
 		<?php echo CHtml::label('Subscription', 'sub_till_mth'); ?>

@@ -29,7 +29,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode('Family'); ?>:</b>
-	<?php echo CHtml::encode($data->family->head_name . ' #' . $data->family_id); ?>
+	<?php echo CHtml::encode($data->family->head_name . ' #' . $data->unit_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode('From month'); ?>:</b>
