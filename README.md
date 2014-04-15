@@ -1,31 +1,47 @@
 Alive Parish - software to manage tomorrow's parish
 ===================================================
 
-This software is written in PHP and based on the Yii framework. It is
-developed by the [Redemptorist Media Center, Bangalore](http://rmcbangalore.com).
+Alive Parish was developed to be a one-stop place to manage parish data, plus
+provide survey data to help Pastors better plan programmes to renew the Church.
+The development has been sponsored by the [Redemptorist Media Center,
+Bangalore](http://rmcbangalore.com).
+
+Alive Parish is a web based software built on the Yii framework on PHP and
+using a database. It therefore requires a Web server with PHP support and a
+DBMS along with the Yii framework to run.
 
 Prerequisites
 -------------
 
-MySQL server with permission to create a database and assign a role
-
-Apache or other Web Server that can run PHP applications
+Recommended Software:
+DBMS: MySQL 5.1+
+Web Server with PHP: Apache 2.22+ with mod\_php (PHP version 5.4.3)
+Yii framework version 1.1.13
+Windows users note: WAMP is a quick way to install Apache, MySQL and PHP
+On Mac OS/X, XAMPP can be installed. Let us know if you try this
 
 Installation
 ------------
 
-1.  Copy the parish folder under the `DocumentRoot`
-
-2.  In your Apache configuration, ensure that `AllowOverride All` is set
-    for the parish folder
-
-3.  Create a database and grant all privileges to a user
-
-        CREATE DATABASE parish;
-        GRANT ALL PRIVILEGES ON parish.* TO parish_user@localhost IDENTIFIED BY 'secret';
-        FLUSH PRIVILEGES;
-
-4.  Point your browser to http://localhost/parish and complete the installation
+1. Copy the parish folder under the DocumentRoot
+2. In the parent folder of DocumentRoot, create a folder named yii.
+   Download and place the yii framework folder yii-1.1.13.e9e4a0 under this.
+	The directory structure should be like:
+	(parent of DocumentRoot)
+	+-- Document Root
+	| +-- parish
+	+-- yii
+	+-- yii-1.1.13.e9e4a0
+	+-- framework 
+3. In your Apache configuration, ensure that `AllowOverride All` is set for 
+	the parish folder
+4. Create a database and grant all privileges to a user
+	CREATE DATABASE parish;
+	GRANT ALL PRIVILEGES ON parish.\* TO parish\_user@localhost IDENTIFIED BY 'secret';
+	FLUSH PRIVILEGES;
+5. Point your browser to http://localhost/parish - it should redirect you to
+	the online installer. Follow the instruction steps and complete the
+	installation.
 
 Bugs
 ----
@@ -42,4 +58,4 @@ Please read the file `COPYING` included with this software.
 Authors:
 --------
 
-- [Terence Monteiro](terence@rmcbangalore.com)
+- [Terence Monteiro](terencemo@cpan.org)

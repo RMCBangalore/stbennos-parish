@@ -1,3 +1,22 @@
+Alive Parish v2.0-beta1, 2014-04-15
+-----------------------------------
+ * Family Data autocomplete: Area, PIN, Marriage Church
+ * Currency customization and configuration in Site config
+ * Updated ECalendarView extension to latest version 0.5
+ * Command line script to import Baptism Records
+ * Excel Export for Confirmation, Death and Banns Registers
+ * Excel export for Baptism, Marriage and First Communion Registers
+ * Transaction create/update: auto-populate type credit/debit
+ * Collection: index, view actions added
+ * Show own transactions for staff in transaction index
+ * Site config controller name issue fixed (affects index.php setups)
+ * Account type, placeholder, reserved added; controller rights
+ * Added Finances menu; User transactions; renamed users -> user
+ * Collection create added; Transaction CRUD added
+ * Account Statement Report: monthly, yearly, financial period added
+ * Added Finance Reports: Account Summary, Account Statement
+ * Added accounts table, model, CRUD
+
 Alive Parish v1.0, 2014-02-20
 -----------------------------
  * 15 families in Subscriptions chart sorted by max due
