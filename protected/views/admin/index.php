@@ -55,7 +55,7 @@ function show_admin_fv($type) {
 	echo "</p>";
 }
 
-foreach(array("marriage_type", "marriage_status") as $type) show_admin_fv($type);
+foreach(array("marriage_type", "marriage_status", "marital_status") as $type) show_admin_fv($type);
 ?>
 </td><td>
 <p>
