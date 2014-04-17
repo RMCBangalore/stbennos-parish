@@ -38,6 +38,9 @@
  * @property string $godmothers_name
  * @property string $minister
  * @property string $ref_no
+ * @property string $confirmation_dt
+ * @property string $marriage_dt
+ * @property string $remarks
  *
  * The followings are the available model relations:
  * @property BaptismCerts[] $baptismCerts
@@ -76,7 +79,8 @@ class BaptismRecord extends CActiveRecord
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, residence, minister', 'length', 'max'=>75),
 			array('mother_tongue', 'length', 'max'=>25),
 			array('ref_no', 'length', 'max'=>10),
-			array('dob, baptism_dt', 'safe'),
+			array('dob, baptism_dt, confirmation_dt, marriage_dt, remarks', 'safe'),
+			array('confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, dob, baptism_dt, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister, ref_no', 'safe', 'on'=>'search'),
@@ -116,6 +120,9 @@ class BaptismRecord extends CActiveRecord
 			'ref_no' => 'Ref No',
 			'baptism_place' => 'Place of Baptism',
 			'mother_tongue' => 'Mother Tongue',
+			'confirmation_dt' => 'Confirmation Date',
+			'marriage_dt' => 'Marriage Date',
+			'remarks' => 'Remarks',
 		);
 	}
 
@@ -152,6 +159,17 @@ class BaptismRecord extends CActiveRecord
 		$criteria->compare('godmothers_name',$this->godmothers_name,true);
 		$criteria->compare('minister',$this->minister,true);
 		$criteria->compare('ref_no',$this->ref_no,true);
+		if (isset($this->confirmation_dt) and $this->baptism_dt) {
+			$criteria->compare('confirmation_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->confirmation_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		if (isset($this->marriage_dt) and $this->baptism_dt) {
+			$criteria->compare('marriage_dt', date('Y-m-d',
+				CDateTimeParser::parse($this->marriage_dt,
+				Yii::app()->locale->getDateFormat('short'))),true);
+		}
+		$criteria->compare('remarks',$this->remarks,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -165,7 +183,7 @@ class BaptismRecord extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date')
+		    if ($column->dbType == 'date' and isset($this->$columnName) and $this->$columnName)
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,

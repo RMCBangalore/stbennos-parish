@@ -66,3 +66,15 @@
 	<?php echo CHtml::encode($data->minister); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('confirmation_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->confirmation_dt); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('marriage_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->marriage_dt); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('remarks')); ?>:</b>
+	<?php echo CHtml::encode($data->remarks); ?>
+	<br />
+

@@ -241,6 +241,49 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 		<?php echo $form->error($model,'minister'); ?>
 	</div>
 
+	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model,'confirmation_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "confirmation_dt",
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'confirmation_dt'); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'marriage_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "marriage_dt",
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+		<?php echo $form->error($model,'marriage_dt'); ?>
+	</span>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'remarks'); ?>
+		<?php echo $form->textField($model,'remarks',array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'remarks'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

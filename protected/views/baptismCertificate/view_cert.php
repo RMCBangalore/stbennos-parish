@@ -68,9 +68,9 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "name of godmother", $baptism->godmothers_name);
 	show_field($pdf, "residence", $baptism->residence);
 	show_field($pdf, "minister of baptism", $baptism->minister);
-	show_field($pdf, "confirmed on", "no entry");
-	show_field($pdf, "married to", "no entry");
-	show_field($pdf, "remarks", "no entry");
+	show_field($pdf, "confirmed on", $baptism->confirmation_dt);
+	show_field($pdf, "married to", $baptism->marriage_dt);
+	show_field($pdf, "remarks", $baptism->remarks);
 	draw_line($pdf);
 
 	$pdf->Cell(0,1.3,'',0,1);

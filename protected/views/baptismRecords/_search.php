@@ -119,6 +119,45 @@
 		<?php echo $form->textField($model,'minister',array('size'=>60,'maxlength'=>75)); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'confirmation_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "confirmation_dt",
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'marriage_dt'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			'model' => $model,
+			'attribute' => "marriage_dt",
+			'options'	=> array(
+				'dateFormat' => Yii::app()->params['dateFmtDP'],
+				'yearRange'  => '1900:c+10',
+				'changeYear' => true
+			),
+			'htmlOptions' => array(
+				'size' => '10',         // textField size
+				'maxlength' => '10',    // textField maxlength
+			),
+		)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'remarks'); ?>
+		<?php echo $form->textField($model,'remarks',array('size'=>60,'maxlength'=>150)); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search', array('id' => 'submit-button')); ?>
 		<?php echo CHtml::submitButton('Excel Export', array('name' => 'export')); ?>
