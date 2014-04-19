@@ -33,7 +33,7 @@
 	#$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont("times", "R", 22);
-	$pdf->Cell(0,5,"",0,1);
+	$pdf->Cell(0,3,"",0,1);
 	$pdf->Cell(0,0,"MARRIAGE CERTIFICATE",0,1,'C');
 	$pdf->SetFont("times", "B", 11);
 	$pdf->Cell(0,0,"EXTRACT FROM THE REGISTER OF MARRIAGES",0,1,'C');
@@ -48,7 +48,7 @@ $count = 0;
 
 function draw_line($pdf) {
 	global $count;
-	$pdf->Line(10.2,9.6+$count*0.7,16,9.6+$count*0.7,array('width' => 0.01, 'dash' => 3));
+	$pdf->Line(10.2,7.6+$count*0.7,16,7.6+$count*0.7,array('width' => 0.01, 'dash' => 3));
 	++$count;
 }
 
@@ -61,6 +61,7 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "Date of Marriage", $marriage->marriage_dt);
 	show_field($pdf, "Name of Bridegroom", $marriage->groom_name);
 	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->groom_dob);
+	show_field($pdf, "Groom Baptism Date", $marriage->groom_baptism_dt);
 	show_field($pdf, "Status", FieldNames::value('marital_status', $marriage->groom_status));
 	show_field($pdf, "Rank or Profession", $marriage->groom_rank_prof);
 	show_field($pdf, "Name of father", $marriage->groom_fathers_name);
@@ -68,6 +69,7 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "residence", $marriage->groom_residence);
 	show_field($pdf, "Name of Bride", $marriage->bride_name);
 	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->bride_dob);
+	show_field($pdf, "Bride Baptism Date", $marriage->bride_baptism_dt);
 	show_field($pdf, "Status", FieldNames::value('marital_status', $marriage->bride_status));
 	show_field($pdf, "Rank or Profession", $marriage->bride_rank_prof);
 	show_field($pdf, "Name of father", $marriage->bride_fathers_name);
@@ -90,7 +92,7 @@ function show_field($pdf, $label, $value) {
 	$pdf->SetFont("courier", "R", 11);
 	$pdf->Cell(10,1,'DATE: '.$model->cert_dt,0,1,'C');
 	$pdf->Cell(0,0,'PARISH PRIEST             ',0,0,'R');
-	$pdf->Line(13,26.5,18,26.5,array('dash' => 3, 'width' => 0.01));
+	$pdf->Line(13,26.1,18,26.1,array('dash' => 3, 'width' => 0.01));
 	$mid = $model->id;
 	$pdf->Output("marriage-cert-$mid.pdf", "I");
 	Yii::app()->end();

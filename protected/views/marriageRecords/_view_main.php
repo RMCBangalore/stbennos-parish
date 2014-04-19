@@ -73,6 +73,10 @@
 	<?php echo CHtml::encode($data->bride_dob); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_baptism_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->bride_baptism_dt); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
 	<?php echo CHtml::encode(FieldNames::value('marital_status', $data->bride_status)); ?>
 	<br />

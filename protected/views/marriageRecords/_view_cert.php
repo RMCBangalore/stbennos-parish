@@ -32,6 +32,10 @@
 	<?php echo CHtml::encode($data->groom_dob); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('groom_baptism_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->groom_baptism_dt); ?>
+	<br />
+
 	<b><?php 
 	echo CHtml::encode($data->getAttributeLabel('groom_status')); ?>:</b>
 	<?php echo CHtml::encode($data->groom_status); ?>
@@ -59,6 +63,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_dob')); ?>:</b>
 	<?php echo CHtml::encode($data->bride_dob); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_baptism_dt')); ?>:</b>
+	<?php echo CHtml::encode($data->bride_baptism_dt); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('bride_status')); ?>:</b>
