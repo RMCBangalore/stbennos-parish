@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ImportBaptismsCommand extends CConsoleCommand
+class ImportMarriagesCommand extends CConsoleCommand
 {
 	public function actionIndex($file) {
 		$rfile = preg_replace('/\.csv$/', '-rej.csv', $file);
@@ -31,37 +31,35 @@ class ImportBaptismsCommand extends CConsoleCommand
 				if ($proc) {
 					++$num;
 					try {
-						$rec = new BaptismRecord;
-						$rec->name = $data[0];
-						$dob = FormatHelper::dateConv($data[1]);
-						$rec->dob = $dob;
-						$rec->baptism_dt = FormatHelper::dateConv($data[2]);
-						$rec->baptism_place = $data[3];
-						if (preg_match('/^m/i', $data[4])) {
-							$rec->sex = 1;
-						} else {
-							$rec->sex = 2;
-						}
-						$rec->residence = $data[5];
-						$rec->mother_tongue = $data[6];
-						$rec->fathers_name = $data[7];
-						$rec->mothers_name = $data[8];
-						$rec->godfathers_name = $data[9];
-						$rec->godmothers_name = $data[10];
-						$rec->minister = $data[11];
+						$rec = new MarriageRecord;
+						$col = 0;
+						$rec->marriage_dt = FormatHelper::dateConv($data[$col++]);
+						$rec->groom_name = $data[$col++];
+						$rec->groom_dob = FormatHelper::dateConv($data[$col++]);
 						try {
-							$rec->confirmation_dt = FormatHelper::dateConv($data[12]);
-						}
-						catch (Exception $e) {
-							echo "Exception rec #$num: " . $e->getMessage() . " - Confirmation date. Set to empty\n";
-						}
+							$rec->groom_baptism_dt = FormatHelper::dateConv($data[$col++]);
+						} catch (Exception $e) {}
+						$rec->groom_status = FieldNames::find_value('marital_status', $data[$col++]);
+						$rec->groom_rank_prof = $data[$col++];
+						$rec->groom_fathers_name = $data[$col++];
+						$rec->groom_mothers_name = $data[$col++];
+						$rec->groom_residence = $data[$col++];
+						$rec->bride_name = $data[$col++];
+						$rec->bride_dob = FormatHelper::dateConv($data[$col++]);
 						try {
-							$rec->marriage_dt = FormatHelper::dateConv($data[13]);
-						}
-						catch (Exception $e) {
-							echo "Exception rec #$num: " . $e->getMessage() . " - Marriage date. Set to empty\n";
-						}
-						$rec->remarks = $data[14];
+							$rec->bride_baptism_dt = FormatHelper::dateConv($data[$col++]);
+						} catch (Exception $e) {}
+						$rec->bride_status = FieldNames::find_value('marital_status', $data[$col++]);
+						$rec->bride_rank_prof = $data[$col++];
+						$rec->bride_fathers_name = $data[$col++];
+						$rec->bride_mothers_name = $data[$col++];
+						$rec->bride_residence = $data[$col++];
+						$rec->marriage_type = FieldNames::find_value('marriage_type', $data[$col++]);
+						$rec->banns_licence = $data[$col++];
+						$rec->minister = $data[$col++];
+						$rec->witness1 = $data[$col++];
+						$rec->witness2 = $data[$col++];
+						$rec->remarks = $data[$col++];
 						if (!$rec->save()) {
 							throw new Exception("Unable to save record");
 						}

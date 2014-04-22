@@ -96,6 +96,19 @@ class FieldNames extends CActiveRecord
 		return $fv[$code];
 	}
 
+	public static function find_value($name, $val) {
+		$model = self::model()->find(array(
+		    'condition' => 'name=:name',
+		    'params'    => array(':name' => $name)
+		));
+		foreach($model->fieldValues as $fv) {
+			if (0 == strcasecmp($fv->name,$val)) {
+				return $fv->code;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

@@ -82,7 +82,9 @@ class MarriageRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groom_name, groom_fathers_name, groom_mothers_name, groom_status, groom_rank_prof, groom_dob, groom_residence, bride_name, bride_fathers_name, bride_mothers_name, bride_status, bride_rank_prof, bride_dob, bride_residence, bride_dob, marriage_dt, banns_licence, minister, witness1, witness2', 'required'),
+			array('groom_name, groom_fathers_name, groom_mothers_name, groom_status, groom_rank_prof, groom_dob, groom_residence, ' .
+				'bride_name, bride_fathers_name, bride_mothers_name, bride_status, bride_rank_prof, bride_dob, bride_residence, ' .
+				'marriage_dt, banns_licence, minister, witness1, witness2', 'required'),
 			array('groom_name, groom_fathers_name, groom_mothers_name, bride_name, bride_fathers_name, bride_mothers_name, minister', 'length', 'max'=>100),
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
