@@ -1421,6 +1421,26 @@ INSERT INTO `AuthItemChild` VALUES ('Staff','YesnoData.Index');
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `accounts`
+--
+
+LOCK TABLES `accounts` WRITE;
+INSERT INTO `accounts` VALUES (1,'Income',NULL,1,NULL,'credit');
+INSERT INTO `accounts` VALUES (2,'Expenses',NULL,1,NULL,'debit');
+INSERT INTO `accounts` VALUES (3,'Assets',NULL,1,NULL,'debit');
+INSERT INTO `accounts` VALUES (4,'Liabilities',NULL,1,NULL,'credit');
+INSERT INTO `accounts` VALUES (5,'Mass Bookings',1,NULL,1,'credit');
+INSERT INTO `accounts` VALUES (6,'Family Subscriptions',1,NULL,1,'credit');
+INSERT INTO `accounts` VALUES (7,'Collection',1,NULL,1,'credit');
+INSERT INTO `accounts` VALUES (8,'Clergy Maintenance',2,1,1,'debit');
+INSERT INTO `accounts` VALUES (9,'Food expenses',8,NULL,NULL,'debit');
+INSERT INTO `accounts` VALUES (10,'Apostolic Work Expenses',2,NULL,NULL,'debit');
+INSERT INTO `accounts` VALUES (11,'Allowance to Parish Priest',2,NULL,NULL,'debit');
+INSERT INTO `accounts` VALUES (12,'Feast and other expenses',2,NULL,NULL,'debit');
+INSERT INTO `accounts` VALUES (13,'Certificate Charges',1,NULL,NULL,'credit');
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `awareness_items`
 --
 

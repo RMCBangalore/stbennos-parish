@@ -71,6 +71,7 @@ $tabs = array(
 		'data'=>array(
 			'form'=>$form,
 			'model'=>$model,
+			'ac'=>$fam_ac,
 		),
 	),
 	1=>array(
