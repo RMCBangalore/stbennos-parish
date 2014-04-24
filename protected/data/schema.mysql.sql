@@ -88,6 +88,9 @@ CREATE TABLE `accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `parent` int(11) DEFAULT NULL,
+  `placeholder` tinyint(4) DEFAULT NULL,
+  `reserved` int(11) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`parent`),
   KEY `account_parent` (`parent`),
@@ -717,9 +720,9 @@ CREATE TABLE `transactions` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transactions_ibfk_1` (`creator`),
-  KEY `account` (`account`),
+  KEY `account_id` (`account_id`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`account`) REFERENCES `accounts` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -1545,7 +1548,7 @@ INSERT INTO `field_values` VALUES (16,57,'Assistant Parish Priest',2,2);
 INSERT INTO `field_values` VALUES (17,58,'Fr.',1,1);
 INSERT INTO `field_values` VALUES (17,59,'Msgr.',2,2);
 INSERT INTO `field_values` VALUES (18,60,'Single',1,1);
-INSERT INTO `field_values` VALUES (6,63,'Other',4,15);
+INSERT INTO `field_values` VALUES (6,63,'Other',15,15);
 INSERT INTO `field_values` VALUES (18,64,'Annulled',5,5);
 INSERT INTO `field_values` VALUES (18,65,'Widowed',6,6);
 INSERT INTO `field_values` VALUES (1,66,'Mixed',3,3);
@@ -1562,7 +1565,7 @@ INSERT INTO `field_values` VALUES (20,76,'O -ve',6,6);
 INSERT INTO `field_values` VALUES (20,77,'AB +ve',7,7);
 INSERT INTO `field_values` VALUES (20,78,'AB -ve',8,8);
 INSERT INTO `field_values` VALUES (21,79,'Own',1,1);
-INSERT INTO `field_values` VALUES (21,79,'Rented/Leased',2,2);
+INSERT INTO `field_values` VALUES (21,80,'Rented/Leased',2,2);
 UNLOCK TABLES;
 
 --

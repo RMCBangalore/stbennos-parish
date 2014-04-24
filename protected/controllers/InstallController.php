@@ -111,7 +111,7 @@ class InstallController extends CController
 			}
 
 			catch(Exception $e) {
-				Yii::app()->user->setFlash('error', "Error restoring MySQL database" . mysql_error());
+				Yii::app()->user->setFlash('error', "Error restoring MySQL database" . $e->getMessage());
 			}
 
 			$fh = fopen($path, "r");

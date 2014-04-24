@@ -190,7 +190,7 @@
 		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model' => $model,
 			'attribute' => 'baptism_church',
-			'source' => $ac['baptism_churches'],
+			'source' => $ac['churches'],
 			'htmlOptions' => array('size'=>25,'maxlength'=>50))); ?>
 		<?php echo $form->error($model,'baptism_church'); ?>
 	</span>
