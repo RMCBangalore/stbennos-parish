@@ -69,23 +69,37 @@
 	</span>
 
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'phone'); ?>
+		<?php echo $form->labelEx($model,'house_status'); ?>
+		<?php echo $form->dropDownList($model,'house_status',FieldNames::values('house_status'),array('prompt'=>'--- Select ---')); ?>
+		<?php echo $form->error($model,'house_status'); ?>
 	</span>
 	</div>
 
 	<div class="row">
     <span class="leftHalf">
+		<?php echo $form->labelEx($model,'phone'); ?>
+		<?php echo $form->textField($model,'phone',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($model,'phone'); ?>
+	</span>
+
+	<span class="rightHalf">
 		<?php echo $form->labelEx($model,'mobile'); ?>
 		<?php echo $form->textField($model,'mobile',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'mobile'); ?>
 	</span>
+	</div>
 
-	<span class="rightHalf">
+	<div class="row">
+    <span class="leftHalf">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'email'); ?>
+	</span>
+
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,'remarks'); ?>
+		<?php echo $form->textField($model,'remarks',array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'remarks'); ?>
 	</span>
 	</div>
 

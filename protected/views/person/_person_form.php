@@ -122,9 +122,22 @@
 		<?php echo $form->error($model,"[$person]special_skill"); ?>
 	</span>
 	<span class="rightHalf">
-		<?php echo $form->labelEx($model,"[$person]remarks"); ?>
-		<?php echo $form->textField($model,"[$person]remarks",array('size'=>30,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,"[$person]remarks"); ?>
+		<?php echo $form->labelEx($model,"[$person]blood_group"); ?>
+		<?php echo $form->dropDownList($model,"[$person]blood_group",FieldNames::values('blood_group'),array('prompt'=>'-Select-')); ?>
+		<?php echo $form->error($model,"[$person]blood_group"); ?>
+	</span>
+	</div>
+
+	<div class="row">
+	<span class="leftHalf">
+		<?php echo $form->labelEx($model,"[$person]voter_id"); ?>
+		<?php echo $form->textField($model,"[$person]voter_id",array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,"[$person]voter_id"); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,"[$person]aadhar_no"); ?>
+		<?php echo $form->textField($model,"[$person]aadhar_no",array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,"[$person]aadhar_no"); ?>
 	</span>
 	</div>
 
@@ -303,7 +316,7 @@
 	</div>
 
 	<div class="row">
-	<span>
+	<span class="leftHalf">
 		<?php echo $form->labelEx($model,"[$person]cemetery_church"); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model' => $model,
@@ -311,6 +324,11 @@
 			'source' => $ac['cemetery_churches'],
 			'htmlOptions' => array('size'=>25,'maxlength'=>25))); ?>
 		<?php echo $form->error($model,"[$person]cemetery_church"); ?>
+	</span>
+	<span class="rightHalf">
+		<?php echo $form->labelEx($model,"[$person]remarks"); ?>
+		<?php echo $form->textField($model,"[$person]remarks",array('size'=>30,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,"[$person]remarks"); ?>
 	</span>
 	</div>
 

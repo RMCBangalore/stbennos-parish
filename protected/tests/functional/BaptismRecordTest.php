@@ -37,8 +37,8 @@ class BaptismRecordTest extends WebTestCase
 		$baps = array(
 			array(
 				'name' => 'Antony Jacob',
-				'dob' => '05/12/2013',
-				'baptism_dt' => '12/12/2013',
+				'dob' => '05/12/1985',
+				'baptism_dt' => '12/12/1985',
 				'baptism_place' => 'Bangalore',
 				'sex' => 1,
 				'residence' => 'Bangalore',
@@ -47,7 +47,9 @@ class BaptismRecordTest extends WebTestCase
 				'mothers_name' => 'Preethi Jacob',
 				'godfathers_name' => 'Oliver Prabhu',
 				'godmothers_name' => 'Yvonne Prabhu',
-				'minister' => 'Fr. Mark Mascarenhas'
+				'minister' => 'Fr. Mark Mascarenhas',
+				'confirmation_dt' => '11/10/2002',
+				'marriage_dt' => '02/03/2013',
 			),
 		);
 		foreach($baps as $bap) {
@@ -94,7 +96,10 @@ class BaptismRecordTest extends WebTestCase
 				'mothers_name' => 'Annapurna Subramaniam',
 				'godfathers_name' => 'Nirmal Raj',
 				'godmothers_name' => 'Arokia Mary',
-				'minister' => 'Fr. Adrian Gomes'
+				'minister' => 'Fr. Adrian Gomes',
+				'confirmation_dt' => '11/12/2013',
+				'marriage_dt' => '05/02/2014',
+				'remarks' => 'Adult Baptism',
 			)
 		);
 		foreach($baps as $bap) {

@@ -323,6 +323,8 @@ CREATE TABLE `families` (
   `reg_date` date DEFAULT NULL,
   `disabled` tinyint(4) DEFAULT '0',
   `leaving_date` date DEFAULT NULL,
+  `house_status` int(11) DEFAULT NULL,
+  `remarks` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fid` (`fid`),
   KEY `husband_id` (`husband_id`),
@@ -641,6 +643,9 @@ CREATE TABLE `people` (
   `role` varchar(10) DEFAULT NULL,
   `special_skill` varchar(25) DEFAULT NULL,
   `photo` varchar(50) DEFAULT NULL,
+  `voter_id` varchar(25) DEFAULT NULL,
+  `aadhar_no` varchar(25) DEFAULT NULL,
+  `blood_group` int(11) DEFAULT NULL,
   `mid` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `people_family_id` (`family_id`),
@@ -1477,6 +1482,8 @@ INSERT INTO `field_names` VALUES (13,'sex');
 INSERT INTO `field_names` VALUES (19,'visit_purpose');
 INSERT INTO `field_names` VALUES (15,'weekdays');
 INSERT INTO `field_names` VALUES (10,'zones');
+INSERT INTO `field_names` VALUES (20,'blood_group');
+INSERT INTO `field_names` VALUES (21,'house_status');
 UNLOCK TABLES;
 
 --
@@ -1546,6 +1553,16 @@ INSERT INTO `field_values` VALUES (19,67,'Easter Blessing',1,1);
 INSERT INTO `field_values` VALUES (19,68,'Anointing of the Sick',2,2);
 INSERT INTO `field_values` VALUES (19,69,'Communion to the Sick',3,3);
 INSERT INTO `field_values` VALUES (19,70,'Special Occasion',4,4);
+INSERT INTO `field_values` VALUES (20,71,'A +ve',1,1);
+INSERT INTO `field_values` VALUES (20,72,'A -ve',2,2);
+INSERT INTO `field_values` VALUES (20,73,'B +ve',3,3);
+INSERT INTO `field_values` VALUES (20,74,'B -ve',4,4);
+INSERT INTO `field_values` VALUES (20,75,'O +ve',5,5);
+INSERT INTO `field_values` VALUES (20,76,'O -ve',6,6);
+INSERT INTO `field_values` VALUES (20,77,'AB +ve',7,7);
+INSERT INTO `field_values` VALUES (20,78,'AB -ve',8,8);
+INSERT INTO `field_values` VALUES (21,79,'Own',1,1);
+INSERT INTO `field_values` VALUES (21,79,'Rented/Leased',2,2);
 UNLOCK TABLES;
 
 --

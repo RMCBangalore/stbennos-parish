@@ -1,3 +1,14 @@
+Alive Parish v2.0, 2014-04-24
+-----------------------------
+ * Families: added house status (owned/rented/leased) and remarks
+ * People: added blood group election id and aadhar no
+ * Added initial Account records in database schema
+ * Added ImportMarriages + Added 3 columns to Import Baptisms
+ * Marriage record: bride/groom baptism date in view
+ * Baptism Record/Certificates: Confirmation/Marriage Date + Remarks
+ * Marital status customization for admin. Fixes #251
+ * Mass/Sub Booking: fixed extra transaction create on validation fail
+
 Alive Parish v2.0-beta1, 2014-04-15
 -----------------------------------
  * Family Data autocomplete: Area, PIN, Marriage Church

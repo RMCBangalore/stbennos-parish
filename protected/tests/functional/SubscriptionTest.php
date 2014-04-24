@@ -49,7 +49,7 @@ class SubscriptionTest extends WebTestCase
 		$this->click("id=yw0_c0_0");
 		sleep(1);
 		$this->click("id=submitMatch");
-		sleep(1);
+		sleep(2);
 		$this->type('name=Subscription[paid_by]', $sub['paid_by']);
 		$this->select('name=Subscription[till]', "value=" . $sub['till']);
 		$this->type('name=Subscription[amount]', $sub['amount']);

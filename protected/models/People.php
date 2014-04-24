@@ -52,6 +52,9 @@
  * @property string $role
  * @property string $special_skill
  * @property string $photo
+ * @property integer $blood_group
+ * @property string $aadhar_no
+ * @property string $voter_id
  * @property string $mid
  *
  * The followings are the available model relations:
@@ -87,11 +90,12 @@ class People extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('fname, lname, sex, domicile_status, dob, lang_pri', 'required'),
-			array('sex, family_id', 'numerical', 'integerOnly'=>true),
+			array('sex, family_id, blood_group', 'numerical', 'integerOnly'=>true),
 			array('fname, email, baptism_church, god_parents', 'length', 'max'=>50),
 			array('lname, profession, occupation, lang_pri, lang_lit, lang_edu, rite, cemetery_church, special_skill', 'length', 'max'=>25),
 			array('domicile_status', 'length', 'max'=>4),
 			array('education, baptism_place', 'length', 'max'=>15),
+			array('aadhar_no, voter_id', 'length', 'max'=>25),
 			array('mobile, role, mid', 'length', 'max'=>10),
 			array('photo', 'ImageSizeValidator', 'maxWidth' => 150, 'maxHeight' => 200, 'on' => 'photo'),
 			array('age, baptised_yrs, first_comm_yrs, confirmation_yrs, marriage_yrs', 'safe', 'on' => 'search'),
@@ -192,8 +196,8 @@ class People extends CActiveRecord
 			'god_parents' => 'God Parents',
 			'first_comm_dt' => 'First Communion Date',
 			'first_comm_yrs' => 'First Communion Years',
-			'confirmation_dt' => 'Confimation Date',
-			'confirmation_yrs' => 'Confimation Years',
+			'confirmation_dt' => 'Confirmation Date',
+			'confirmation_yrs' => 'Confirmation Years',
 			'marriage_dt' => 'Marriage Date',
 			'marriage_yrs' => 'Marriage Years',
 			'cemetery_church' => 'Cemetery Church',
@@ -203,6 +207,9 @@ class People extends CActiveRecord
 			'mid' => 'Member Id',
 			'remarks' => 'Remarks',
 			'death_dt' => 'Death Date',
+			'voter_id' => 'Election ID',
+			'aadhar_no' => 'Aadhar Card No',
+			'blood_group' => 'Blood Group',
 		);
 	}
 

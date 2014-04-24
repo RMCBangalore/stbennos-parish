@@ -45,6 +45,8 @@
  * @property integer $husband_id
  * @property integer $wife_id
  * @property integer $leaving_date
+ * @property integer $house_status
+ * @property string $remarks
  *
  * The followings are the available model relations:
  * @property People[] $members
@@ -79,9 +81,9 @@ class Families extends CActiveRecord
 		return array(
 			array('addr_stt, addr_area, addr_pin, fid, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
 			array('fid', 'unique'),
-			array('zone', 'numerical', 'integerOnly'=>true),
+			array('zone, house_status', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),
-			array('addr_nm, addr_area, email, marriage_church', 'length', 'max'=>50),
+			array('addr_nm, addr_area, email, marriage_church, remarks', 'length', 'max'=>50),
 			array('addr_stt', 'length', 'max'=>75),
 			array('marriage_type, marriage_status', 'length', 'max'=>25),
 			array('addr_pin', 'length', 'max'=>7),
@@ -179,6 +181,8 @@ class Families extends CActiveRecord
 			'marriage_status' => 'Marriage Status',
 			'monthly_income' => 'Monthly Household Income',
 			'sub_till' => 'Subscription Till',
+			'house_status' => 'House',
+			'remarks' => 'Remarks',
 		);
 	}
 
