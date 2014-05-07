@@ -264,6 +264,20 @@ div.row span.rightHalf {
 	width: 350px;
 }
 
+div.row span.leftThird {
+	float: left;
+}
+
+div.row span.centerThird {
+	float: left;
+}
+
+div.row span.leftThird,
+div.row span.centerThird,
+div.row span.rightThird {
+	width: 32%;
+}
+
 div.welcome {
 	font-size: 120%;
 }
