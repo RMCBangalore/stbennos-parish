@@ -30,53 +30,57 @@ $this->menu=array(
 	array('label'=>'Create MassSchedule', 'url'=>array('create')),
 	array('label'=>'Manage MassSchedule', 'url'=>array('admin')),
 );
+
+$this->widget('application.extensions.fancybox.EFancyBox', array(
+    'target'=>'a[rel=gallery]', 'config'=>array(),
+));
+
+Yii::app()->clientScript->registerScript('massAjax', "
+function set_select() {
+	$('#mass-schedule-form').submit(function() {
+		$.post($(this).attr('action'), $(this).serialize());
+		$.fancybox.close();
+		$.get('" . Yii::app()->request->baseUrl . "/massSchedule/index', function(data) {
+			$('#mass-schedule').html(data);
+			set_delete();
+		} );
+		return false;
+	} );
+}
+
+function set_delete() {
+	$('a.del').click(function() {
+		$.post($(this).attr('href'));
+		$.get('" . Yii::app()->request->baseUrl . "/massSchedule/index', function(data) {
+			$('#mass-schedule').html(data);
+			set_delete();
+		} );
+		return false;
+	} );
+}
+
+$('#add-mass').fancybox( {
+	'onComplete': function() {
+		set_select();
+		set_delete();
+	}
+} );
+
+set_delete();
+
+");
+
 ?>
+
+<form style="float: right">
+<?php if (Yii::app()->user->checkAccess('MassSchedule.Create')) {
+	echo CHtml::link('Add Mass', array('/massSchedule/create'), array('id' => 'add-mass')); 
+} ?>
+</form>
 
 <h1>Mass Schedule</h1>
 
-<?php
-
-$day_masses = array();
-foreach ($schedule as $data) {
-	$day = $data->day;
-	$mass = array(
-		'time' => $data->time,
-		'language' => $data->language);
-
-	if (!isset($day_masses[$day])) {
-		$day_masses[$day] = array($mass);
-	} else {
-		array_push($day_masses[$day], $mass);
-	}
-}
-
-?>
-
-<table class='cellular'>
-<thead>
-<th>Day of Week</th>
-<th>Time</th>
-<th>Language</th>
-</thead>
-
-<?php
-foreach ($day_masses as $day => $masses) {
-	$wday = FieldNames::value('weekdays', $day);
-	$nm = count($masses);
-	echo "<tr><th rowspan='$nm'>$wday</th>";
-	foreach ($masses as $i => $mass) {
-		if ($i > 0) {
-			echo "<tr>";
-		}
-		echo "<td>" .
-			CHtml::encode(date_format(new DateTime($mass['time']), 'g:i a')) .
-			"</td><td>" .
-			CHtml::encode(FieldNames::value('languages', $mass['language'])) .
-			"</td></tr>";
-	}
-}
-
-?>
-
-</table>
+<div id="mass-schedule">
+<?php $this->renderPartial('schedule-table', array('schedule' => $schedule)); ?>
+</div>
 

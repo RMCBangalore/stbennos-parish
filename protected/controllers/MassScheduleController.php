@@ -93,6 +93,10 @@ class MassScheduleController extends RController
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+		elseif (Yii::app()->request->isAjaxRequest) {
+			$this->renderPartial('create-ajax',array('model'=>$model));
+			return;
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -147,9 +151,15 @@ class MassScheduleController extends RController
 			'order' => 'day, time'
 		));
 
-		$this->render('index',array(
-			'schedule'=>$schedule,
-		));
+		if (Yii::app()->request->isAjaxRequest) {
+			$this->renderPartial('schedule-table', array(
+				'schedule'=>$schedule
+			));
+		} else {
+			$this->render('index',array(
+				'schedule'=>$schedule,
+			));
+		}
 	}
 
 	/**
