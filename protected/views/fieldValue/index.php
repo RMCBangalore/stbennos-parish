@@ -21,9 +21,24 @@
 /* @var $this FieldValueController */
 /* @var $dataProvider CActiveDataProvider */
 
-$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+if (isset($_GET['type'])) {
+	$type = $_GET['type'];
+} else {
+	$type = $model->field->name;
+}
 
-$lbls = preg_match('/s$/', $lbl) ? $lbl : "${lbl}s";
+$lbl = ucwords(implode(' ', explode('_', $type)));
+if (preg_match('/es$/', $lbl)) {
+	if (preg_match('/ses$/', $lbl)) {
+		$lbl = preg_replace('/es$/', '', $lbl);
+	} else {
+		$lbl = preg_replace('/s$/', '', $lbl);
+	}
+}
+
+$lbls = preg_match('/s$/', $lbl) ?
+	(preg_match('/[aoui]s$/', $lbl) ? "${lbl}es" : $lbl) :
+	"${lbl}s";
 
 $this->breadcrumbs=array(
 	'Admin' => array('site/page', 'view' => 'admin'),
@@ -32,11 +47,11 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>"Create $lbl", 'url'=>array('create', 'type' => $_GET['type'])),
-	array('label'=>"Manage $lbl", 'url'=>array('admin', 'type' => $_GET['type'])),
+	array('label'=>"Manage $lbls", 'url'=>array('admin', 'type' => $_GET['type'])),
 );
 ?>
 
-<h1><?php echo $lbl ?></h1>
+<h1><?php echo $lbls ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

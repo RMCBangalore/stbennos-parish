@@ -21,9 +21,24 @@
 /* @var $this FieldValueController */
 /* @var $model FieldValues */
 
-$lbl = $_GET['type'] ? ucwords(implode(' ', explode('_', $_GET['type']))) : 'Field Values';
+if (isset($_GET['type'])) {
+	$type = $_GET['type'];
+} else {
+	$type = $model->field->name;
+}
 
-$lbls = preg_match('/s$/', $lbl) ? $lbl : "${lbl}s";
+$lbl = ucwords(implode(' ', explode('_', $type)));
+if (preg_match('/es$/', $lbl)) {
+	if (preg_match('/ses$/', $lbl)) {
+		$lbl = preg_replace('/es$/', '', $lbl);
+	} else {
+		$lbl = preg_replace('/s$/', '', $lbl);
+	}
+}
+
+$lbls = preg_match('/s$/', $lbl) ?
+	(preg_match('/[aoui]s$/', $lbl) ? "${lbl}es" : $lbl) :
+	"${lbl}s";
 
 $this->breadcrumbs=array(
 	'Admin' => array('site/page', 'view' => 'admin'),
@@ -33,10 +48,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>"List $lbl", 'url'=>array('index', 'type' => $_GET['type'])),
+	array('label'=>"List $lbls", 'url'=>array('index', 'type' => $_GET['type'])),
 	array('label'=>"Create $lbl", 'url'=>array('create', 'type' => $_GET['type'])),
 	array('label'=>"View $lbl", 'url'=>array('view', 'id'=>$model->id, 'type' => $_GET['type'])),
-	array('label'=>"Manage $lbl", 'url'=>array('admin', 'type' => $_GET['type'])),
+	array('label'=>"Manage $lbls", 'url'=>array('admin', 'type' => $_GET['type'])),
 );
 ?>
 
