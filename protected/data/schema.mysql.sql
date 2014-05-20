@@ -592,6 +592,7 @@ CREATE TABLE `parish` (
   `logo_width` int(11) DEFAULT NULL,
   `logo_height` int(11) DEFAULT NULL,
   `currency` char(3) DEFAULT NULL,
+  `cert_header` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`isset`)
 ) ENGINE=InnoDB;
 

@@ -19,15 +19,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-	$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
-								'P', 'cm', 'A4', true, 'UTF-8');
+	$pdf = #Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
+		new CertTcPdf(	'P', 'cm', 'A4', true, 'UTF-8');
 
 	$pdf->SetCreator(PDF_CREATOR);
 	$pdf->SetAuthor("Terence Monteiro");
 	$pdf->SetTitle("Death Certificate");
 	$pdf->SetSubject("Death Certificate");
 	$pdf->SetKeywords("PDF");
-	$pdf->setPrintHeader(false);
+	$parish = Parish::get();
+	$pdf->setPrintHeader($parish->cert_header);
 	$pdf->setPrintFooter(false);
 	$pdf->AddPage();
 	$pdf->SetFont("times", "R", 26);
@@ -71,7 +72,6 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,4,"",0,1);
 	$pdf->SetFont("courier", "R", 10);
 	$pdf->Cell(0,0,"I CERTIFY THAT THE ABOVE IS TRUE COPY OF AN ENTRY IN THE REGISTER",0,1,'C');
-	$parish = Parish::get();
 	$pstr = strtoupper($parish->name . ", " . $parish->city);
 	$pdf->Cell(0,0,"OF DEATHS KEPT AT $pstr",0,1,'C');
 

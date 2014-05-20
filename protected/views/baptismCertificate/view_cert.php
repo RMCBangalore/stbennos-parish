@@ -21,14 +21,15 @@
 /* @var $this MarriageCertificateController */
 /* @var $model MarriageCertificate */
 
-	$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
-								'P', 'cm', 'A4', true, 'UTF-8');
+	$pdf = #Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
+		new CertTcPdf(		'P', 'cm', 'A4', true, 'UTF-8');
 	$pdf->SetCreator(PDF_CREATOR);
 	$pdf->SetAuthor("Terence Monteiro");
 	$pdf->SetTitle("Marriage Certificate");
 	$pdf->SetSubject("Marriage Certificate");
 	$pdf->SetKeywords("PDF");
-	$pdf->setPrintHeader(false);
+	$parish = Parish::get();
+	$pdf->setPrintHeader($parish->cert_header);
 	$pdf->setPrintFooter(false);
 	#$pdf->AliasNbPages();
 	$pdf->AddPage();
@@ -76,7 +77,6 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(0,1.3,'',0,1);
 	$pdf->SetFont("courier", "R", 10);
 	$pdf->Cell(0,0,'I CERTIFY THAT THE ABOVE IS A TRUE COPY OF AN ENTRY IN THE REGISTER',0,1,'C');
-	$parish = Parish::get();
 	$pstr = strtoupper($parish->name . ", " . $parish->city);
 	$pdf->Cell(0,0,"OF BAPTISM KEPT AT $pstr",0,1,'C');
 	$pdf->Cell(0,1.7,'',0,1);

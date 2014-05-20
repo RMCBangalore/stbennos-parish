@@ -36,6 +36,7 @@
  * @property integer $logo_height
  * @property string $phone
  * @property string $website
+ * @property integer $cert_header
  */
 class Parish extends CActiveRecord
 {
@@ -66,7 +67,7 @@ class Parish extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, address, city, pin, est_year, mass_book_basic, mass_book_sun', 'required'),
-			array('est_year, isset, logo_width, logo_height', 'numerical', 'integerOnly'=>true),
+			array('est_year, isset, logo_width, logo_height, cert_header', 'numerical', 'integerOnly'=>true),
 			array('mass_book_basic, mass_book_sun', 'numerical'),
 			array('name, logo_src', 'length', 'max'=>50),
 			array('city', 'length', 'max'=>25),
