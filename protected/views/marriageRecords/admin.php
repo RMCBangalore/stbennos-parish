@@ -39,7 +39,7 @@ $('.search-button').click(function(){
 });
 $('#submit-button').click(function(){
 	$('#marriage-record-grid').yiiGridView('update', {
-		data: $(this).serialize()
+		data: $('.search-form').serialize()
 	});
 	return false;
 });
