@@ -59,6 +59,12 @@ function show_field($pdf, $label, $value) {
 	draw_line($pdf);
 }
 
+function show_fval($pdf, $value) {
+	$pdf->Cell(4,0,"",0,0);
+	$pdf->Cell(0,0.7,sprintf("%-20s  %s", "", strtoupper($value)),0,1,'L');
+	draw_line($pdf);
+}
+
 	show_field($pdf, "Date of Marriage", $marriage->marriage_dt);
 	show_field($pdf, "Name of Bridegroom", $marriage->groom_name);
 	show_field($pdf, "DATE OF BIRTH/AGE", $marriage->groom_dob);
@@ -80,8 +86,13 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "minister", $marriage->minister);
 	show_field($pdf, "Witness 1", $marriage->witness1);
 	show_field($pdf, "Witness 2", $marriage->witness2);
-	show_field($pdf, 'Remarks', $marriage->remarks);
-	draw_line($pdf);
+	$remarks = explode("\n", wordwrap($marriage->remarks, 39));
+	show_field($pdf, 'Remarks', $remarks[0]);
+	if (isset($remarks[1])) {
+		show_fval($pdf, $remarks[1]);
+	} else {
+		draw_line($pdf);
+	}
 
 	$pdf->SetFont("courier", "R", 9);
 	$pdf->Cell(0,1,'',0,1);

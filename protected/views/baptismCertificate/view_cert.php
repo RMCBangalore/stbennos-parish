@@ -34,7 +34,7 @@
 	#$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont("times", "R", 22);
-	$pdf->Cell(0,5,"",0,1);
+	$pdf->Cell(0,4,"",0,1);
 	$pdf->Cell(0,0,"BAPTISM CERTIFICATE",0,1,'C');
 	$pdf->SetFont("times", "B", 11);
 	$pdf->Cell(0,0,"TRUE EXTRACT",0,1,'C');
@@ -49,7 +49,7 @@ $count = 0;
 
 function draw_line($pdf) {
 	global $count;
-	$pdf->Line(10.2,10.3+$count*0.8,16,10.3+$count*0.8,array('width' => 0.01, 'dash' => 3));
+	$pdf->Line(10.2,9.3+$count*0.8,16,9.3+$count*0.8,array('width' => 0.01, 'dash' => 3));
 	++$count;
 }
 
@@ -57,6 +57,12 @@ function show_field($pdf, $label, $value) {
 	$pdf->Cell(4,0,"",0,0);
 	$pdf->Cell(0,0.8,sprintf("%-20s: %s", strtoupper($label), strtoupper($value)),0,1,'L');
 	draw_line($pdf);
+}
+
+function show_fval($pdf, $value) {
+       $pdf->Cell(4,0,"",0,0);
+       $pdf->Cell(0,0.8,sprintf("%-20s  %s", "", strtoupper($value)),0,1,'L');
+       draw_line($pdf);
 }
 
 	show_field($pdf, "Name", $baptism->name);
@@ -71,8 +77,15 @@ function show_field($pdf, $label, $value) {
 	show_field($pdf, "minister of baptism", $baptism->minister);
 	show_field($pdf, "confirmed on", $baptism->confirmation_dt);
 	show_field($pdf, "married to", $baptism->marriage_dt);
-	show_field($pdf, "remarks", $baptism->remarks);
-	draw_line($pdf);
+	$remarks = explode("\n", wordwrap($baptism->remarks, 39));
+	show_field($pdf, 'Remarks', $remarks[0]);
+	if (isset($remarks[1])) {
+		for($i = 1; $i < 4 and isset($remarks[$i]); ++$i) {
+			show_fval($pdf, $remarks[$i]);
+		}
+	} else {
+		draw_line($pdf);
+	}
 
 	$pdf->Cell(0,1.3,'',0,1);
 	$pdf->SetFont("courier", "R", 10);
