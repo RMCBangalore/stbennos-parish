@@ -39,7 +39,7 @@ $('.search-button').click(function(){
 });
 $('.search-form form').submit(function(){
 	$('#first-communion-certificate-grid').yiiGridView('update', {
-		data: $(this).serialize()
+		data: $('.search-form').serialize()
 	});
 	return false;
 });

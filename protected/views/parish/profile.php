@@ -33,27 +33,71 @@ $('#gen-report').click(function(e) {
 ")
 
 ?>
+<style>
+table.profile {
+	width: auto;
+}
+table.profile caption {
+	font-size: 135%;
+	word-spacing: 0.2em;
+	background-color: #689;
+	color: #f0f4f8;
+	border: 1px solid #abc;
+}
+table.profile th {
+	background-color: #eef2f8;
+	font-family: Garamond, serif;
+	font-size: 110%;
+	color: #245;
+}
+table.profile td span.val a {
+	color: #4463ad;
+	font-size: 140%;
+	font-family: Garamond, serif;
+	letter-spacing: -0.02em;
+}
+table.profile td {
+	padding: 2px 10px;
+}
+#gen-report {
+	font-family: Georgia;
+	font-size: 130%;
+	font-weight: bold;
+	color: #293158;
+	padding: 5px 10px;
+	border-radius: 5px;
+}
+#gen-report:hover {
+	background-color: #cde;
+}
+</style>
 
 <h1>Parish Profile: <?php echo CHtml::encode(Parish::get_name()); ?></h1>
 
-<table class="cellular">
-<thead>
-	<tr>
-		<th>Total Families</th>
-		<th>Members</th>
-		<th>Baptised</th>
-		<th>Confirmed</th>
-		<th>Married</th>
-	</tr>
-</thead>
+
+<table class="cellular profile">
+<caption>Parishioner Summary</caption>
 </tbody>
 <tr>
-	<td><?php echo CHtml::link($families, array('family/index')); ?></td>
-	<td><?php echo CHtml::link($members, array('person/index')); ?></td>
-	<td><?php echo CHtml::link($baptised, array('person/baptised')); ?></td>
-	<td><?php echo CHtml::link($confirmed, array('person/confirmed')); ?></td>
-	<td><?php echo CHtml::link($married, array('person/married')); ?></td>
+	<th>Total Families</th>
+	<td><span class='val'><?php echo CHtml::link($families, array('family/index')); ?></span></td>
+</tr>
 <tr>
+	<th>Total Members</th>
+	<td><span class='val'><?php echo CHtml::link($members, array('person/index')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Baptised</th>
+	<td><span class='val'><?php echo CHtml::link($baptised, array('person/baptised')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Confirmed</th>
+	<td><span class='val'><?php echo CHtml::link($confirmed, array('person/confirmed')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Married</th>
+	<td><span class='val'><?php echo CHtml::link($married, array('person/married')); ?></span></td>
+</tr>
 </tbody>
 </table>
-<button id="gen-report" type="button">Generate Parish Profile Report</button>
+<button id="gen-report" type="button">Generate Parish Annual Report</button>
