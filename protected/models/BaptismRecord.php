@@ -159,12 +159,12 @@ class BaptismRecord extends CActiveRecord
 		$criteria->compare('godmothers_name',$this->godmothers_name,true);
 		$criteria->compare('minister',$this->minister,true);
 		$criteria->compare('ref_no',$this->ref_no,true);
-		if (isset($this->confirmation_dt) and $this->baptism_dt) {
+		if (isset($this->confirmation_dt) and $this->confirmation_dt) {
 			$criteria->compare('confirmation_dt', date('Y-m-d',
 				CDateTimeParser::parse($this->confirmation_dt,
 				Yii::app()->locale->getDateFormat('short'))),true);
 		}
-		if (isset($this->marriage_dt) and $this->baptism_dt) {
+		if (isset($this->marriage_dt) and $this->marriage_dt) {
 			$criteria->compare('marriage_dt', date('Y-m-d',
 				CDateTimeParser::parse($this->marriage_dt,
 				Yii::app()->locale->getDateFormat('short'))),true);
@@ -190,7 +190,8 @@ class BaptismRecord extends CActiveRecord
 			    Yii::app()->locale->getDateFormat('short')));
 		    }
 		}
-                if (!isset($this->ref_no)) {
+                if ($this->scenario != 'search' and !isset($this->ref_no)) {
+					Yii::trace("BaptismRecord.baptism_dt: " . $this->baptism_dt, 'application.models.BaptismRecord');
                     $year = date_format(new DateTime($this->baptism_dt), 'Y');
                     $cond = "baptism_dt >= '$year-01-01' and baptism_dt <= '$year-12-31'";
                     $parms = array();
