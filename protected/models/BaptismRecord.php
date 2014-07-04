@@ -41,6 +41,7 @@
  * @property string $confirmation_dt
  * @property string $marriage_dt
  * @property string $remarks
+ * @property string $spouse
  *
  * The followings are the available model relations:
  * @property BaptismCerts[] $baptismCerts
@@ -76,7 +77,7 @@ class BaptismRecord extends CActiveRecord
 			array('name, fathers_name, mothers_name, sex, baptism_dt, dob', 'required'),
 			array('sex, member_id', 'numerical', 'integerOnly'=>true),
 			array('name, baptism_place', 'length', 'max'=>50),
-			array('fathers_name, mothers_name, godfathers_name, godmothers_name, residence, minister', 'length', 'max'=>75),
+			array('fathers_name, mothers_name, godfathers_name, godmothers_name, residence, minister, spouse', 'length', 'max'=>75),
 			array('mother_tongue', 'length', 'max'=>25),
 			array('ref_no', 'length', 'max'=>10),
 			array('dob, baptism_dt, confirmation_dt, marriage_dt, remarks', 'safe'),
@@ -122,6 +123,7 @@ class BaptismRecord extends CActiveRecord
 			'mother_tongue' => 'Mother Tongue',
 			'confirmation_dt' => 'Confirmation Date',
 			'marriage_dt' => 'Marriage Date',
+			'spouse' => 'Married To',
 			'remarks' => 'Remarks',
 		);
 	}

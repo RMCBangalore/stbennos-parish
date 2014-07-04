@@ -76,7 +76,12 @@ function show_fval($pdf, $value) {
 	show_field($pdf, "residence", $baptism->residence);
 	show_field($pdf, "minister of baptism", $baptism->minister);
 	show_field($pdf, "confirmed on", $baptism->confirmation_dt);
-	show_field($pdf, "married to", $baptism->marriage_dt);
+	if ($baptism->marriage_dt) {
+		show_field($pdf, "married on", $baptism->marriage_dt);
+	}
+	if ($baptism->spouse) {
+		show_field($pdf, "married to", $baptism->spouse);
+	}
 	$remarks = explode("\n", wordwrap($baptism->remarks, 39));
 	show_field($pdf, 'Remarks', $remarks[0]);
 	if (isset($remarks[1])) {
