@@ -26,16 +26,23 @@ $this->breadcrumbs = array(
 	'Parish Profile'
 );
 
+/*
 Yii::app()->clientScript->registerScript('gen-report', "
-$('#gen-report').click(function(e) {
+$('#parish-profile-form').submit(function() {
+	$.post($(this).attr('action'), $(this).serilize(), function(data) {
+
 	window.open('" . Yii::app()->createUrl('/reports/parishProfile') . "')
 } );
 ")
+*/
 
 ?>
 <style>
 table.profile {
-	width: auto;
+	float: left;
+	max-width: 45%;
+	margin-right: 20px;
+	width: 20em;
 }
 table.profile caption {
 	font-size: 135%;
@@ -59,16 +66,34 @@ table.profile td span.val a {
 table.profile td {
 	padding: 2px 10px;
 }
+fieldset {
+	border: 1px solid #aa9;
+	padding: 14px 30px 15px 10px;
+	width: auto;
+	float: left;
+	margin-left: 20px;
+}
+fieldset legend {
+	font: normal 140% 'Trebuchet MS', serif;
+	padding: 2px 5px;
+	background: #abb;
+	border: 1px solid #a98;
+	color: #fff;
+}
+#parish-profile-form select {
+	padding: 2px 5px;
+	font-size: 110%;
+}
 #gen-report {
-	font-family: Georgia;
-	font-size: 130%;
-	font-weight: bold;
+	font: bold 110% Georgia;
 	color: #293158;
 	padding: 5px 10px;
-	border-radius: 5px;
+	border-radius: 10px;
+	margin-left: 10px;
 }
 #gen-report:hover {
-	background-color: #cde;
+	background-color: #edf5f3;
+	border-color: #dde5e3;
 }
 </style>
 
@@ -100,4 +125,22 @@ table.profile td {
 </tr>
 </tbody>
 </table>
-<button id="gen-report" type="button">Generate Parish Annual Report</button>
+
+<fieldset>
+<legend>Parish Annual Report</legend>
+<?php
+$form=$this->beginWidget('CActiveForm', array(
+	'id' => 'parish-profile-form',
+	'enableAjaxValidation'=>false,
+	'action'=>Yii::app()->createUrl('/reports/parishProfile'),
+	'htmlOptions' => array(
+		'target'=>'_blank',
+	)
+));
+$yr = date_format(new DateTime(), 'Y');
+echo CHtml::label('For: ', 'period');
+echo CHtml::dropDownList('period', null, array($yr => "This Year ($yr)", $yr-1 => 'Last Year ('.($yr-1).')', 'Z' => 'Past 1 Year'));
+echo CHtml::submitButton('Generate', array('id'=>"gen-report"));
+$this->endWidget();
+?>
+</fieldset>

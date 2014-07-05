@@ -23,17 +23,30 @@ class ReportsController extends RController
 {
 	public function actionParishProfile()
 	{
+		Yii::trace("POST " . var_export($_POST, true), 'application.controllers.ReportsController');
+		$period = $_POST['period'];
+		Yii::trace("period = $period", 'application.controllers.ReportsController');
+		if (preg_match('/^\d+$/', $period)) {
+			$query = function($fld) {
+				$yr = $_POST['period'];
+				return "$fld BETWEEN '$yr-01-01' AND '$yr-12-31'";
+			};
+		} else {
+			$query = function($fld) {
+				return "$fld > NOW() - INTERVAL 1 YEAR";
+			};
+		}
 		$fams = Families::model()->findAll();
 		$ppl = People::model()->findAll();
-		$baptised1 = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob > NOW() - INTERVAL 1 YEAR');
-		$baptised7 = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob BETWEEN NOW() - INTERVAL 7 YEAR AND NOW() - INTERVAL 1 YEAR');
-		$baptised7p = BaptismRecord::model()->findAll('baptism_dt > NOW() - INTERVAL 1 YEAR AND dob < NOW() - INTERVAL 7 YEAR');
-		$baptised = BaptismRecord::model()->findAll();
-		$confirmed = ConfirmationRecord::model()->findAll('confirmation_dt > NOW() - INTERVAL 1 YEAR ');
-		$firstComm = FirstCommunionRecord::model()->findAll('communion_dt > NOW() - INTERVAL 1 YEAR ');
-		$married = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR');
-		$married_cath = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR AND marriage_type <= 2');
-		$married_nc = MarriageRecord::model()->findAll('marriage_dt > NOW() - INTERVAL 1 YEAR AND marriage_type > 2');
+		$baptised1 = BaptismRecord::model()->findAll($query('baptism_dt') . ' AND dob > NOW() - INTERVAL 1 YEAR');
+		$baptised7 = BaptismRecord::model()->findAll($query('baptism_dt') . ' AND dob BETWEEN NOW() - INTERVAL 7 YEAR AND NOW() - INTERVAL 1 YEAR');
+		$baptised7p = BaptismRecord::model()->findAll($query('baptism_dt') . ' AND dob < NOW() - INTERVAL 7 YEAR');
+		$baptised = BaptismRecord::model()->findAll($query('baptism_dt'));
+		$confirmed = ConfirmationRecord::model()->findAll($query('confirmation_dt'));
+		$firstComm = FirstCommunionRecord::model()->findAll($query('communion_dt'));
+		$married = MarriageRecord::model()->findAll($query('marriage_dt'));
+		$married_cath = MarriageRecord::model()->findAll($query('marriage_dt') . ' AND marriage_type <= 2');
+		$married_nc = MarriageRecord::model()->findAll($query('marriage_dt') . ' AND marriage_type > 2');
 		$schedule = MassSchedule::model()->findAll(array(
 			'order' => 'day, time'
 		));
