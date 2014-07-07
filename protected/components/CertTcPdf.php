@@ -6,13 +6,23 @@ class CertTcPdf extends TCPDF {
 		$parish = Parish::get();
 		$logo_src = $parish->logo_src;
 		if (!isset($logo_src)) {
-			$logo_src = "logo-new.gif";
+			$logo_src = "/images/logo-new.gif";
 		}
 
-		$logo_src = dirname(__FILE__) . "/../../images/$logo_src";
-		$this->Image($logo_src,0.6,0.1,'',1.95,'GIF','', 'T', false, 300, '', false, false, 0, false, false, false);
-#		$this->SetFont('helvetica','B',20);
-#		$this->Cell(0,1,$parish->name,0,false,'C');
+		$logo_src = dirname(__FILE__) . "/../..$logo_src";
+		$size = getimagesize($logo_src);
+		list($w, $h, $t) = $size;
+		switch($t) {
+			case 1: $type = 'GIF'; break;
+			case 2: $type = 'JPEG'; break;
+			case 3: $type = 'PNG'; break;
+		}
+		$ht = 1.95;
+		if ($w / $h > 3) {
+			$ht = 1.95*3 * $h / $w;
+		}
+		$tm = (1.95 - $ht)/2;
+		$this->Image($logo_src,0.6,0.1+$tm,'',$ht,$type,'', 'T', false, 300, '', false, false, 0, false, false, false);
 		$this->SetTextColorArray(array(50,50,50));
 		$this->SetFont("times", "B", 18);
 		$topX = $this->GetX()+1.0;
