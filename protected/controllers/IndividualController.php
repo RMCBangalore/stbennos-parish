@@ -117,19 +117,17 @@ class IndividualController extends RController
 		switch ($step) {
 		case 1:
 			$this->performAjaxValidation($model);
-			if (isset($_POST['Individuals'])) {
 				if (isset($_POST['Units'])) {
 					$unit = new Units;
 					$unit->attributes = $_POST['Units'];
 					if ($unit->save()) {
-						$model->attributes=$_POST['Individuals'];
+						$model->attributes = isset($_POST['Individuals']) ? $_POST['Individuals'] : array();
 						$model->id = $unit->id;
 						if ($model->save()) {
 							++$step;
 						}
 					}
 				}
-			}
 			break;
 		case 2: 
 			$p = new People();
