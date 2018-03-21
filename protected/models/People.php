@@ -89,7 +89,7 @@ class People extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fname, lname, sex, domicile_status, dob, lang_pri', 'required'),
+			array('fname, lname, sex', 'required'),
 			array('sex, family_id, blood_group', 'numerical', 'integerOnly'=>true),
 			array('fname, email, baptism_church, god_parents', 'length', 'max'=>50),
 			array('lname, profession, occupation, lang_pri, lang_lit, lang_edu, rite, cemetery_church, special_skill', 'length', 'max'=>25),
