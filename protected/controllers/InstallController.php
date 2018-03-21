@@ -24,6 +24,7 @@ class InstallController extends CController
 	public $breadcrumbs;
 	public $layout = '//layouts/install';
 	public $menu = array();
+	private $dbConfigured;
 
 	public function restore_mysqldb($dbname, $dbuser, $dbpass, $filename)
 	{
@@ -64,6 +65,9 @@ class InstallController extends CController
 
 	public function actionIndex()
 	{
+		if ($this->_dbConfigured())
+			$this->redirect(array('admin'));
+
 		if ('POST' == Yii::app()->request->requestType) {
 			if (isset($_POST['accept'])) {
 				$this->redirect(array('dbconf'));
@@ -77,6 +81,9 @@ class InstallController extends CController
 	
 	public function actionDbconf()
 	{
+		if ($this->_dbConfigured())
+			$this->redirect(array('admin'));
+
 		$path = preg_replace('/controllers/', 'config/dbconf.php', dirname(__FILE__));
 		Yii::trace("IC.actionIndex called with path $path", 'application.controllers.InstallController');
 
@@ -142,6 +149,10 @@ class InstallController extends CController
 
 	public function actionAdmin()
 	{
+		if (User::model()->findByAttributes(array(
+			'superuser' => 1
+		)))
+			$this->redirect(array('config'));
 		$authorizer = Yii::app()->getModule("rights")->getAuthorizer();
 		if (isset($_POST['adm'])) {
 			if (empty($_POST['adm']['username'])) {
@@ -186,5 +197,23 @@ class InstallController extends CController
 	public function accessRules()
 	{
 		return array(); # allow all actions to everyone
+	}
+
+	private function _dbConfigured() {
+		if (isset($this->dbConfigured)) {
+			return $this->dbConfigured;
+		}
+		$path = preg_replace('/controllers/', 'config/dbconf.php', dirname(__FILE__));
+		$fh = fopen($path, "r");
+		while (($line = fgets($fh)) !== false) {
+			if (preg_match('/connectionString/', $line)) {
+				if (preg_match('/mysql:/', $line)) {
+					$this->dbConfigured = true;
+				} else {
+					$this->dbConfigured = false;
+				}
+				return $this->dbConfigured;
+			}
+		}
 	}
 }

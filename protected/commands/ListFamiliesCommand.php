@@ -19,6 +19,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-return array (
-  'connectionString' => 'sqlite:' . dirname(__FILE__) . '../data/parish.db'
-);
+class ListFamiliesCommand extends CConsoleCommand
+{
+	public function actionIndex($id) {
+    $data = Families::model()->findByPk($id);
+    $head = $data->head();
+    echo "Family of: " . $head->fullname() . "\n";
+    echo "Marriage type code: " . $data->marriage_type . "\n";
+    echo "Marriage type: " . FieldNames::value('marriage_type', $data->marriage_type) . "\n";
+	}
+}
+
