@@ -26,7 +26,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create People', 'url'=>array('create')),
 	array('label'=>'Manage People', 'url'=>array('admin')),
 );
 ?>

@@ -152,7 +152,7 @@ class PersonController extends RController
 				default: Yii::trace("PC.actionPhoto crop unknown image type $t", 'application.controllers.PersonController');
 				}
 				if (function_exists('imagecrop')) { # untested
-					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
+					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height));
 					$scaled = imagescale($cropped, 200);
 				} else {
 					$h = $height * 200 / $width;

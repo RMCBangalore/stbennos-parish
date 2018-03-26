@@ -28,7 +28,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List People', 'url'=>array('index')),
-	array('label'=>'Create People', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

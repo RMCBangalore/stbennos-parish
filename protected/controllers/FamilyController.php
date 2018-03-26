@@ -378,7 +378,7 @@ class FamilyController extends RController
 				default: Yii::trace("FC.actionPhoto crop unknown image type $t", 'application.controllers.FamilyController');
 				}
 				if (function_exists('imagecrop')) { # untested
-					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
+					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height));
 					$scaled = imagescale($cropped, 400);
 				} else {
 					$h = $height * 400 / $width;
