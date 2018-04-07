@@ -26,34 +26,121 @@ $this->breadcrumbs = array(
 	'Parish Profile'
 );
 
+/*
 Yii::app()->clientScript->registerScript('gen-report', "
-$('#gen-report').click(function(e) {
+$('#parish-profile-form').submit(function() {
+	$.post($(this).attr('action'), $(this).serilize(), function(data) {
+
 	window.open('" . Yii::app()->createUrl('/reports/parishProfile') . "')
 } );
 ")
+*/
 
 ?>
+<style>
+table.profile {
+	float: left;
+	max-width: 45%;
+	margin-right: 20px;
+	width: 20em;
+}
+table.profile caption {
+	font-size: 135%;
+	word-spacing: 0.2em;
+	background-color: #689;
+	color: #f0f4f8;
+	border: 1px solid #abc;
+}
+table.profile th {
+	background-color: #eef2f8;
+	font-family: Garamond, serif;
+	font-size: 110%;
+	color: #245;
+}
+table.profile td span.val a {
+	color: #4463ad;
+	font-size: 140%;
+	font-family: Garamond, serif;
+	letter-spacing: -0.02em;
+}
+table.profile td {
+	padding: 2px 10px;
+}
+fieldset {
+	border: 1px solid #aa9;
+	padding: 14px 30px 15px 10px;
+	width: auto;
+	float: left;
+	margin-left: 20px;
+}
+fieldset legend {
+	font: normal 140% 'Trebuchet MS', serif;
+	padding: 2px 5px;
+	background: #abb;
+	border: 1px solid #a98;
+	color: #fff;
+}
+#parish-profile-form select {
+	padding: 2px 5px;
+	font-size: 110%;
+}
+#gen-report {
+	font: bold 110% Georgia;
+	color: #293158;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin-left: 10px;
+}
+#gen-report:hover {
+	background-color: #edf5f3;
+	border-color: #dde5e3;
+}
+</style>
 
 <h1>Parish Profile: <?php echo CHtml::encode(Parish::get_name()); ?></h1>
 
-<table class="cellular">
-<thead>
-	<tr>
-		<th>Total Families</th>
-		<th>Members</th>
-		<th>Baptised</th>
-		<th>Confirmed</th>
-		<th>Married</th>
-	</tr>
-</thead>
+
+<table class="cellular profile">
+<caption>Parishioner Summary</caption>
 </tbody>
 <tr>
-	<td><?php echo CHtml::link($families, array('family/index')); ?></td>
-	<td><?php echo CHtml::link($members, array('person/index')); ?></td>
-	<td><?php echo CHtml::link($baptised, array('person/baptised')); ?></td>
-	<td><?php echo CHtml::link($confirmed, array('person/confirmed')); ?></td>
-	<td><?php echo CHtml::link($married, array('person/married')); ?></td>
+	<th>Total Families</th>
+	<td><span class='val'><?php echo CHtml::link($families, array('family/index')); ?></span></td>
+</tr>
 <tr>
+	<th>Total Members</th>
+	<td><span class='val'><?php echo CHtml::link($members, array('person/index')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Baptised</th>
+	<td><span class='val'><?php echo CHtml::link($baptised, array('person/baptised')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Confirmed</th>
+	<td><span class='val'><?php echo CHtml::link($confirmed, array('person/confirmed')); ?></span></td>
+</tr>
+<tr>
+	<th>Members Married</th>
+	<td><span class='val'><?php echo CHtml::link($married, array('person/married')); ?></span></td>
+</tr>
 </tbody>
 </table>
-<button id="gen-report" type="button">Generate Parish Profile Report</button>
+
+<fieldset>
+<legend>Parish Annual Report</legend>
+<?php
+$form=$this->beginWidget('CActiveForm', array(
+	'id' => 'parish-profile-form',
+	'enableAjaxValidation'=>false,
+	'action'=>Yii::app()->createUrl('/reports/parishProfile'),
+	'htmlOptions' => array(
+		'target'=>'_blank',
+	)
+));
+$yr = date_format(new DateTime(), 'Y');
+echo CHtml::label('For: ', 'period');
+echo CHtml::dropDownList('period', null, array($yr => "This Year ($yr)", $yr-1 => 'Last Year ('.($yr-1).')', 'Z' => 'Past 1 Year'));
+echo CHtml::submitButton('Generate', array('id'=>"gen-report"));
+$this->endWidget();
+?>
+</fieldset>

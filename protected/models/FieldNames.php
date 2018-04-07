@@ -89,7 +89,7 @@ class FieldNames extends CActiveRecord
     }
 	
 	public static function value($name, $code) {
-		if (!isset($code)) {
+		if (empty($code)) {
 			return null;
 		}
 		$fv = FieldNames::values($name);

@@ -279,6 +279,12 @@ Yii::app()->clientScript->registerCssFile($pagerScriptUrl.'/pager.css');
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'spouse'); ?>
+		<?php echo $form->textField($model,'spouse',array('size'=>60,'maxlength'=>75)); ?>
+		<?php echo $form->error($model,'spouse'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'remarks'); ?>
 		<?php echo $form->textField($model,'remarks',array('size'=>60,'maxlength'=>150)); ?>
 		<?php echo $form->error($model,'remarks'); ?>

@@ -54,7 +54,7 @@ function draw_line($pdf, $y=20, $x1=8.5, $x2=16.0) {
 	if (isset($rel)) {
 		$pdf->Cell(0,1,"    This is to certify that " . sprintf("%-40s", $member->fname . " " . $member->lname) . ", $rel of",0,1,'L');
 		$pdf->Cell(2,0,'',0,0);
-		$pdf->Cell(0,1,"    of " . sprintf("%-40s", $rel_name) . " belongs to my Parish and",0,1,'L');
+		$pdf->Cell(0,1,"    " . sprintf("%-40s", $rel_name) . " belongs to my Parish and",0,1,'L');
 		draw_line($pdf,11);
 		$pdf->Cell(2,0,'',0,0);
 		$pdf->Cell(0,0,"    is regular to Church services.",0,1,'L');

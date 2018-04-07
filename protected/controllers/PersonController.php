@@ -134,7 +134,7 @@ class PersonController extends RController
 		$model->scenario = 'photo';
 
 		if (Yii::app()->params['photoManip']) {
-			if (isset($_POST['x1'])) {
+			if (isset($_POST['x1'])) { # cropping
 				$x1 = $_POST['x1'];
 				$y1 = $_POST['y1'];
 				$width = $_POST['width'];
@@ -152,7 +152,7 @@ class PersonController extends RController
 				default: Yii::trace("PC.actionPhoto crop unknown image type $t", 'application.controllers.PersonController');
 				}
 				if (function_exists('imagecrop')) { # untested
-					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'width' => $width, 'height' => $height));
+					$cropped = imagecrop($img, array('x1' => $x1, 'y1' => $y1, 'x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height));
 					$scaled = imagescale($cropped, 200);
 				} else {
 					$h = $height * 200 / $width;
@@ -178,7 +178,7 @@ class PersonController extends RController
 				Yii::trace("PC.actionPhoto saved to $pfile", 'application.controllers.PersonController');
 				$this->redirect(array('view', 'id' => $model->id));
 				return;
-			} elseif (isset($_FILES['People'])) {
+			} elseif (isset($_FILES['People'])) { # uploading
 				Yii::trace("PC.actionPhoto _FILES[People] set", 'application.controllers.PersonController');
 				$files = $_FILES['People'];
 				$filename = $files['name']['raw_photo'];
@@ -218,7 +218,7 @@ class PersonController extends RController
 					}
 				}
 			}
-		} elseif (isset($_FILES['People'])) {
+		} elseif (isset($_FILES['People'])) { # Direct upload - no photomanip PHP module
 			$files = $_FILES['People']; # has keys name, type, size, error, tmp_name
 			$filename = $files['name']['photo'];
 			if (isset($filename) and '' != $filename) {
@@ -312,6 +312,8 @@ class PersonController extends RController
 
 	public function actionBaptised()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('People', array(
 			'criteria' => array(
 				'condition' => 'baptism_dt is not null'
@@ -324,6 +326,8 @@ class PersonController extends RController
 
 	public function actionConfirmed()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('People', array(
 			'criteria' => array(
 				'condition' => 'confirmation_dt is not null'
@@ -336,6 +340,8 @@ class PersonController extends RController
 
 	public function actionMarried()
 	{
+		$uri = Yii::app()->request->baseUrl . '/css/person-view.css';
+		Yii::app()->clientScript->registerCssFile($uri, 'screen, projection');
 		$dataProvider=new CActiveDataProvider('People', array(
 			'criteria' => array(
 				'condition' => 'marriage_dt is not null'

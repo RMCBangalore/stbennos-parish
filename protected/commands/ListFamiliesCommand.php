@@ -18,22 +18,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-/* @var $this PersonController */
-/* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'People',
-);
+class ListFamiliesCommand extends CConsoleCommand
+{
+	public function actionIndex($id) {
+    $data = Families::model()->findByPk($id);
+    $head = $data->head();
+    echo "Family of: " . $head->fullname() . "\n";
+    echo "Marriage type code: " . $data->marriage_type . "\n";
+    echo "Marriage type: " . FieldNames::value('marriage_type', $data->marriage_type) . "\n";
+	}
+}
 
-$this->menu=array(
-	array('label'=>'Manage People', 'url'=>array('admin')),
-);
-?>
-
-<h1>People</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-	'ajaxUpdate'=>false,
-)); ?>

@@ -79,7 +79,7 @@ class Families extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('addr_stt, addr_area, addr_pin, fid, zone, marriage_date, marriage_church, marriage_type, marriage_status', 'required'),
+			array('fid', 'required'),
 			array('fid', 'unique'),
 			array('zone, house_status', 'numerical', 'integerOnly'=>true),
 			array('fid', 'length', 'max'=>11),

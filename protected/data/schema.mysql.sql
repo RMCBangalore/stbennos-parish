@@ -208,6 +208,7 @@ CREATE TABLE `baptisms` (
   `mother_tongue` varchar(25) DEFAULT NULL,
   `confirmation_dt` date DEFAULT NULL,
   `marriage_dt` date DEFAULT NULL,
+  `spouse` varchar(75) DEFAULT NULL,
   `remarks` varchar(150) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -20,9 +20,5 @@
 #
 
 return array (
-  'connectionString' => 'mysql:host=localhost;dbname=parish',
-  'emulatePrepare' => true,
-  'username' => 'parish',
-  'password' => 'P@r15h',
-  'charset' => 'utf8',
+  'connectionString' => 'sqlite:' . dirname(__FILE__) . '../data/parish.db'
 );
