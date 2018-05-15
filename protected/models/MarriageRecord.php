@@ -82,9 +82,9 @@ class MarriageRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groom_name, groom_fathers_name, groom_mothers_name, groom_status, groom_rank_prof, groom_dob, groom_residence, ' .
-				'bride_name, bride_fathers_name, bride_mothers_name, bride_status, bride_rank_prof, bride_dob, bride_residence, ' .
-				'marriage_dt, banns_licence, minister, witness1, witness2', 'required'),
+			array('groom_name, groom_fathers_name, groom_mothers_name, groom_status, groom_rank_prof, groom_residence, ' .
+				'bride_name, bride_fathers_name, bride_mothers_name, bride_status, bride_rank_prof, bride_residence, ' .
+				'banns_licence, minister, witness1, witness2', 'required'),
 			array('groom_name, groom_fathers_name, groom_mothers_name, bride_name, bride_fathers_name, bride_mothers_name, minister', 'length', 'max'=>100),
 			array('groom_rank_prof, groom_residence, bride_rank_prof, bride_residence', 'length', 'max'=>25),
 			array('witness1, witness2, remarks', 'length', 'max'=>75),
@@ -92,7 +92,7 @@ class MarriageRecord extends CActiveRecord
 			array('groom_id, bride_id, marriage_type', 'numerical', 'integerOnly'=>true),
 			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'safe'),
 			array('marriage_dt, groom_dob, bride_dob, groom_baptism_dt, bride_baptism_dt', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => Yii::app()->locale->getDateFormat('short')),
-			array('groom_baptism_dt, bride_baptism_dt', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('groom_baptism_dt, bride_baptism_dt, bride_dob, groom_dob, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, marriage_dt, groom_name, groom_dob, groom_baptism_dt, groom_status, groom_rank_prof, groom_fathers_name, groom_mothers_name, groom_residence, bride_name, bride_dob, bride_baptism_dt, bride_status, bride_rank_prof, bride_fathers_name, bride_mothers_name, bride_residence, marriage_type, banns_licence, minister, witness1, witness2, remarks, ref_no', 'safe', 'on'=>'search'),

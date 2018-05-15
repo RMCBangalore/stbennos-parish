@@ -68,12 +68,13 @@ class ConfirmationRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('confirmation_dt, dob, name, parents_name, baptism_dt', 'required'),
+			array('name, parents_name', 'required'),
 			array('name, godparent_name', 'length', 'max'=>75),
 			array('member_id', 'numerical', 'integerOnly'=>true),
 			array('church, residence, baptism_place, minister', 'length', 'max'=>50),
 			array('ref_no', 'length', 'max'=>10),
 			array('confirmation_dt', 'safe'),
+			array('confirmation_dt, dob,baptism_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, confirmation_dt, church', 'safe', 'on'=>'search'),
@@ -171,7 +172,7 @@ class ConfirmationRecord extends CActiveRecord
 		// Format dates based on the locale
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-		    if ($column->dbType == 'date')
+		    if ($column->dbType == 'date' and isset($this->$columnName) and $this->$columnName)
 		    {
 			$this->$columnName = date('Y-m-d',
 			    CDateTimeParser::parse($this->$columnName,

@@ -193,8 +193,8 @@ CREATE TABLE `baptism_certs` (
 DROP TABLE IF EXISTS `baptisms`;
 CREATE TABLE `baptisms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dob` date NOT NULL,
-  `baptism_dt` date NOT NULL,
+  `dob` date NULL,
+  `baptism_dt` date NULL,
   `name` varchar(50) NOT NULL,
   `sex` int(11) NOT NULL,
   `fathers_name` varchar(75) NOT NULL,
@@ -240,10 +240,10 @@ CREATE TABLE `confirmations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ref_no` varchar(10) NOT NULL,
   `name` varchar(75) DEFAULT NULL,
-  `confirmation_dt` date NOT NULL,
+  `confirmation_dt` date NULL,
   `church` varchar(50) DEFAULT NULL,
-  `dob` date NOT NULL,
-  `baptism_dt` date NOT NULL,
+  `dob` date NULL,
+  `baptism_dt` date NULL,
   `baptism_place` varchar(50) DEFAULT NULL,
   `parents_name` varchar(75) NOT NULL,
   `residence` varchar(50) DEFAULT NULL,
@@ -420,7 +420,7 @@ CREATE TABLE `marriage_certs` (
 DROP TABLE IF EXISTS `marriages`;
 CREATE TABLE `marriages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `marriage_dt` date NOT NULL,
+  `marriage_dt` date NULL,
   `groom_name` varchar(100) DEFAULT NULL,
   `groom_dob` date DEFAULT NULL,
   `groom_status` varchar(10) DEFAULT NULL,
