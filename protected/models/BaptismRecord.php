@@ -74,14 +74,14 @@ class BaptismRecord extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, fathers_name, mothers_name, sex, baptism_dt, dob', 'required'),
+			array('name, fathers_name, mothers_name, sex', 'required'),
 			array('sex, member_id', 'numerical', 'integerOnly'=>true),
 			array('name, baptism_place', 'length', 'max'=>50),
 			array('fathers_name, mothers_name, godfathers_name, godmothers_name, residence, minister, spouse', 'length', 'max'=>75),
 			array('mother_tongue', 'length', 'max'=>25),
 			array('ref_no', 'length', 'max'=>10),
 			array('dob, baptism_dt, confirmation_dt, marriage_dt, remarks', 'safe'),
-			array('confirmation_dt, marriage_dt', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('confirmation_dt, marriage_dt, dob, baptism_dt', 'default', 'setOnEmpty' => true, 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, dob, baptism_dt, name, sex, fathers_name, mothers_name, residence, godfathers_name, godmothers_name, minister, ref_no', 'safe', 'on'=>'search'),
